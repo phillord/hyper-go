@@ -1,6 +1,7 @@
 (ns hyper-go.go
   (:require [tawny.owl :refer :all]
-            [tawny-chebi.chebi :as ch]))
+            [tawny-chebi.chebi :as ch]
+            [tawny.pattern :as p]))
 
 
 (defontology hyper-go
@@ -16,12 +17,38 @@
 (defoproperty transports)
 (defoproperty transports-from)
 (defoproperty transports-to)
+(defoproperty has-part)
 (defoproperty transports-across)
 (defoproperty dependent-on)
 (defoproperty driven-by)
 (defoproperty linked-to
   :comment "One activity which happens at the same time as another and
   which can only occur because the other does.")
+
+(defn with-property [frames frame-maybe property]
+  (when-let [frame (frame-maybe frames)]
+    (owl-some property frame)))
+
+
+(defn transport-explicit [o clazz frames]
+  (owl-class clazz
+             :equivalent
+             (owl-and
+              (remove nil?
+                      [(with-property frames :from transports-from)
+                       (with-property frames :to transports-to)
+                       (with-property frames :cargo transports)
+                       (with-property frames :driven driven-by)
+                       (with-property frames :linked linked-to)]))))
+
+(def transport
+  (p/extend-frameify
+   owl-class
+   transport-explicit
+   [:from :to :cargo
+    :role :when :driven]))
+
+(defentity deftransport "" 'transport)
 
 (defclass ToTransport
   :super
