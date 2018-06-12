@@ -39,7 +39,9 @@
                        (with-property frames :to transports-to)
                        (with-property frames :cargo transports)
                        (with-property frames :driven driven-by)
-                       (with-property frames :linked linked-to)]))))
+                       (with-property frames :linked linked-to)
+                       (with-property frames :role bearer-of)
+                       (with-property frames :when dependent-on)]))))
 
 (def transport
   (p/extend-frameify
@@ -60,6 +62,7 @@
   :equivalent
   (owl-and ToTransport
            (owl-some transports-across Membrane)))
+
 
 ;; Pattern 1: transport of some chemical
 ;; need to macro this
@@ -95,45 +98,59 @@
              (owl-and (transporter chemical)
                       (owl-some driven-by driver))))
 
+
+(deftransport ToTransportIon
+  ;;"GO:0015075"
+  :cargo ch/ion)
+
 (def ToTransportIon
   (transporter ch/ion))
 
-(def ToTransportCation
-  (transporter ch/cation))
+(deftransport ToTransportCation
+  ;;"GO:0008324"
+  :cargo ch/cation)
 
-(def ToTransportAnion
-  (transporter ch/anion))
+(deftransport ToTransportAnion
+  ;;"GO:0008509"
+  :cargo ch/anion)
 
-(def ToTransportChloride
-  (transporter ch/chloride))
+(deftransport ToTransportChloride
+  ;;"GO:0015108"
+  :cargo ch/chloride)
 
-(def ToTransportChromiumIon
-  (transporter ch/chromium_ion))
+(deftransport ToTransportChromiumIon
+  ;;"GO:0070835"
+  :cargo ch/chromium_ion)
 
-(def ToTransportWithChemicalCondition
-  (transporter-with-condition ch/chemical_entity ch/chemical_entity))
+(deftransport ToTransportWithChemicalCondition
+  :when ch/chemical_entity ch/chemical_entity)
 
-(def ToTransportOrganicAnionWithSodiumCondition
-  (transporter-with-condition
-   ch/organic_ion ch/sodium_1+_))
+(deftransport ToTransportOrganicAnionWithSodiumCondition
+  ;;"GO:0015347"
+  :when ch/organic_ion ch/sodium_1+_)
 
-(def ToTransportDrug
-  (transporter-with-role ch/drug))
+(deftransport ToTransportDrug
+  ;;"GO:0015238"
+  :role ch/drug)
 
-(def ToTransportDrugTransmembrane
-  (transporter-with-role ch/drug ToTransportTransmembrane))
+(deftransport ToTransportDrugTransmembrane
+  ;;"GO:0015238"
+  :role ch/drug ToTransportTransmembrane)
 
-(def ToTransportBiotinTransmembrane
-  (transporter-with-role ch/biotin ToTransportTransmembrane))
+(deftransport ToTransportBiotinTransmembrane
+  ;;"GO:0015225"
+  :role ch/biotin ToTransportTransmembrane)
 
-(def ToTransportBicozamycin
-  (transporter-with-role ch/bicozamycin))
+(deftransport ToTransportBicozamycin
+  ;;"GO:0015545"
+  :role ch/bicozamycin)
 
-(def ToTransportDrivenWithATPase
-  (transporter-driven ch/chemical_entity ATPase))
+(deftransport ToTransportDrivenWithATPase
+  :driven ch/chemical_entity ATPase)
 
-(def ToTransportCationDrivenWithATPase
-  (transporter-driven ch/cation ATPase))
+(deftransport ToTransportCationDrivenWithATPase
+  ;;"GO:0019829"
+  :driven ch/cation ATPase)
 
 (defn di-porter [from to]
   (let [first-transport
@@ -146,7 +163,6 @@
                 ToTransport
                 (owl-some has-part first-transport)
                 (owl-some has-part second-transport)))))
-
 
 
 (owl-import tawny-chebi.chebi/chebi)
