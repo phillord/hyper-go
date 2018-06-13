@@ -48,9 +48,83 @@
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven]))
+    :role :when :driven :linked]))
 
 (defentity deftransport "" 'transport)
+
+
+(deftransport ToTransportLongChainFattyAcid
+  ;;"GO:0005324"
+  :cargo ch/long-chain_fatty_acid)
+
+(deftransport ToTransportFattyAcid
+  ;;"GO:0015245"
+  :cargo ch/fatty_acid)
+
+(deftransport ToTransportShortChainFattyAcid
+  ;;"GO:0015636"
+  :cargo ch/short-chain_fatty_acid)
+
+(deftransport ToTransportL-ornithine
+  ;;"GO:0000064"
+  :role ch/L-ornithine)
+
+(deftransport ToTransportS-adenosyL-methionine
+  ;;"GO:0000095"
+  :role ch/S-adenosyl-L-methionine)
+
+(deftransport ToTransportSulfurAminoAcid
+  ;;"GO:0000099"
+  :cargo ch/sulfur-containing_amino_acid)
+
+(deftransport ToTransportS-methylmethionine
+  ;;"GO:0000100"
+  :role ch/S-methyl-L-methionine)
+
+(deftransport ToTransportL-valine
+  ;;"GO:0005304"
+  :role ch/L-valine)
+
+(deftransport ToTransportL-isoleucine
+  ;;"GO:0015188"
+  :role ch/L-isoleucine)
+
+(deftransport ToTransportNucleoside
+  ;;"GO:0005337"
+  :cargo ch/nucleoside)
+
+(deftransport ToTransportAdenineNucleotide
+  ;;"GO:0000295"
+  :cargo ch/adenyl_nucleotide)
+
+(deftransport ToTransportSperminey
+  ;;"GO:0000297" 
+  :role ch/spermine)
+
+(deftransport ToTransportSulfite
+  ;;"GO:0000319"
+  :cargo ch/sulfite)
+
+(deftransport ToTransportGlycerophosphodiester
+  ;;"GO:0001406"
+  :cargo ch/glycerol_1-phosphodiester)
+
+(deftransport ToTransportGuanineNucleotide
+  ;;"GO:0001409"
+  :cargo ch/guanyl_nucleotide)
+
+(deftransport ToTransportBetaAlanine
+  ;;"GO:0001761"
+  :role ch/beta-alanine)
+
+;; There is no metal ion in CHEBI
+(deftransport ToTransportMetalIon
+  ;;"GO:0046873"
+  :cargo ch/metal_cation)
+
+(deftransport ToTransportIronIon
+  ;;"GO:0005381"
+  :role ch/iron_2+_)
 
 (deftransport ToTransportIon
   ;;"GO:0015075"
