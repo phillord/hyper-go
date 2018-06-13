@@ -25,6 +25,9 @@
   :comment "One activity which happens at the same time as another and
   which can only occur because the other does.")
 
+(defoproperty transports-with-high-affinity)
+(defoproperty transports-with-low-affinity)
+
 (defn with-property [frames frame-maybe property]
   (when-let [frame (frame-maybe frames)]
     (owl-some property frame)))
@@ -39,114 +42,174 @@
                        (with-property frames :to transports-to)
                        (with-property frames :cargo transports)
                        (with-property frames :driven driven-by)
-                       (with-property frames :linked linked-to)]))))
+                       (with-property frames :linked linked-to)
+                       (with-property frames :role bearer-of)
+                       (with-property frames :when dependent-on)
+                       (with-property frames :cargo-high-affinity transports-with-high-affinity)
+                       (with-property frames :cargo-low-affinity transports-with-low-affinity)]))))
 
 (def transport
   (p/extend-frameify
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven]))
+    :role :when :driven :linked :cargo-high-affinity :cargo-low-affinity]))
 
 (defentity deftransport "" 'transport)
 
-(defclass ToTransport
-  :super
-  (owl-some transports ch/chemical_entity)
-  (owl-some transports-from Location)
-  (owl-some transports-to Location))
+(p/defpartition BindingAffinity
+  [LowAfinity HighAfinity])
 
-(defclass ToTransportTransmembrane
-  :equivalent
-  (owl-and ToTransport
-           (owl-some transports-across Membrane)))
+(deftransport ToTransportZincIonWithHighAfinity
+  ;;"GO:0000006"
+  :cargo-high-affinity ch/zinc_2+_
+  :equivalent (owl-some hasBindingAffinity HighAfinity))
 
-;; Pattern 1: transport of some chemical
-;; need to macro this
-(defn transporter
-  ([chemical]
-   ;;{:pre (comment chemical is in ChEBI)}
-   (transporter chemical ToTransport))
-  ([chemical across]
-   (owl-class (str "to-transport " chemical)
-              :equivalent
-              (owl-and across
-                       (owl-some transports chemical)))))
+(deftransport ToTransportZincIonWithLowAfinity
+  ;;"GO:0000007"
+  :cargo-low-affinity ch/zinc_2+_
+  :equivalent (owl-some hasBindingAffinity LowAfinity))
 
-;; Patttern 2: transport of some chemical role
-(defn transporter-with-role
-  ([chemical-role]
-   (transporter chemical-role ToTransport))
-  ([chemical-role across]
-   (transporter
-    (owl-and ch/chemical_entity
-             (owl-some bearer-of chemical-role))
-    across)))
+(deftransport ToTransportZincIony
+  ;;"GO:0005385"
+  :cargo ch/zinc_ion)
 
-(defn transporter-with-condition [chemical condition]
-  (owl-class (str "to-transport " chemical " with " condition)
-             :equivalent
-             (owl-and (transporter chemical)
-                      (owl-some dependent-on condition))))
 
-(defn transporter-driven [chemical driver]
-  (owl-class (str "to-transport " chemical " driven by " driver)
-             :equivalent
-             (owl-and (transporter chemical)
-                      (owl-some driven-by driver))))
+(deftransport ToTransportLongChainFattyAcid
+  ;;"GO:0005324"
+  :cargo ch/long-chain_fatty_acid)
 
-(def ToTransportIon
-  (transporter ch/ion))
+(deftransport ToTransportFattyAcid
+  ;;"GO:0015245"
+  :cargo ch/fatty_acid)
 
-(def ToTransportCation
-  (transporter ch/cation))
+(deftransport ToTransportShortChainFattyAcid
+  ;;"GO:0015636"
+  :cargo ch/short-chain_fatty_acid)
 
-(def ToTransportAnion
-  (transporter ch/anion))
+(deftransport ToTransportL-ornithine
+  ;;"GO:0000064"
+  :role ch/L-ornithine)
 
-(def ToTransportChloride
-  (transporter ch/chloride))
+(deftransport ToTransportS-adenosyL-methionine
+  ;;"GO:0000095"
+  :role ch/S-adenosyl-L-methionine)
 
-(def ToTransportChromiumIon
-  (transporter ch/chromium_ion))
+(deftransport ToTransportSulfurAminoAcid
+  ;;"GO:0000099"
+  :cargo ch/sulfur-containing_amino_acid)
 
-(def ToTransportWithChemicalCondition
-  (transporter-with-condition ch/chemical_entity ch/chemical_entity))
+(deftransport ToTransportS-methylmethionine
+  ;;"GO:0000100"
+  :role ch/S-methyl-L-methionine)
 
-(def ToTransportOrganicAnionWithSodiumCondition
-  (transporter-with-condition
-   ch/organic_ion ch/sodium_1+_))
+(deftransport ToTransportL-valine
+  ;;"GO:0005304"
+  :role ch/L-valine)
 
-(def ToTransportDrug
-  (transporter-with-role ch/drug))
+(deftransport ToTransportL-isoleucine
+  ;;"GO:0015188"
+  :role ch/L-isoleucine)
 
-(def ToTransportDrugTransmembrane
-  (transporter-with-role ch/drug ToTransportTransmembrane))
+(deftransport ToTransportNucleoside
+  ;;"GO:0005337"
+  :cargo ch/nucleoside)
 
-(def ToTransportBiotinTransmembrane
-  (transporter-with-role ch/biotin ToTransportTransmembrane))
+(deftransport ToTransportAdenineNucleotide
+  ;;"GO:0000295"
+  :cargo ch/adenyl_nucleotide)
 
-(def ToTransportBicozamycin
-  (transporter-with-role ch/bicozamycin))
+(deftransport ToTransportSperminey
+  ;;"GO:0000297" 
+  :role ch/spermine)
 
-(def ToTransportDrivenWithATPase
-  (transporter-driven ch/chemical_entity ATPase))
+(deftransport ToTransportSulfite
+  ;;"GO:0000319"
+  :cargo ch/sulfite)
 
-(def ToTransportCationDrivenWithATPase
-  (transporter-driven ch/cation ATPase))
+(deftransport ToTransportGlycerophosphodiester
+  ;;"GO:0001406"
+  :cargo ch/glycerol_1-phosphodiester)
+
+(deftransport ToTransportGuanineNucleotide
+  ;;"GO:0001409"
+  :cargo ch/guanyl_nucleotide)
+
+(deftransport ToTransportBetaAlanine
+  ;;"GO:0001761"
+  :role ch/beta-alanine)
+
+;; There is no metal ion in CHEBI
+(deftransport ToTransportMetalIon
+  ;;"GO:0046873"
+  :cargo ch/metal_cation)
+
+;; There is no iron ion in CHEB
+(deftransport ToTransportIronIon
+  ;;"GO:0005381"
+  :role ch/iron_2+_)
+
+(deftransport ToTransportIon
+  ;;"GO:0015075"
+  :cargo ch/ion)
+
+(deftransport ToTransportCation
+  ;;"GO:0008324"
+  :cargo ch/cation)
+
+(deftransport ToTransportAnion
+  ;;"GO:0008509"
+  :cargo ch/anion)
+
+(deftransport ToTransportChloride
+  ;;"GO:0015108"
+  :cargo ch/chloride)
+
+(deftransport ToTransportChromiumIon
+  ;;"GO:0070835"
+  :cargo ch/chromium_ion)
+
+(deftransport ToTransportWithChemicalCondition
+  :when ch/chemical_entity ch/chemical_entity)
+
+(deftransport ToTransportOrganicAnionWithSodiumCondition
+  ;;"GO:0015347"
+  :when ch/organic_ion ch/sodium_1+_)
+
+(deftransport ToTransportDrug
+  ;;"GO:0015238"
+  :role ch/drug)
+
+(deftransport ToTransportDrugTransmembrane
+  ;;"GO:0015238"
+  :role ch/drug)
+
+(deftransport ToTransportBiotinTransmembrane
+  ;;"GO:0015225"
+  :role ch/biotin)
+
+(deftransport ToTransportBicozamycin
+  ;;"GO:0015545"
+  :role ch/bicozamycin)
+
+(deftransport ToTransportDrivenWithATPase
+  :driven ch/chemical_entity ATPase)
+
+(deftransport ToTransportCationDrivenWithATPase
+  ;;"GO:0019829"
+  :driven ch/cation ATPase)
 
 (defn di-porter [from to]
   (let [first-transport
-        (transporter from)
+        (:cargo :from)
         second-transport
-        (transporter to)]
+        (:carg :to)]
     (owl-class (str "di-porter" from " " to)
                :equivalent
                (owl-and
                 ToTransport
                 (owl-some has-part first-transport)
                 (owl-some has-part second-transport)))))
-
 
 
 (owl-import tawny-chebi.chebi/chebi)
