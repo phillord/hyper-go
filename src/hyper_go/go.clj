@@ -25,6 +25,9 @@
   :comment "One activity which happens at the same time as another and
   which can only occur because the other does.")
 
+(defoproperty transports-with-high-affinity)
+(defoproperty transports-with-low-affinity)
+
 (defn with-property [frames frame-maybe property]
   (when-let [frame (frame-maybe frames)]
     (owl-some property frame)))
@@ -41,16 +44,35 @@
                        (with-property frames :driven driven-by)
                        (with-property frames :linked linked-to)
                        (with-property frames :role bearer-of)
-                       (with-property frames :when dependent-on)]))))
+                       (with-property frames :when dependent-on)
+                       (with-property frames :cargo-high-affinity transports-with-high-affinity)
+                       (with-property frames :cargo-low-affinity transports-with-low-affinity)]))))
 
 (def transport
   (p/extend-frameify
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven :linked]))
+    :role :when :driven :linked :cargo-high-affinity :cargo-low-affinity]))
 
 (defentity deftransport "" 'transport)
+
+(p/defpartition BindingAffinity
+  [LowAfinity HighAfinity])
+
+(deftransport ToTransportZincIonWithHighAfinity
+  ;;"GO:0000006"
+  :cargo-high-affinity ch/zinc_2+_
+  :equivalent (owl-some hasBindingAffinity HighAfinity))
+
+(deftransport ToTransportZincIonWithLowAfinity
+  ;;"GO:0000007"
+  :cargo-low-affinity ch/zinc_2+_
+  :equivalent (owl-some hasBindingAffinity LowAfinity))
+
+(deftransport ToTransportZincIony
+  ;;"GO:0005385"
+  :cargo ch/zinc_ion)
 
 
 (deftransport ToTransportLongChainFattyAcid
