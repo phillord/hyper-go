@@ -52,6 +52,23 @@
 
 (defentity deftransport "" 'transport)
 
+(p/defpartition BindingAffinity
+  [LowAfinity HighAfinity])
+
+(deftransport ToTransportZincIonWithHighAfinity
+  ;;"GO:0000006"
+  :cargo ch/zinc_2+_
+  :super (owl-some hasBindingAffinity HighAfinity))
+
+(deftransport ToTransportZincIonWithLowAfinity
+  ;;"GO:0000007"
+  :cargo ch/zinc_2+_
+  :super (owl-some hasBindingAffinity LowAfinity))
+
+(deftransport ToTransportZincIon
+  ;;"GO:0005385"
+  :cargo ch/zinc_ion)
+
 
 (deftransport ToTransportLongChainFattyAcid
   ;;"GO:0005324"
