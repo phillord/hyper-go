@@ -122,6 +122,7 @@
   ;;"GO:0046873"
   :cargo ch/metal_cation)
 
+;; There is no iron ion in CHEB
 (deftransport ToTransportIronIon
   ;;"GO:0005381"
   :role ch/iron_2+_)
