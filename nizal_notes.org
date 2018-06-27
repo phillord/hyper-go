@@ -1,0 +1,17 @@
+* Hyper-go notes: 
+     * Issues and proposed solutions 
+     * Comments on GO terms and structure 
+     * Developer's thoughts (DT)
+
+** High/Low Affinity
+
+A substance or substances transported with high and low affinity such as Zinc ions.
+
+(DT): High and low affinity are properties of the transporter.
+      Define a property BindingAffinity which will be a value-partition with highaffinity and lowaffinity.
+
+ISSUE: In the case that the same chemical element transported once in high affinity and later in low affininty, linking those with same term from chebi ontology cause ontology inconsistent
+
+CAUSE: Ontology inconsistenc, due to linking the same concept (i.e. chebi term) via the same object property to different values in a value partition.
+
+SOLUTION: Define two object properties called cargo-with-high-affinity and cargo-with-low-affinity
