@@ -3,6 +3,16 @@
      * Comments on GO terms and structure 
      * Developer's thoughts (DT)
 
+** General issue
+
+Most of GO terms names are defined generally, while Chebi ontology is more specific in defining terms.
+
+It is not enough to link the GO term with the equivalent chebi term only by name matching. We have to know the GO name and definition to be able to link it with the correct chebi term. 
+
+GO-plus ontology: includes cross ontology relationships, including Chebi. However, it seems that the linkage was based on name matching only.
+
+
+
 ** High/Low Affinity
 
 A substance or substances transported with high and low affinity such as Zinc ions.
@@ -15,3 +25,33 @@ ISSUE: In the case that the same chemical element transported once in high affin
 CAUSE: Ontology inconsistenc, due to linking the same concept (i.e. chebi term) via the same object property to different values in a value partition.
 
 SOLUTION: Define two object properties called cargo-with-high-affinity and cargo-with-low-affinity
+
+** Transporting molecules driven by ATPase
+
+ATPase activity: directly drive the active transport of a substance across a membrane. 
+
+Terms under this pattern are transported either from the inside of the cell to the outside and and vice versa.
+
+(DT): define a pattern for all substances that driven by the ATPase directly
+
+
+ISSUES:
+
+The different term naming schema between GO and chebi. 
+ * For example: GO:     Ferric-transporting ATPase activity
+		Chebi:  iron(3+)
+		GO:     ferric-hydroxamate-transporting ATPase activity
+		Chebi:  iron_III__hydroxamate
+
+GO term is a broad where chebi term narrow:
+ * For example: GO: cobalt-transporting ATPase activity
+		Chebi cobalt_cation  (there is no term cobalt by its
+
+ * For example:  GO:  silver-exporting ATPase activity
+		Def: Enables the transfer of a solute or solutes from one side of a membrane to the other according to the reaction: ATP + H2O + Ag+(in) -> ADP + phosphate + Ag+(out). 
+
+	GO term name: silver ion (broad)
+	GO term defintion: silver(1+)
+
+In chebi: there are  - silver ion  - silver cation   - silver(1+)
+
