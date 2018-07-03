@@ -418,24 +418,8 @@
   :to (owl-some hasCellPosition Outer)
   :mechanism Phosphorylative)
 
-
-;;#A substance or substances transported from outside of the cell to the inside.
-(defn substance_importing_ATPase [lis]
-  `(deftransport ~(symbol (str "ToTransport" (first lis) "ImportingDrivenWithATPase"))
-     :comment ~(second lis)
-     :cargo ~(nth lis 2)
-     :driven ATPase
-     :from (owl-some hasCellPosition Outer)
-     :to (owl-some hasCellPosition Inner)))
-
-
-;; macro function to do the classes mapping 
-(defmacro trans_map_imp [lis]
-  `(do ~@(map substance_importing_ATPase lis)))
-
 ; map values
-(trans_map_imp
-     [
+(defimporters
       ["Magnesium"			"GO:0015444"	ch/magnesium_2+_]
       ["Putrescine"			"GO:0015594"	ch/putrescine]
       ["Spermidine"			"GO:0015595"	ch/spermidine]
