@@ -26,12 +26,24 @@
 (defoproperty linked-to
   :comment "One activity which happens at the same time as another and
   which can only occur because the other does.")
+(defoproperty hasRole)
 
-(defoproperty transports-with-high-affinity)
-(defoproperty transports-with-low-affinity)
+(defoproperty transports-with-high-affinity :super transports)
+(defoproperty transports-with-low-affinity  :super transports)
+
+
+;;
+(p/defpartition BindingAffinity
+  [LowAfinity HighAfinity])
+
+(p/defpartition CellPosition
+  [Inner Outer])
 
 (p/defpartition Mechanism
   [Rotational Phosphorylative])
+
+(p/defpartition Acidity
+  [Acidic Neutral Alkaline])
 
 (defn with-property [frames frame-maybe property]
   (when-let [frame (frame-maybe frames)]
@@ -50,8 +62,6 @@
                        (with-property frames :linked linked-to)
                        (with-property frames :role bearer-of)
                        (with-property frames :when dependent-on)
-                       (with-property frames :cargo-high-affinity transports-with-high-affinity)
-                       (with-property frames :cargo-low-affinity transports-with-low-affinity)
                        (with-property frames :mechanism hasMechanism)]))))
 
 (def transport
@@ -59,27 +69,84 @@
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven :linked :cargo-high-affinity :cargo-low-affinity :mechanism]))
+    :role :when :driven :linked :mechanism]))
 
 (defentity deftransport "" 'transport)
 
-(p/defpartition BindingAffinity
-  [LowAfinity HighAfinity])
+
+;;A substance or substances transported either from the inside of the cell to the outside and and vice versa.
+(defn substance-transporting-ATPase [lis]
+  `(deftransport ~(symbol (str "ToTransport" (first lis) "TransportingDrivenWithATPase"))
+     :comment ~(second lis)
+     :cargo ~(nth lis 2)
+     :driven ATPase
+     :from (owl-some hasCellPosition (owl-or Inner Outer))
+     :to (owl-some hasCellPosition (owl-or Inner Outer))))
+
+;; macro function to do the classes mapping 
+(defmacro deftransporters [& lis]
+  `(do ~@(map substance-transporting-ATPase lis)))
+
+
+;;#A substance or substances transported from the inside of the cell to the outside.
+(defn substance-exporting-ATPase [lis]
+  `(deftransport ~(symbol (str "ToTransport" (first lis) "ExportingDrivenWithATPase"))
+     :comment ~(second lis)
+     :cargo ~(nth lis 2)
+     :driven ATPase
+     :from (owl-some hasCellPosition  Inner)
+     :to (owl-some hasCellPosition Outer)))
+
+;; macro function to do the classes mapping 
+(defmacro defexporters [& lis]
+  `(do ~@(map substance-exporting-ATPase lis)))
+
+;;#A substance or substances transported from outside of the cell to the inside.
+(defn substance-importing-ATPase [lis]
+  `(deftransport ~(symbol (str "ToTransport" (first lis) "ImportingDrivenWithATPase"))
+     :comment ~(second lis)
+     :cargo ~(nth lis 2)
+     :driven ATPase
+     :from (owl-some hasCellPosition Outer)
+     :to (owl-some hasCellPosition Inner)))
+
+;; macro function to do the classes mapping 
+(defmacro defimporters [& lis]
+  `(do ~@(map substance-importing-ATPase lis)))
+
 
 (deftransport ToTransportZincIonWithHighAfinity
-  ;;"GO:0000006"
-  :cargo-high-affinity ch/zinc_2+_
-  :equivalent (owl-some hasBindingAffinity HighAfinity))
+  :comment "GO:0000006"
+  :cargo (owl-and ch/zinc_2+_ (owl-some hasBindingAffinity HighAfinity)))
 
 (deftransport ToTransportZincIonWithLowAfinity
-  ;;"GO:0000007"
-  :cargo-low-affinity ch/zinc_2+_
-  :equivalent (owl-some hasBindingAffinity LowAfinity))
+  :comment "GO:0000007"
+  :cargo (owl-and ch/zinc_2+_ (owl-some hasBindingAffinity LowAfinity)))
+
+(deftransport ToTransportAminoAcid
+  :cargo ch/amino_acid)
+
+(deftransport ToTransportBasicAminoAcid
+  :comment "GO:0015174"
+  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline)))
+
+(deftransport ToTransportBasicAminoAcidWithHighAfinity
+  :comment "GO:0005287"
+  :cargo (owl-and ch/amino_acid (owl-some hasBindingAffinity HighAfinity) (owl-some hasAcidity Alkaline)))
+
+(deftransport ToTransportBasicAminoAcidWithLowAfinity
+  :comment "GO:0005287"
+  :cargo (owl-and ch/amino_acid (owl-some hasBindingAffinity LowAfinity) (owl-some hasAcidity Alkaline)))
+
+
+(deftransport ToTransportArginineWithHighAfinity
+  :comment "GO:0005289"
+  :cargo (owl-and ch/arginine (owl-some hasBindingAffinity HighAfinity) (owl-some hasAcidity Alkaline)))
+
 
 (deftransport ToTransportZincIony
   ;;"GO:0005385"
   :cargo ch/zinc_ion)
-
 
 (deftransport ToTransportLongChainFattyAcid
   ;;"GO:0005324"
@@ -206,26 +273,8 @@
   :driven ch/cation ATPase)
 
 
-(p/defpartition CellPosition
-  [Inner Outer])
-
-;;A substance or substances transported either from the inside of the cell to the outside and and vice versa.
-(defn substance_transporting_ATPase [lis]
-  `(deftransport ~(symbol (str "ToTransport" (first lis) "TransportingDrivenWithATPase"))
-     :comment ~(second lis)
-     :cargo ~(nth lis 2)
-     :driven ATPase
-     :from (owl-some hasCellPosition (owl-or Inner Outer))
-     :to (owl-some hasCellPosition (owl-or Inner Outer))))
-
-
-;; macro function to do the classes mapping 
-(defmacro trans_map [lis]
-  `(do ~@(map substance_transporting_ATPase lis)))
-
 ; map values
-(trans_map
-     [
+(deftransporters
       [""                       "GO:0042626"    ch/chemical_entity ]
       ["Cation"                 "GO:0019829"    ch/cation ]
       ["Phospholipid"           "GO:0004012"    ch/phospholipid ]
@@ -302,7 +351,8 @@
       ["Doxorubicin"		"GO:1901242"	ch/doxorubicin]
       ["Methionine"		"GO:1901243"	ch/methionine]
       ["LipoChitinOligosaccharide" "GO:1901514" ch/lipo-chitin_oligosaccharide]
-      ])
+      ["3-5CyclicGMP"		"GO:1905948"	ch/_3'_5'-cyclic_GMP] 
+      )
 
 (deftransport ToTransportIonsTransportingDrivenWithATPaseViaRotationalMechanism.
   :comment "GO:0044769"
@@ -354,7 +404,7 @@
 
 (deftransport ToTransportPeptideAntigenTransportingDrivenWithATPase
   :comment "GO:0015433"
-  :cargo ch/peptide  :role ch/antigen
+  :cargo (owl-and ch/peptide (owl-some hasRole ch/antigen)) 
   :driven ATPase
   :from (owl-some hasCellPosition (owl-or Inner Outer))
   :to (owl-some hasCellPosition (owl-or Inner Outer)))
@@ -362,29 +412,14 @@
 
 (deftransport ToTransportXenobioticTransportingDrivenWithATPase
   :comment "GO:0008559"
-  :role ch/xenobiotic
+  :cargo (owl-and ch/chemical_entity (owl-some hasRole ch/xenobiotic))
   :driven ATPase
   :from (owl-some hasCellPosition (owl-or Inner Outer))
   :to (owl-some hasCellPosition (owl-or Inner Outer)))
 
 
-;;#A substance or substances transported from the inside of the cell to the outside.
-(defn substance_exporting_ATPase [lis]
-  `(deftransport ~(symbol (str "ToTransport" (first lis) "ExportingDrivenWithATPase"))
-     :comment ~(second lis)
-     :cargo ~(nth lis 2)
-     :driven ATPase
-     :from (owl-some hasCellPosition  Inner)
-     :to (owl-some hasCellPosition Outer)))
-
-
-;; macro function to do the classes mapping 
-(defmacro trans_map_ex [lis]
-  `(do ~@(map substance_exporting_ATPase lis)))
-
 ; map values
-(trans_map_ex
-     [
+(defexporters
       ["Copper"			"GO:0004008"	ch/copper_2+_]
       ["Cadmium"			"GO:0008551"    ch/cadmium_2+_]
       ["Proton"			"GO:0036442"	ch/proton]
@@ -399,8 +434,7 @@
       ["Proton"			"GO:0036442"	ch/proton]
       ["Carbohydrate"			"GO:0015608"	ch/carbohydrate]
       ;["GlucosylOleandomycin"		"GO:0103113"	]
-      ])
-
+      )
 
 (deftransport ToTransportProtonExportingDrivenWithATPaseViaPhosphorylativeMechanism
   :comment "GO:0008553"
@@ -436,10 +470,7 @@
       ["D-methionine"			"GO:0032522"	ch/D-methionine]
       ["L-glutamate"			"GO:0102013"	ch/L-glutamate_1-_]
       ["Beta-D-galactose"		"GO:0102014"	ch/beta-D-galactoside]
-      ["L-arginine"			"GO:0102022"	ch/L-argininium_1+_]
-      ])
-
-
+      ["L-arginine"			"GO:0102022"	ch/L-argininium_1+_])
 
 
 (defn di-porter [from to]
