@@ -17,31 +17,37 @@
 ;; Transporters
 (defclass ToTransport)
 (defoproperty transports)
+
+;; transport some chemical entity usually from location to another
 (defoproperty transports-from)
 (defoproperty transports-to)
+
 (defoproperty has-part)
 (defoproperty transports-across)
 (defoproperty dependent-on)
+;; transport chemical entity which driven by some other chemical entity or enzyme
 (defoproperty driven-by)
 (defoproperty linked-to
   :comment "One activity which happens at the same time as another and
   which can only occur because the other does.")
+
+;; transport chemical entities which has some role
 (defoproperty hasRole)
 
-(defoproperty transports-with-high-affinity :super transports)
-(defoproperty transports-with-low-affinity  :super transports)
-
-
-;;
+;;Transporter transports some chemical entities with high or low affinity
+;; The affinity is a property for the transporter not the thing being transported
 (p/defpartition BindingAffinity
-  [LowAfinity HighAfinity])
+  [LowAffinity HighAffinity])
 
+;; transports a substance or substances inside or outside the cell
 (p/defpartition CellPosition
   [Inner Outer])
 
+;; some chemical entities transported with a specific mechanism
 (p/defpartition Mechanism
   [Rotational Phosphorylative])
 
+;; Amino acid, Basic amino acid and acidic amino acid have different ph scale
 (p/defpartition Acidity
   [Acidic Neutral Alkaline])
 
@@ -58,6 +64,7 @@
                       [(with-property frames :from transports-from)
                        (with-property frames :to transports-to)
                        (with-property frames :cargo transports)
+                       (with-property frames :transports-with hasBindingAffinity)
                        (with-property frames :driven driven-by)
                        (with-property frames :linked linked-to)
                        (with-property frames :role bearer-of)
@@ -69,12 +76,13 @@
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven :linked :mechanism]))
+    :role :when :driven :linked :transports-with :mechanism]))
 
 (defentity deftransport "" 'transport)
 
 
 ;;A substance or substances transported either from the inside of the cell to the outside and and vice versa.
+;; Driven by ATPase
 (defn substance-transporting-ATPase [lis]
   `(deftransport ~(symbol (str "ToTransport" (first lis) "TransportingDrivenWithATPase"))
      :comment ~(second lis)
@@ -89,6 +97,7 @@
 
 
 ;;#A substance or substances transported from the inside of the cell to the outside.
+;; Driven by ATPase
 (defn substance-exporting-ATPase [lis]
   `(deftransport ~(symbol (str "ToTransport" (first lis) "ExportingDrivenWithATPase"))
      :comment ~(second lis)
@@ -102,6 +111,7 @@
   `(do ~@(map substance-exporting-ATPase lis)))
 
 ;;#A substance or substances transported from outside of the cell to the inside.
+;; Driven by ATPase
 (defn substance-importing-ATPase [lis]
   `(deftransport ~(symbol (str "ToTransport" (first lis) "ImportingDrivenWithATPase"))
      :comment ~(second lis)
@@ -122,27 +132,122 @@
   :comment "GO:0015174"
   :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline)))
 
-;; substances transported with high and low affinity
-(deftransport ToTransportZincIonWithHighAfinity
+
+(deftransport ToTransportAcidicAminoAcid
+  :comment "GO:0015172"
+  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Acidic)))
+
+
+;; substances transported with high and low affinities
+(deftransport ToTransportZincIonWithHighAffinity
   :comment "GO:0000006"
-  :cargo (owl-and ch/zinc_2+_ (owl-some hasBindingAffinity HighAfinity)))
+  :cargo ch/zinc_2+_
+  :transports-with HighAffinity)
 
-(deftransport ToTransportZincIonWithLowAfinity
+(deftransport ToTransportZincIonWithLowAffinity
   :comment "GO:0000007"
-  :cargo (owl-and ch/zinc_2+_ (owl-some hasBindingAffinity LowAfinity)))
+  :cargo ch/zinc_2+_
+  :transports-with LowAffinity)
 
-(deftransport ToTransportBasicAminoAcidWithHighAfinity
+(deftransport ToTransportBasicAminoAcidWithHighAffinity
   :comment "GO:0005287"
-  :cargo (owl-and ch/amino_acid (owl-some hasBindingAffinity HighAfinity) (owl-some hasAcidity Alkaline)))
+  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline))
+  :transports-with HighAffinity)
 
-(deftransport ToTransportBasicAminoAcidWithLowAfinity
-  :comment "GO:0005287"
-  :cargo (owl-and ch/amino_acid (owl-some hasBindingAffinity LowAfinity) (owl-some hasAcidity Alkaline)))
+(deftransport ToTransportBasicAminoAcidWithLowAffinity
+  :comment "GO:0097625"
+  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline))
+  :transports-with LowAffinity)
 
-(deftransport ToTransportArginineWithHighAfinity
+(deftransport ToTransportArginineWithHighAffinity
   :comment "GO:0005289"
-  :cargo (owl-and ch/arginine (owl-some hasBindingAffinity HighAfinity) (owl-some hasAcidity Alkaline)))
+  :cargo (owl-and ch/arginine (owl-some hasAcidity Alkaline))
+  :transports-with HighAffinity)
 
+(deftransport ToTransportL-histidineWithHighAffinity
+  :comment "GO:0005291"
+  :cargo (owl-and ch/L-histidine (owl-some hasAcidity Alkaline))
+  :transports-with HighAffinity)
+
+(deftransport ToTransportLysineWithHighAffinity
+  :comment "GO:0005292"
+  :cargo (owl-and ch/lysine (owl-some hasAcidity Alkaline))
+  :transports-with HighAffinity)
+
+(deftransport ToTransportTryptophanWithHighAffinity
+  :comment "GO:0005300"
+  :cargo ch/tryptophan
+  :transports-with HighAffinity)
+
+(deftransport ToTransportGlutamateWithHighAffinity
+  :comment "GO:0005314"
+  :cargo ch/glutamate_2-_
+  :transports-with HighAffinity)
+
+(deftransport ToTransportPhosphateWithLowAffinity
+  :comment "GO:0009673"
+  :cargo ch/phosphate_ion
+  :transports-with LowAffinity)
+
+(deftransport ToTransportCopperIonWithHighAffinity
+  :comment "GO:0015089"
+  :cargo ch/copper_2+_
+  :transports-with HighAffinity)
+
+(deftransport ToTransportFerricIronIonWithLowAffinity
+  :comment "GO:0015090"
+  :cargo ch/iron_2+_
+  :transports-with LowAffinity)
+
+(deftransport ToTransportFerricIronIonWithHighAffinity
+  :comment "GO:0015092"
+  :cargo ch/iron_3+_
+  :transports-with HighAffinity)
+
+(deftransport ToTransportGlutamineWithHighAffinity
+  :comment "GO:0015330"
+  :cargo ch/glutamine
+  :transports-with HighAffinity)
+
+(deftransport ToTransportOligopeptideWithHighAffinity
+  :comment "GO:0015334"
+  :cargo ch/oligopeptide
+  :transports-with HighAffinity)
+
+(deftransport ToTransportTryptophanWithLowAffinity
+  :comment "GO:0022893"
+  :cargo ch/tryptophan
+  :transports-with LowAffinity)
+
+(deftransport ToTransportNickelCationWithHighAffinity
+  :comment "GO:0044750"
+  :cargo ch/nickel_cation
+  :transports-with HighAffinity)
+
+(deftransport ToTransportPhosphateWithHighAffinity
+  :comment "GO:0048249"
+  :cargo ch/phosphate_ion
+  :transports-with HighAffinity)
+
+(deftransport ToTransportFructoseWithHighAffinity
+  :comment "GO:0061486"
+  :cargo ch/fructose
+  :transports-with HighAffinity)
+
+(deftransport ToTransportNitrateWithLowAffinity
+  :comment "GO:0080054"
+  :cargo ch/nitrate
+  :transports-with LowAffinity)
+
+(deftransport ToTransportL-arginineWithLowAffinity
+  :comment "GO:0097626"
+  :cargo ch/L-arginine
+  :transports-with LowAffinity)
+
+(deftransport ToTransportL-ornithineWithHighAffinity
+  :comment "GO:0097627"
+  :cargo (owl-and ch/L-ornithine (owl-some hasAcidity Alkaline))
+  :transports-with HighAffinity)
 
 
 (deftransport ToTransportZincIony
