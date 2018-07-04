@@ -115,6 +115,14 @@
   `(do ~@(map substance-importing-ATPase lis)))
 
 
+(deftransport ToTransportAminoAcid
+  :cargo ch/amino_acid)
+
+(deftransport ToTransportBasicAminoAcid
+  :comment "GO:0015174"
+  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline)))
+
+;; substances transported with high and low affinity
 (deftransport ToTransportZincIonWithHighAfinity
   :comment "GO:0000006"
   :cargo (owl-and ch/zinc_2+_ (owl-some hasBindingAffinity HighAfinity)))
@@ -122,13 +130,6 @@
 (deftransport ToTransportZincIonWithLowAfinity
   :comment "GO:0000007"
   :cargo (owl-and ch/zinc_2+_ (owl-some hasBindingAffinity LowAfinity)))
-
-(deftransport ToTransportAminoAcid
-  :cargo ch/amino_acid)
-
-(deftransport ToTransportBasicAminoAcid
-  :comment "GO:0015174"
-  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline)))
 
 (deftransport ToTransportBasicAminoAcidWithHighAfinity
   :comment "GO:0005287"
@@ -138,10 +139,10 @@
   :comment "GO:0005287"
   :cargo (owl-and ch/amino_acid (owl-some hasBindingAffinity LowAfinity) (owl-some hasAcidity Alkaline)))
 
-
 (deftransport ToTransportArginineWithHighAfinity
   :comment "GO:0005289"
   :cargo (owl-and ch/arginine (owl-some hasBindingAffinity HighAfinity) (owl-some hasAcidity Alkaline)))
+
 
 
 (deftransport ToTransportZincIony
