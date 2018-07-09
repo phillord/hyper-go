@@ -23,7 +23,7 @@
 (defoproperty transports-to)
 
 (defoproperty has-part)
-(defoproperty transports-across)
+(defoproperty transports-across :range Membrane)
 (defoproperty dependent-on)
 ;; transport chemical entity which driven by some other chemical entity or enzyme
 (defoproperty driven-by)
@@ -65,6 +65,7 @@
                        (with-property frames :to transports-to)
                        (with-property frames :cargo transports)
                        (with-property frames :transports-with hasBindingAffinity)
+                       (with-property frames :across transports-across)
                        (with-property frames :driven driven-by)
                        (with-property frames :linked linked-to)
                        (with-property frames :role bearer-of)
@@ -76,7 +77,7 @@
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven :linked :transports-with :mechanism]))
+    :role :when :driven :linked :transports-with :mechanism :across]))
 
 (defentity deftransport "" 'transport)
 
@@ -88,11 +89,12 @@
      :comment ~(second lis)
      :cargo ~(nth lis 2)
      :driven ATPase
+     :across Membrane
      :from (owl-some hasCellPosition (owl-or Inner Outer))
      :to (owl-some hasCellPosition (owl-or Inner Outer))))
 
 ;; macro function to do the classes mapping 
-(defmacro deftransporters [& lis]
+(defmacro deftransporters-drivenby-ATPase [& lis]
   `(do ~@(map substance-transporting-ATPase lis)))
 
 
@@ -103,11 +105,12 @@
      :comment ~(second lis)
      :cargo ~(nth lis 2)
      :driven ATPase
+     :across Membrane
      :from (owl-some hasCellPosition  Inner)
      :to (owl-some hasCellPosition Outer)))
 
 ;; macro function to do the classes mapping 
-(defmacro defexporters [& lis]
+(defmacro defexporters-drivenby-ATPase [& lis]
   `(do ~@(map substance-exporting-ATPase lis)))
 
 ;;#A substance or substances transported from outside of the cell to the inside.
@@ -117,21 +120,19 @@
      :comment ~(second lis)
      :cargo ~(nth lis 2)
      :driven ATPase
+     :across Membrane
      :from (owl-some hasCellPosition Outer)
      :to (owl-some hasCellPosition Inner)))
 
 ;; macro function to do the classes mapping 
-(defmacro defimporters [& lis]
+(defmacro defimporters-drivenby-ATPase [& lis]
   `(do ~@(map substance-importing-ATPase lis)))
 
 
-(deftransport ToTransportAminoAcid
-  :cargo ch/amino_acid)
 
 (deftransport ToTransportBasicAminoAcid
   :comment "GO:0015174"
   :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline)))
-
 
 (deftransport ToTransportAcidicAminoAcid
   :comment "GO:0015172"
@@ -250,61 +251,39 @@
   :transports-with HighAffinity)
 
 
-(deftransport ToTransportZincIony
-  ;;"GO:0005385"
-  :cargo ch/zinc_ion)
+;; A substance or substances transported across membrane
+(defn transporters [trans]
+  `(deftransport ~(symbol (str "ToTransport" (first trans)))
+     :comment ~(second trans)
+     :across Membrane
+     :cargo
+     ~(cond (= 4 (count trans))
+           `(owl-and ~(nth trans 2) (owl-some hasRole ~(nth trans 3)))
+           :else (nth trans 2))))
 
-(deftransport ToTransportLongChainFattyAcid
-  ;;"GO:0005324"
-  :cargo ch/long-chain_fatty_acid)
 
-(deftransport ToTransportFattyAcid
-  ;;"GO:0015245"
-  :cargo ch/fatty_acid)
+;; macro function to do the classes mapping 
+(defmacro deftransporters [& def]
+  `(do ~@(map transporters def)))
 
-(deftransport ToTransportShortChainFattyAcid
-  ;;"GO:0015636"
-  :cargo ch/short-chain_fatty_acid)
+(deftransporters
+  ["LongChainFattyAcid"				"GO:0005324"	ch/long-chain_fatty_acid]
+  ["L-ornithine"					"GO:0000064"	ch/L-ornithine				ch/drug]
+  ["S-adenosyL-methionine"				"GO:0000095"	ch/S-adenosyl-L-methionine		ch/drug]
+  ["SulfurAminoAcid"					"GO:0000099"	ch/sulfur-containing_amino_acid]
+  ["S-methylmethionine"				"GO:0000100"	ch/S-methyl-L-methionine]
+  ["L-valine"						"GO:0005304"	ch/L-valine				ch/drug]
+  ["L-isoleucine"					"GO:0015188"	ch/L-isoleucine]
+  ["Nucleoside"					"GO:0005337"	ch/nucleoside]
+  ["AdenineNucleotide"					"GO:0000295"	ch/adenyl_nucleotide]
+  ["Spermine"						"GO:0000297"	ch/spermine				ch/drug]
+  ["Sulfite"						"GO:0000319"	ch/sulfite]
+  ["ZincIon"						"GO:0005385"	ch/zinc_ion]
+  ["AminoAcid"						"GO:0015171"	ch/amino_acid]
+  ["FattyAcid"						"GO:0015245"	ch/fatty_acid]
+  ["ShortChainFattyAcid"				"GO:0015636"	ch/short-chain_fatty_acid]
+  )
 
-(deftransport ToTransportL-ornithine
-  ;;"GO:0000064"
-  :role ch/L-ornithine)
-
-(deftransport ToTransportS-adenosyL-methionine
-  ;;"GO:0000095"
-  :role ch/S-adenosyl-L-methionine)
-
-(deftransport ToTransportSulfurAminoAcid
-  ;;"GO:0000099"
-  :cargo ch/sulfur-containing_amino_acid)
-
-(deftransport ToTransportS-methylmethionine
-  ;;"GO:0000100"
-  :role ch/S-methyl-L-methionine)
-
-(deftransport ToTransportL-valine
-  ;;"GO:0005304"
-  :role ch/L-valine)
-
-(deftransport ToTransportL-isoleucine
-  ;;"GO:0015188"
-  :role ch/L-isoleucine)
-
-(deftransport ToTransportNucleoside
-  ;;"GO:0005337"
-  :cargo ch/nucleoside)
-
-(deftransport ToTransportAdenineNucleotide
-  ;;"GO:0000295"
-  :cargo ch/adenyl_nucleotide)
-
-(deftransport ToTransportSperminey
-  ;;"GO:0000297" 
-  :role ch/spermine)
-
-(deftransport ToTransportSulfite
-  ;;"GO:0000319"
-  :cargo ch/sulfite)
 
 (deftransport ToTransportGlycerophosphodiester
   ;;"GO:0001406"
@@ -371,16 +350,8 @@
   ;;"GO:0015545"
   :role ch/bicozamycin)
 
-(deftransport ToTransportDrivenWithATPase
-  :driven ch/chemical_entity ATPase)
-
-(deftransport ToTransportCationDrivenWithATPase
-  ;;"GO:0019829"
-  :driven ch/cation ATPase)
-
-
-; map values
-(deftransporters
+;; map values
+(deftransporters-drivenby-ATPase
       [""                       "GO:0042626"    ch/chemical_entity ]
       ["Cation"                 "GO:0019829"    ch/cation ]
       ["Phospholipid"           "GO:0004012"    ch/phospholipid ]
@@ -414,7 +385,7 @@
       ["Lipopolysaccharide"	"GO:0015437"	ch/lipopolysaccharide]
       ["TeichoicAcid"		"GO:0015438"	ch/teichoic_acid]
       ["Heme"			"GO:0015439"	ch/heme]
-      ["peptide"		"GO:0015440"	ch/peptide]
+      ["Peptide"		"GO:0015440"	ch/peptide]
       ["Beta-glucan"		"GO:0015441"	ch/beta-D-glucan]
       ["Arsenite"		"GO:0015446"	ch/arsenite_ion]
       ["Protein"		"GO:0015462"	ch/protein]
@@ -445,11 +416,11 @@
       ["Sterol"		"GO:0034041"	ch/sterol]
       ["Ion"			"GO:0042625"	ch/ion]
       ["Antimonite"		"GO:0042961"	ch/antimonite]
-      ["carbohydrate"		"GO:0043211"	ch/carbohydrate]
+      ["Carbohydrate"		"GO:0043211"	ch/carbohydrate]
       ["Bacteriocin"		"GO:0043214"	ch/bacteriocin]
       ["Daunorubicin"		"GO:0043216"	ch/daunorubicin]
       ["Anion"			"GO:0043225"	ch/anion]
-      ["thiamine"		"GO:0048502"	ch/thiamine]
+      ["Thiamine"		"GO:0048502"	ch/thiamine]
       ["Glycerol-2-phosphate"	"GO:0070812"	ch/glycerol_2-phosphate]
       ["GlutathioneS-conjugate" "GO:0071997"	ch/glutathione_conjugate]
       ["Alkylphosphonate"	"GO:0102017"	ch/alkylphosphonate]
@@ -525,7 +496,7 @@
 
 
 ; map values
-(defexporters
+(defexporters-drivenby-ATPase
       ["Copper"			"GO:0004008"	ch/copper_2+_]
       ["Cadmium"			"GO:0008551"    ch/cadmium_2+_]
       ["Proton"			"GO:0036442"	ch/proton]
@@ -559,8 +530,8 @@
   :mechanism Phosphorylative)
 
 ; map values
-(defimporters
-      ["Magnesium"			"GO:0015444"	ch/magnesium_2+_]
+(defimporters-drivenby-ATPase
+      ["Magnesium"			"GO:0015444"	ch/magnesium_2+_ ]
       ["Putrescine"			"GO:0015594"	ch/putrescine]
       ["Spermidine"			"GO:0015595"	ch/spermidine]
       ["Arginine"			"GO:0015598"	ch/arginine]
@@ -590,7 +561,6 @@
                 ToTransport
                 (owl-some has-part first-transport)
                 (owl-some has-part second-transport)))))
-
 
 (owl-import tawny-chebi.chebi/chebi)
 
