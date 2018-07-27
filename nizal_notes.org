@@ -5,12 +5,18 @@
 
 ** General issue
 
+The information in GO about each term is scarce. 
+
 Most of GO terms names are defined generally, while Chebi ontology is more specific in defining terms.
 
 It is not enough to link the GO term with the equivalent chebi term only by name matching. We have to know the GO name and definition to be able to link it with the correct chebi term. 
 
 GO-plus ontology: includes cross ontology relationships, including Chebi. However, it seems that the linkage was based on name matching only.
 
+ * Terms seems not exist in ChEBI:
+     1. Basic amino acid
+     2. Neutral amino acid
+     3. Acidic amino acid
 
 
 ** High/Low Affinity
@@ -24,7 +30,7 @@ ISSUE: In the case that the same chemical element transported once in high affin
 
 CAUSE: Ontology inconsistenc, due to linking the same concept (i.e. chebi term) via the same object property to different values in a value partition.
 
-SOLUTION: Define two object properties called cargo-with-high-affinity and cargo-with-low-affinity
+SOLUTION: Define an object property (called transports-with) for the transported, not the thing being transported (cargo).
 
 ** Transporting molecules driven by ATPase
 
@@ -32,26 +38,93 @@ ATPase activity: directly drive the active transport of a substance across a mem
 
 Terms under this pattern are transported either from the inside of the cell to the outside and and vice versa.
 
-(DT): define a pattern for all substances that driven by the ATPase directly
+(DT): define a pattern for all substances that driven directly by the ATPase.
 
 
 ISSUES:
 
-The different term naming schema between GO and chebi. 
- * For example: GO:     Ferric-transporting ATPase activity
-		Chebi:  iron(3+)
-		GO:     ferric-hydroxamate-transporting ATPase activity
-		Chebi:  iron_III__hydroxamate
+Different term naming schema between GO and chebi. 
+ * For example: -GO:     Ferric-transporting ATPase activity
+		-Chebi:  iron(3+)
+		-GO:     ferric-hydroxamate-transporting ATPase activity
+		-Chebi:  iron_III__hydroxamate
 
-GO term is a broad where chebi term narrow:
- * For example: GO: cobalt-transporting ATPase activity
-		Chebi cobalt_cation  (there is no term cobalt by its
 
- * For example:  GO:  silver-exporting ATPase activity
-		Def: Enables the transfer of a solute or solutes from one side of a membrane to the other according to the reaction: ATP + H2O + Ag+(in) -> ADP + phosphate + Ag+(out). 
+GO term is a broad where chebi term is narrow:
+ * For example: -GO:   cobalt-transporting ATPase activity
+		-Chebi cobalt_cation  (there is no term cobalt by it
 
-	GO term name: silver ion (broad)
-	GO term defintion: silver(1+)
 
+ * For example:  GO:  silver-exporting ATPase activity: enables the transfer of a solute or solutes from one side of a membrane to the other according to the reaction: ATP + H2O + Ag+(in) -> ADP + phosphate + Ag+(out). 
+   
+-GO term name: silver ion (broad)
+-GO term from its defintion: silver(1+)
 In chebi: there are  - silver ion  - silver cation   - silver(1+)
 
+ * َSome terms in GO can be found as a synonyms in ChEBI, such as  (GO) Quaternary amine = (ChEBI) Quaternary ammonium ion
+ * Exact in GO represent one 
+
+** Transporting/Exporting/Importing driven by ATPase
+
+All of the following are primary active transmembrane transporter that are driven by ATP energy (ATPase):
+
+chemical_entity-transporting
+chemical_entity-importing
+chemical_entity-exporting
+
+
+
+** Active transport
+
+
+** Primary Active transmembrane transporter
+
+Primary active transport is catalysis of the transport of a solute across a membrane.
+
+In primary active transport, the energy is derived directly from the breakdown of ATP into ADP and a Phosphate group (it hydrolyses it), called ATPase.
+
+Example: 
+	1.To pump the sodium ion out of the cell against its concentration gradient (sodium ions already have a high concentration outside the cell).
+	2.Use ATP
+	3.Breaks ATP into ADP and a Phosphate group (it hydrolyses it), called ATPase
+	4.Uses that energy (ATPase) to pump the sodium ion out of the cell and potassium into the cell
+	5.The pumped-out sodium form a potential energy which can later be used to power a SECONDARY Active transport. 
+
+Primary active: (Antiporter)
+Both substances (sodium ion and potassium) going against their concentration gradient.
+
+I think: 
+ * In GO: the antiporter called -exchanging, that is only with: sodium/proton: potassium-exchanging. 
+   However, the different between antiporter in Primary and Secondary active transporter is substances in the Primary are both going against their concentration gradient, whe
+
+Secondary active (Antiporter)
+One substance going with its concentration gradient and the other substance going against its concentration gradient.
+
+** Secondary Active transmembrane transporter, Antiporter and Symporter 
+
+In Secondary active transport a substance is pumped from a region (outside or inside of the cell) of lower concentration to a region of higher concentration. 
+This process requires energy which does not come directly from ATP rather it comes from the energy stored in the substance gradient which was created using ATP. 
+
+ISSUES:
+	* From the definition of the Secondary Active in GO, does not specify which substance has lower concentration and high concentration (which one is the cargo and which is th energy).
+	Example from GO: nucleoside transmembrane transporter activity, against a concentration gradient, GO:0011074 
+ 	
+	* In GO: Uniporter Activity (GO:0015292) stated to be a secondary transporter. However it is a Passive transport, particularly facilitated diffusion transport 
+	Uniporter is an integral memebrane protein involved in facilitated diffusion
+	Uniporters rely on passive transport, as they do not directly require cellular energy to function.
+
+See this: http://www.physiologyweb.com/lecture_notes/membrane_transport/secondary_active_transport.html
+    
+   * Transporter protein couples the movement of an ion (typically Na+ or H+) down its electrochemical gradient to the uphill movement of another molecule 
+     or ion against a concentration/electrochemical gradient.
+   * Sodium serves as the driving ion in many (but not all) secondary active transporters located in the plasma membrane of various cells.
+
+Antiporter and Symporter
+  * Sodium is the driving ion for many Symporter and antiporter.
+
+
+
+** Chemical Role
+
+  * xenobiotic transmembrane transporter activity (GO:0042910)  is NOT a drug
+  * xenobiotic transmembrane transporter activity (GO:0008559)  has role some drug,   Is this an enzyme EC 3.6.3.44 ?  Catalysing transmembrane movement of substances
