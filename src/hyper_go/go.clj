@@ -209,12 +209,6 @@
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
 
 
-(deftransport ToTransportL-methionineSecondaryTctiveTransmembrane
-  :comment "GO:0000102"
-  :across Membrane
-  :cargo (owl-and ch/L-methionine (owl-some hasConcentration LowConcentration)  (owl-some hasAcidity Neutral) (owl-some hasRole ch/drug))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
-
 
 
 
@@ -267,8 +261,8 @@
 (deftransport ToTransportL-glutamineTransmembrane
   :comment "GO:0015186"
   :across Membrane
-  :cargo (owl-and ch/L-glutamine (owl-some hasAcidity Neutral) (owl-some hasRole ch/drug)))
-
+  :cargo (owl-and ch/L-glutamine (owl-some hasAcidity Neutral) (owl-some hasEnantiomer L-Enantiomer)
+                  (owl-some hasRole ch/drug)))
 
 (deftransport ToTransportNeutralL-AminoAcidSecondaryActiveTransmembrane
   :comment "GO:0005294"
@@ -322,9 +316,6 @@
 ;;   :comment "GO:0043872"
 ;;   :across Membrane
 ;;   :cargo 
-
-
-
 
 
 
@@ -438,6 +429,15 @@
   :cargo (owl-and ch/L-ornithine (owl-some hasAcidity Alkaline))
   :transports-with HighAffinity)
 
+(deftransport ToTransportL-tryptophanWithHighAffinity
+  :comment "GO:0005300"
+  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomer L-Enantiomer) (owl-some hasRole ch/drug))
+  :transports-with HighAffinity)
+
+(deftransport ToTransportL-tryptophanWithLowAffinity
+  :comment "GO:0022893"
+  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomer L-Enantiomer) (owl-some hasRole ch/drug))
+  :transports-with LowAffinity)
 
 ;; ;; A substance or substances transported across membrane
 ;; (defn transporters [trans]
@@ -474,6 +474,119 @@
 ;;   ["ShortChainFattyAcid"				"GO:0015636"	ch/short-chain_fatty_acid]
 ;;   )
 
+(deftransport ToTransportIon
+  :comment "GO:0015075"
+  :across Membrane
+  :cargo ch/ion)
+
+;; ion A(out) + ion B(in) = ion A(in) + ion B(out) where ion A and ion B are different types of ion. 
+(deftransport ToTransportIonAntiporter
+  :comment "GO:0099516"
+  :across Membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportAluminumIon
+  :comment "GO:0015083"
+  :across Membrane
+  :cargo ch/aluminium_ion)
+
+;; Positivel charged ions --> Cation
+(deftransport ToTransportCation
+  :comment "GO:0008324"
+  :across  Membrane
+  :cargo ch/cation)
+
+;; Negatively charged ions --> Anion
+(deftransport ToTransportAnion
+  :comment "GO:0008509"
+  :across Membrane
+  :cargo ch/anion)
+
+(deftransport ToTransportOrganicAnion
+  :comment "GO:0008514"
+  :across Membrane
+  :cargo ch/organic_anion)
+
+(deftransport ToTransportInorganicAnion
+  :comment "GO:0015103"
+  :across Membrane
+  :cargo ch/inorganic_anion)
+
+(deftransport ToTransportChromiumIon
+  :comment "GO:0070835"
+  :across Membrane
+  :cargo ch/chromium_ion)
+
+(deftransport ToTransportLeadIon
+  :comment "GO:0015094"
+  :across Membrane
+  :cargo ch/lead_ion)
+
+;; ===== not 100% correct
+;; cation A(out) + cation B(in) = cation A(in) + cation B(out). 
+(deftransport ToTransportCationCationAntiporter
+  :comment "GO:0015491"
+  :across Membrane
+  :cargo (owl-and ch/cation (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+
+(deftransport ToTransportL-tryptophan
+  :comment "GO:0015196"
+  :across Membrane
+  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomer L-Enantiomer) (owl-some hasRole ch/drug)))
+
+(deftransport ToTransportSalt
+  :comment "GO:1901702"
+  :across Membrane
+  :cargo (owl-and ch/salt (owl-some has-part (owl-and ch/anion ch/cation))))
+
+
+(deftransport ToTransportTartrate
+  :comment "GO:0015554"
+  :across Membrane
+  :cargo (owl-and ch/tartrate_salt (owl-some has-part (owl-and ch/anion ch/cation))))
+
+(deftransport ToTransportUrate
+  :comment "GO:0015143"
+  :across Membrane
+  :cargo (owl-and ch/urate_salt (owl-some has-part (owl-and ch/anion ch/cation))))
+
+(deftransport ToTransportL-threonine
+  :comment "GO:0015195"
+  :across Membrane
+  :cargo (owl-and ch/L-threonine (owl-some hasAcidity Neutral) (owl-some hasEnantiomer L-Enantiomer)
+                  (owl-some hasRole ch/drug)))
+
+;; I changed threonine to L-threonine
+;; threonine not subclass of L-threonine (see nizal_notes.org)
+(deftransport ToTransportL-threonineEfflux
+  :comment "GO:0015565"
+  :across Membrane
+  :cargo (owl-and ch/L-threonine (owl-some hasAcidity Neutral) (owl-some hasEnantiomer L-Enantiomer)
+                  (owl-some hasRole ch/drug))
+  :from (owl-some hasCellPosition Inner)
+  :to (owl-some hasCellPosition Outer))
+
+
+(deftransport ToTransportAmmonium
+  :comment "GO:0008519"
+  :across Membrane
+  :cargo ch/ammonium_ion)
+
+(deftransport ToTransportL-methionine
+  :comment "GO:0015191"
+  :across Membrane
+  :cargo (owl-and ch/L-methionine (owl-some hasEnantiomer L-Enantiomer) (owl-some hasRole ch/drug)))
+
+(deftransport ToTransportL-methionineSecondaryTctiveTransmembrane
+  :comment "GO:0000102"
+  :across Membrane
+  :cargo (owl-and ch/L-methionine (owl-some hasConcentration LowConcentration)  (owl-some hasAcidity Neutral) (owl-some hasRole ch/drug))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
 
 
@@ -500,17 +613,8 @@
   ;;"GO:0005381"
   :role ch/iron_2+_)
 
-(deftransport ToTransportIon
-  ;;"GO:0015075"
-  :cargo ch/ion)
 
-(deftransport ToTransportCation
-  ;;"GO:0008324"
-  :cargo ch/cation)
 
-(deftransport ToTransportAnion
-  ;;"GO:0008509"
-  :cargo ch/anion)
 
 (deftransport ToTransportChloride
   ;;"GO:0015108"
