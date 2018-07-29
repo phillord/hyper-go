@@ -18,11 +18,11 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
      2. Neutral amino acid
      3. Acidic amino acid
  
+ 
  * Diff classification in GO
 
    In GO: threonine efflux transmembrane GO:0015565 is a L-threonine transmembrane GO:0015195. In ChEBI it is the opposite. 
-   (DV): There might be a mistake in GO where they wrote threonine instead of L-threonine, 
-becasue (in GO) GO:0015195 is a L-amino acid and it is the same in ChEBI L-threonine is L-apha_amino_acid. GO:0015565 is an amino_acid.
+   (DV): There might be a mistake in GO where they wrote threonine instead of L-threonine, becasue (in GO) GO:0015195 is a L-amino acid and it is the same in ChEBI L-threonine is L-apha_amino_acid. GO:0015565 is an amino_acid.
    (DV): define the term GO:0015565 as L-threonine not as threonine.
 
 
