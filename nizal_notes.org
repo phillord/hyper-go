@@ -1,7 +1,7 @@
 * Hyper-go notes: 
      * Issues and proposed solutions 
      * Comments on GO terms and structure 
-     * Developer's thoughts (DT)
+     * Developer thought (DT)
 
 ** General issue
 
@@ -9,7 +9,7 @@ The information in GO about each term is scarce.
 
 Most of GO terms names are defined generally, while Chebi ontology is more specific in defining terms.
 
-It is not enough to link the GO term with the equivalent chebi term only by name matching. We have to know the GO name and definition to be able to link it with the correct chebi term. 
+It is not enough to link the GO term with the equivalent chebi term only by name matching. We have to know the GO name and definition to be able to link it with the right term in chebi. 
 
 GO-plus ontology: includes cross ontology relationships, including Chebi. However, it seems that the linkage was based on name matching only.
 
@@ -21,9 +21,9 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
 ** High/Low Affinity
 
-A substance or substances transported with high and low affinity such as Zinc ions.
+A substance or substances transported with high and low affinity such as zinc ions.
 
-(DT): High and low affinity are properties of the transporter.
+(DT): High and low affinity are properties of the transporter not the cargo.
       Define a property BindingAffinity which will be a value-partition with highaffinity and lowaffinity.
 
 ISSUE: In the case that the same chemical element transported once in high affinity and later in low affininty, linking those with same term from chebi ontology cause ontology inconsistent
@@ -40,7 +40,6 @@ Terms under this pattern are transported either from the inside of the cell to t
 
 (DT): define a pattern for all substances that driven directly by the ATPase.
 
-
 ISSUES:
 
 Different term naming schema between GO and chebi. 
@@ -49,11 +48,9 @@ Different term naming schema between GO and chebi.
 		-GO:     ferric-hydroxamate-transporting ATPase activity
 		-Chebi:  iron_III__hydroxamate
 
-
 GO term is a broad where chebi term is narrow:
  * For example: -GO:   cobalt-transporting ATPase activity
 		-Chebi cobalt_cation  (there is no term cobalt by it
-
 
  * For example:  GO:  silver-exporting ATPase activity: enables the transfer of a solute or solutes from one side of a membrane to the other according to the reaction: ATP + H2O + Ag+(in) -> ADP + phosphate + Ag+(out). 
    
@@ -62,7 +59,7 @@ GO term is a broad where chebi term is narrow:
 In chebi: there are  - silver ion  - silver cation   - silver(1+)
 
  * َSome terms in GO can be found as a synonyms in ChEBI, such as  (GO) Quaternary amine = (ChEBI) Quaternary ammonium ion
- * Exact in GO represent one 
+ * 
 
 ** Transporting/Exporting/Importing driven by ATPase
 
@@ -72,10 +69,9 @@ chemical_entity-transporting
 chemical_entity-importing
 chemical_entity-exporting
 
-
-
 ** Active transport
-
+ 
+ Primary active or Secondary active transmembrane transporter
 
 ** Primary Active transmembrane transporter
 
@@ -95,9 +91,10 @@ Both substances (sodium ion and potassium) going against their concentration gra
 
 I think: 
  * In GO: the antiporter called -exchanging, that is only with: sodium/proton: potassium-exchanging. 
-   However, the different between antiporter in Primary and Secondary active transporter is substances in the Primary are both going against their concentration gradient, whe
-
+   However, the different between antiporters in Primary and Secondary active transporter are substances in the Primary are both going against their concentration gradient.
+   
 Secondary active (Antiporter)
+
 One substance going with its concentration gradient and the other substance going against its concentration gradient.
 
 ** Secondary Active transmembrane transporter, Antiporter and Symporter 
@@ -121,7 +118,6 @@ See this: http://www.physiologyweb.com/lecture_notes/membrane_transport/secondar
 
 Antiporter and Symporter
   * Sodium is the driving ion for many Symporter and antiporter.
-
 
 
 ** Chemical Role
