@@ -7,7 +7,7 @@
 (defontology hyper-go
   :iri "http://example.com/hyper-go")
 
-(owl-import tawny-chebi.chebi/chebi)
+;;(owl-import tawny-chebi.chebi/chebi)
 
 ;; Stuff from other ontologiesy
 (declare-classes Location Membrane ATPase ATP)
@@ -104,6 +104,32 @@
 
 (deftransport ToTransport
   :cargo ch/chemical_entity)
+
+
+;; chemical role
+(deftransport ToTransportDrug
+  :comment "GO:0015238"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasRole ch/drug)))
+
+;; chemical role
+(deftransport ToTransportVitamin
+  :comment "GO:0090482"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasRole ch/vitamin)))
+
+;; chemical role
+(deftransport ToTransportCofactor
+  :comment "GO:0051184"
+  :across Membrane
+  :cargo (owl-and ch/cofactor (owl-some hasRole ch/cofactor)))
+
+;; Neurotransmitters are any chemical substance that is capable of transmitting a nerve impulse from a neuron to another cell. 
+(deftransport ToTransportNeurotransmitter
+  :comment "GO:0005326"
+  :cargo (owl-and ch/chemical_entity (owl-some hasRole ch/neurotransmitter)))
+
+
 
 
 ;;#A substance or substances transported from the inside of the cell to the outside.
@@ -207,11 +233,6 @@
   :across Membrane
   :cargo (owl-and ch/oligopeptide (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
-
-
-
-
-
 
 
 ;;Transmembrane transporter activity
@@ -439,6 +460,9 @@
   :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomer L-Enantiomer) (owl-some hasRole ch/drug))
   :transports-with LowAffinity)
 
+
+
+
 ;; ;; A substance or substances transported across membrane
 ;; (defn transporters [trans]
 ;;   `(deftransport ~(symbol (str "ToTransport" (first trans)))
@@ -542,18 +566,18 @@
 (deftransport ToTransportSalt
   :comment "GO:1901702"
   :across Membrane
-  :cargo (owl-and ch/salt (owl-some has-part (owl-and ch/anion ch/cation))))
+  :cargo (owl-and ch/salt (owl-some has-part ch/anion ch/cation)))
 
 
 (deftransport ToTransportTartrate
   :comment "GO:0015554"
   :across Membrane
-  :cargo (owl-and ch/tartrate_salt (owl-some has-part (owl-and ch/anion ch/cation))))
+  :cargo (owl-and ch/tartrate_salt (owl-some has-part ch/anion ch/cation)))
 
 (deftransport ToTransportUrate
   :comment "GO:0015143"
   :across Membrane
-  :cargo (owl-and ch/urate_salt (owl-some has-part (owl-and ch/anion ch/cation))))
+  :cargo (owl-and ch/urate_salt (owl-some has-part ch/anion ch/cation)))
 
 (deftransport ToTransportL-threonine
   :comment "GO:0015195"
@@ -577,6 +601,67 @@
   :across Membrane
   :cargo ch/ammonium_ion)
 
+(deftransport ToTransportEthanolamine
+  :comment "GO:0034228"
+  :across Membrane
+  :cargo ch/ethanolamine)
+
+(deftransport ToTransportSpermidine
+  :comment "GO:0015606"
+  :across Membrane
+  :cargo ch/spermidine)
+
+;; vitamin B6 compounds, pyridoxal, pyridoxamine and pyridoxine and the active form, pyridoxal phosphate
+(deftransport ToTransportvitaminB6
+  :comment "GO:0031924"
+  :across Membrane
+  :cargo (owl-and ch/vitamin_B6 (owl-some hasRole ch/drug ch/vitamin)))
+
+(deftransport ToTransportPyridoxal
+  :comment "GO:0031925"
+  :across Membrane
+  :cargo (owl-and ch/pyridoxal (owl-some hasRole ch/drug ch/vitamin ch/cofactor)))
+
+(deftransport ToTransportPyridoxalPhosphate
+  :comment "GO:0031926"
+  :across Membrane
+  :cargo (owl-and ch/pyridoxal_5'-phosphate (owl-some hasRole ch/drug ch/vitamin ch/coenzyme)))
+
+(deftransport ToTransportPyridoxamine
+  :comment "GO:0031927"
+  :across Membrane
+  :cargo (owl-and ch/pyridoxamine (owl-some hasRole ch/drug ch/vitamin)))
+
+(deftransport ToTransportPyridoxine
+  :comment "GO:0031928"
+  :across Membrane
+  :cargo (owl-and ch/pyridoxine (owl-some hasRole ch/drug ch/vitamin ch/cofactor)))
+
+(deftransport ToTransportSphingosine
+  :comment "GO:0010175"
+  :across Membrane
+  :cargo ch/sphingosine)
+
+(deftransport ToTransportPutrescine
+  :comment "GO:0015489"
+  :across Membrane
+  :cargo ch/putrescine)
+
+(deftransport ToTransportAcetylcholine
+  :comment "GO:0005277"
+  :across Membrane
+  :cargo (owl-and ch/acetylcholine (owl-some hasRole ch/drug ch/neurotransmitter)))
+
+(deftransport ToTransportMethylammonium
+  :comment "GO:0015200"
+  :across Membrane
+  :cargo (owl-and ch/methylammonium))
+
+(deftransport ToTransportCholine
+  :comment "GO:0015220"
+  :across Membrane
+  :cargo (owl-and ch/choline (owl-some hasRole ch/neurotransmitter)))
+
 (deftransport ToTransportL-methionine
   :comment "GO:0015191"
   :across Membrane
@@ -587,7 +672,6 @@
   :across Membrane
   :cargo (owl-and ch/L-methionine (owl-some hasConcentration LowConcentration)  (owl-some hasAcidity Neutral) (owl-some hasRole ch/drug))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
-
 
 
 
@@ -631,17 +715,11 @@
   ;;"GO:0015347"
   :when ch/organic_ion ch/sodium_1+_)
 
-(deftransport ToTransportDrug
-  ;;"GO:0015238"
-  :role ch/drug)
-
-(deftransport ToTransportDrugTransmembrane
-  ;;"GO:0015238"
-  :role ch/drug)
 
 (deftransport ToTransportBiotinTransmembrane
-  ;;"GO:0015225"
-  :role ch/biotin)
+  :comment "GO:0015225"
+  :across Membrane
+  :cargo (owl-and ch/biotin (owl-some hasRole ch/drug ch/coenzyme ch/vitamin)))
 
 (deftransport ToTransportBicozamycin
   ;;"GO:0015545"
@@ -708,6 +786,7 @@
   ["LipoChitinOligosaccharide" "GO:1901514" 	ch/lipo-chitin_oligosaccharide]
   ["QuaternaryAmine"		"GO:0102908"	ch/quaternary_ammonium_ion]		;; are they the same?
   ["QuaternaryAmine"		"GO:0015418"	ch/quaternary_ammonium_ion]
+  ["Choline"			"GO:0033266"	ch/choline]
   ["Guanine"                	"GO:0008558"    ch/guanine]
   ["Heme"			"GO:0015439"	ch/heme			ch/cofactor]
   ["Carbohydrate"		"GO:0043211"	ch/carbohydrate]
@@ -726,7 +805,7 @@
   ["AminoAcid"			"GO:0015424"	ch/amino_acid]
   ["NonpolarAminoAcid"		"GO:0015425"	ch/nonpolar_amino_acid]
   ["PolarAminoAcid"		"GO:0015426"	ch/polar_amino_acid]
- 
+  
       ["QuaternaryAmmoniumIon"  "GO:0015418"	ch/quaternary_ammonium_ion]
       
       
@@ -744,26 +823,15 @@
       ["Betaine"		"GO:0031458"	ch/amino-acid_betaine]
       ["GlycineBetaine"	"GO:0031459"	ch/glycine_betaine]
       ["Thiosulfate"		"GO:0102025"	ch/thiosulfate]
-      
-      
       ["Urea"			"GO:0033221"	ch/urea]
       ["2-aminoethylphosphonate""GO:0033225"	ch/_2-aminoethyl_phosphonic_acid]
       ["Cysteine"		"GO:0033230"	ch/cysteine]
       ["D-methionine"		"GO:0033232"	ch/D-methionine]
-      ["Choline"		"GO:0033266"	ch/choline]
-      
-      
       ["MonocarboxylicAcid"	"GO:0033285"	ch/monocarboxylic_acid]
       ["Ectoine"		"GO:0033286"	ch/ectoine]
       ["Hydroxyectoine"	"GO:0033288"	ch/_5-hydroxyectoine]
-      
-      
       ["Bacteriocin"		"GO:0043214"	ch/bacteriocin]
-      
-      
-      ["Methionine"		"GO:1901243"	ch/methionine]
-      
-  )
+      ["Methionine"		"GO:1901243"	ch/methionine])
 
 ;;ATP + H2O + daunorubicin(in) = ADP + phosphate + daunorubicin(out). 
 (deftransport ToTransportDaunorubicinTransportingDrivenWithATPase
@@ -781,7 +849,7 @@
 (deftransport ToTransportCobalaminTransportingDrivenWithATPase
   :comment "GO:0015420"
   :cargo (owl-and ch/cobalamin (owl-some hasConcentration LowConcentration)
-                  (owl-some hasRole ch/drug) (owl-some hasRole ch/vitamin) (owl-some hasRole ch/cofactor))
+                  (owl-some hasRole ch/drug ch/vitamin ch/cofactor))
   :driven ATPase
   :across Membrane
   :equivalent (owl-or (owl-and (owl-some transports-from (owl-some hasCellPosition Inner))
