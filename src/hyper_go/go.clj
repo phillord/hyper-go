@@ -7,7 +7,7 @@
 (defontology hyper-go
   :iri "http://example.com/hyper-go")
 
-;;(owl-import tawny-chebi.chebi/chebi)
+(owl-import tawny-chebi.chebi/chebi)
 
 ;; Stuff from other ontologiesy
 (declare-classes Location Membrane ATPase ATP)
@@ -382,7 +382,8 @@
 
 (deftransport ToTransportGlutamateWithHighAffinity
   :comment "GO:0005314"
-  :cargo ch/glutamate_2-_
+  :cargo (owl-and ch/glutamate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomer L-Enantiomer)
+                  (owl-some hasRole ch/drug ch/neurotransmitter))
   :transports-with HighAffinity)
 
 (deftransport ToTransportPhosphateWithLowAffinity
@@ -662,6 +663,7 @@
   :across Membrane
   :cargo (owl-and ch/choline (owl-some hasRole ch/neurotransmitter)))
 
+
 (deftransport ToTransportL-methionine
   :comment "GO:0015191"
   :across Membrane
@@ -684,8 +686,38 @@
   :cargo ch/guanyl_nucleotide)
 
 (deftransport ToTransportBetaAlanine
-  ;;"GO:0001761"
-  :role ch/beta-alanine)
+  :comment "GO:0001761"
+  :across Membrane
+  :cargo (owl-and ch/beta-alanine (owl-some hasAcidity Neutral) (owl-some hasRole ch/neurotransmitter)))
+
+(deftransport ToTransportGlycine
+  :comment "GO:0015187"
+  :across Membrane
+  :cargo (owl-and ch/glycine (owl-some hasAcidity Neutral) (owl-some hasEnantiomer L-Enantiomer)
+                  (owl-some hasRole ch/drug ch/neurotransmitter)))
+
+(deftransport ToTransportNitricOxide
+  :comment "GO:0030184"
+  :across Membrane
+  :cargo (owl-and ch/nitric_oxide (owl-some hasRole ch/drug ch/neurotransmitter)))
+
+(deftransport ToTransportGammaAminobutyricAcid
+  :comment "GO:0015185"
+  :across Membrane
+  :cargo (owl-and ch/gamma-aminobutyric_acid (owl-some hasRole ch/neurotransmitter)))
+
+(deftransport ToTransportL-glutamate
+  :comment "GO:0005313"
+  :across Membrane
+  :cargo (owl-and ch/L-glutamate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomer L-Enantiomer)
+                  (owl-some hasRole ch/drug ch/neurotransmitter)))
+
+(deftransport ToTransportL-aspartate
+  :comment "GO:0015183"
+  :across Membrane
+  :cargo (owl-and ch/L-aspartate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomer L-Enantiomer)
+                  (owl-some hasRole ch/drug ch/neurotransmitter)))
+
 
 ;; There is no metal ion in CHEBI
 (deftransport ToTransportMetalIon
@@ -786,7 +818,7 @@
   ["LipoChitinOligosaccharide" "GO:1901514" 	ch/lipo-chitin_oligosaccharide]
   ["QuaternaryAmine"		"GO:0102908"	ch/quaternary_ammonium_ion]		;; are they the same?
   ["QuaternaryAmine"		"GO:0015418"	ch/quaternary_ammonium_ion]
-  ["Choline"			"GO:0033266"	ch/choline]
+  ["Choline"			"GO:0033266"	ch/choline			ch/neurotransmitter]
   ["Guanine"                	"GO:0008558"    ch/guanine]
   ["Heme"			"GO:0015439"	ch/heme			ch/cofactor]
   ["Carbohydrate"		"GO:0043211"	ch/carbohydrate]
@@ -833,7 +865,7 @@
       ["Bacteriocin"		"GO:0043214"	ch/bacteriocin]
       ["Methionine"		"GO:1901243"	ch/methionine])
 
-;;ATP + H2O + daunorubicin(in) = ADP + phosphate + daunorubicin(out). 
+;;Atp + H2o + daunorubicin(in) = ADP + phosphate + daunorubicin(out). 
 (deftransport ToTransportDaunorubicinTransportingDrivenWithATPase
   :comment "GO:0043216"
   :cargo (owl-and ch/daunorubicin (owl-some hasConcentration LowConcentration) (owl-some hasRole ch/drug))
