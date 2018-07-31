@@ -105,6 +105,22 @@
 (deftransport ToTransport
   :cargo ch/chemical_entity)
 
+;; Requires energy to transports molecules.
+;; Move molecules against thier concentration gradient
+(deftransport ToTransportActiveTransmembrane
+  :comment "GO:0022804"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven (owl-and  ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; Requires energy to transports molecules.
+;; The energy derived directly from the breakdown of ATP.
+(deftransport ToTransportPrimaryActiveTransmembrane
+  :comment "GO:0015399"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ATPase (owl-some hasConcentration HighConcentration)))
+
 
 ;; chemical role
 (deftransport ToTransportDrug
@@ -130,7 +146,21 @@
   :cargo (owl-and ch/chemical_entity (owl-some hasRole ch/neurotransmitter)))
 
 
+;;Enables the transfer of a specific substance or related group of substances from the outside of the cell to the inside of the cell across a membrane.
+(deftransport ToTransportInfluxTransmembrane
+  :comment ""
+  :cargo ch/chemical_entity
+  :across Membrane
+  :from (owl-some hasCellPosition Outer)
+  :to (owl-some hasCellPosition Inner))
 
+;;Enables the transfer of a specific substance or related group of substances from the inside of the cell to the outside of the cell across a membrane.
+(deftransport ToTransportEffluxTransmembrane
+  :comment "GO:0015562"
+  :cargo ch/chemical_entity
+  :across Membrane
+  :from (owl-some hasCellPosition Inner)
+  :to (owl-some hasCellPosition Outer))
 
 ;;#A substance or substances transported from the inside of the cell to the outside.
 ;; Driven by ATPase
@@ -163,37 +193,6 @@
   `(do ~@(map substance-importing-ATPase lis)))
 
 
-;;Enables the transfer of a specific substance or related group of substances from the inside of the cell to the outside of the cell across a membrane.
-(deftransport ToTransportEffluxTransmembrane
-  :comment "GO:0015562"
-  :cargo ch/chemical_entity
-  :across Membrane
-  :from (owl-some hasCellPosition Inner)
-  :to (owl-some hasCellPosition Outer))
-
-;;Enables the transfer of a specific substance or related group of substances from the outside of the cell to the inside of the cell across a membrane.
-(deftransport ToTransportInfluxTransmembrane
-  :comment ""
-  :cargo ch/chemical_entity
-  :across Membrane
-  :from (owl-some hasCellPosition Outer)
-  :to (owl-some hasCellPosition Inner))
-
-;; Requires energy to transports molecules.
-;; Move molecules against thier concentration gradient
-(deftransport ToTransportActiveTransmembrane
-  :comment "GO:0022804"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-and  ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-
-;; Requires energy to transports molecules.
-;; The energy derived directly from the breakdown of ATP.
-(deftransport ToTransportPrimaryActiveTransmembrane
-  :comment "GO:0015399"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven ATPase)
 
 ;;Enables the transfer of a solute from one side of a membrane to the other, up its concentration gradient.
 ;;Transport works equally well in either direction and is driven by a chemiosmotic source of energy, not direct ATP coupling.
