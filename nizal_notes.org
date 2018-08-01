@@ -22,7 +22,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
  
  * Diff classification between GO and ChEBI
 
-  + In GO: threonine efflux transmembrane GO:0015565 is a L-threonine transmembrane GO:0015195. In ChEBI it is the opposite. 
+  + In GO: threonine efflux transmembrane GO:0015565 is a L-threonine transmembrane GO:0015195. In ChEBI it is the opposite. \\
    (DV): There might be a mistake in GO where they wrote threonine instead of L-threonine, becasue (in GO) GO:0015195 is a L-amino acid and it is the same in ChEBI L-threonine is L-apha_amino_acid. GO:0015565 is an amino_acid.
    (DV): define the term GO:0015565 as L-threonine not as threonine.
 
@@ -31,8 +31,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
  * Are they the same ?
   + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and \\ 
-    L-ascorbate:sodium symporter activity  GO:0008520 \\ 
-    (DV): from thier definitions in GO, there is no difference.
+    L-ascorbate:sodium symporter activity  GO:0008520 \\ (DV): from thier definitions in GO, there is no difference.
    
   + Efflux and Export : Both from the inside of the cell to the outside.
 
