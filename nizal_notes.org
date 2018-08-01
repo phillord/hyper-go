@@ -32,7 +32,6 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
 
 ** High/Low Affinity
-
 A substance or substances transported with high and low affinity such as zinc ions.
 
 (DT): High and low affinity are properties of the transporter not the cargo.
