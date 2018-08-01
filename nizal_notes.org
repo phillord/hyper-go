@@ -3,6 +3,12 @@
      * Comments on GO terms and structure 
      * Developer thought (DT)
 
+
+ ** GO-ChEBI mapping
+  I rely on "Cross-Ontology Relations" in GO to map GO terms with ChEBI terms, but it is not always accurate.
+  + e.x: GO:0015134 hexuronate transmembrane transporter activity  mapped with hexuronic acid.
+  + e.x: GO:0015229 L-ascorbicAcid
+
 ** General issue
 
 The information in GO about each term is scarce. 
@@ -17,13 +23,14 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    + Basic amino acid	(DV) mapped to amino acid with acidity alkaline
    + Neutral amino acid	(DV) mapped to amino acid with acidity Neutral
    + Acidic amino acid	(DV) mapped to amino acid with acidity Acidic
-   + Sugar 		NOT DEFINED YET
+   + Sugar              NOT DEFINED YET : look like sugar in GO immaterial concept compare to ChEBI..! 
  
  
  * Diff classification between GO and ChEBI
-
+  + In GO: hexuronate transmembrane transporter activity GO:0015134 is a hexuronic acid. In ChEBI they are two different terms.
+  
   + In GO: threonine efflux transmembrane GO:0015565 is a L-threonine transmembrane GO:0015195. In ChEBI it is the opposite. \\
-   (DV): There might be a mistake in GO where they wrote threonine instead of L-threonine, becasue (in GO) GO:0015195 is a L-amino acid and it is the same in ChEBI L-threonine is L-apha_amino_acid. GO:0015565 is an amino_acid.
+   (DV): There might be a mistake in GO where they wrote threonine instead of L-threonine, becasue (in GO) GO:0015195 is a L-amino acid and it is the same in ChEBI L-threonine is L-apha_amino_acid. GO:0015565 is an amino_acid. \\
    (DV): define the term GO:0015565 as L-threonine not as threonine.
 
   + In GO: GO:0042878 D-glucarate, In ChEbi D-glucarate(1-) and D-glucarate(2-)
