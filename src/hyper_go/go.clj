@@ -69,7 +69,8 @@
   :super ValuePartition)
 
 (p/defpartition Enantiomer
-  [D-Enantiomer L-Enantiomer])
+  [D-Enantiomer L-Enantiomer]
+  :super ValuePartition)
 
 
 (defn with-property [frames frame-maybe property]
@@ -279,10 +280,10 @@
   :across Membrane
   :cargo ch/galactitol)
 
-(deftransport ToTransportSugar
-  :comment "GO:0051119"
-  :across Membrane
-  :cargo ch/sugar)
+;; (deftransport ToTransportSugar
+;;   :comment "GO:0051119"
+;;   :across Membrane
+;;   :cargo ch/sugar)
 
 (deftransport ToTransportMonosaccharide
   :comment "GO:0015145"
@@ -298,6 +299,53 @@
   :comment "GO:0015591"
   :across Membrane
   :cargo (owl-and ch/D-ribose (owl-some hasEnantiomer D-Enantiomer)))
+
+(deftransport ToTransportD-xylose
+  :comment "GO:0015148"
+  :across Membrane
+  :cargo (owl-and ch/D-xylose (owl-some hasEnantiomer D-Enantiomer)))
+
+;; A pentose monosaccharide that occurs in both D and L configurations, and as a polymer
+(deftransport ToTransportArabinose
+  :comment "GO:0042900"
+  :across Membrane
+  :cargo ch/arabinose)
+
+(deftransport ToTransportL-arabinose
+  :comment "GO:0015147"
+  :across Membrane
+  :cargo (owl-and ch/L-arabinose (owl-some hasEnantiomer L-Enantiomer)))
+
+;; Need review
+(deftransport ToTransportL-ascorbicAcid
+  :comment "GO:0015229"
+  :across Membrane
+  :cargo (owl-and ch/L-ascorbate (owl-some hasEnantiomer L-Enantiomer)
+                  (owl-some hasRole ch/vitamin ch/coenzyme)))
+
+
+(deftransport ToTransportUronicAcid
+  :comment "GO:0015133"
+  ;:annotation "Uronic acids are any monocarboxylic acid formally derived by oxidizing to a carboxyl group the terminal hydroxymethylene group of either an aldose with four or more carbon atoms in the molecule, or of any glycoside derived from such an aldose."
+  :across Membrane
+  :cargo ch/uronic_acid)
+
+;; (deftransport ToTransportHexuronate
+;;   :comment "GO:0015134"
+;;   :across Membrane)
+
+
+;; =====================================================
+
+
+
+
+
+
+
+
+
+
 
 ;; Transfer of an inorganic molecular entity from the outside of a cell to the inside of the cell across a membrane.
 ;; An inorganic molecular entity is a molecular entity that contains no carbon. 
@@ -1104,9 +1152,6 @@
       ["Carbohydrate"			"GO:0015608"	ch/carbohydrate]
       ["Maltooligosaccharide"		"GO:0015609"	ch/maltooligosaccharide]
       ["GlycerolPhosphate"		"GO:0015610"	ch/glycerol_phosphate]
-      ["D-ribose"			"GO:0015611"	ch/D-ribose]
-      ["L-arabinose"			"GO:0015612"	ch/L-arabinose]
-      ["D-xylose"			"GO:0015614"	ch/D-xylose]
       ["D-allose"			"GO:0015615"	ch/D-allose]
       ["AminoAcid"			"GO:0032520"	ch/amino_acid]
       ["D-methionine"			"GO:0032522"	ch/D-methionine]
@@ -1143,6 +1188,33 @@
   :from (owl-some hasCellPosition Outer)
   :to (owl-some hasCellPosition Inner))
 
+(deftransport ToTransportD-riboseImportingDrivenWithATPase
+  :comment "GO:0015611"
+  :cargo (owl-and ch/D-ribose (owl-some hasConcentration LowConcentration)
+                  (owl-some hasEnantiomer D-Enantiomer))
+  :driven ATPase
+  :across Membrane
+  :from (owl-some hasCellPosition Outer)
+  :to (owl-some hasCellPosition Inner))
+
+
+(deftransport ToTransportD-xylose
+  :comment "GO:0015614"
+  :cargo (owl-and ch/D-xylose (owl-some hasConcentration LowConcentration)
+                  (owl-some hasEnantiomer D-Enantiomer))
+  :driven ATPase
+  :across Membrane
+  :from (owl-some hasCellPosition Outer)
+  :to (owl-some hasCellPosition Inner))
+
+(deftransport ToTransportL-arabinoseImportingDrivenWithATPase
+  :comment "GO:0015612"
+  :cargo (owl-and ch/L-arabinose (owl-some  hasConcentration LowConcentration)
+                  (owl-some hasEnantiomer L-Enantiomer))
+  :driven ATPase
+  :across Membrane
+  :from (owl-some hasCellPosition Outer)
+  :to (owl-some hasCellPosition Inner))
 
 
 
