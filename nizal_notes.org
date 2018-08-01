@@ -30,9 +30,9 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
   (DV): based on "Cross-Ontology Relations" in GO,  it is D-glucarate(2-).
 
  * Are they the same ?
-  + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and \\
-    L-ascorbate:sodium symporter activity  GO:0008520 \\
-    (DV): from thier definitions in GO, there is no difference. \\
+  + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and ‘\\’ 
+    L-ascorbate:sodium symporter activity  GO:0008520 ‘\\’ 
+    (DV): from thier definitions in GO, there is no difference. ‘\\’ 
    
 
 ** High/Low Affinity
