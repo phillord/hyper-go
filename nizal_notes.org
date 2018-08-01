@@ -5,7 +5,7 @@
 
 
  * GO-ChEBI mapping \\
-  I rely on "Cross-Ontology Relations" in GO to map GO terms with ChEBI terms, but it is not always accurate.
+  There is "Cross-Ontology Relations" in GO to map GO terms with ChEBI terms, but it is not always accurate.
    + e.x: GO:0015134 hexuronate transmembrane transporter activity  mapped with hexuronic acid.
    + e.x: GO:0015229 L-ascorbicAcid
 
