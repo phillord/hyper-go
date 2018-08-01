@@ -246,6 +246,59 @@
 
 
 
+
+(deftransport ToTransportFerricTriacetylfusarinineC
+  :comment "GO:0015621"
+  :across Membrane
+  :cargo ch/N'_N''_N'''-triacetylfusarinine_C)
+
+(deftransport ToTransportCarbohydrate
+  :comment "GO:0015144"
+  :across Membrane
+  :cargo ch/carbohydrate)
+
+(deftransport ToTransportAldarate
+  :comment "GO:0042876"
+  :across Membrane
+  :cargo ch/aldaric_acid_anion)
+
+;; 
+(deftransport ToTransportD-glucarate
+  :comment "GO:0042878"
+  :across Membrane
+  :cargo (owl-and ch/D-glucarate_2-_ (owl-some hasEnantiomer D-Enantiomer)
+                  (owl-some hasRole ch/drug)))
+
+(deftransport ToTransportGalactarate
+  :comment "GO:1902301"
+  :across Membrane
+  :cargo ch/galactaric_acid_anion)
+
+(deftransport ToTransportGalactitol
+  :comment "GO:0015577"
+  :across Membrane
+  :cargo ch/galactitol)
+
+(deftransport ToTransportSugar
+  :comment "GO:0051119"
+  :across Membrane
+  :cargo ch/sugar)
+
+(deftransport ToTransportMonosaccharide
+  :comment "GO:0015145"
+  :across Membrane
+  :cargo ch/monosaccharide)
+
+(deftransport ToTransportPentose
+  :comment "GO:0015146"
+  :across Membrane
+  :cargo ch/pentose)
+
+(deftransport ToTransportD-ribose
+  :comment "GO:0015591"
+  :across Membrane
+  :cargo (owl-and ch/D-ribose (owl-some hasEnantiomer D-Enantiomer)))
+
 ;; Transfer of an inorganic molecular entity from the outside of a cell to the inside of the cell across a membrane.
 ;; An inorganic molecular entity is a molecular entity that contains no carbon. 
 (deftransport ToTransportInorganicMolecularEntityTransmembrane
@@ -668,7 +721,7 @@
   :across Membrane
   :cargo (owl-and ch/L-methionine (owl-some hasEnantiomer L-Enantiomer) (owl-some hasRole ch/drug)))
 
-(deftransport ToTransportL-methionineSecondaryTctiveTransmembrane
+(deftransport ToTransportL-methionineSecondaryActiveTransmembrane
   :comment "GO:0000102"
   :across Membrane
   :cargo (owl-and ch/L-methionine (owl-some hasConcentration LowConcentration)  (owl-some hasAcidity Neutral) (owl-some hasRole ch/drug))

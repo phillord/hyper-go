@@ -14,16 +14,21 @@ It is not enough to link the GO term with the equivalent chebi term only by name
 GO-plus ontology: includes cross ontology relationships, including Chebi. However, it seems that the linkage was based on name matching only.
 
  * Terms seems not exist in ChEBI:
-     1. Basic amino acid
-     2. Neutral amino acid
-     3. Acidic amino acid
+   + Basic amino acid	(DV) mapped to amino acid with acidity alkaline
+   + Neutral amino acid	(DV) mapped to amino acid with acidity Neutral
+   + Acidic amino acid	(DV) mapped to amino acid with acidity Acidic
+   + Sugar 		NOT DEFINED YET
  
  
  * Diff classification between GO and ChEBI
 
-   In GO: threonine efflux transmembrane GO:0015565 is a L-threonine transmembrane GO:0015195. In ChEBI it is the opposite. 
+  + In GO: threonine efflux transmembrane GO:0015565 is a L-threonine transmembrane GO:0015195. In ChEBI it is the opposite. 
    (DV): There might be a mistake in GO where they wrote threonine instead of L-threonine, becasue (in GO) GO:0015195 is a L-amino acid and it is the same in ChEBI L-threonine is L-apha_amino_acid. GO:0015565 is an amino_acid.
    (DV): define the term GO:0015565 as L-threonine not as threonine.
+
+  + In GO: GO:0042878 D-glucarate, In ChEbi D-glucarate(1-) and D-glucarate(2-)
+  
+(DV): based on "Cross-Ontology Relations" in GO,  it is D-glucarate(2-).
 
 
 ** High/Low Affinity
@@ -128,6 +133,15 @@ Antiporter and Symporter
 
 
 ** Chemical Role
+
+
+ * Chemical role in GO:
+    1. drug
+    2. vitamine
+    3. cofactor
+    4. coenzyme
+    5. xenobiotic
+    6. neurotransmitter
 
   * xenobiotic transmembrane transporter activity (GO:0042910)  is NOT a drug
   * xenobiotic transmembrane transporter activity (GO:0008559)  has role some drug,   Is this an enzyme EC 3.6.3.44 ?  Catalysing transmembrane movement of substances
