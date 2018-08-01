@@ -32,6 +32,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
  * Are they the same ?
   + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and
     L-ascorbate:sodium symporter activity  GO:0008520
+    
     (DV): frim thier definitions in GO, there is no difference.
 
 ** High/Low Affinity
