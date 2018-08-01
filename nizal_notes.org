@@ -27,9 +27,12 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    (DV): define the term GO:0015565 as L-threonine not as threonine.
 
   + In GO: GO:0042878 D-glucarate, In ChEbi D-glucarate(1-) and D-glucarate(2-)
-  
-(DV): based on "Cross-Ontology Relations" in GO,  it is D-glucarate(2-).
+  (DV): based on "Cross-Ontology Relations" in GO,  it is D-glucarate(2-).
 
+ * Are they the same ?
+  + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and
+    L-ascorbate:sodium symporter activity  GO:0008520
+    (DV): frim thier definitions in GO, there is no difference.
 
 ** High/Low Affinity
 A substance or substances transported with high and low affinity such as zinc ions.
