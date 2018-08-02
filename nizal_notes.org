@@ -8,6 +8,7 @@
   There is "Cross-Ontology Relations" in GO to map GO terms with ChEBI terms, but it is not always accurate.
    + e.x: GO:0015134 hexuronate transmembrane transporter activity  mapped with hexuronic acid.
    + e.x: GO:0015229 L-ascorbicAcid
+   + e.x: GO:0000100
 
 ** General issue
 
@@ -26,8 +27,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    + Sugar              NOT DEFINED YET : look like sugar in GO immaterial concept compare to ChEBI..! 
  
 
- ** Diff classification between GO and ChEBI
-
+** Diff classification between GO and ChEBI
 
   + In GO: hexuronate transmembrane transporter activity GO:0015134 is a hexuronic acid. In ChEBI they are two different terms.
   
@@ -37,6 +37,9 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
   + In GO: GO:0042878 D-glucarate, In ChEbi D-glucarate(1-) and D-glucarate(2-)
   (DV): based on "Cross-Ontology Relations" in GO,  it is D-glucarate(2-).
+  
+  +  In GO: S-methylmethionine GO:0000100 represented as one == In chebi there are two terms S-methylmethionine and S-methyl-L-methioninate \\
+  GO:0000100 is a modified amino acid and sulfur molecular entity == In chebi S-methyl-L-methioninate is a modified amino acid while S-methyl-L-methionine is a sulfur molecular entity
 
  * Are they the same ?
   + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and \\ 
