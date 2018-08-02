@@ -334,6 +334,26 @@
 ;;   :comment "GO:0015134"
 ;;   :across Membrane)
 
+(deftransport ToTransportAminoAcidDerivative
+  :comment "GO:0072349"
+  :across Membrane
+  :cargo ch/amino_acid_derivative)
+
+(deftransport ToTransportFolicAcid
+  :comment "GO:0008517"
+  :across Membrane
+  :cargo (owl-and ch/folic_acid (owl-some hasRole ch/drug ch/vitamin)))
+
+
+(deftransport ToTransportCreatine
+  :comment "GO:0005308"
+  :across Membrane
+  :cargo (owl-and ch/creatine (owl-some hasRole ch/drug ch/cofactor)))
+
+(deftransport ToTransportS-methylmethionine
+  :comment "GO:0000100"
+  :across Membrane
+  :cargo ch/S-methyl-L-methionine)
 
 ;; =====================================================
 
