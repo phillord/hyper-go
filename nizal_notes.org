@@ -26,7 +26,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    + Sugar              NOT DEFINED YET : look like sugar in GO immaterial concept compare to ChEBI..! 
  
  
- * Diff classification between GO and ChEBI
+ ** Diff classification between GO and ChEBI
   + In GO: hexuronate transmembrane transporter activity GO:0015134 is a hexuronic acid. In ChEBI they are two different terms.
   
   + In GO: threonine efflux transmembrane GO:0015565 is a L-threonine transmembrane GO:0015195. In ChEBI it is the opposite. \\
