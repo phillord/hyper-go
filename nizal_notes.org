@@ -4,11 +4,12 @@
      * Developer thought (DT)
 
 
- * GO-ChEBI linking \\
+* GO-ChEBI linking \\
   There is "Cross-Ontology Relations" in GO, represent a relation between a term in GO with ChEBI terms, but it is not always accurate.
    + e.x: GO:0015134 hexuronate transmembrane transporter activity  mapped with hexuronic acid.
    + e.x: GO:0015229 L-ascorbicAcid
    + e.x: GO:0000100
+   + e.x: GO:0034590
 
 ** General issue
 
@@ -38,14 +39,16 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
   + In GO: GO:0042878 D-glucarate, In ChEbi D-glucarate(1-) and D-glucarate(2-)
   (DV): based on "Cross-Ontology Relations" in GO,  it is D-glucarate(2-).
   
-  +  In GO: S-methylmethionine GO:0000100 represented as one == In chebi there are two terms S-methylmethionine and S-methyl-L-methioninate \\
-  GO:0000100 is a modified amino acid and sulfur molecular entity == In chebi S-methyl-L-methioninate is a modified amino acid while S-methyl-L-methionine is a sulfur molecular entity
+  * In GO: S-methylmethionine GO:0000100 represented as one == In chebi there are two terms S-methylmethionine and S-methyl-L-methioninate \\ GO:0000100 is a modified amino acid and sulfur molecular entity == In chebi S-methyl-L-methioninate is a modified amino acid while S-methyl-L-methionine is a sulfur molecular entity \\
+(DV) define the term as S-methylmethionine
+ 
+  + GO:0015233 pantothenate is conjugate base of (R)-pantothenic acid which is conjugate acid of the pantothenate. \\ (DV): I defined the term as (R)-pantothenic aci NOT pantothenate
 
- * Are they the same ?
-  + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and \\ 
-    L-ascorbate:sodium symporter activity  GO:0008520 \\ (DV): from thier definitions in GO, there is no difference.
+  + Are they the same ?
+    + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and \\ 
+      L-ascorbate:sodium symporter activity  GO:0008520 \\ (DV): from thier definitions in GO, there is no difference.
    
-  + Efflux and Export : Both from the inside of the cell to the outside.
+    + Efflux and Export : Both from the inside of the cell to the outside.
 
 ** High/Low Affinity
 A substance or substances transported with high and low affinity such as zinc ions.
