@@ -5,11 +5,12 @@
 
 
 * GO-ChEBI linking \\
-  There is "Cross-Ontology Relations" in GO, represent a relation between a term in GO with ChEBI terms, but it is not always accurate.
+  There is "Cross-Ontology Relations" in GO, represent a relation between each term in GO with the ChEBI term, but it is not always accurate.
    + e.x: GO:0015134 hexuronate transmembrane transporter activity  mapped with hexuronic acid.
    + e.x: GO:0015229 L-ascorbicAcid
    + e.x: GO:0000100
    + e.x: GO:0034590
+   + e.x: GO:1901236
 
 ** General issue
 
@@ -29,7 +30,8 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
  
 
 ** Diff classification between GO and ChEBI
-
+  + In many cases a term in GO has no role or some roles, whereas in ChEBI has extra roles. For example GO:1905131 and GO:0034634
+  
   + In GO: hexuronate transmembrane transporter activity GO:0015134 is a hexuronic acid. In ChEBI they are two different terms.
   
   + In GO: threonine efflux transmembrane GO:0015565 is a L-threonine transmembrane GO:0015195. In ChEBI it is the opposite. \\
