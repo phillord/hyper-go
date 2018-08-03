@@ -275,7 +275,7 @@
 (deftransport ToTransportD-glucarate
   :comment "GO:0042878"
   :across Membrane
-  :cargo (owl-and ch/D-glucarate_2-_ (owl-some hasEnantiomer D-Enantiomer)
+  :cargo (owl-and ch/D-glucarate_2-_ (owl-some hasEnantiomerism D-Enantiomer)
                   (owl-some hasRole ch/drug)))
 
 (deftransport ToTransportGalactarate
@@ -384,6 +384,62 @@
   :comment "GO:0034590"
   :across Membrane
   :cargo (owl-and ch/_4-hydroxy-L-proline (owl-some hasEnantiomerism L-Enantiomer)))
+
+
+(deftransport ToTransport5-formyltetrahydrofolicAcid
+  :comment "GO:0015231"
+  :across Membrane
+  :cargo (owl-and ch/_5-formyltetrahydrofolic_acid (owl-some hasRole ch/cofactor)))
+
+(deftransport ToTransportCarcinine
+  :comment "GO:1905131"
+  :across Membrane
+  :cargo ch/carcinine)
+
+(deftransport ToTransportGlutathione
+  :comment "GO:0034634"
+  :across Membrane
+  :cargo (owl-and ch/glutathione (owl-some hasRole ch/cofactor)))
+
+(deftransport ToTransportL-cystine
+  :comment "GO:0015184"
+  :across Membrane
+  :cargo (owl-and ch/L-cystine (owl-some hasEnantiomerism L-Enantiomer)))
+
+(deftransport ToTransport4-TrimethylammonioButanoate
+  :comment "GO:1901236"
+  :across Membrane
+  :cargo ch/_4-_trimethylammonio_butanoate)
+
+(deftransport ToTransportAminoAcidBetaine
+  :comment "GO:0015199"
+  :across Membrane
+  :cargo ch/amino-acid_betaine)
+
+;;Any compound containing one, two, or three acyl groups attached to a nitrogen atom
+(deftransport ToTransportAmide
+  :comment "GO:0042887"
+  :across Membrane
+  :cargo ch/amide)
+
+
+;; need review
+;; Not sure what type of antibiotic.!!
+(deftransport ToTransportBenomyl
+  :comment "GO:1901479"
+  :across Membrane
+  :cargo (owl-and ch/benomyl (owl-some hasRole ch/antibiotic ch/xenobiotic)))
+
+(deftransport ToTransportMethotrexate
+  :comment "GO:0015350"
+  :across Membrane
+  :cargo (owl-and ch/methotrexate (owl-some hasRole ch/drug)))
+
+
+(deftransport ToTransportDethiobiotin
+  :comment "GO:1901604"
+  :across Membrane
+  :cargo ch/dethiobiotin)
 
 ;; =====================================================
 
