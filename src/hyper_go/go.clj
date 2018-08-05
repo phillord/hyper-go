@@ -254,8 +254,6 @@
                                (owl-some transports-to (owl-some hasCellPosition Inner)))))
 
 
-
-
 (deftransport ToTransportFerricTriacetylfusarinineC
   :comment "GO:0015621"
   :across Membrane
@@ -440,6 +438,52 @@
   :comment "GO:1901604"
   :across Membrane
   :cargo ch/dethiobiotin)
+
+(deftransport ToTransportUrea
+  :comment "GO:0015204"
+  :across Membrane
+  :cargo ch/urea)
+
+(deftransport ToTransportAllantoate
+  :comment "GO:0015124"
+  :across Membrane
+  :cargo ch/allantoate)
+
+(deftransport ToTransportPeptide
+  :comment "GO:1904680"
+  :across Membrane
+  :cargo ch/peptide)
+
+(deftransport ToTransportProtein
+  :comment "GO:0008320"
+  :across Membrane
+  :cargo ch/protein)
+
+;; (deftransport ToTransportProtein-DNAComplex
+;;   :comment ""
+;;   :across Membrane
+;;   :cargo ....................................................)
+
+(deftransport ToTransportOligopeptide
+  :comment "GO:0035673"
+  :across Membrane
+  :cargo ch/oligopeptide)
+
+(deftransport ToTransportTetrapeptide
+  :comment "GO:1901584"
+  :across Membrane
+  :cargo ch/tetrapeptide)
+
+(deftransport ToTransportTripeptide
+  :comment "GO:0042937"
+  :across Membrane
+  :cargo ch/tripeptide)
+
+(deftransport ToTransportDipeptide
+  :comment "GO:0071916"
+  :across Membrane
+  :cargo ch/dipeptide)
+
 
 ;; =====================================================
 
@@ -1041,7 +1085,7 @@
   ["AminoAcid"			"GO:0015424"	ch/amino_acid]
   ["NonpolarAminoAcid"		"GO:0015425"	ch/nonpolar_amino_acid]
   ["PolarAminoAcid"		"GO:0015426"	ch/polar_amino_acid]
-  
+  ["Urea"			"GO:0033221"	ch/urea]
       ["QuaternaryAmmoniumIon"  "GO:0015418"	ch/quaternary_ammonium_ion]
       
       
@@ -1059,7 +1103,7 @@
       ["Betaine"		"GO:0031458"	ch/amino-acid_betaine]
       ["GlycineBetaine"	"GO:0031459"	ch/glycine_betaine]
       ["Thiosulfate"		"GO:0102025"	ch/thiosulfate]
-      ["Urea"			"GO:0033221"	ch/urea]
+      
       ["2-aminoethylphosphonate""GO:0033225"	ch/_2-aminoethyl_phosphonic_acid]
       ["Cysteine"		"GO:0033230"	ch/cysteine]
       ["D-methionine"		"GO:0033232"	ch/D-methionine]
