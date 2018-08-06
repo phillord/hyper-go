@@ -29,7 +29,8 @@
 (defoproperty has-part
   :comment "A substance such as SALT has part Anion and Cation")
 (defoproperty transports-across
-  :comment "Usually transport across Membrane")
+  :comment "Usually transport across Membrane"
+  :range Membrane)
 
 (defoproperty dependent-on
   :comment "A substance depend on other molecule to be transported")
@@ -79,6 +80,15 @@
   [D-Enantiomer L-Enantiomer]
   :super ValuePartition)
 
+(defclass Transmembrane
+  :equivalent
+  (owl-or
+   (owl-and
+    (owl-some transports-from (owl-some hasCellPosition Inner))
+    (owl-some transports-to (owl-some hasCellPosition Outer)))
+   (owl-and
+    (owl-some transports-from (owl-some hasCellPosition Outer))
+    (owl-some transports-to (owl-some hasCellPosition Inner)))))
 
 
 (defn with-property [frames frame-maybe property]
@@ -114,11 +124,21 @@
 (deftransport ToTransport
   :cargo ch/chemical_entity)
 
+;;Transmembrane transporter activity
+(deftransport ToTransportTransmembrane
+  :comment "GO:0022857"
+  :cargo ch/chemical_entity
+  :across Transmembrane)
+
+
+
+
+
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient
 (deftransport ToTransportActiveTransmembrane
   :comment "GO:0022804"
-  :across Membrane
+  :across Transmembrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
   :driven (owl-and  ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
@@ -130,9 +150,8 @@
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
   :driven (owl-and ATPase (owl-some hasConcentration HighConcentration)))
 
-
 ;; chemical role
-(deftransport ToTransportDrug
+(deftransport ToTransportDrugTransmembrane
   :comment "GO:0015238"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasRole ch/drug)))
@@ -243,15 +262,6 @@
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
 
 
-;;Transmembrane transporter activity
-(deftransport ToTransportTransmembrane
-  :comment "GO:0022857"
-  :across Membrane
-  :cargo ch/chemical_entity
-  :equivalent (owl-or (owl-and (owl-some transports-from (owl-some hasCellPosition Inner))
-                               (owl-some transports-to (owl-some hasCellPosition Outer)))
-                      (owl-and (owl-some transports-from (owl-some hasCellPosition Outer))
-                               (owl-some transports-to (owl-some hasCellPosition Inner)))))
 
 
 (deftransport ToTransportFerricTriacetylfusarinineC
@@ -426,7 +436,7 @@
 (deftransport ToTransportBenomyl
   :comment "GO:1901479"
   :across Membrane
-  :cargo (owl-and ch/benomyl (owl-some hasRole ch/antibiotic ch/xenobiotic)))
+  :cargo (owl-and ch/benomyl (owl-some hasRole ch/antimicrobial_drug ch/xenobiotic)))
 
 (deftransport ToTransportMethotrexate
   :comment "GO:0015350"
@@ -464,6 +474,11 @@
 ;;   :across Membrane
 ;;   :cargo ....................................................)
 
+(deftransport ToTransportMicrocin
+  :comment "GO:0015638"
+  :across Membrane
+  :cargo (owl-and ch/microcin (owl-some hasRole ch/antimicrobial_drug)))
+
 (deftransport ToTransportOligopeptide
   :comment "GO:0035673"
   :across Membrane
@@ -483,6 +498,7 @@
   :comment "GO:0071916"
   :across Membrane
   :cargo ch/dipeptide)
+
 
 
 ;; =====================================================
@@ -1113,6 +1129,20 @@
       ["Bacteriocin"		"GO:0043214"	ch/bacteriocin]
       ["Methionine"		"GO:1901243"	ch/methionine])
 
+
+;; 
+(deftransport ToTransportDoxorubicinTransportingDrivenWithATPase
+  :comment "GO:1901242"
+  :cargo (owl-and ch/doxorubicin (owl-some hasConcentration LowConcentration)
+                  (owl-some hasRole ch/antimicrobial_drug))
+  :driven ATPase
+  :across Membrane
+  :equivalent (owl-or (owl-and (owl-some transports-from (owl-some hasCellPosition Inner))
+                               (owl-some transports-to (owl-some hasCellPosition Outer)))
+                      (owl-and (owl-some transports-from (owl-some hasCellPosition Outer))
+                               (owl-some transports-to (owl-some hasCellPosition Inner)))))
+
+
 ;;Atp + H2o + daunorubicin(in) = ADP + phosphate + daunorubicin(out). 
 (deftransport ToTransportDaunorubicinTransportingDrivenWithATPase
   :comment "GO:0043216"
@@ -1248,11 +1278,7 @@
 
 
 
-;; ;; Not Complete
-;; ["Doxorubicin"		"GO:1901242"	ch/doxorubicin]
-;; (deftransport ToTransportDoxorubicinTransportingDrivenWithATPase
-;;   :comment "GO:1901242"
-;;   :cargo (owl-and ch/doxorubicin (owl-some hasRole ch/antibiotic_antifungal_drug)))
+
 
 
 
