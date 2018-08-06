@@ -12,6 +12,10 @@
    + e.x: GO:0034590
    + e.x: GO:1901236
 
+
+GO:0042895 Antibiotic transmembrane transporter = antimicrobial drug CHEBI:36043 \\
+antimicrobial drug is a subclass of drug CHEBI:23888
+
 ** General issue
 
 The information in GO about each term is scarce. 
