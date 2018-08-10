@@ -133,6 +133,10 @@ Secondary active (Antiporter)
 
 One substance going with its concentration gradient and the other substance going against its concentration gradient.
 
+
+ ** Diff between ATP and ATPase 
+   +ATP synthase generate more ATP whereas as ATPase breaks apart ATP releasing energy to drive forward reactions that are not very spontaneous (can't happen on their own).
+
 ** Secondary Active transmembrane transporter, Antiporter and Symporter 
 
 In Secondary active transport a substance is pumped from a region (outside or inside of the cell) of lower concentration to a region of higher concentration. 
