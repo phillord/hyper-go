@@ -63,11 +63,6 @@
   :comment "Transports a substance with high/low affinity. Affinity is a property for the transporter not the thing being transported"
   :super ValuePartition)
 
-;; (p/defpartition CellPosition
-;;   [Inner  ExtracellularRegion]
-;;   :comment "Transports a substance or substances from/to inside or from/to outside the cell"
-;;   :super ValuePartition)
-
 (p/defpartition Mechanism
   [Rotational Phosphorylative]
   :comment "some chemical entities transported with a specific type of mechanism"
@@ -143,15 +138,18 @@
 
 ;; Requires energy to transports molecules.
 ;; The energy derived directly from the breakdown of ATP.
+;;Primary energy sources known to be coupled to transport are chemical, electrical and solar sources. 
 (deftransport ToTransportPrimaryActiveTransmembrane
   :comment "GO:0015399"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ATPase (owl-some hasConcentration HighConcentration))
-  :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
-                               (owl-some transports-to Intracellular))))
+  :driven (owl-or ch/chemical_entity ))
+
+(deftransport ToTransportP-P-bond-hydrolysis-driven
+  :comment "GO:0015405"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven (owl-or ATPase ch/nucleoside_triphosphate))
 
 ;; chemical role
 (deftransport ToTransportDrugTransmembrane
@@ -718,40 +716,8 @@
   :transports-with LowAffinity)
 
 
-;; ;; ;; A substance or substances transported across membrane
-;; ;; (defn transporters [trans]
-;; ;;   `(deftransport ~(symbol (str "ToTransport" (first trans)))
-;; ;;      :comment ~(second trans)
-;; ;;      :across Membrane
-;; ;;      :cargo
-;; ;;      ~(cond (= 4 (count trans))
-;; ;;            `(owl-and ~(nth trans 2) (owl-some has-role ~(nth trans 3)))
-;; ;;            :else (nth trans 2))))
 
 
-;; ;; ;; macro function to do the classes mapping 
-;; ;; (defmacro deftransporters [& def]
-;; ;;   `(do ~@(map transporters def)))
-
-;; ;; (deftransporters
-;; ;;   ["LongChainFattyAcid"				"GO:0005324"	ch/long-chain_fatty_acid]
-;; ;;   ["L-ornithine"					"GO:0000064"	ch/L-ornithine				ch/drug]
-;; ;;   ["S-adenosyL-methionine"				"GO:0000095"	ch/S-adenosyl-L-methionine		ch/drug]
-;; ;;   ["SulfurAminoAcid"					"GO:0000099"	ch/sulfur-containing_amino_acid]
-;; ;;   ["S-methylmethionine"				"GO:0000100"	ch/S-methyl-L-methionine]
-;; ;;   ["L-valine"						"GO:0005304"	ch/L-valine				ch/drug]
-;; ;;   ["L-isoleucine"					"GO:0015188"	ch/L-isoleucine]
-;; ;;   ["Nucleoside"					"GO:0005337"	ch/nucleoside]
-;; ;;   ["AdenineNucleotide"					"GO:0000295"	ch/adenyl_nucleotide]
-;; ;;   ["Spermine"						"GO:0000297"	ch/spermine				ch/drug]
-;; ;;   ["Sulfite"						"GO:0000319"	ch/sulfite]
-;; ;;   ["Glycerophosphodiester"				"GO:0001406"	ch/glycerol_1-phosphodiester]
-;; ;;   ["GuanineNucleotide"					"GO:0001409"	ch/guanyl_nucleotide]
-;; ;;   ["ZincIon"						"GO:0005385"	ch/zinc_ion]
-;; ;;   ["AminoAcid"						"GO:0015171"	ch/amino_acid]
-;; ;;   ["FattyAcid"						"GO:0015245"	ch/fatty_acid]
-;; ;;   ["ShortChainFattyAcid"				"GO:0015636"	ch/short-chain_fatty_acid]
-;; ;;   )
 
 (deftransport ToTransportIon
   :comment "GO:0015075"
