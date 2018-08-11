@@ -25,7 +25,7 @@
 (declare-classes Location Membrane ATPase)
 (defoproperty bearer-of)
 
-(declare-classes Mitochondrion Chloroplast Cell Intracellular ExtracellularRegion 
+(declare-classes Mitochondrion Chloroplast Cell Intracellular ExtracellularRegion PresynapticMembrane PostsynapticMembrane
   :super Location)
 
 ;; Transporters
@@ -56,6 +56,20 @@
 (defoproperty has-role
   :comment "Transport a substance which has some role such as drug, vitamin and cofactor")
 
+(defoproperty involved_in_regulation_of
+  :comment "http://purl.obolibrary.org/obo/RO_0002428")
+
+(defoproperty involved_in_positive_regulation_of
+  :comment "http://purl.obolibrary.org/obo/RO_0002429"
+  :super involved_in_regulation_of)
+
+(defoproperty involved_in_negative_regulation_of
+  :comment "http://purl.obolibrary.org/obo/RO_0002430"
+  :super involved_in_regulation_of)
+
+(defoproperty occurs_in
+  :comment "http://purl.obolibrary.org/obo/BFO_0000066")
+
 (defclass ValuePartition)
 
 (p/defpartition BindingAffinity
@@ -73,10 +87,12 @@
   :comment "Amino acid, Basic, acidic and neutral amino-acid have different ph scale"
   :super ValuePartition)
 
-(p/defpartition Concentration
-  [LowConcentration HighConcentration]
+(p/deftier Concentration
+  [Low High]
   :comment "In Active transporter: Particles or solutes moves from an area with high number of particles to an area of lower number of particles."
-  :super ValuePartition)
+  :super ValuePartition
+  :suffix true
+  :functional false)
 
 (p/defpartition Direction
   [SameDirection OppositeDirection]
@@ -108,14 +124,16 @@
                        (with-property frames :role bearer-of)
                        (with-property frames :when dependent-on)
                        (with-property frames :mechanism hasMechanism)
-                       (with-property frames :direction hasDirection)]))))
+                       (with-property frames :direction hasDirection)
+                       (with-property frames :involved involved_in_regulation_of)
+                       (with-property frames :occurs occurs_in)]))))
 
 (def transport
   (p/extend-frameify
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven :linked :transports-with :mechanism :across :direction]))
+    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs]))
 
 (defentity deftransport "" 'transport)
 
@@ -134,16 +152,38 @@
   :comment "GO:0022804"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-and  ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
+
+(deftransport ToTransportActiveIonTransmembrane
+  :comment "GO:0022853"
+  :across Membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
+
+(deftransport ToTransportIonTransmembrane
+  :comment "GO:0099521"
+  :across Membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+  :involved PresynapticMembrane
+  :occurs PresynapticMembrane)
+
+(deftransport ToTransportIonTransmembrane
+  :comment "GO:0099581"
+  :across Membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+  :involved PostsynapticMembrane
+  :occurs PostsynapticMembrane)
+
 
 ;; Requires energy to transports molecules.
 ;; The energy derived directly from the breakdown of ATP.
-;;Primary energy sources known to be coupled to transport are chemical, electrical and solar sources. 
 (deftransport ToTransportPrimaryActiveTransmembrane
   :comment "GO:0015399"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ch/chemical_entity ))
+  :driven ATPase)
 
 (deftransport ToTransportP-P-bond-hydrolysis-driven
   :comment "GO:0015405"
