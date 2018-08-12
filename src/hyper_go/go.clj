@@ -146,6 +146,24 @@
   :across Membrane
   :cargo ch/chemical_entity)
 
+(deftransport ToTransportAcetateEsterTransmembrane
+  :comment "GO:1901375"
+  :across Membrane
+  :cargo ch/acetate_ester)
+
+(deftransport ToTransportAuxinTransmembrane
+  :comment "GO:0080161"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-role ch/auxin)))
+
+(deftransport ToTransportAuxinEffluxTransmembrane
+  :comment "GO:0080161"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-role ch/auxin))
+  :from Intracellular
+  :to ExtracellularRegion)
+
+
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient
 (deftransport ToTransportActiveTransmembrane
