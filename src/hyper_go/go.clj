@@ -146,23 +146,50 @@
   :across Membrane
   :cargo ch/chemical_entity)
 
-(deftransport ToTransportAcetateEsterTransmembrane
+(deftransport ToTransportAcetateEster
   :comment "GO:1901375"
   :across Membrane
   :cargo ch/acetate_ester)
 
-(deftransport ToTransportAuxinTransmembrane
+(deftransport ToTransportAuxin
   :comment "GO:0080161"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-role ch/auxin)))
 
-(deftransport ToTransportAuxinEffluxTransmembrane
-  :comment "GO:0080161"
+(deftransport ToTransportAuxinEfflux
+  :comment "GO:0010329"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-role ch/auxin))
   :from Intracellular
   :to ExtracellularRegion)
 
+(deftransport ToTransportAuxinInflux
+  :comment "GO:0010328"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-role ch/auxin))
+  :from ExtracellularRegion
+  :to Intracellular)
+
+;; Diff between GO and chebi
+(deftransport ToTransportGlucose6-Phosphate
+  :comment "GO:0015152"
+  :across Membrane
+  :cargo ch/D-glucose_6-phosphate)
+
+(deftransport ToTransportAmine
+  :comment "GO:0005275"
+  :across Membrane
+  :cargo ch/amine)
+
+(deftransport ToTransportNucleobaseContainingCompound
+  :comment "GO:0015932"
+  :across Membrane
+  :cargo ch/nucleobase-containing_molecular_entity)
+
+(deftransport ToTransportNucleotide
+  :comment "GO:0015215"
+  :across Membrane
+  :cargo ch/nucleotide)
 
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient
@@ -934,7 +961,7 @@
 (deftransport ToTransportMethylammonium
   :comment "GO:0015200"
   :across Membrane
-  :cargo (owl-and ch/methylammonium))
+  :cargo ch/methylammonium)
 
 (deftransport ToTransportCholine
   :comment "GO:0015220"
