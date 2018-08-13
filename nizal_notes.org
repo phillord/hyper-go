@@ -49,6 +49,8 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 (DV) define the term as S-methylmethionine
  
   + GO:0015233 pantothenate is conjugate base of (R)-pantothenic acid which is conjugate acid of the pantothenate. \\ (DV): I defined the term as (R)-pantothenic aci NOT pantothenate
+  
+  + GO:0030233 deoxynucleotide different from the process GO:0030302. In Chebi I think it is classified as deoxyribonucleotide
 
   + Are they the same ?
     + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and \\ 

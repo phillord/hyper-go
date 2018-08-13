@@ -48,13 +48,27 @@
   :comment "A substance depend on other molecule to be transported")
 (defoproperty driven-by
   :comment "A substance not ransported till driven by some other chemical entity, ion and enzyme")
+(defoproperty derived-from
+  :comment "A substance derived from other molecule")
 
 (defoproperty linked-to
   :comment "One activity which happens at the same time as another and
   which can only occur because the other does.")
 
 (defoproperty has-role
-  :comment "Transport a substance which has some role such as drug, vitamin and cofactor")
+  :comment "Transport a substance which has some role such as drug, vitamin, neurotransmitter and cofactor")
+
+(defoproperty has-biological-role
+  :comment "Transport a substance which has some role such as coenzyme, vitamin, neurotransmitter and cofactor"
+  :super has-role)
+
+(defoproperty has-chemical-role
+  :comment "Transport a substance which has some role such as antioxidant"
+  :super has-role)
+
+(defoproperty has-application-role
+  :comment "Transport a substance which has some role such as drug"
+  :super has-role)
 
 (defoproperty involved_in_regulation_of
   :comment "http://purl.obolibrary.org/obo/RO_0002428")
@@ -191,6 +205,89 @@
   :across Membrane
   :cargo ch/nucleotide)
 
+(deftransport ToTransportFlavinAdenineDinucleotide
+  :comment "GO:0015230"
+  :across Membrane
+  :cargo (owl-and ch/flavin_adenine_dinucleotide (owl-some has-biological-role ch/cofactor)))
+
+(deftransport ToTransportNicotinamideAdenineDinucleotide
+  :comment "GO:0051724"
+  :across Membrane
+  :cargo (owl-and ch/NAD (owl-some has-biological-role ch/coenzyme)))
+
+;;Need review
+(deftransport ToTransportDeoxynucleotide
+  :comment "GO:0030233"
+  :across Membrane
+  :cargo ch/deoxyribonucleotide)
+
+(deftransport ToTransportNicotinamideMononucleotide
+  :comment "GO:0015663"
+  :across Membrane
+  :cargo (owl-and ch/nicotinamide_mononucleotide (owl-some has-biological-role ch/cofactor)))
+
+(deftransport ToTransportPurineNucleotide
+  :comment "GO:0015216"
+  :across Membrane
+  :cargo ch/purine_nucleotide)
+
+(deftransport ToTransportGuanineNucleotide
+  :comment "GO:0001409"
+  :across Membrane
+  :cargo ch/guanyl_nucleotide)
+
+(deftransport ToTransportAdenineNucleotide
+  :comment "GO:0000295"
+  :across Membrane
+  :cargo ch/adenyl_nucleotide)
+
+(deftransport ToTransport3Phosphoadenosine-5Phosphosulfate
+  :comment "GO:0046964"
+  :across Membrane
+  :cargo ch/_3'-phospho-5'-adenylyl_sulfate)
+
+(deftransport ToTransportAdenosineTriphosphate
+  :comment "GO:0005347"
+  :across Membrane
+  :cargo (owl-and ch/ATP (owl-some has-application-role ch/drug)))
+
+(deftransport ToTransport5AdenylylSulfate
+  :comment "GO:1902557"
+  :across Membrane
+  :cargo ch/_5'-adenylyl_sulfate)
+
+(deftransport ToTransportAdenosineMonophosphate
+  :comment "GO:0080122"
+  :across Membrane
+  :cargo (owl-and ch/adenosine_5'-monophosphate (owl-some  has-application-role ch/drug)))
+
+(deftransport ToTransportAdenosineDiphosphate
+  :comment "GO:0015217"
+  :across Membrane
+  :cargo ch/ADP)
+
+(deftransport ToTransportAdenosine_3-5-bisphosphate
+  :comment "GO:0071077"
+  :across Membrane
+  :cargo ch/adenosine_3'_5'-bisphosphate)
+
+(deftransport ToTransportFattyAcyl-CoA
+  :comment "GO:0015607"
+  :across Membrane
+  :cargo (owl-and ch/fatty_acyl-CoA (owl-some derived-from ch/fatty_acid)))
+
+(deftransport ToTransportCoenzyme-A
+  :comment "GO:0015228"
+  :across Membrane
+  :cargo (owl-and ch/coenzyme_A (owl-some has-biological-role ch/coenzyme)))
+
+(deftransport ToTransportAcetyl-CoA
+  :comment "GO:0008521"
+  :across Membrane
+  :cargo (owl-and ch/acetyl-CoA (owl-some has-biological-role ch/coenzyme)))
+
+;; ===========  Next is GO:0005346
+
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient
 (deftransport ToTransportActiveTransmembrane
@@ -240,7 +337,7 @@
 (deftransport ToTransportDrugTransmembrane
   :comment "GO:0015238"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-role ch/drug)))
+  :cargo (owl-and ch/chemical_entity (owl-some has-application-role ch/drug)))
 
 ;; chemical roley
 (deftransport ToTransportVitamin
@@ -366,7 +463,7 @@
   :comment "GO:0042878"
   :across Membrane
   :cargo (owl-and ch/D-glucarate_2-_ (owl-some hasEnantiomerism D-Enantiomer)
-                  (owl-some has-role ch/drug)))
+                  (owl-some has-application-role ch/drug)))
 
 (deftransport ToTransportGalactarate
   :comment "GO:1902301"
@@ -440,13 +537,13 @@
 (deftransport ToTransportFolicAcid
   :comment "GO:0008517"
   :across Membrane
-  :cargo (owl-and ch/folic_acid (owl-some has-role ch/drug ch/vitamin)))
+  :cargo (owl-and ch/folic_acid (owl-some has-application-role ch/drug ch/vitamin)))
 
 
 (deftransport ToTransportCreatine
   :comment "GO:0005308"
   :across Membrane
-  :cargo (owl-and ch/creatine (owl-some has-role ch/drug ch/cofactor)))
+  :cargo (owl-and ch/creatine (owl-some has-application-role ch/drug ch/cofactor)))
 
 ;; (deftransport ToTransportS-methylmethionine
 ;;   :comment "GO:0000100"
@@ -462,12 +559,12 @@
 (deftransport ToTransportR-Carnitine
   :comment "GO:1901235"
   :across Membrane
-  :cargo (owl-and ch/_R_-carnitine (owl-some has-role ch/drug ch/vitamin)))
+  :cargo (owl-and ch/_R_-carnitine (owl-some has-application-role ch/drug ch/vitamin)))
 
 (deftransport ToTransportR-PantothenicAcid
   :comment "GO:0015233"
   :across Membrane
-  :cargo (owl-and ch/_R_-pantothenate (owl-some has-role ch/drug ch/coenzyme ch/vitamin)))
+  :cargo (owl-and ch/_R_-pantothenate (owl-some has-application-role ch/drug ch/coenzyme ch/vitamin)))
 
 
 (deftransport ToTransportL-hydroxyproline
@@ -523,7 +620,7 @@
 (deftransport ToTransportMethotrexate
   :comment "GO:0015350"
   :across Membrane
-  :cargo (owl-and ch/methotrexate (owl-some has-role ch/drug)))
+  :cargo (owl-and ch/methotrexate (owl-some has-application-role ch/drug)))
 
 
 (deftransport ToTransportDethiobiotin
@@ -622,7 +719,7 @@
   :comment "GO:0015186"
   :across Membrane
   :cargo (owl-and ch/L-glutamine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-role ch/drug)))
+                  (owl-some has-application-role ch/drug)))
 
 (deftransport ToTransportNeutralL-AminoAcidSecondaryActiveTransmembrane
   :comment "GO:0005294"
@@ -639,12 +736,12 @@
 (deftransport ToTransportL-lysineTransmembrane
   :comment "GO:0015189"
   :across Membrane
-  :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline) (owl-some has-role ch/drug)))
+  :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug)))
 
 (deftransport ToTransportL-histidine
   :comment "GO:0005290"
   :across Membrane
-  :cargo (owl-and ch/L-histidine (owl-some hasAcidity Alkaline) (owl-some has-role ch/drug)))
+  :cargo (owl-and ch/L-histidine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug)))
 
 (deftransport ToTransportBasicAminoAcidWithLowAffinity
   :comment "GO:0097625"
@@ -667,7 +764,7 @@
 (deftransport ToTransportL-lysineEffluxTransmembrane
   :comment "GO:0015661"
   :across Membrane
-  :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline) (owl-some has-role ch/drug))
+  :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
   :from Intracellular
   :to ExtracellularRegion)
 
@@ -693,7 +790,7 @@
 
 (deftransport ToTransportL-histidineWithHighAffinity
   :comment "GO:0005291"
-  :cargo (owl-and ch/L-histidine (owl-some hasAcidity Alkaline) (owl-some has-role ch/drug))
+  :cargo (owl-and ch/L-histidine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
   :transports-with HighAffinity)
 
 (deftransport ToTransportLysineWithHighAffinity
@@ -722,7 +819,7 @@
 (deftransport ToTransportGlutamateWithHighAffinity
   :comment "GO:0005314"
   :cargo (owl-and ch/glutamate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-role ch/drug ch/neurotransmitter))
+                  (owl-some has-application-role ch/drug ch/neurotransmitter))
   :transports-with HighAffinity)
 
 (deftransport ToTransportPhosphateWithLowAffinity
@@ -782,7 +879,7 @@
 
 (deftransport ToTransportL-arginineWithLowAffinity
   :comment "GO:0097626"
-  :cargo (owl-and ch/L-arginine (owl-some has-role ch/drug))
+  :cargo (owl-and ch/L-arginine (owl-some has-application-role ch/drug))
   :transports-with LowAffinity)
 
 (deftransport ToTransportL-ornithineWithHighAffinity
@@ -792,12 +889,12 @@
 
 (deftransport ToTransportL-tryptophanWithHighAffinity
   :comment "GO:0005300"
-  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-role ch/drug))
+  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug))
   :transports-with HighAffinity)
 
 (deftransport ToTransportL-tryptophanWithLowAffinity
   :comment "GO:0022893"
-  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-role ch/drug))
+  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug))
   :transports-with LowAffinity)
 
 
@@ -867,7 +964,7 @@
 (deftransport ToTransportL-tryptophan
   :comment "GO:0015196"
   :across Membrane
-  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-role ch/drug)))
+  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug)))
 
 (deftransport ToTransportSalt
   :comment "GO:1901702"
@@ -889,7 +986,7 @@
   :comment "GO:0015195"
   :across Membrane
   :cargo (owl-and ch/L-threonine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-role ch/drug)))
+                  (owl-some has-application-role ch/drug)))
 
 ;; I changed threonine to L-threonine
 ;; threonine not subclass of L-threonine (see nizal_notes.org)
@@ -897,7 +994,7 @@
   :comment "GO:0015565"
   :across Membrane
   :cargo (owl-and ch/L-threonine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-role ch/drug))
+                  (owl-some has-application-role ch/drug))
   :from Intracellular
   :to ExtracellularRegion)
 
@@ -921,27 +1018,27 @@
 (deftransport ToTransportVitaminB6
   :comment "GO:0031924"
   :across Membrane
-  :cargo (owl-and ch/vitamin_B6 (owl-some has-role ch/drug ch/vitamin)))
+  :cargo (owl-and ch/vitamin_B6 (owl-some has-application-role ch/drug ch/vitamin)))
 
 (deftransport ToTransportPyridoxal
   :comment "GO:0031925"
   :across Membrane
-  :cargo (owl-and ch/pyridoxal (owl-some has-role ch/drug ch/vitamin ch/cofactor)))
+  :cargo (owl-and ch/pyridoxal (owl-some has-application-role ch/drug ch/vitamin ch/cofactor)))
 
 (deftransport ToTransportPyridoxalPhosphate
   :comment "GO:0031926"
   :across Membrane
-  :cargo (owl-and ch/pyridoxal_5'-phosphate (owl-some has-role ch/drug ch/vitamin ch/coenzyme)))
+  :cargo (owl-and ch/pyridoxal_5'-phosphate (owl-some has-application-role ch/drug ch/vitamin ch/coenzyme)))
 
 (deftransport ToTransportPyridoxamine
   :comment "GO:0031927"
   :across Membrane
-  :cargo (owl-and ch/pyridoxamine (owl-some has-role ch/drug ch/vitamin)))
+  :cargo (owl-and ch/pyridoxamine (owl-some has-application-role ch/drug ch/vitamin)))
 
 (deftransport ToTransportPyridoxine
   :comment "GO:0031928"
   :across Membrane
-  :cargo (owl-and ch/pyridoxine (owl-some has-role ch/drug ch/vitamin ch/cofactor)))
+  :cargo (owl-and ch/pyridoxine (owl-some has-application-role ch/drug ch/vitamin ch/cofactor)))
 
 (deftransport ToTransportSphingosine
   :comment "GO:0010175"
@@ -956,7 +1053,7 @@
 (deftransport ToTransportAcetylcholine
   :comment "GO:0005277"
   :across Membrane
-  :cargo (owl-and ch/acetylcholine (owl-some has-role ch/drug ch/neurotransmitter)))
+  :cargo (owl-and ch/acetylcholine (owl-some has-application-role ch/drug ch/neurotransmitter)))
 
 (deftransport ToTransportMethylammonium
   :comment "GO:0015200"
@@ -972,12 +1069,12 @@
 (deftransport ToTransportL-methionine
   :comment "GO:0015191"
   :across Membrane
-  :cargo (owl-and ch/L-methionine (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-role ch/drug)))
+  :cargo (owl-and ch/L-methionine (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug)))
 
 (deftransport ToTransportL-methionineSecondaryActiveTransmembrane
   :comment "GO:0000102"
   :across Membrane
-  :cargo (owl-and ch/L-methionine (owl-some hasConcentration LowConcentration)  (owl-some hasAcidity Neutral) (owl-some has-role ch/drug))
+  :cargo (owl-and ch/L-methionine (owl-some hasConcentration LowConcentration)  (owl-some hasAcidity Neutral) (owl-some has-application-role ch/drug))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
 
@@ -986,9 +1083,6 @@
   ;;"GO:0001406"
   :cargo ch/glycerol_1-phosphodiester)
 
-(deftransport ToTransportGuanineNucleotide
-  ;;"GO:0001409"
-  :cargo ch/guanyl_nucleotide)
 
 (deftransport ToTransportBetaAlanine
   :comment "GO:0001761"
@@ -999,12 +1093,12 @@
   :comment "GO:0015187"
   :across Membrane
   :cargo (owl-and ch/glycine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-role ch/drug ch/neurotransmitter)))
+                  (owl-some has-application-role ch/drug ch/neurotransmitter)))
 
 (deftransport ToTransportNitricOxide
   :comment "GO:0030184"
   :across Membrane
-  :cargo (owl-and ch/nitric_oxide (owl-some has-role ch/drug ch/neurotransmitter)))
+  :cargo (owl-and ch/nitric_oxide (owl-some has-application-role ch/drug ch/neurotransmitter)))
 
 (deftransport ToTransportGammaAminobutyricAcid
   :comment "GO:0015185"
@@ -1015,13 +1109,13 @@
   :comment "GO:0005313"
   :across Membrane
   :cargo (owl-and ch/L-glutamate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-role ch/drug ch/neurotransmitter)))
+                  (owl-some has-application-role ch/drug ch/neurotransmitter)))
 
 (deftransport ToTransportL-aspartate
   :comment "GO:0015183"
   :across Membrane
   :cargo (owl-and ch/L-aspartate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-role ch/drug ch/neurotransmitter)))
+                  (owl-some has-application-role ch/drug ch/neurotransmitter)))
 
 
 ;; There is no metal ion in CHEBI
@@ -1056,7 +1150,7 @@
 (deftransport ToTransportBiotinTransmembrane
   :comment "GO:0015225"
   :across Membrane
-  :cargo (owl-and ch/biotin (owl-some has-role ch/drug ch/coenzyme ch/vitamin)))
+  :cargo (owl-and ch/biotin (owl-some has-application-role ch/drug ch/coenzyme ch/vitamin)))
 
 (deftransport ToTransportBicozamycin
   ;;"GO:0015545"
@@ -1175,7 +1269,7 @@
 (deftransport ToTransportCobalaminTransportingDrivenWithATPase
   :comment "GO:0015420"
   :cargo (owl-and ch/cobalamin (owl-some hasConcentration LowConcentration)
-                  (owl-some has-role ch/drug ch/vitamin ch/cofactor))
+                  (owl-some has-application-role ch/drug ch/vitamin ch/cofactor))
   :driven ATPase
   :across Membrane
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
@@ -1333,7 +1427,7 @@
   :comment "GO:0015599"
   :driven ATPase
   :across Membrane
-  :cargo (owl-and ch/glutamine (owl-some hasConcentration LowConcentration) (owl-some has-role ch/drug)
+  :cargo (owl-and ch/glutamine (owl-some hasConcentration LowConcentration) (owl-some has-application-role ch/drug)
                   (owl-some hasAcidity Alkaline))
   :from ExtracellularRegion
   :to Intracellular)
@@ -1351,7 +1445,7 @@
 (deftransport ToTransportL-arginineImportingDrivenWithATPase
   :comment "GO:0102022"
   :cargo (owl-and ch/L-arginine (owl-some hasConcentration LowConcentration)
-                  (owl-some hasAcidity Alkaline) (owl-some has-role ch/drug))
+                  (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
   :driven ATPase
   :across Membrane
   :from ExtracellularRegion
