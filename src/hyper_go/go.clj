@@ -286,7 +286,151 @@
   :across Membrane
   :cargo (owl-and ch/acetyl-CoA (owl-some has-biological-role ch/coenzyme)))
 
-;; ===========  Next is GO:0005346
+(deftransport ToTransportPurineRibonucleotide
+  :comment "GO:0005346"
+  :across Membrane
+  :cargo ch/purine_ribonucleotide)
+
+(deftransport ToTransportNucleotideSulfate
+  :comment "GO:0005340"
+  :acoss Membrane
+  :cargo ch/nucleotide-sulfate)
+
+(deftransport ToTransportFlavineMononucleotide
+  :comment "GO:0044610"
+  :across Membrane
+  :cargo (owl-and ch/FMN (owl-some has-biological-role ch/coenzyme)))
+
+(deftransport ToTransportPyrimidineNucleotide
+  :comment "GO:0015218"
+  :across Membrane
+  :cargo ch/pyrimidine_nucleotide)
+
+(deftransport ToTransportNucleotideSugar
+  :comment "GO:0005338"
+  :across Membrane
+  :cargo ch/nucleotide-sugar)
+
+(deftransport ToTransportPyrimidineNucleotideSugar
+  :comment "GO:0015165"
+  :across Membrane
+  :cargo ch/pyrimidine_nucleotide-sugar)
+
+(deftransport ToTransportUDP-N-Acetylgalactosamine
+  :comment "GO:0005463"
+  :across Membrane
+  :cargo ch/UDP-N-acetylgalactosamine-5_6-ene)
+
+(deftransport ToTransportUDP-N-Acetylglucosamine
+  :comment "GO:0005462"
+  :across Membrane
+  :cargo ch/UDP-N-acetyl-alpha-D-glucosamine)
+
+(deftransport ToTransportUDP-Xylose
+  :comment "GO:0005464"
+  :across Membrane
+  :cargo ch/UDP-alpha-D-xylose)
+
+(deftransport ToTransportCMP-N-Acetylneuraminate
+  :comment "GO:0005456"
+  :across Membrane
+  :cargo ch/CMP-N-acetyl-beta-neuraminic_acid)
+
+(deftransport ToTransportUDP-Galactose
+  :comment "GO:0005459"
+  :across Membrane
+  :cargo ch/UDP-D-galactose)
+
+(deftransport ToTransportUDP-GlucuronicAcid
+  :comment "GO:0005461"
+  :across Membrane
+  :cargo ch/UDP-alpha-D-glucuronic_acid)
+
+(deftransport ToTransportUDP-Glucose
+  :comment "GO:0005460"
+  :across Membrane
+  :cargo ch/UDP-D-glucose)
+
+(deftransport ToTransportPurineNucleotideSugar
+  :comment "GO:0036080"
+  :across Membrane
+  :cargo ch/purine_nucleotide-sugar)
+
+(deftransport ToTransportGDP-Fucose
+  :comment "GO:0005457"
+  :across Membrane
+  :cargo ch/GDP-fucose)
+
+(deftransport ToTransportGDP-Mannose
+  :comment "GO:0005458"
+  :across Membrane
+  :cargo ch/GDP-mannose)
+
+;; Nucleic acids are single or double-stranded polynucleotides involved in the storage, transmission and transfer of genetic information. 
+(deftransport ToTransportNucleicAcid
+  :comment "GO:0051032"
+  :across Membrane
+  :cargo ch/nucleic_acid)
+
+(deftransport ToTransportDeoxyriboNucleicAcid
+  :comment "GO:0051035"
+  :across Membrane
+  :cargo ch/deoxyribonucleic_acid)
+
+(deftransport ToTransportRiboNucleicAcid
+  :comment "GO:0051033"
+  :across Membrane
+  :cargo ch/ribonucleic_acid)
+
+(deftransport ToTransportTransferRNA
+  :comment "GO:0051034"
+  :across Membrane
+  :cargo ch/transfer_RNA)
+
+(deftransport ToTransportProtein-DNA-Complex
+  :comment "GO:001521"
+  :across Membrane
+  :cargo ch/macromolecule
+  :role ch/protein ch/deoxyribonucleic_acid)
+
+(deftransport ToTransportNucleoside
+  :comment "GO:0005337"
+  :across Membrane
+  :cargo ch/nucleoside)
+
+(deftransport ToTransportPyrimidineNucleoside
+  :comment "GO:0015214"
+  :across Membrane
+  :cargo ch/pyrimidine_nucleoside)
+
+(deftransport ToTransportCytidine
+  :comment "GO:0015212"
+  :across Membrane
+  :cargo ch/cytidine)
+
+(deftransport ToTransportUridine
+  :comment "GO:0015213"
+  :across Membrane
+  :cargo ch/uridine)
+
+(deftransport ToTransportPurineNucleoside
+  :comment "GO:0015211"
+  :across Membrane
+  :cargo ch/purine_nucleoside)
+
+(deftransport ToTransportXanthosine
+  :comment "GO:0015553"
+  :across Membrane
+  :cargo ch/xanthosine)
+
+(deftransport ToTransportNicotinamideRiboside
+  :comment "GO:0034257"
+  :across Membrane
+  :cargo ch/N-ribosylnicotinamide)
+
+
+;; ================ Next is GO:0010174
+
 
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient
@@ -430,6 +574,11 @@
   :driven  (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
+(deftransport ToTransportNucleosideSecondaryActiveTransmembrane
+  :comment "GO:0015395"
+  :across Membrane
+  :cargo (owl-and ch/nucleoside (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
 (deftransport ToTransportPeptideSecondaryActiveTransmembrane
   :comment "GO:0022897"
