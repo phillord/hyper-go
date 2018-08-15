@@ -160,6 +160,52 @@
   :across Membrane
   :cargo ch/chemical_entity)
 
+;; Requires energy to transports molecules.
+;; The energy derived directly from the breakdown of ATP.
+(deftransport ToTransportPrimaryActiveTransmembrane
+  :comment "GO:0015399"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven ATPase)
+
+(deftransport ToTransportP-P-bond-hydrolysis-driven
+  :comment "GO:0015405"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven (owl-or ATPase ch/nucleoside_triphosphate))
+
+;; chemical role
+(deftransport ToTransportDrugTransmembrane
+  :comment "GO:0015238"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-application-role ch/drug)))
+
+;; chemical roley
+(deftransport ToTransportVitamin
+  :comment "GO:0090482"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/vitamin)))
+
+;; chemical role
+(deftransport ToTransportCofactor
+  :comment "GO:0051184"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/cofactor)))
+
+;; Neurotransmitters are any chemical substance that is capable of transmitting a nerve impulse from a neuron to another cell. 
+(deftransport ToTransportNeurotransmitter
+  :comment "GO:0005326"
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/neurotransmitter)))
+
+;; chemical role
+(deftransport ToTransportAntibiotic
+  :comment "GO:0042895"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/antimicrobial_agent)))
+
+
+
+
 (deftransport ToTransportAcetateEster
   :comment "GO:1901375"
   :across Membrane
@@ -168,19 +214,19 @@
 (deftransport ToTransportAuxin
   :comment "GO:0080161"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-role ch/auxin)))
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin)))
 
 (deftransport ToTransportAuxinEfflux
   :comment "GO:0010329"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-role ch/auxin))
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
   :from Intracellular
   :to ExtracellularRegion)
 
 (deftransport ToTransportAuxinInflux
   :comment "GO:0010328"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-role ch/auxin))
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
   :from ExtracellularRegion
   :to Intracellular)
 
@@ -428,8 +474,24 @@
   :across Membrane
   :cargo ch/N-ribosylnicotinamide)
 
+(deftransport ToTransportChlorophyllCatabolite
+  :comment "GO:0010290"
+  :across Membrane
+  :cargo ch/primary_fluorescent_chlorophyll_catabolite)
 
-;; ================ Next is GO:0010174
+(deftransport ToTransportAzole
+  :comment "GO:1901474"
+  :across Membrane
+  :cargo ch/azole)
+
+(deftransport ToTransportFluconazole
+  :comment "GO:0015244"
+  :across Membrane
+  :cargo (owl-and ch/fluconazole (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic)))
+
+
+
+;; ================ Next is GO:1903089
 
 
 ;; Requires energy to transports molecules.
@@ -463,42 +525,8 @@
   :occurs PostsynapticMembrane)
 
 
-;; Requires energy to transports molecules.
-;; The energy derived directly from the breakdown of ATP.
-(deftransport ToTransportPrimaryActiveTransmembrane
-  :comment "GO:0015399"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven ATPase)
 
-(deftransport ToTransportP-P-bond-hydrolysis-driven
-  :comment "GO:0015405"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase ch/nucleoside_triphosphate))
 
-;; chemical role
-(deftransport ToTransportDrugTransmembrane
-  :comment "GO:0015238"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-application-role ch/drug)))
-
-;; chemical roley
-(deftransport ToTransportVitamin
-  :comment "GO:0090482"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-role ch/vitamin)))
-
-;; chemical role
-(deftransport ToTransportCofactor
-  :comment "GO:0051184"
-  :across Membrane
-  :cargo (owl-and ch/cofactor (owl-some has-role ch/cofactor)))
-
-;; Neurotransmitters are any chemical substance that is capable of transmitting a nerve impulse from a neuron to another cell. 
-(deftransport ToTransportNeurotransmitter
-  :comment "GO:0005326"
-  :cargo (owl-and ch/chemical_entity (owl-some has-role ch/neurotransmitter)))
 
 
 ;;Enables the transfer of a specific substance or related group of substances from the outside of the cell to the inside of the cell across a membrane.
@@ -575,7 +603,7 @@
   :direction SameDirection)
 
 (deftransport ToTransportNucleosideSecondaryActiveTransmembrane
-  :comment "GO:0015395"
+  :comment "GO:0010174"
   :across Membrane
   :cargo (owl-and ch/nucleoside (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
@@ -665,7 +693,7 @@
   :comment "GO:0015229"
   :across Membrane
   :cargo (owl-and ch/L-ascorbate (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-role ch/vitamin ch/coenzyme)))
+                  (owl-some has-biological-role ch/vitamin ch/coenzyme)))
 
 
 (deftransport ToTransportUronicAcid
@@ -686,13 +714,13 @@
 (deftransport ToTransportFolicAcid
   :comment "GO:0008517"
   :across Membrane
-  :cargo (owl-and ch/folic_acid (owl-some has-application-role ch/drug ch/vitamin)))
+  :cargo (owl-and ch/folic_acid (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
 
 
 (deftransport ToTransportCreatine
   :comment "GO:0005308"
   :across Membrane
-  :cargo (owl-and ch/creatine (owl-some has-application-role ch/drug ch/cofactor)))
+  :cargo (owl-and ch/creatine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/cofactor)))
 
 ;; (deftransport ToTransportS-methylmethionine
 ;;   :comment "GO:0000100"
@@ -708,12 +736,12 @@
 (deftransport ToTransportR-Carnitine
   :comment "GO:1901235"
   :across Membrane
-  :cargo (owl-and ch/_R_-carnitine (owl-some has-application-role ch/drug ch/vitamin)))
+  :cargo (owl-and ch/_R_-carnitine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
 
 (deftransport ToTransportR-PantothenicAcid
   :comment "GO:0015233"
   :across Membrane
-  :cargo (owl-and ch/_R_-pantothenate (owl-some has-application-role ch/drug ch/coenzyme ch/vitamin)))
+  :cargo (owl-and ch/_R_-pantothenate (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/coenzyme ch/vitamin)))
 
 
 (deftransport ToTransportL-hydroxyproline
@@ -725,7 +753,7 @@
 (deftransport ToTransport5-formyltetrahydrofolicAcid
   :comment "GO:0015231"
   :across Membrane
-  :cargo (owl-and ch/_5-formyltetrahydrofolic_acid (owl-some has-role ch/cofactor)))
+  :cargo (owl-and ch/_5-formyltetrahydrofolic_acid (owl-some has-biological-role ch/cofactor)))
 
 (deftransport ToTransportCarcinine
   :comment "GO:1905131"
@@ -735,7 +763,7 @@
 (deftransport ToTransportGlutathione
   :comment "GO:0034634"
   :across Membrane
-  :cargo (owl-and ch/glutathione (owl-some has-role ch/cofactor)))
+  :cargo (owl-and ch/glutathione (owl-some has-biological-role ch/cofactor)))
 
 (deftransport ToTransportL-cystine
   :comment "GO:0015184"
@@ -764,7 +792,7 @@
 (deftransport ToTransportBenomyl
   :comment "GO:1901479"
   :across Membrane
-  :cargo (owl-and ch/benomyl (owl-some has-role ch/antimicrobial_drug ch/xenobiotic)))
+  :cargo (owl-and ch/benomyl (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic)))
 
 (deftransport ToTransportMethotrexate
   :comment "GO:0015350"
@@ -805,7 +833,7 @@
 (deftransport ToTransportMicrocin
   :comment "GO:0015638"
   :across Membrane
-  :cargo (owl-and ch/microcin (owl-some has-role ch/antimicrobial_drug)))
+  :cargo (owl-and ch/microcin (owl-some has-biological-role ch/antimicrobial_agent)))
 
 (deftransport ToTransportOligopeptide
   :comment "GO:0035673"
@@ -968,7 +996,7 @@
 (deftransport ToTransportGlutamateWithHighAffinity
   :comment "GO:0005314"
   :cargo (owl-and ch/glutamate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug ch/neurotransmitter))
+                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
   :transports-with HighAffinity)
 
 (deftransport ToTransportPhosphateWithLowAffinity
@@ -1167,7 +1195,7 @@
 (deftransport ToTransportVitaminB6
   :comment "GO:0031924"
   :across Membrane
-  :cargo (owl-and ch/vitamin_B6 (owl-some has-application-role ch/drug ch/vitamin)))
+  :cargo (owl-and ch/vitamin_B6 (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
 
 (deftransport ToTransportPyridoxal
   :comment "GO:0031925"
@@ -1212,7 +1240,7 @@
 (deftransport ToTransportCholine
   :comment "GO:0015220"
   :across Membrane
-  :cargo (owl-and ch/choline (owl-some has-role ch/neurotransmitter)))
+  :cargo (owl-and ch/choline (owl-some has-biological-role ch/neurotransmitter)))
 
 
 (deftransport ToTransportL-methionine
@@ -1236,7 +1264,7 @@
 (deftransport ToTransportBetaAlanine
   :comment "GO:0001761"
   :across Membrane
-  :cargo (owl-and ch/beta-alanine (owl-some hasAcidity Neutral) (owl-some has-role ch/neurotransmitter)))
+  :cargo (owl-and ch/beta-alanine (owl-some hasAcidity Neutral) (owl-some has-biological-role ch/neurotransmitter)))
 
 (deftransport ToTransportGlycine
   :comment "GO:0015187"
@@ -1252,7 +1280,7 @@
 (deftransport ToTransportGammaAminobutyricAcid
   :comment "GO:0015185"
   :across Membrane
-  :cargo (owl-and ch/gamma-aminobutyric_acid (owl-some has-role ch/neurotransmitter)))
+  :cargo (owl-and ch/gamma-aminobutyric_acid (owl-some has-biological-role ch/neurotransmitter)))
 
 (deftransport ToTransportL-glutamate
   :comment "GO:0005313"
