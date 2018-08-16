@@ -489,9 +489,33 @@
   :across Membrane
   :cargo (owl-and ch/fluconazole (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic)))
 
+(deftransport ToTransportAcadesine
+  :comment "GO:1903089"
+  :across Membrane
+  :cargo (owl-and ch/acadesine (owl-some has-application-role ch/drug)))
+
+(deftransport ToTransportThiaminePyrophosphate
+  :comment "GO:0090422"
+  :across Membrane
+  :cargo (owl-and ch/thiamine_1+__diphosphate_1-_ (owl-some has-biological-role ch/vitamin)))
+
+(deftransport ToTransportSulfathiazole
+  :comment "GO:0015546"
+  :across Membrane
+  :cargo (owl-and ch/sulfathiazole (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic)))
+
+(deftransport ToTransportThiamine
+  :comment "GO:0015234"
+  :across Membrane
+  :cargo (owl-and ch/thiamine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
+
+(deftransport ToTransportAminotriazole
+  :comment "GO:1901478"
+  :across Membrane
+  :cargo ch/amitrole)
 
 
-;; ================ Next is GO:1903089
+;; ================ Next is
 
 
 ;; Requires energy to transports molecules.
