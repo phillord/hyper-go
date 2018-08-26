@@ -204,8 +204,6 @@
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/antimicrobial_agent)))
 
 
-
-
 (deftransport ToTransportAcetateEster
   :comment "GO:1901375"
   :across Membrane
@@ -302,10 +300,10 @@
   :across Membrane
   :cargo ch/_5'-adenylyl_sulfate)
 
-(deftransport ToTransportAdenosineMonophosphate
-  :comment "GO:0080122"
-  :across Membrane
-  :cargo (owl-and ch/adenosine_5'-monophosphate (owl-some  has-application-role ch/drug)))
+;; (deftransport ToTransportAdenosineMonophosphate
+;;   :comment "GO:0080122"
+;;   :across Membrane
+;;   :cargo (owl-and ch/adenosine_5'-monophosphate (owl-some has-application-role ch/drug)))
 
 (deftransport ToTransportAdenosineDiphosphate
   :comment "GO:0015217"
@@ -339,7 +337,7 @@
 
 (deftransport ToTransportNucleotideSulfate
   :comment "GO:0005340"
-  :acoss Membrane
+  :across Membrane
   :cargo ch/nucleotide-sulfate)
 
 (deftransport ToTransportFlavineMononucleotide
@@ -813,6 +811,7 @@
 
 ;; need review
 ;; Not sure what type of antibiotic.!!
+;; In Chebi Benomyl does not have role xenobiotic !!!
 (deftransport ToTransportBenomyl
   :comment "GO:1901479"
   :across Membrane
@@ -1254,7 +1253,15 @@
 (deftransport ToTransportAcetylcholine
   :comment "GO:0005277"
   :across Membrane
-  :cargo (owl-and ch/acetylcholine (owl-some has-application-role ch/drug ch/neurotransmitter)))
+  :cargo (owl-and ch/acetylcholine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
+
+(deftransport ToTransportAcetylcholineProtonAntiporter
+  :comment "GO:0005278"
+  :across Membrane
+  :cargo (owl-and ch/acetylcholine (owl-some hasConcentration LowConcentration)
+                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
 
 (deftransport ToTransportMethylammonium
   :comment "GO:0015200"
@@ -1294,12 +1301,12 @@
   :comment "GO:0015187"
   :across Membrane
   :cargo (owl-and ch/glycine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug ch/neurotransmitter)))
+                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
 
 (deftransport ToTransportNitricOxide
   :comment "GO:0030184"
   :across Membrane
-  :cargo (owl-and ch/nitric_oxide (owl-some has-application-role ch/drug ch/neurotransmitter)))
+  :cargo (owl-and ch/nitric_oxide (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
 
 (deftransport ToTransportGammaAminobutyricAcid
   :comment "GO:0015185"
@@ -1310,13 +1317,81 @@
   :comment "GO:0005313"
   :across Membrane
   :cargo (owl-and ch/L-glutamate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug ch/neurotransmitter)))
+                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
 
 (deftransport ToTransportL-aspartate
   :comment "GO:0015183"
   :across Membrane
   :cargo (owl-and ch/L-aspartate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug ch/neurotransmitter)))
+                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
+
+
+(deftransport ToTransportOrganicAcid
+  :comment "GO:0005342"
+  :across Membrane
+  :cargo ch/organic_acid)
+
+(deftransport ToTransportTaurine
+  :comment "GO:0005368"
+  :across Membrane
+  :cargo (owl-and ch/taurine (owl-some has-biological-role ch/xenobiotic)))
+
+(deftransport ToTransportCarboxylicAcid
+  :comment "GO:0046943"
+  :across Membrane
+  :cargo ch/carboxylic_acid)
+
+(deftransport ToTransportGibberellin
+  :comment "GO:1905201"
+  :across Membrane
+  :cargo ch/gibberellin)
+
+(deftransport ToTransportAchromobactin
+  :comment "GO:0042934"
+  :across Membrane
+  :cargo (owl-and ch/achromobactin (owl-some has-biological-role ch/siderophore)))
+
+(deftransport ToTransportSialicAcid
+  :comment "GO:0015136"
+  :across Membrane
+  :cargo ch/sialic_acid)
+
+(deftransport ToTransportDicarboxylicAcid
+  :comment "GO:0005310"
+  :across Membrane
+  :cargo ch/dicarboxylic_acid)
+
+(deftransport ToTransportAlphaKetoglutarate
+  :comment "GO:0015139"
+  :across Membrane
+  :cargo (owl-and ch/_2-oxoglutarate_2-_ (owl-some has-biological-role ch/cofactor)))
+
+(deftransport ToTransportBilirubin
+  :comment "GO:0015127"
+  :across Membrane
+  :cargo ch/bilirubin)
+
+(deftransport ToTransportC4-dicarboxylate
+  :comment "GO:0015556"
+  :across Membrane
+  :cargo ch/C4-dicarboxylate)
+
+(deftransport ToTransportmalonate_1-
+  :comment "GO:1901239"
+  :across Membrane
+  :cargo ch/malonate_1-_)
+
+;; (deftransport ToTransportIsopropylmalate
+;;   :comment "GO:0034658"
+;;   :across Membrane
+;;   :cargo 
+
+(deftransport ToTransportOxalate
+  :comment "GO:0019531"
+  :across Membrane
+  :cargo ch/oxalate)
+
+;; ======================== Next is GO:0015142  =======
 
 
 ;; There is no metal ion in CHEBI
@@ -1364,8 +1439,8 @@
   `(deftransport ~(symbol (str "ToTransport" (first lis) "TransportingDrivenWithATPase"))
      :comment ~(second lis)
      :cargo
-     ~(cond (= 4 (count lis))
-            `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration) (owl-some has-role ~(nth lis 3)))
+     ~(cond (= 5 (count lis))
+            `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration) (owl-some ~(nth lis 3) ~(nth lis 4)))
             :else `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration)))
      :driven ATPase
      :across Membrane
@@ -1417,9 +1492,9 @@
   ["LipoChitinOligosaccharide" "GO:1901514" 	ch/lipo-chitin_oligosaccharide]
   ["QuaternaryAmine"		"GO:0102908"	ch/quaternary_ammonium_ion]		;; are they the same?
   ["QuaternaryAmine"		"GO:0015418"	ch/quaternary_ammonium_ion]
-  ["Choline"			"GO:0033266"	ch/choline			ch/neurotransmitter]
+  ["Choline"			"GO:0033266"	ch/choline		has-biological-role	ch/neurotransmitter]
   ["Guanine"                	"GO:0008558"    ch/guanine]
-  ["Heme"			"GO:0015439"	ch/heme			ch/cofactor]
+  ["Heme"			"GO:0015439"	ch/heme		has-biological-role		ch/cofactor]
   ["Carbohydrate"		"GO:0043211"	ch/carbohydrate]
   ["Oligosaccharide"		"GO:0015422"	ch/oligosaccharide]
   ["Oligogalacturonide"	"GO:0033154"	ch/oligogalacturonide]
@@ -1431,16 +1506,16 @@
   ["Peptide"			"GO:0015440"	ch/peptide]
   ["Oligopeptide"		"GO:0015421"	ch/oligopeptide]
   ["OrganicAcid"		"GO:0033283"	ch/organic_acid]
-  ["Taurine"                	"GO:0015411"    ch/taurine ch/xenobiotic]   ;; xenobiotic or  EC_3.6.3.44  is it a drug?
+  ["Taurine"                	"GO:0015411"    ch/taurine 		has-biological-role	 ch/xenobiotic]   ;; xenobiotic or  EC_3.6.3.44  is it a drug?
   ["CarboxylicAcid"		"GO:0033284"	ch/carboxylic_acid]
   ["AminoAcid"			"GO:0015424"	ch/amino_acid]
   ["NonpolarAminoAcid"		"GO:0015425"	ch/nonpolar_amino_acid]
   ["PolarAminoAcid"		"GO:0015426"	ch/polar_amino_acid]
   ["Urea"			"GO:0033221"	ch/urea]
-  ["Doxorubicin"		"GO:1901242"	ch/doxorubicin		ch/antimicrobial_drug]
-  ["Daunorubicin"		"GO:0043216"	ch/daunorubicin	ch/drug]
-  ["PeptideAntigen"		"GO:0015433"	ch/peptide 		ch/antigen]
-  ["Xenobiotic"		"GO:0008559"	ch/chemical_entity	ch/xenobiotic]
+  ["Doxorubicin"		"GO:1901242"	ch/doxorubicin		has-biological-role	ch/antimicrobial_agent]
+  ["Daunorubicin"		"GO:0043216"	ch/daunorubicin	has-application-role ch/drug]
+  ["PeptideAntigen"		"GO:0015433"	ch/peptide 		has-biological-role	ch/antigen]
+  ["Xenobiotic"		"GO:0008559"	ch/chemical_entity	has-biological-role	ch/xenobiotic]
   ["QuaternaryAmmoniumIon"  "GO:0015418"	ch/quaternary_ammonium_ion]
   ["Cadmium"		"GO:0015434"	ch/cadmium_cation]
   ["CapsularPolysaccharide" "GO:0015436"	ch/polysaccharide]
@@ -1470,7 +1545,7 @@
 (deftransport ToTransportCobalaminTransportingDrivenWithATPase
   :comment "GO:0015420"
   :cargo (owl-and ch/cobalamin (owl-some hasConcentration LowConcentration)
-                  (owl-some has-application-role ch/drug ch/vitamin ch/cofactor))
+                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin ch/cofactor))
   :driven ATPase
   :across Membrane
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
@@ -1529,7 +1604,8 @@
 ;; ATP(4-) + cob(I)alamin + H2O <=> ADP(3-) + hydrogenphosphate + cob(I)alamin + H+
 (deftransport ToTransportCobIalaminDrivenWithATPase
   :comment "GO:0102023"
-  :cargo (owl-and ch/cob_I_alamin (owl-some hasConcentration LowConcentration) (owl-some has-role ch/B_vitamin))
+  :cargo (owl-and ch/cob_I_alamin (owl-some hasConcentration LowConcentration)
+                  (owl-some has-biological-role ch/B_vitamin))
   :driven ATPase
   :across Membrane
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
