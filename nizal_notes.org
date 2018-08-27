@@ -39,7 +39,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
   ** active transport, which often moves material from area of low concentration to area of higher concentration, and therefore referred to as moving the material "against the concentration gradient"
 
 ** Diff classification between GO and ChEBI
-  + In many cases a term in GO has no role or some roles, whereas in ChEBI has extra roles. For example GO:1905131 and GO:0034634
+  + In many cases a term in GO has no role or some roles, whereas in ChEBI has some extra roles. For example GO:1905131 and GO:0034634
   
   + In GO: hexuronate transmembrane transporter activity GO:0015134 is a hexuronic acid. In ChEBI they are two different terms.
   
@@ -62,6 +62,9 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
       L-ascorbate:sodium symporter activity  GO:0008520 \\ (DV): from thier definitions in GO, there is no difference.
    
     + Efflux and Export : Both from the inside of the cell to the outside.
+
+
+ * Long-chain fatty acid (GO:0005324) is NOT subclass of Fatty acid, whereas in ChEBI Long-chain fatty acid is a subclass of Fatty acid. (DT) ChEBI classification looks more accurate.
 
 ** High/Low Affinity
 A substance or substances transported with high and low affinity such as zinc ions.
