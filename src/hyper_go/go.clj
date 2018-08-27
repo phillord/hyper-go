@@ -1494,11 +1494,115 @@
   :across Membrane
   :cargo (owl-and ch/_3-phenylpropionic_acid (owl-some has-biological-role ch/antimicrobial_agent)))
 
+(deftransport ToTransportNalidixicAcid
+  :comment "GO:0015547"
+  :across Membrane
+  :cargo (owl-and ch/nalidixic_acid (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic)))
+
+(deftransport ToTransportGlycolicAcid
+  :comment "GO:0043879"
+  :across Membrane
+  :cargo (owl-and ch/glycolic_acid (owl-some has-application-role ch/drug)))
+
+(deftransport ToTransportAcetate
+  :comment "GO:0015123"
+  :across Membrane
+  :cargo (owl-and ch/acetate (owl-some has-biological-role ch/antimicrobial_agent)))
+
+(deftransport ToTransportBileAcid
+  :comment "GO:0015125"
+  :across Membrane
+  :cargo ch/bile_acid)
+
+(deftransport ToTransportNicotine
+  :comment "GO:0090416"
+  :across Membrane
+  :cargo (owl-and ch/nicotine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
+
+(deftransport ToTransportLactate
+  :comment "GO:0015129"
+  :across Membrane
+  :cargo ch/lactate)
+
+(deftransport ToTransportBiotin
+  :comment "GO:0015225"
+  :across Membrane
+  :cargo (owl-and ch/biotin (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/coenzyme ch/B_vitamin)))
 
 
 
+(deftransport ToTransportChrysobactin
+  :comment "GO:0042933"
+  :across Membrane
+  :cargo (owl-and ch/chrysobactin (owl-some has-biological-role ch/siderophore)))
 
-;; ======================== Next is GO:0015142  =======
+(deftransport ToTransportFattyAcid
+  :comment "GO:0015245"
+  :across Membrane
+  :cargo ch/fatty_acid)
+
+(deftransport ToTransportR-3-hydroxybutyrate
+  :comment "GO:0097253"
+  :across Membrane
+  :cargo (owl-and ch/_R_-3-hydroxybutyrate (owl-some has-application-role ch/drug)))
+
+
+;; Passive transport (not complete)
+(deftransport ToTransportLongChainFattyAcid
+  :comment "GO:0015483"
+  :across Membrane
+  :cargo ch/long-chain_fatty_acid)
+
+(deftransport ToTransportShortChainFattyAcid
+  :comment "GO:0015636"
+  :across Membrane
+  :cargo ch/short-chain_fatty_acid)
+
+(deftransport ToTransportLongChainFattyAcid
+  :comment "GO:0005324"
+  :across Membrane
+  :cargo ch/long-chain_fatty_acid)
+
+(deftransport ToTransportOleate
+  :comment "GO:1901480"
+  :across Membrane
+  :cargo ch/oleate)
+
+(deftransport ToTransportFormate
+  :comment "GO:0015499"
+  :across Membrane
+  :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_agent)))
+
+(deftransport ToTransportFormateEfflux
+  :comment "GO:0015660"
+  :across Membrane
+  :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_agent))
+  :from Intracellular
+  :to ExtracellularRegion)
+
+(deftransport ToTransportEctoine
+  :comment "GO:0051471"
+  :across Membrane
+  :cargo ch/ectoine)
+
+(deftransport ToTransportShikimate
+  :comment "GO:0015530"
+  :across Membrane
+  :cargo ch/shikimate)
+
+(deftransport ToTransport4-Hydroxyphenylacetate
+  :comment "GO:1901241"
+  :across Membrane
+  :cargo ch/_4-hydroxyphenylacetate)
+
+(deftransport ToTransportMevalonate
+  :comment "GO:0015130"
+  :across Membrane
+  :cargo ch/mevalonate)
+
+
+
+;; ======================== Next is GO:0051477  =======
 
 
 ;; There is no metal ion in CHEBI
@@ -1530,10 +1634,6 @@
   :when ch/organic_ion ch/sodium_1+_)
 
 
-(deftransport ToTransportBiotinTransmembrane
-  :comment "GO:0015225"
-  :across Membrane
-  :cargo (owl-and ch/biotin (owl-some has-application-role ch/drug ch/coenzyme ch/vitamin)))
 
 (deftransport ToTransportBicozamycin
   ;;"GO:0015545"
