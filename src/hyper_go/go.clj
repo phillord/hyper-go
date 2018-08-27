@@ -513,9 +513,6 @@
   :cargo ch/amitrole)
 
 
-;; ================ Next is
-
-
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient
 (deftransport ToTransportActiveTransmembrane
@@ -1390,6 +1387,116 @@
   :comment "GO:0019531"
   :across Membrane
   :cargo ch/oxalate)
+
+(deftransport ToTransportTricarboxylicAcid
+  :comment "GO:0015142"
+  :across Membrane
+  :cargo ch/tricarboxylic_acid)
+
+(deftransport ToTransportCitrate
+  :comment "GO:0015137"
+  :across Membrane
+  :cargo (owl-and ch/citrate_3-_ (owl-some has-biological-role ch/antimicrobial_agent)))
+
+(deftransport ToTransportIcosanoid
+  :comment "GO:0071714"
+  :across Membrane
+  :cargo ch/icosanoid)
+
+(deftransport ToTransportProstaglandin
+  :comment "GO:0015132"
+  :across Membrane
+  :cargo ch/prostaglandin)
+
+(deftransport ToTransportArachidonate
+  :comment "GO:1903962"
+  :across Membrane
+  :cargo ch/arachidonate)
+
+(deftransport ToTransportGlucuronoside
+  :comment "GO:0015164"
+  :across Membrane
+  :cargo ch/glucosiduronic_acid)
+
+(deftransport ToTransportMonocarboxylicAcid
+  :comment "GO:0008028"
+  :across Membrane
+  :cargo ch/monocarboxylic_acid)
+
+(deftransport ToTransportPyruvate
+  :comment "GO:0050833"
+  :across Membrane
+  :cargo ch/pyruvate)
+
+(deftransport ToTransportHydroxyectoine
+  :comment "GO:0033287"
+  :across Membrane
+  :cargo ch/_5-hydroxyectoine)
+
+(deftransport ToTransportBenzoate
+  :comment "GO:0042925"
+  :across Membrane
+  :cargo (owl-and ch/benzoate (owl-some has-biological-role  ch/antimicrobial_agent   ch/human_xenobiotic_metabolite)))
+
+(deftransport ToTransportAldonate
+  :comment "GO:0042879"
+  :across Membrane
+  :cargo ch/aldonate)
+
+(deftransport ToTransportPhosphoglycerate
+  :comment "GO:0015120"
+  :across Membrane
+  :cargo ch/phosphoglycerate)
+
+(deftransport ToTransportD-Galactonate
+  :comment "GO:0042881"
+  :across Membrane
+  :cargo (owl-and ch/D-galactonate (owl-some hasEnantiomerism D-Enantiomer)))
+
+(deftransport ToTransportL-idonate
+  :comment "GO:0015568"
+  :across Membrane
+  :cargo (owl-and ch/L-idonate (owl-some hasEnantiomerism L-Enantiomer) (owl-some derived-from ch/L-idose)))
+
+(deftransport ToTransportGlycerate
+  :comment "GO:1901974"
+  :across Membrane
+  :cargo ch/glycerate)
+
+(deftransport ToTransportGluconate
+  :comment "GO:0015128"
+  :across Membrane
+  :cargo (owl-and ch/gluconate (owl-some derived-from ch/glucose)))
+
+(deftransport ToTransport3-HydroxyphenylpropionicAcid
+  :comment "GO:0042926"
+  :across Membrane
+  :cargo (owl-and ch/_3-_3-hydroxyphenyl_propanoic_acid (owl-some has-biological-role ch/human_xenobiotic_metabolite)))
+
+(deftransport ToTransportAbscisicAcid
+  :comment "GO:0090440"
+  :across Membrane
+  :cargo ch/abscisic_acids)
+
+(deftransport ToTransportL-asparagine
+  :comment "GO:0015182"
+  :across Membrane
+  :cargo (owl-and ch/L-asparagine (owl-some hasEnantiomerism L-Enantiomer) (owl-some hasAcidity Neutral)
+                  (owl-some has-application-role ch/drug)))
+
+(deftransport ToTransportPhosphoenolpyruvate
+  :comment " GO:0089721"
+  :across Membrane
+  :cargo ch/phosphoenolpyruvate)
+
+(deftransport ToTransport3-PhenylpropionicAcid
+  :comment "GO:0042890"
+  :across Membrane
+  :cargo (owl-and ch/_3-phenylpropionic_acid (owl-some has-biological-role ch/antimicrobial_agent)))
+
+
+
+
 
 ;; ======================== Next is GO:0015142  =======
 
