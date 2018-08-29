@@ -1,13 +1,12 @@
 (ns hyper-go.go
+  (:use [tawny.pattern])
   (:require [tawny.owl :refer :all]
-            [tawny-chebi.chebi :as ch]
-            [tawny.pattern :as p])
-  (:import (org.semanticweb.owlapi.model IRI OWLNamedObject OWLOntologyID)
-           (org.semanticweb.owlapi.util SimpleIRIMapper)))
+            [tawny-chebi.chebi :as ch]))
 
 
 (defontology hyper-go
   :iri "http://example.com/hyper-go")
+
 
 ;; (defn get-go-ontology []
 ;;   (tawny.owl/remove-ontology-maybe
@@ -18,7 +17,7 @@
 
 ;; (owl-import (get-go-ontology))
 
-;(owl-import tawny-chebi.chebi/chebi)
+(owl-import tawny-chebi.chebi/chebi)
 
 
 ;; Stuff from other ontologies
@@ -86,34 +85,34 @@
 
 (defclass ValuePartition)
 
-(p/defpartition BindingAffinity
+(defpartition BindingAffinity
   [LowAffinity HighAffinity]
   :comment "Transports a substance with high/low affinity. Affinity is a property for the transporter not the thing being transported"
   :super ValuePartition)
 
-(p/defpartition Mechanism
+(defpartition Mechanism
   [Rotational Phosphorylative]
   :comment "some chemical entities transported with a specific type of mechanism"
   :super ValuePartition)
 
-(p/defpartition Acidity
+(defpartition Acidity
   [Acidic Neutral Alkaline]
   :comment "Amino acid, Basic, acidic and neutral amino-acid have different ph scale"
   :super ValuePartition)
 
-(p/deftier Concentration
+(deftier Concentration
   [Low High]
   :comment "In Active transporter: Particles or solutes moves from an area with high number of particles to an area of lower number of particles."
   :super ValuePartition
   :suffix true
   :functional false)
 
-(p/defpartition Direction
+(defpartition Direction
   [SameDirection OppositeDirection]
   :comment "In Active transporter: Symporter and Antiporters"
   :super ValuePartition)
 
-(p/defpartition Enantiomerism
+(defpartition Enantiomerism
   [D-Enantiomer L-Enantiomer]
   :super ValuePartition)
 
@@ -143,7 +142,7 @@
                        (with-property frames :occurs occurs_in)]))))
 
 (def transport
-  (p/extend-frameify
+  (extend-frameify
    owl-class
    transport-explicit
    [:from :to :cargo
@@ -201,19 +200,15 @@
 (deftransport ToTransportAntibiotic
   :comment "GO:0042895"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/antimicrobial_agent)))
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/antimicrobial_drug)))
 
-
-(deftransport ToTransportAcetateEster
-  :comment "GO:1901375"
-  :across Membrane
-  :cargo ch/acetate_ester)
-
+;; chemical role
 (deftransport ToTransportAuxin
   :comment "GO:0080161"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin)))
 
+;; chemical role
 (deftransport ToTransportAuxinEfflux
   :comment "GO:0010329"
   :across Membrane
@@ -221,12 +216,18 @@
   :from Intracellular
   :to ExtracellularRegion)
 
+;; chemical role
 (deftransport ToTransportAuxinInflux
   :comment "GO:0010328"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
   :from ExtracellularRegion
   :to Intracellular)
+
+(deftransport ToTransportAcetateEster
+  :comment "GO:1901375"
+  :across Membrane
+  :cargo ch/acetate_ester)
 
 ;; Diff between GO and chebi
 (deftransport ToTransportGlucose6-Phosphate
@@ -238,6 +239,46 @@
   :comment "GO:0005275"
   :across Membrane
   :cargo ch/amine)
+
+(deftransport ToTransportNucleobase
+  :comment "GO:0015205"
+  :across Membrane
+  :cargo ch/nucleobase)
+
+(deftransport ToTransportPyrimidineNucleobase
+  :comment "GO:0005350"
+  :across Membrane
+  :cargo ch/pyrimidine_nucleobase)
+
+(deftransport ToTransportUracil
+  :comment "GO:0015210"
+  :across Membrane
+  :cargo (owl-and ch/uracil (owl-some has-application-role ch/drug)))
+
+(deftransport ToTransportCytosine
+  :comment "GO:0015209"
+  :across Membrane
+  :cargo ch/cytosine)
+
+(deftransport ToTransportPurineNucleobase
+  :comment "GO:0005345"
+  :across Membrane
+  :cargo ch/purine_nucleobase)
+
+(deftransport ToTransportAdenineNucleobase
+  :comment "GO:0015207"
+  :across Membrane
+  :cargo ch/adenine)
+
+(deftransport ToTransportGuanineNucleobase
+  :comment "GO:0015208"
+  :across Membrane
+  :cargo ch/guanine)
+
+(deftransport ToTransportXanthine
+  :comment "GO:0042907"
+  :across Membrane
+  :cargo ch/xanthine)
 
 (deftransport ToTransportNucleobaseContainingCompound
   :comment "GO:0015932"
@@ -654,7 +695,7 @@
   :across Membrane
   :cargo ch/aldaric_acid_anion)
 
-;; 
+;; Different between GO and Chebi 
 (deftransport ToTransportD-glucarate
   :comment "GO:0042878"
   :across Membrane
@@ -961,7 +1002,7 @@
 (deftransport ToTransportL-phenylalanine
   :comment "GO:0015192"
   :across Membrane
-  :cargo (owl-and (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug)))
+  :cargo (owl-and ch/L-phenylalanine (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug)))
 
 (deftransport ToTransportL-proline
   :comment "GO:0015193"
@@ -989,9 +1030,10 @@
   :across Membrane
   :cargo (owl-and ch/L-isoleucine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)))
 
-
-;;hello=================
-
+(deftransport ToTransportAromaticAminoAcid
+  :comment "GO:0015173"
+  :across Membrane
+  :cargo ch/aromatic_amino_acid)
 
 (deftransport ToTransportBranchedChainAminoAcid
   :comment "GO:0015658"
@@ -1110,12 +1152,6 @@
   :across Membrane
   :cargo ch/zinc_2+_
   :transports-with LowAffinity)
-
-(deftransport ToTransportTryptophanWithHighAffinity
-  :comment "GO:0005300"
-  :across Membrane
-  :cargo ch/tryptophan
-  :transports-with HighAffinity)
 
 (deftransport ToTransportGlutamateWithHighAffinity
   :comment "GO:0005314"
@@ -2104,7 +2140,7 @@
 
 
 
-(save-ontology "Final.owl" :owl)
+;;(save-ontology "hyper-go.owl" :owl)
 
 ;; ;; (require 'tawny.reasoner)
 ;; ;; (tawny.reasoner/reasoner-factory :hermit)
