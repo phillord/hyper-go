@@ -171,7 +171,8 @@ Antiporter and Symporter
 
 
 ** Chemical Role
-
+ 
+ * There are some terms in GO classified as is_a drug, whereas in ChEbi they are not. For example: GO:0042878
 
  * Chemical role in GO:
     1. drug
