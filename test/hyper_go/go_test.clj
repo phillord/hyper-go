@@ -321,3 +321,112 @@
   (is
    (not
     (tawny.reasoner/isubclass? ToTransportGlycine ToTransportL-AminoAcid))))
+
+(deftest methylammonium-transporter []
+  (is
+   (tawny.reasoner/isubclass? ToTransportAmmoniumIon ToTransportMethylammonium))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportMethylammonium ToTransportAmmoniumIon))))
+
+
+(deftest vitaminB6-transporter []
+  (is
+   (tawny.reasoner/isubclass? ToTransportVitaminB6 ToTransportPyridoxal))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportPyridoxal ToTransportVitaminB6)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportVitaminB6 ToTransportPyridoxamine))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportPyridoxamine ToTransportVitaminB6)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportVitaminB6 ToTransportPyridoxine))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportPyridoxine ToTransportVitaminB6)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportVitaminB6 ToTransportPyridoxalPhosphate))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportPyridoxalPhosphate ToTransportVitaminB6))))
+
+
+(deftest sphingosine-sanity []
+  (is
+   (tawny.reasoner/isubclass? ToTransport ToTransportSphingosine )))
+
+(deftest quaternary_ammonium_compound-transporter []
+  (is
+   (tawny.reasoner/isubclass? ToTransportQuaternaryAmmoniumCompound ToTransportAminoAcidBetaine))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportAminoAcidBetaine ToTransportQuaternaryAmmoniumCompound)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportQuaternaryAmmoniumCompound ToTransportN-methylnicotinat))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportN-methylnicotinat ToTransportQuaternaryAmmoniumCompound)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportQuaternaryAmmoniumCompound ToTransportAcylCarnitine))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportAcylCarnitine ToTransportQuaternaryAmmoniumCompound)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportQuaternaryAmmoniumCompound ToTransport4-TrimethylammonioButanoate))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransport4-TrimethylammonioButanoate ToTransportQuaternaryAmmoniumCompound)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportQuaternaryAmmoniumCompound ToTransportCarnitine))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportCarnitine ToTransportQuaternaryAmmoniumCompound)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportQuaternaryAmmoniumCompound ToTransportR-Carnitine))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportR-Carnitine ToTransportQuaternaryAmmoniumCompound)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportQuaternaryAmmoniumCompound ToTransportBetaineTransportingDrivenWithATPase))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportBetaineTransportingDrivenWithATPase ToTransportQuaternaryAmmoniumCompound))))
+
+
+(deftest amine-sanity []
+  (is
+   (tawny.reasoner/isubclass? ToTransportAmine ToTransportEthanolamine))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportEthanolamine ToTransportAmine))))
+
+
+(deftest alcohol-sanity []
+  (is
+   (tawny.reasoner/isubclass? ToTransportAlchohol ToTransportEthanolamine)))
+
+(deftest peptide-transporter []
+  (is
+   (tawny.reasoner/isubclass? ToTransportPeptide ToTransportOligopeptide))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportOligopeptide ToTransportPeptide)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportOligopeptide ToTransportDipeptide))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportDipeptide ToTransportOligopeptide)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportOligopeptide ToTransportTetrapeptide))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportTetrapeptide ToTransportOligopeptide)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportOligopeptide ToTransportTripeptide))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportTripeptide ToTransportOligopeptide))))
+
+

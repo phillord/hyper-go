@@ -553,6 +553,31 @@
   :across Membrane
   :cargo ch/amitrole)
 
+(deftransport ToTransportSulfurMolecularEntity
+  :comment "GO:1901682"
+  :across Membrane
+  :cargo ch/sulfur_molecular_entity)
+
+(deftransport ToTransportS-adenosyl-L-methionine
+  :comment "GO:0000095"
+  :across Membrane
+  :cargo (owl-and ch/S-adenosyl-L-methionine (owl-some has-application-role ch/drug)
+                  (owl-some has-biological-role ch/coenzyme)))
+
+(deftransport ToTransportSulfite
+  :comment "GO:0000319"
+  :across Membrane
+  :cargo ch/sulfite)
+
+(deftransport ToTransportThiosulfate
+  :comment "GO:0015117"
+  :across Membrane
+  :cargo ch/thiosulfate)
+
+(deftransport ToTransportSulfate
+  :comment "GO:0015116"
+  :across Membrane
+  :cargo ch/sulfate)
 
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient
@@ -782,10 +807,10 @@
   :across Membrane
   :cargo (owl-and ch/creatine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/cofactor)))
 
-;; (deftransport ToTransportS-methylmethionine
-;;   :comment "GO:0000100"
-;;   :across Membrane
-;;   :cargo ch/S-methyl-L-methionine)
+(deftransport ToTransportS-methylmethionine
+  :comment "GO:0000100"
+  :across Membrane
+  :cargo ch/S-methyl-L-methionine)
 
 
 (deftransport ToTransportCarnitine
@@ -838,7 +863,7 @@
 (deftransport ToTransportAminoAcidBetaine
   :comment "GO:0015199"
   :across Membrane
-  :cargo ch/amino-acid_betaine)
+  :cargo ch/glycine_betaine)
 
 ;;Any compound containing one, two, or three acyl groups attached to a nitrogen atom
 (deftransport ToTransportAmide
@@ -919,7 +944,7 @@
 
 ;; Transfer of an inorganic molecular entity from the outside of a cell to the inside of the cell across a membrane.
 ;; An inorganic molecular entity is a molecular entity that contains no carbon. 
-(deftransport ToTransportInorganicMolecularEntityTransmembrane
+(deftransport ToTransportInorganicMolecularEntity
   :comment "GO:0015318"
   :across Membrane
   :cargo ch/inorganic_molecular_entity)
@@ -1044,6 +1069,19 @@
   :comment "GO:0000099"
   :across Membrane
   :cargo ch/sulfur-containing_amino_acid)
+
+(deftransport ToTransportMethionine
+  :comment "GO:0043865"
+  :across Membrane
+  :cargo ch/methionine)
+
+(deftransport ToTransportCysteine
+  :comment "GO:0033229"
+  :across Membrane
+  :cargo (owl-and ch/cysteine (owl-some hasAcidity Neutral)))
+
+
+
 
 (deftransport ToTransportNeutralAminoAcid
   :comment "GO:0015175"
@@ -1280,6 +1318,39 @@
   :across  Membrane
   :cargo ch/cation)
 
+(deftransport ToTransportOrganicCation
+  :comment "GO:0015101"
+  :across Membrane
+  :cargo ch/organic_cation)
+
+(deftransport ToTransportCadaverine
+  :comment "GO:0015490"
+  :across Membrane
+  :cargo ch/cadaverine)
+
+(deftransport ToTransportAmiloride
+  :comment "GO:0015240"
+  :across Membrane
+  :cargo (owl-and ch/amiloride (owl-some has-application-role ch/drug)))
+
+(deftransport ToTransportQuaternaryAmmoniumCompound
+  :comment "GO:0015651"
+  :across Membrane
+  :cargo ch/quaternary_nitrogen_compound)
+
+(deftransport ToTransportN-methylnicotinat
+  :comment "GO:0090417"
+  :across Membrane
+  :cargo ch/N-methylnicotinate)
+
+(deftransport ToTransportAcylCarnitine
+  :comment "GO:0015227"
+  :across Membrane
+  :cargo ch/O-acylcarnitine)
+
+
+
+
 ;; Negatively charged ions --> Anion
 (deftransport ToTransportAnion
   :comment "GO:0008509"
@@ -1353,8 +1424,17 @@
   :from Intracellular
   :to ExtracellularRegion)
 
+(deftransport ToTransportOrganicHydroxyCompound
+  :comment "GO:1901618"
+  :across Membrane
+  :cargo ch/organic_hydroxy_compound)
 
-(deftransport ToTransportAmmonium
+(deftransport ToTransportAlchohol
+  :comment "GO:0015665"
+  :across Membrane
+  :cargo  ch/alcohol)
+
+(deftransport ToTransportAmmoniumIon
   :comment "GO:0008519"
   :across Membrane
   :cargo ch/ammonium_ion)
@@ -1378,22 +1458,22 @@
 (deftransport ToTransportPyridoxal
   :comment "GO:0031925"
   :across Membrane
-  :cargo (owl-and ch/pyridoxal (owl-some has-application-role ch/drug ch/vitamin ch/cofactor)))
+  :cargo (owl-and ch/pyridoxal (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin ch/cofactor)))
 
 (deftransport ToTransportPyridoxalPhosphate
   :comment "GO:0031926"
   :across Membrane
-  :cargo (owl-and ch/pyridoxal_5'-phosphate (owl-some has-application-role ch/drug ch/vitamin ch/coenzyme)))
+  :cargo (owl-and ch/pyridoxal_5'-phosphate (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin ch/coenzyme)))
 
 (deftransport ToTransportPyridoxamine
   :comment "GO:0031927"
   :across Membrane
-  :cargo (owl-and ch/pyridoxamine (owl-some has-application-role ch/drug ch/vitamin)))
+  :cargo (owl-and ch/pyridoxamine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
 
 (deftransport ToTransportPyridoxine
   :comment "GO:0031928"
   :across Membrane
-  :cargo (owl-and ch/pyridoxine (owl-some has-application-role ch/drug ch/vitamin ch/cofactor)))
+  :cargo (owl-and ch/pyridoxine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin ch/cofactor)))
 
 (deftransport ToTransportSphingosine
   :comment "GO:0010175"
@@ -1408,7 +1488,8 @@
 (deftransport ToTransportAcetylcholine
   :comment "GO:0005277"
   :across Membrane
-  :cargo (owl-and ch/acetylcholine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/acetylcholine (owl-some has-application-role ch/drug)
+                  (owl-some has-biological-role ch/neurotransmitter)))
 
 (deftransport ToTransportAcetylcholineProtonAntiporter
   :comment "GO:0005278"
@@ -1801,6 +1882,10 @@
   :role ch/bicozamycin)
 
 
+
+
+
+
 ;; A substance or substances transported either from the inside of the cell to the outside and and vice versa.
 ;; Driven by ATPase
 (defn substance-transporting-ATPase [lis]
@@ -1895,7 +1980,7 @@
   ["FerricHydroxamate"	"GO:0015625"	ch/iron_III__hydroxamate]
   ["Zinc"			"GO:0015633"	ch/zinc_2+_]
   ["Amine"			"GO:0031263"	ch/amine]
-  ["Betaine"		"GO:0031458"	ch/amino-acid_betaine]
+  ["Betaine"		"GO:0031458"	ch/glycine_betaine]
   ["GlycineBetaine"	"GO:0031459"	ch/glycine_betaine]
   ["Thiosulfate"		"GO:0102025"	ch/thiosulfate]
   ["2-aminoethylphosphonate""GO:0033225"	ch/_2-aminoethyl_phosphonic_acid]
