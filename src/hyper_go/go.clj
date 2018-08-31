@@ -17,7 +17,7 @@
 
 ;; (owl-import (get-go-ontology))
 
-(owl-import tawny-chebi.chebi/chebi)
+;;(owl-import tawny-chebi.chebi/chebi)
 
 
 ;; Stuff from other ontologies
@@ -593,7 +593,7 @@
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
 
-(deftransport ToTransportIonTransmembrane
+(deftransport ToTransportIonInvolvedInRegulationOfPresynapticMembranePotential
   :comment "GO:0099521"
   :across Membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
@@ -601,17 +601,13 @@
   :involved PresynapticMembrane
   :occurs PresynapticMembrane)
 
-(deftransport ToTransportIonTransmembrane
+(deftransport ToTransportIonInvolvedInRegulationOfPostsynapticMembranePotential
   :comment "GO:0099581"
   :across Membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
   :involved PostsynapticMembrane
   :occurs PostsynapticMembrane)
-
-
-
-
 
 
 ;;Enables the transfer of a specific substance or related group of substances from the outside of the cell to the inside of the cell across a membrane.
@@ -741,6 +737,71 @@
 ;;   :comment "GO:0051119"
 ;;   :across Membrane
 ;;   :cargo ch/sugar)
+
+
+(deftransport ToTransportMacromolecule
+  :comment "GO:0022884"
+  :across Membrane
+  :cargo ch/biomacromolecule)
+
+(deftransport ToTransportTeichoicAcid
+  :comment "GO:0015162"
+  :across Membrane
+  :cargo ch/teichoic_acid)
+
+(deftransport ToTransportLipopolysaccharide
+  :comment "GO:0015221"
+  :across Membrane
+  :cargo ch/lipopolysaccharide)
+
+(deftransport ToTransportLipopolysaccharideExporter
+  :comment "GO:0015634"
+  :across Membrane
+  :cargo ch/lipopolysaccharide
+  :from Intracellular
+  :to ExtracellularRegion)
+
+(deftransport ToTransportPolysaccharide
+  :comment "GO:0015159"
+  :across Membrane
+  :cargo ch/polysaccharide)
+
+(deftransport ToTransportBeta-glucan
+  :comment "GO:0015160"
+  :across Membrane
+  :cargo ch/beta-D-glucan)
+
+(deftransport ToTransportCapsularPolysaccharide
+  :comment "GO:0015161"
+  :across Membrane
+  :cargo ch/polysaccharide)
+
+(deftransport ToTransportArabinan
+  :comment "GO:0042901"
+  :across Membrane
+  :cargo ch/arabinan)
+
+(deftransport ToTransportMaltodextrin
+  :comment "GO:0042958"
+  :across Membrane
+  :cargo ch/maltodextrin)
+
+(deftransport ToTransportDextrin
+  :comment "GO:0042957"
+  :across Membrane
+  :cargo ch/dextrin)
+
+(deftransport ToTransportPeptidoglycan
+  :comment "GO:0015647"
+  :across Membrane
+  :cargo ch/peptidoglycan)
+
+
+(deftransport ToTransportLipid-linkedPeptidoglycan
+  :comment "GO:0015648"
+  :across Membrane
+  :cargo ch/lipid-linked_peptidoglycan)
+
 
 (deftransport ToTransportMonosaccharide
   :comment "GO:0015145"
@@ -1348,6 +1409,25 @@
   :across Membrane
   :cargo ch/O-acylcarnitine)
 
+(deftransport ToTransportOrganophosphateEster
+  :comment "GO:0015605"
+  :across Membrane
+  :cargo ch/organic_phosphate)
+
+(deftransport ToTransportGlycerol-3-phosphate
+  :comment "GO:0015169"
+  :across Membrane
+  :cargo ch/sn-glycerol_3-phosphate)
+
+(deftransport ToTransportAminoPhospholipid
+  :comment "GO:0015247"
+  :across Membrane
+  :cargo ch/aminophospholipid)
+
+(deftransport ToTransportHexosePhosphate
+  :comment "GO:0015119"
+  :across Membrane
+  :cargo ch/hexose_phosphate)
 
 
 
@@ -1463,7 +1543,7 @@
 (deftransport ToTransportPyridoxalPhosphate
   :comment "GO:0031926"
   :across Membrane
-  :cargo (owl-and ch/pyridoxal_5'-phosphate (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin ch/coenzyme)))
+  :cargo (owl-and ch/pyridoxal_5'-phosphate (owl-some has-application-role ch/vitamin_B6) (owl-some has-biological-role ch/vitamin ch/coenzyme)))
 
 (deftransport ToTransportPyridoxamine
   :comment "GO:0031927"
@@ -1785,7 +1865,7 @@
 
 
 ;; Passive transport (not complete)
-(deftransport ToTransportLongChainFattyAcid
+(deftransport ToTransportLongChainFattyAcidPorin
   :comment "GO:0015483"
   :across Membrane
   :cargo ch/long-chain_fatty_acid)
@@ -1944,7 +2024,7 @@
   ["Glycerol-2-phosphate"	"GO:0070812"	ch/glycerol_2-phosphate]
   ["LipoChitinOligosaccharide" "GO:1901514" 	ch/lipo-chitin_oligosaccharide]
   ["QuaternaryAmine"		"GO:0102908"	ch/quaternary_ammonium_ion]		;; are they the same?
-  ["QuaternaryAmine"		"GO:0015418"	ch/quaternary_ammonium_ion]
+  ["QuaternaryAmmoniumCompound" "GO:0015418"	ch/quaternary_ammonium_salt]
   ["Choline"			"GO:0033266"	ch/choline		has-biological-role	ch/neurotransmitter]
   ["Guanine"                	"GO:0008558"    ch/guanine]
   ["Heme"			"GO:0015439"	ch/heme		has-biological-role		ch/cofactor]
@@ -2144,7 +2224,7 @@
       ["Spermidine"			"GO:0015595"	ch/spermidine]
       ["Carbohydrate"			"GO:0015608"	ch/carbohydrate]
       ["Maltooligosaccharide"		"GO:0015609"	ch/maltooligosaccharide]
-      ["GlycerolPhosphate"		"GO:0015610"	ch/glycerol_phosphate]
+      ["GlycerolPhosphate"		"GO:0015610"	ch/sn-glycerol_3-phosphate]
       ["D-allose"			"GO:0015615"	ch/D-allose]
       ["AminoAcid"			"GO:0032520"	ch/amino_acid]
       ["D-methionine"			"GO:0032522"	ch/D-methionine]
@@ -2191,7 +2271,7 @@
   :to Intracellular)
 
 
-(deftransport ToTransportD-xylose
+(deftransport ToTransportD-xyloseImportingDrivenWithATPase
   :comment "GO:0015614"
   :cargo (owl-and ch/D-xylose (owl-some hasConcentration LowConcentration)
                   (owl-some hasEnantiomerism D-Enantiomer))
@@ -2224,8 +2304,7 @@
                 (owl-some has-part second-transport)))))
 
 
-
-;;(save-ontology "hyper-go.owl" :owl)
+(save-ontology "hyper-go.owl" :owl)
 
 ;; ;; (require 'tawny.reasoner)
 ;; ;; (tawny.reasoner/reasoner-factory :hermit)
