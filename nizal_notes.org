@@ -4,7 +4,7 @@
      * Developer thought (DT)
 
 
-* GO-ChEBI linking \\
+** GO-ChEBI linking \\
   There is "Cross-Ontology Relations" in GO, represent a relation between each term in GO with the ChEBI term, but it is not always accurate.
    + e.x: GO:0015134 hexuronate transmembrane transporter activity  mapped with hexuronic acid.
    + e.x: GO:0015229 L-ascorbicAcid
@@ -30,13 +30,9 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    + Basic amino acid	(DV) mapped to amino acid with acidity alkaline
    + Neutral amino acid	(DV) mapped to amino acid with acidity Neutral
    + Acidic amino acid	(DV) mapped to amino acid with acidity Acidic
-   + Sugar              NOT DEFINED YET : look like sugar in GO immaterial concept compare to ChEBI..! 
+   + Sugar              NOT DEFINED YET : look like sugar in GO immaterial concept compare to ChEBI..!
+   + lactoferrin   GO:0033569
  
- * GO classification
-   + GO:0015395 classified as Secondary Active transporter, whereas it should be classified as passive diffusion based on its definition.
-
-  ** "Passive diffusion moves materials from an area of higher concentration to an area of lower concentration, it is described as moving solutes "down the concentration gradient"
-  ** active transport, which often moves material from area of low concentration to area of higher concentration, and therefore referred to as moving the material "against the concentration gradient"
 
 ** Diff classification between GO and ChEBI
   + In many cases a term in GO has no role or some roles, whereas in ChEBI has some extra roles. For example GO:1905131 and GO:0034634
@@ -65,6 +61,16 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
 
  * Long-chain fatty acid (GO:0005324) is NOT subclass of Fatty acid, whereas in ChEBI Long-chain fatty acid is a subclass of Fatty acid. (DT) ChEBI classification looks more accurate.
+
+
+ * GO classification
+   + GO:0015395 classified as Secondary Active transporter, whereas it should be classified as passive diffusion based on its definition.
+
+  ** "Passive diffusion moves materials from an area of higher concentration to an area of lower concentration, it is described as moving solutes "down the concentration gradient"
+  ** active transport, which often moves material from area of low concentration to area of higher concentration, and therefore referred to as moving the material "against the concentration gradient"
+
+
+
 
 ** High/Low Affinity
 A substance or substances transported with high and low affinity such as zinc ions.
