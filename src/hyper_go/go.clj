@@ -1368,6 +1368,104 @@
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+(deftransport ToTransportAnion:AnionAntiporter
+  :comment "GO:0015301"
+  :across Membrane
+  :cargo (owl-and ch/anion (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/anion (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportFolate:AnionAntiporter
+  :comment "GO:0008518"
+  :across Membrane
+  :cargo (owl-and ch/folic_acid (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/anion (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportATP:ADPAntiporter
+  :comment "GO:0005471"
+  :across Membrane
+  :cargo (owl-and ch/ATP (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/ADP (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportGTP:GDPAntiporter
+  :comment "GO:0010292"
+  :across Membrane
+  :cargo (owl-and ch/GTP (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/GDP (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportGlutamate:Gamma-aminobutyricAcidAntiporter
+  :comment "GO:0070909"
+  :across Membrane
+  :cargo (owl-and ch/gamma-aminobutyric_acid (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/glutamate_2-_ (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportTriosePhosphate:PhosphateAntiporter
+  :comment "GO:0009670"
+  :across Membrane
+  :cargo (owl-and ch/glyceraldehyde_3-phosphate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportTriosePhosphate
+  :comment "GO:0071917"
+  :across Membrane
+  :cargo ch/glyceraldehyde_3-phosphate)
+
+(deftransport ToTransportOrganophosphate:InorganicPhosphateAntiporter
+  :comment "GO:0015315"
+  :across Membrane
+  :cargo (owl-and ch/organic_phosphate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+;; need review
+(deftransport ToTransportGlyceronePhosphate:InorganicPhosphateAntiporter
+  :comment "GO:0051407"
+  :across MembraneD-
+  :cargo (owl-and ch/glycerone_phosphates (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportGlyceraldehyde3Phosphate:InorganicPhosphateAntiporter
+  :comment "GO:0051408"
+  :across Membrane
+  :cargo (owl-and ch/glyceraldehyde_3-phosphate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportGlucose6Phosphate:PhosphateAntiporter
+  :comment "GO:0008524"
+  :across Membrane
+  :cargo (owl-and ch/D-glucose_6-phosphate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportHexosePhosphate:InorganicPhosphateAntiporter
+  :comment "GO:0015526"
+  :across Membrane
+  :cargo (owl-and ch/hexose_phosphate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportGlucose6Phosphate:InorganicPhosphateAntiporter
+  :comment "GO:0061513"
+  :across Membrane
+  :cargo (owl-and ch/D-glucose_6-phosphate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportGlycerolPhosphate:InorganicPhosphateAntiporter
+  :comment "GO:0015527"
+  :across Membrane
+  :cargo (owl-and ch/glycerol_phosphate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+
 (deftransport ToTransportAluminumIon
   :comment "GO:0015083"
   :across Membrane
