@@ -1425,7 +1425,7 @@
 ;; need review
 (deftransport ToTransportGlyceronePhosphate:InorganicPhosphateAntiporter
   :comment "GO:0051407"
-  :across MembraneD-
+  :across Membrane
   :cargo (owl-and ch/glycerone_phosphates (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
@@ -1465,6 +1465,25 @@
   :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+;; maybe need review
+(deftransport ToTransportXoglutarate:MalateAntiporter
+  :comment "GO:0015367"
+  :across Membrane
+  :cargo (owl-and ch/_2-oxoglutaric_acid (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/malate_2-_ (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+;; Ref: http://europepmc.org/abstract/MED/21719707
+(deftransport ToTransportAspartate:AlanineAntiporter
+  :comment "GO:0070906"
+  :across Membrane
+  :cargo (owl-and ch/alanine (owl-some hasConcentration LowConcentration) (owl-some hasAcidity Neutral))
+  :driven (owl-and ch/L-aspartate_2-_ (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransport
+
+;; ==== Next is 
 
 (deftransport ToTransportAluminumIon
   :comment "GO:0015083"
@@ -1787,6 +1806,30 @@
   :comment "GO:0015556"
   :across Membrane
   :cargo ch/C4-dicarboxylate)
+
+(deftransport ToTransportMalate
+  :comment "GO:0015140"
+  :across Membrane
+  :cargo ch/malate_2-_)
+
+(deftransport ToTransportFumarate
+  :comment "GO:0015138"
+  :across Membrane
+  :cargo ch/fumarate_2-_)
+
+(deftransport ToTransportSuccinate
+  :comment "GO:0015141"
+  :across Membrane
+  :cargo (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug)))
+
+(deftransport ToTransportOxaloacetate
+  :comment "GO:0015131"
+  :across Membrane
+  :cargo ch/oxaloacetate_2-_)
+
+
+;; === nexxx
+
 
 (deftransport ToTransportmalonate_1-
   :comment "GO:1901239"
