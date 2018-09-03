@@ -191,6 +191,12 @@
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/cofactor)))
 
+;; chemical role
+(deftransport ToTransportSiderophore
+  :comment "GO:0015343"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/siderophore)))
+
 ;; Neurotransmitters are any chemical substance that is capable of transmitting a nerve impulse from a neuron to another cell. 
 (deftransport ToTransportNeurotransmitter
   :comment "GO:0005326"
@@ -1474,6 +1480,7 @@
   :direction OppositeDirection)
 
 ;; Ref: http://europepmc.org/abstract/MED/21719707
+;; need review
 (deftransport ToTransportAspartate:AlanineAntiporter
   :comment "GO:0070906"
   :across Membrane
@@ -1481,9 +1488,76 @@
   :driven (owl-and ch/L-aspartate_2-_ (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-(deftransport ToTransport
+;; need review
+(deftransport ToTransportCystine:GlutamateAntiporter
+  :comment "GO:0015327"
+  :across Membrane
+  :cargo (owl-and ch/cystine (owl-some hasConcentration LowConcentration)
+                  (owl-some hasAcidity Neutral))
+  :driven (owl-and ch/glutamate_2-_ (owl-some hasConcentration HighConcentration)
+                   (owl-some hasAcidity Acidic) (owl-some has-application-role ch/drug)
+                   (owl-some has-biological-role ch/neurotransmitter))
+  :direction OppositeDirection)
 
-;; ==== Next is 
+(deftransport ToTransportCitrate:SuccinateAntiporter
+  :comment "GO:0015515"
+  :across Membrane
+  :cargo (owl-and ch/citrate_3-_ (owl-some has-biological-role ch/antimicrobial_agent)
+                  (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug)
+                 (owl-some hasConcentration LowConcentration))
+  :direction OppositeDirection)
+
+
+(deftransport ToTransportIonInvolvedInRegulationOfPresynapticMembranePotentialAntiporter
+  :comment "GO:0099520"
+  :across Membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
+  :involved PresynapticMembrane
+  :occurs PresynapticMembrane
+  :direction OppositeDirection)
+
+(deftransport ToTransportIonInvolvedInRegulationOfPostsynapticMembranePotentialAntiporter
+  :comment "GO:0099580"
+  :across Membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
+  :involved PostsynapticMembrane
+  :occurs PostsynapticMembrane
+  :direction OppositeDirection)
+
+(deftransport ToTransportTetracycline:ProtonAntiporter
+  :comment "GO:0015520"
+  :across Membrane
+  :cargo (owl-and ch/tetracycline (owl-some has-biological-role ch/antimicrobial_agent)
+                  (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+;; cation A(out) + cation B(in) = cation A(in) + cation B(out). 
+(deftransport ToTransportCationCationAntiporter
+  :comment "GO:0015491"
+  :across Membrane
+  :cargo (owl-and ch/cation (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportFluconazole:ProtonAntiporter
+  :comment "GO:0015313"
+  :across Membrane
+  :cargo (owl-and ch/fluconazole (owl-some hasConcentration LowConcentration)
+                  (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+
+;; ==== Next is GO:0044667 ====
+
+(deftransport ToTransportTetracycline
+  :comment "GO:0008493"
+  :across Membrane
+  :cargo (owl-and ch/tetracycline (owl-some has-biological-role ch/antimicrobial_agent)))
 
 (deftransport ToTransportAluminumIon
   :comment "GO:0015083"
@@ -1574,14 +1648,7 @@
   :across Membrane
   :cargo ch/lead_ion)
 
-;; ===== not 100% correct
-;; cation A(out) + cation B(in) = cation A(in) + cation B(out). 
-(deftransport ToTransportCationCationAntiporter
-  :comment "GO:0015491"
-  :across Membrane
-  :cargo (owl-and ch/cation (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
-  :direction OppositeDirection)
+
 
 
 (deftransport ToTransportL-tryptophan
@@ -1626,10 +1693,81 @@
   :across Membrane
   :cargo ch/organic_hydroxy_compound)
 
+(deftransport ToTransportEnterobactin
+  :comment "GO:0042931"
+  :across Membrane
+  :cargo (owl-and ch/enterobactin (owl-some has-biological-role ch/siderophore)))
+
+(deftransport ToTransport3-HydroxyphenylPropanoate
+  :comment "GO:0015551"
+  :across Membrane
+  :cargo  ch/_3-hydroxyphenyl_propanoate)
+
+(deftransport ToTransportPolyol
+  :comment "GO:0015166"
+  :across Membrane
+  :cargo ch/polyol)
+
+(deftransport ToTransportMannitol
+  :comment "GO:0015575"
+  :across Membrane
+  :cargo ch/mannitol)
+
+(deftransport ToTransportPropanediol
+  :comment "GO:0015170"
+  :across Membrane
+  :cargo ch/propanediol)
+
+(deftransport ToTransportMyo-inositol
+  :comment "GO:0005365"
+  :across Membrane
+  :cargo ch/myo-inositol)
+
+(deftransport ToTransportGlucosylglycerol
+  :comment "GO:0051474"
+  :across Membrane
+  :cargo ch/glucosylglycerol)
+
+(deftransport ToTransportGlucitol
+  :comment "GO:0015576"
+  :across Membrane
+  :cargo ch/glucitol)
+
+(deftransport ToTransportArabinitol
+  :comment "GO:0015167"
+  :across Membrane
+  :cargo ch/arabinitol)
+
+(deftransport ToTransportGlycerol
+  :comment "GO:0015168"
+  :across Membrane
+  :cargo ch/glycerol)
+
+(deftransport ToTransportChloramphenicol
+  :comment "GO:0042896"
+  :across Membrane
+  :cargo (owl-and ch/chloramphenicol (owl-some has-biological-role ch/antineoplastic_agent)))
+
+
 (deftransport ToTransportAlchohol
   :comment "GO:0015665"
   :across Membrane
   :cargo  ch/alcohol)
+
+(deftransport ToTransportRetinol
+  :comment "GO:0034632"
+  :across Membrane
+  :cargo (owl-and ch/retinol (owl-some has-biological-role ch/vitamin)))
+
+(deftransport ToTransportSalicin
+  :comment "GO:0042950"
+  :across Membrane
+  :cargo (owl-and ch/salicin (owl-some has-application-role ch/drug)))
+
+(deftransport ToTransportCycloheximide
+  :comment "GO:0015243"
+  :across Membrane
+  :cargo (owl-and ch/cycloheximide (owl-some has-biological-role ch/antimicrobial_agent)))
 
 (deftransport ToTransportAmmoniumIon
   :comment "GO:0008519"
@@ -1988,7 +2126,6 @@
   :cargo (owl-and ch/biotin (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/coenzyme ch/B_vitamin)))
 
 
-
 (deftransport ToTransportChrysobactin
   :comment "GO:0042933"
   :across Membrane
@@ -2099,8 +2236,9 @@
   :when ch/organic_ion ch/sodium_1+_)
 
 (deftransport ToTransportBicozamycin
-  ;;"GO:0015545"
-  :role ch/bicozamycin)
+  :comment "GO:0015545"
+  :across Membrane
+  :cargo (owl-and ch/bicozamycin (owl-some has-biological-role ch/bicozamycin)))
 
 
 
