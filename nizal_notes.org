@@ -123,6 +123,12 @@ chemical_entity-exporting
 
 ** Active transport
  
+ 
+
+ + active borate transmembrane transporter activity GO:0046715 is an active but does not the driven by molecule. 
+According to this: Park, M., Li, Q., Shcheynikov, N., Zeng, W. and Muallem, S., 2004. NaBC1 is a ubiquitous electrogenic Na+-coupled borate transporter essential for cellular boron homeostasis and cell growth and proliferation. Molecular cell, 16(3), pp.331-341. It is sodium ion Na+
+
+
  Primary active or Secondary active transmembrane transporter
 
 ** Primary Active transmembrane transporter
@@ -187,6 +193,7 @@ Antiporter and Symporter
     4. coenzyme
     5. xenobiotic
     6. neurotransmitter
+    7. Siderophore : classified in more detailed in ChEBI whereas in GO just as role
 
   * xenobiotic transmembrane transporter activity (GO:0042910)  is NOT a drug
   * xenobiotic transmembrane transporter activity (GO:0008559)  has role some drug,   Is this an enzyme EC 3.6.3.44 ?  Catalysing transmembrane movement of substances
