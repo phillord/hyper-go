@@ -1016,6 +1016,16 @@
   :across Membrane
   :cargo ch/inorganic_molecular_entity)
 
+(deftransport ToTransportAlkane
+  :comment "GO:0015567"
+  :across Membrane
+  :cargo ch/alkane)
+
+(deftransport ToTransportCyanate
+  :comment "GO:0015110"
+  :across Membrane
+  :cargo ch/cyanate)
+
 (deftransport ToTransportAminoAcid
   :comment "GO:0015171"
   :across Membrane
@@ -1620,8 +1630,6 @@
   :across Membrane
   :cargo ch/hexose_phosphate)
 
-
-
 ;; Negatively charged ions --> Anion
 (deftransport ToTransportAnion
   :comment "GO:0008509"
@@ -1638,6 +1646,92 @@
   :across Membrane
   :cargo ch/inorganic_anion)
 
+(deftransport ToTransportChromate
+  :comment "GO:0015109"
+  :across Membrane
+  :cargo ch/chromate_2-_)
+
+(deftransport ToTransportMolybdateIon
+  :comment "GO:0015098"
+  :across Membrane
+  :cargo ch/molybdate)
+
+(deftransport ToTransportChlorate
+  :comment "GO:0015107"
+  :across Membrane
+  :cargo ch/chlorate)
+
+(deftransport ToTransportAntimonite
+  :comment "GO:0015104"
+  :across Membrane
+  :cargo ch/antimonite)
+
+(deftransport ToTransportBorateEfflux
+  :comment "GO:0080139"
+  :across Membrane
+  :cargo (owl-and ch/borate (owl-some has-application-role ch/drug))
+  :from Intracellular
+  :to ExtracellularRegion)
+
+(deftransport ToTransportTungstate
+  :comment "GO:1901237"
+  :across Membrane
+  :cargo ch/tungstate)
+
+(deftransport ToTransportTellurite
+  :comment "GO:0015654"
+  :across Membrane
+  :cargo ch/tellurite)
+
+(deftransport ToTransportIodide
+  :comment "GO:0015111"
+  :across Membrane
+  :cargo ch/iodide)
+
+(deftransport ToTransportNitrate
+  :comment "GO:0015112"
+  :across Membrane
+  :cargo ch/nitrate)
+
+(deftransport ToTransportNitrite
+  :comment "GO:0015113"
+  :across Membrane
+  :cargo ch/nitrite)
+
+(deftransport ToTransportNitriteEfflux
+  :comment "GO:0015514"
+  :across Membrane
+  :cargo ch/nitrite
+  :from Intracellular
+  :to ExtracellularRegion)
+
+(deftransport ToTransportInorganicDiphosphate
+  :comment "GO:0030504"
+  :across Membrane
+  :cargo ch/diphosphate_ion)
+
+(deftransport ToTransportPhosphateIon
+  :comment "GO:0015114"
+  :across Membrane
+  :cargo ch/phosphate_ion)
+
+(deftransport ToTransportSilicate
+  :comment "GO:0015115"
+  :across Membrane
+  :cargo ch/silicate_ion)
+
+(deftransport ToTransportActiveBorate
+  :comment "GO:0046715"
+  :across Membrane
+  :cargo (owl-and ch/borate (owl-some hasConcentration LowConcentration)
+                  (owl-some has-application-role ch/drug))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportFluoride
+  :comment "GO:1903425"
+  :across Membrane
+  :cargo ch/fluoride)
+
 (deftransport ToTransportChromiumIon
   :comment "GO:0070835"
   :across Membrane
@@ -1648,9 +1742,6 @@
   :across Membrane
   :cargo ch/lead_ion)
 
-
-
-
 (deftransport ToTransportL-tryptophan
   :comment "GO:0015196"
   :across Membrane
@@ -1660,7 +1751,6 @@
   :comment "GO:1901702"
   :across Membrane
   :cargo (owl-and ch/salt (owl-some has-part ch/anion ch/cation)))
-
 
 (deftransport ToTransportTartrate
   :comment "GO:0015554"
@@ -1693,10 +1783,6 @@
   :across Membrane
   :cargo ch/organic_hydroxy_compound)
 
-(deftransport ToTransportEnterobactin
-  :comment "GO:0042931"
-  :across Membrane
-  :cargo (owl-and ch/enterobactin (owl-some has-biological-role ch/siderophore)))
 
 (deftransport ToTransport3-HydroxyphenylPropanoate
   :comment "GO:0015551"
@@ -1894,7 +1980,6 @@
   :cargo (owl-and ch/L-aspartate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
                   (owl-some has-biological-role ch/neurotransmitter)))
 
-
 (deftransport ToTransportOrganicAcid
   :comment "GO:0005342"
   :across Membrane
@@ -1905,6 +1990,11 @@
   :across Membrane
   :cargo (owl-and ch/taurine (owl-some has-biological-role ch/xenobiotic)))
 
+(deftransport ToTransportArsenateIon
+  :comment "GO:1901683"
+  :across Membrane
+  :cargo ch/arsenate_ion)
+
 (deftransport ToTransportCarboxylicAcid
   :comment "GO:0046943"
   :across Membrane
@@ -1914,11 +2004,6 @@
   :comment "GO:1905201"
   :across Membrane
   :cargo ch/gibberellin)
-
-(deftransport ToTransportAchromobactin
-  :comment "GO:0042934"
-  :across Membrane
-  :cargo (owl-and ch/achromobactin (owl-some has-biological-role ch/siderophore)))
 
 (deftransport ToTransportSialicAcid
   :comment "GO:0015136"
@@ -1965,9 +2050,64 @@
   :across Membrane
   :cargo ch/oxaloacetate_2-_)
 
+(deftransport ToTransportIronChelate
+  :comment "GO:0015603"
+  :across Membrane
+  :cargo ch/iron_chelate)
 
-;; === nexxx
+(deftransport ToTransportFerrichrome
+  :comment "GO:0042929"
+  :across Membrane
+  :cargo ch/ferrichrome)
 
+;; need review
+(deftransport ToTransportIronNicotianamine
+  :comment "GO:0051980"
+  :across Membrane
+  :cargo ch/nicotianamine)
+
+(deftransport ToTransportFerricVibriobactin
+  :comment "GO:0019535"
+  :across Membrane
+  :cargo ch/ferric-vibriobactin)
+
+(deftransport ToTransportChrysobactin
+  :comment "GO:0042933"
+  :across Membrane
+  :cargo (owl-and ch/chrysobactin (owl-some has-biological-role ch/siderophore)))
+
+(deftransport ToTransportAchromobactin
+  :comment "GO:0042934"
+  :across Membrane
+  :cargo (owl-and ch/achromobactin (owl-some has-biological-role ch/siderophore)))
+
+(deftransport ToTransportEnterobactin
+  :comment "GO:0042931"
+  :across Membrane
+  :cargo (owl-and ch/enterobactin (owl-some has-biological-role ch/siderophore)))
+
+(deftransport ToTransportFerricEnterobactin:ProtonSymporter
+  :comment "GO:0015345"
+  :across Membrane
+  :cargo (owl-and ch/ferrienterobactin (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+(deftransport ToTransportFerricEnterobactin
+  :comment "GO:0015620"
+  :across Membrane
+  :cargo ch/ferrienterobactin)
+
+;; need review
+(deftransport ToTransportSiderophoreIronFerrioxamine
+  :comment "GO:0015344"
+  :across Membrane
+  :cargo ch/ferrioxamine_B)
+
+(deftransport ToTransportFerricHydroxamate
+  :comment "GO:0015622"
+  :across Membrane
+  :cargo ch/iron_III__hydroxamate)
 
 (deftransport ToTransportmalonate_1-
   :comment "GO:1901239"
@@ -2125,12 +2265,6 @@
   :across Membrane
   :cargo (owl-and ch/biotin (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/coenzyme ch/B_vitamin)))
 
-
-(deftransport ToTransportChrysobactin
-  :comment "GO:0042933"
-  :across Membrane
-  :cargo (owl-and ch/chrysobactin (owl-some has-biological-role ch/siderophore)))
-
 (deftransport ToTransportFattyAcid
   :comment "GO:0015245"
   :across Membrane
@@ -2223,17 +2357,16 @@
   :across Membrane
   :cargo ch/chloride)
 
-(deftransport ToTransportChromiumIon
-  :comment "GO:0070835"
-  :across Membrane
-  :cargo ch/chromium_ion)
-
 (deftransport ToTransportWithChemicalCondition
-  :when ch/chemical_entity ch/chemical_entity)
+  :across Membrane
+  :cargo ch/chemical_entity
+  :when ch/chemical_entity)
 
-(deftransport ToTransportOrganicAnionWithSodiumCondition
-  ;;"GO:0015347"
-  :when ch/organic_ion ch/sodium_1+_)
+(deftransport ToTransportPhosphateWithSodiumCondition
+  :comment "GO:0015321"
+  :across Membrane
+  :cargo ch/phosphate_ion
+  :when ch/sodium_1+_)
 
 (deftransport ToTransportBicozamycin
   :comment "GO:0015545"
@@ -2277,7 +2410,7 @@
   ["Potassium"              	"GO:0008556"    ch/potassium_1+_ ]
   ["Copper"                 	"GO:0043682"    ch/copper_2+_ ]
   ["Cobalt"			"GO:0032778"	ch/cobalt_cation]
-  ["Arsenite"			"GO:0015446"	ch/arsenite_ion]
+  ["Arsenite"			"GO:0015446"	ch/arsenate_ion]
   ["Manganese"              	"GO:0015410"    ch/manganese_2+_]
   ["Nickel"			"GO:0015413"	ch/nickel_2+_]
   ["Lipid"			"GO:0034040"	ch/lipid]
@@ -2304,9 +2437,9 @@
   ["LipoChitinOligosaccharide" "GO:1901514" 	ch/lipo-chitin_oligosaccharide]
   ["QuaternaryAmine"		"GO:0102908"	ch/quaternary_ammonium_ion]		;; are they the same?
   ["QuaternaryAmmoniumCompound" "GO:0015418"	ch/quaternary_ammonium_salt]
-  ["Choline"			"GO:0033266"	ch/choline		has-biological-role	ch/neurotransmitter]
+  ["Choline"			"GO:0033266"	ch/choline		has-biological-role ch/neurotransmitter]
   ["Guanine"                	"GO:0008558"    ch/guanine]
-  ["Heme"			"GO:0015439"	ch/heme		has-biological-role		ch/cofactor]
+  ["Heme"			"GO:0015439"	ch/heme		has-biological-role ch/cofactor]
   ["Carbohydrate"		"GO:0043211"	ch/carbohydrate]
   ["Oligosaccharide"		"GO:0015422"	ch/oligosaccharide]
   ["Oligogalacturonide"	"GO:0033154"	ch/oligogalacturonide]
@@ -2318,36 +2451,36 @@
   ["Peptide"			"GO:0015440"	ch/peptide]
   ["Oligopeptide"		"GO:0015421"	ch/oligopeptide]
   ["OrganicAcid"		"GO:0033283"	ch/organic_acid]
-  ["Taurine"                	"GO:0015411"    ch/taurine 		has-biological-role	 ch/xenobiotic]   ;; xenobiotic or  EC_3.6.3.44  is it a drug?
+  ["Taurine"                	"GO:0015411"    ch/taurine 		has-biological-role ch/xenobiotic]   ;; xenobiotic or  EC_3.6.3.44  is it a drug?
   ["CarboxylicAcid"		"GO:0033284"	ch/carboxylic_acid]
   ["AminoAcid"			"GO:0015424"	ch/amino_acid]
   ["NonpolarAminoAcid"		"GO:0015425"	ch/nonpolar_amino_acid]
   ["PolarAminoAcid"		"GO:0015426"	ch/polar_amino_acid]
   ["Urea"			"GO:0033221"	ch/urea]
-  ["Doxorubicin"		"GO:1901242"	ch/doxorubicin		has-biological-role	ch/antimicrobial_agent]
+  ["Doxorubicin"		"GO:1901242"	ch/doxorubicin		has-biological-role ch/antimicrobial_agent]
   ["Daunorubicin"		"GO:0043216"	ch/daunorubicin	has-application-role ch/drug]
-  ["PeptideAntigen"		"GO:0015433"	ch/peptide 		has-biological-role	ch/antigen]
-  ["Xenobiotic"		"GO:0008559"	ch/chemical_entity	has-biological-role	ch/xenobiotic]
-  ["QuaternaryAmmoniumIon"  "GO:0015418"	ch/quaternary_ammonium_ion]
-  ["Cadmium"		"GO:0015434"	ch/cadmium_cation]
-  ["CapsularPolysaccharide" "GO:0015436"	ch/polysaccharide]
+  ["PeptideAntigen"		"GO:0015433"	ch/peptide 		has-biological-role ch/antigen]
+  ["Xenobiotic"		"GO:0008559"	ch/chemical_entity	has-biological-role ch/xenobiotic]
+  ["QuaternaryAmmoniumIon"  	"GO:0015418"	ch/quaternary_ammonium_ion]
+  ["Cadmium"			"GO:0015434"	ch/cadmium_cation]
+  ["CapsularPolysaccharide" 	"GO:0015436"	ch/polysaccharide]
   ["TeichoicAcid"		"GO:0015438"	ch/teichoic_acid]
-  ["Protein"		"GO:0015462"	ch/protein]
+  ["Protein"			"GO:0015462"	ch/protein]
   ["ThiaminePyrophosphate"	"GO:0015619"	ch/thiamine_1+__diphosphate_1-_]
   ["iron-chelate"		"GO:0015623"	ch/iron_chelate]
   ["FerricEnterobactin"	"GO:0015624"	ch/ferrienterobactin]
-  ["FerricHydroxamate"	"GO:0015625"	ch/iron_III__hydroxamate]
+  ["FerricHydroxamate"		"GO:0015625"	ch/iron_III__hydroxamate]
   ["Zinc"			"GO:0015633"	ch/zinc_2+_]
   ["Amine"			"GO:0031263"	ch/amine]
-  ["Betaine"		"GO:0031458"	ch/glycine_betaine]
-  ["GlycineBetaine"	"GO:0031459"	ch/glycine_betaine]
+  ["Betaine"			"GO:0031458"	ch/glycine_betaine]
+  ["GlycineBetaine"		"GO:0031459"	ch/glycine_betaine]
   ["Thiosulfate"		"GO:0102025"	ch/thiosulfate]
-  ["2-aminoethylphosphonate""GO:0033225"	ch/_2-aminoethyl_phosphonic_acid]
-  ["Cysteine"		"GO:0033230"	ch/cysteine]
+  ["2-aminoethylphosphonate"	"GO:0033225"	ch/_2-aminoethyl_phosphonic_acid]
+  ["Cysteine"			"GO:0033230"	ch/cysteine]
   ["D-methionine"		"GO:0033232"	ch/D-methionine]
   ["MonocarboxylicAcid"	"GO:0033285"	ch/monocarboxylic_acid]
-  ["Ectoine"		"GO:0033286"	ch/ectoine]
-  ["Hydroxyectoine"	"GO:0033288"	ch/_5-hydroxyectoine]
+  ["Ectoine"			"GO:0033286"	ch/ectoine]
+  ["Hydroxyectoine"		"GO:0033288"	ch/_5-hydroxyectoine]
   ["Bacteriocin"		"GO:0043214"	ch/bacteriocin]
   ["Methionine"		"GO:1901243"	ch/methionine])
 
