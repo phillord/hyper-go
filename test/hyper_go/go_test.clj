@@ -429,4 +429,44 @@
    (not
     (tawny.reasoner/isubclass? ToTransportTripeptide ToTransportOligopeptide))))
 
-
+(deftest Metal_ion-transporter []
+  (is
+   (tawny.reasoner/isubclass? ToTransportMetalIon ToTransportTransitionMetalIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportVanadiumIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportVanadiumIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportIronIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportIronIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportManganeseIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportManganeseIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportManganeseIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportManganeseIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportZincIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportZincIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportMolybdenumIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportMolybdenumIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportSilverIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportSilverIon ToTransportTransitionMetalIon))))

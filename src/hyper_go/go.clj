@@ -17,7 +17,7 @@
 
 ;; (owl-import (get-go-ontology))
 
-;;(owl-import tawny-chebi.chebi/chebi)
+(owl-import tawny-chebi.chebi/chebi)
 
 
 ;; Stuff from other ontologies
@@ -978,6 +978,12 @@
   :across Membrane
   :cargo ch/protein)
 
+(deftransport ToTransportProteinActive
+  :comment "GO:0009977"
+  :across Membrane
+  :cargo (owl-and ch/protein (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+
 ;; (deftransport ToTransportProtein-DNAComplex
 ;;   :comment ""
 ;;   :across Membrane
@@ -1015,6 +1021,79 @@
   :comment "GO:0015318"
   :across Membrane
   :cargo ch/inorganic_molecular_entity)
+
+
+(deftransport ToTransportInorganicCation
+  :comment "GO:0022890"
+  :across Membrane
+  :cargo ch/inorganic_cation)
+
+(deftransport ToTransportTrivalentInorganicCation
+  :comment "GO:0072510"
+  :across Membrane
+  :cargo ch/trivalent_inorganic_cation)
+
+(deftransport ToTransportDivalentInorganicCation
+  :comment "GO:0072509"
+  :across Membrane
+  :cargo ch/divalent_inorganic_cation)
+
+(deftransport ToTransportFerrousIron
+  :comment "GO:0015093"
+  :across Membrane
+  :cargo ch/iron_2+_)
+
+(deftransport ToTransportZincIon
+  :comment "GO:0005385"
+  :across Membrane
+  :cargo ch/zinc_2+_)
+
+(deftransport ToTransportZincIonEfflux
+  :comment "GO:0022883"
+  :across Membrane
+  :cargo ch/zinc_2+_
+  :from Intracellular
+  :to ExtracellularRegion)
+
+(deftransport ToTransportZincIonEffluxActive
+  :comment "GO:0015341"
+  :across Membrane
+  :cargo (owl-and ch/zinc_2+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :from Intracellular
+  :to ExtracellularRegion)
+
+
+(deftransport ToTransportFerricIron
+  :comment "GO:0015091"
+  :across Membrane
+  :cargo ch/iron_3+_)
+
+;; (deftransport ToTransportTransferrin
+;;   :comment "GO:0033570"
+;;   :across Membrane
+;;   :
+
+(deftransport ToTransportMonovalentInorganicCation
+  :comment "GO:0015077"
+  :across Membrane
+  :cargo ch/monovalent_inorganic_cation)
+
+(deftransport ToTransportProton
+  :comment "GO:0015078"
+  :across Membrane
+  :cargo ch/proton)
+
+(deftransport ToTransportSodiumIon
+  :comment "GO:0015081"
+  :across Membrane
+  :cargo ch/sodium_1+_)
+
+(deftransport ToTransportPotassiumIon
+  :comment "GO:0015079"
+  :across Membrane
+  :cargo ch/potassium_1+_)
+
 
 (deftransport ToTransportAlkane
   :comment "GO:0015567"
@@ -1334,7 +1413,28 @@
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
-;; ==== Next is GO:0005367 =====
+(deftransport ToTransportMyo-inositol:SodiumSymporter
+  :comment "GO:0005367"
+  :across Membrane
+  :cargo (owl-and ch/myo-inositol (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+(deftransport ToTransportBicarbonate:SodiumSymporter
+  :comment "GO:0008510"
+  :across Membrane
+  :cargo (owl-and ch/hydrogencarbonate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+;; ==== Next is GO:0009674 =====
+
+
+(deftransport ToTransportBicarbonate
+  :comment "GO:0015106"
+  :across Membrane
+  :cargo ch/hydrogencarbonate)
+
 
 (deftransport ToTransportNeutralAminoAcid
   :comment "GO:0015175"
@@ -1413,7 +1513,14 @@
   :cargo (owl-and ch/amino_acid (owl-some hasAcidity Acidic)))
 
 
-;; substances transported with high and low affinities
+ ;; substances transported with high and low affinities
+
+(deftransport ToTransportPotassiumIonWithHighAffinity
+  :comment "GO:0140107"
+  :across Membrane
+  :cargo ch/potassium_1+_
+  :transports-with HighAffinity)
+
 (deftransport ToTransportArginineWithHighAffinity
   :comment "GO:0005289"
   :across Membrane
@@ -2529,16 +2636,42 @@
   :across Membrane
   :cargo ch/metal_cation)
 
-;; === Next is GO:0015079 =====
+(deftransport ToTransportCalciumIon
+  :comment "GO:0015085"
+  :across Membrane
+  :cargo ch/calcium_ion)
 
-;; There is no iron ion in CHEB
+(deftransport ToTransportTransitionMetalIon
+  :comment "GO:0046915"
+  :across Membrane
+  :cargo ch/transition_element_cation)
+
+(deftransport ToTransportVanadiumIon
+  :comment "GO:0015100"
+  :across Membrane
+  :cargo ch/vanadium_cation)
+
 (deftransport ToTransportIronIon
   :comment "GO:0005381"
   :across Membrane
   :cargo ch/iron_2+_)
 
-;; === Next is  GO:0015091 ==
+(deftransport ToTransportManganeseIon
+  :comment "GO:0005384"
+  :across Membrane
+  :cargo ch/manganese_2+_)
 
+(deftransport ToTransportMolybdenumIon
+  :comment "GO:0042888"
+  :across Membrane
+  :cargo ch/molybdenum_cation)
+
+(deftransport ToTransportSilverIon
+  :comment "GO:0015080"
+  :across Membrane
+  :cargo ch/silver_cation)
+
+;; === Next is 
 
 (deftransport ToTransportPolyamine
   :comment "GO:0015203"
