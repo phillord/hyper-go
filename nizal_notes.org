@@ -26,12 +26,13 @@ It is not enough to link the GO term with the equivalent chebi term only by name
 
 GO-plus ontology: includes cross ontology relationships, including Chebi. However, it seems that the linkage was based on name matching only.
 
- * Terms seems not exist in ChEBI:
+ * Terms seems not to exist in ChEBI:
    + Basic amino acid	(DV) mapped to amino acid with acidity alkaline
    + Neutral amino acid	(DV) mapped to amino acid with acidity Neutral
    + Acidic amino acid	(DV) mapped to amino acid with acidity Acidic
    + Sugar              NOT DEFINED YET : look like sugar in GO immaterial concept compare to ChEBI..!
    + lactoferrin   GO:0033569
+   + Transferrin   GO:0033570
  
 
 ** Diff classification between GO and ChEBI
@@ -65,11 +66,6 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
  * GO classification
    + GO:0015395 classified as Secondary Active transporter, whereas it should be classified as passive diffusion based on its definition.
-
-  ** "Passive diffusion moves materials from an area of higher concentration to an area of lower concentration, it is described as moving solutes "down the concentration gradient"
-  ** active transport, which often moves material from area of low concentration to area of higher concentration, and therefore referred to as moving the material "against the concentration gradient"
-
-
 
 
 ** High/Low Affinity
@@ -122,14 +118,17 @@ chemical_entity-importing
 chemical_entity-exporting
 
 ** Active transport
- 
- 
 
- + active borate transmembrane transporter activity GO:0046715 is an active but does not the driven by molecule. 
-According to this: Park, M., Li, Q., Shcheynikov, N., Zeng, W. and Muallem, S., 2004. NaBC1 is a ubiquitous electrogenic Na+-coupled borate transporter essential for cellular boron homeostasis and cell growth and proliferation. Molecular cell, 16(3), pp.331-341. It is sodium ion Na+
+Active transport: moves material from area of low concentration to area of higher concentration, and therefore referred to as moving the material "against the concentration gradient"
 
+Most of GO terms do not specify what is the source of energy: 
+ + active borate transmembrane transporter activity GO:0046715 is an active but does not tell by which molecule is driven by. (According to this: Park, M., Li, Q., Shcheynikov, N., Zeng, W. and Muallem, S., 2004. NaBC1 is a ubiquitous electrogenic Na+-coupled borate transporter essential for cellular boron homeostasis and cell growth and proliferation. Molecular cell, 16(3), pp.331-341.) It is sodium ion Na+
 
- Primary active or Secondary active transmembrane transporter
+However, these clearly specified as proton:
+ + zinc efflux active transmembrane transporter activity GO:0015341 : from the term definition its driven by proton motive force.
+ + GO:0009977
+ + GO:0005427
+ + GO:0022897
 
 ** Primary Active transmembrane transporter
 
@@ -181,6 +180,10 @@ See this: http://www.physiologyweb.com/lecture_notes/membrane_transport/secondar
 Antiporter and Symporter
   * Sodium is the driving ion for many Symporter and antiporter.
 
+
+** Passive transporter
+
+  * "Passive diffusion moves materials from an area of higher concentration to an area of lower concentration, it is described as moving solutes "down the concentration gradient"
 
 ** Chemical Role
  
