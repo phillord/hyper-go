@@ -34,6 +34,22 @@
     (tawny.reasoner/isubclass? ToTransportChromiumIon ToTransportIon))))
 
 
+(deftest drug-sanity []
+  (is
+   (tawny.reasoner/isubclass? ToTransportDrug ToTransportVitaminB6))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportVitaminB6 ToTransportDrug))))
+
+
+(deftest vitamin-sanity []
+  (is
+   (tawny.reasoner/isubclass? ToTransportVitamin ToTransportVitaminB6))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportVitaminB6 ToTransportVitamin))))
+
+
 (deftest drug-transporter []
   (is
    (tawny.reasoner/isubclass? ToTransportDrug ToTransportThiamine))
@@ -469,4 +485,29 @@
    (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportSilverIon))
   (is
    (not
-    (tawny.reasoner/isubclass? ToTransportSilverIon ToTransportTransitionMetalIon))))
+    (tawny.reasoner/isubclass? ToTransportSilverIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportCadmiumIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportCadmiumIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportNickelCation))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportNickelCation ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportCobaltIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportCobaltIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportMercuryIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportMercuryIon ToTransportTransitionMetalIon)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportTransitionMetalIon ToTransportCopperIon))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportCopperIon ToTransportTransitionMetalIon))))

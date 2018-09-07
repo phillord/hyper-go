@@ -17,7 +17,7 @@
 
 ;; (owl-import (get-go-ontology))
 
-(owl-import tawny-chebi.chebi/chebi)
+;;(owl-import tawny-chebi.chebi/chebi)
 
 
 ;; Stuff from other ontologies
@@ -152,6 +152,27 @@
 
 (deftransport ToTransport
   :cargo ch/chemical_entity)
+
+
+(deftransport ToTransportLipid
+  :comment "GO:0005319"
+  :cargo ch/lipid)
+
+(deftransport ToTransportPhospholipid
+  :comment "GO:0005548"
+  :cargo ch/phospholipid)
+
+(deftransport ToTransportLysophospholipid
+  :comment "GO:0051978"
+  :across Membrane
+  :cargo ch/monoacylglycerol_phosphate)
+
+(deftransport ToTransportPhosphatidylcholine
+  :comment "GO:0008525"
+  :cargo ch/phosphatidylcholine)
+
+;; === next is GO:0017128
+
 
 ;;Transmembrane transporter activity
 (deftransport ToTransportTransmembrane
@@ -2236,8 +2257,8 @@
 (deftransport ToTransportGlycine
   :comment "GO:0015187"
   :across Membrane
-  :cargo (owl-and ch/glycine (owl-some hasAcidity Neutral) (owl-some has-application-role ch/drug)
-                  (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/glycine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
+                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
   
 (deftransport ToTransportNitricOxide
   :comment "GO:0030184"
@@ -2390,7 +2411,7 @@
   :across Membrane
   :cargo ch/iron_III__hydroxamate)
 
-(deftransport ToTransportmalonate_1-
+(deftransport ToTransportMalonate_1-
   :comment "GO:1901239"
   :across Membrane
   :cargo ch/malonate_1-_)
@@ -2670,6 +2691,31 @@
   :comment "GO:0015080"
   :across Membrane
   :cargo ch/silver_cation)
+
+(deftransport ToTransportCadmiumIon
+  :comment "GO:0015086"
+  :across Membrane
+  :cargo ch/cadmium_cation)
+
+(deftransport ToTransportNickelCation
+  :comment "GO:0015099"
+  :across Membrane
+  :cargo ch/nickel_cation)
+
+(deftransport ToTransportCobaltIon
+  :comment "GO:0015087"
+  :across Membrane
+  :cargo ch/cobalt_cation)
+
+(deftransport ToTransportMercuryIon
+  :comment "GO:0015097"
+  :across Membrane
+  :cargo ch/mercury_cation)
+
+(deftransport ToTransportCopperIon
+  :comment "GO:0005375"
+  :across Membrane
+  :cargo ch/copper_cation)
 
 ;; === Next is 
 
