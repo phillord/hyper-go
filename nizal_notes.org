@@ -30,9 +30,10 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    + Basic amino acid	(DV) mapped to amino acid with acidity alkaline
    + Neutral amino acid	(DV) mapped to amino acid with acidity Neutral
    + Acidic amino acid	(DV) mapped to amino acid with acidity Acidic
-   + Sugar              NOT DEFINED YET : look like sugar in GO immaterial concept compare to ChEBI..!
-   + lactoferrin   GO:0033569
-   + Transferrin   GO:0033570
+   + Sugar               NOT DEFINED YET : look like sugar in GO immaterial concept !
+   + lactoferrin    GO:0033569
+   + Transferrin    GO:0033570
+   + Copper chelate GO:0051981
  
 
 ** Diff classification between GO and ChEBI
