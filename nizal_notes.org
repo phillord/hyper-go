@@ -16,9 +16,8 @@
   * GO:0042895 Antibiotic transmembrane transporter, What is the equivalent term in ChEBI ?
      + antimicrobial agent http://purl.obolibrary.org/obo/CHEBI_33281      OR 
      + antimicrobial drug http://purl.obolibrary.org/obo/CHEBI_36043       OR
-     + something else
 
-Agent: antimicrobial agent is NOT a subclass of drug CHEBI:23888
+Agent: antimicrobial agent is NOT a subclass of drug CHEBI:23888 \\
 Drug:  antimicrobial drug is a subclass of drug CHEBI:23888 \\
 
 However: 
