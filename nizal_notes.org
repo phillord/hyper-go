@@ -208,7 +208,10 @@ According to this: http://www.physiologyweb.com/lecture_notes/membrane_transport
    * Sodium serves as the driving ion in many (but not all) secondary active transporters located in the plasma membrane of various cells.
 
 Antiporter and Symporter
-  * Sodium is the driving ion for many Symporter and antiporter.
+  * Sodium is the driving ion for many Symporter and antiporter. Not sure this is the case in GO .!!!
+
+  * Usually two solutes
+  * But there is symporter with more than two solutes : GO:0008511 sodium:potassium:chloride symporter activity
 
 ** Passive transporter
 
