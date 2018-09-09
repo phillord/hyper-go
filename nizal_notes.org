@@ -38,11 +38,11 @@ However:
    +  xenobiotic http://purl.obolibrary.org/obo/CHEBI_35703
    +  human xenobiotic metabolite CHEBI:76967
    
-   e.x: GO:0015244   has role xenobiotic
-   e.x: GO:0042926  has role human xenobiotic metabolite 
-   e.x: GO:0005368  is_a xenobiotic in GO, but not in ChEBI
-   e.x: GO:0015566  is_a xenobiotic in GO, but not in ChEBI
-   e.x: GO:0042911  is_a xenobiotic in GO, but not in ChEBI
+   + e.x: GO:0015244   has role xenobiotic
+   + e.x: GO:0042926  has role human xenobiotic metabolite 
+   + e.x: GO:0005368  is_a xenobiotic in GO, but not in ChEBI
+   + e.x: GO:0015566  is_a xenobiotic in GO, but not in ChEBI
+   + e.x: GO:0042911  is_a xenobiotic in GO, but not in ChEBI
 
  * siderophore transmembrane transporter GO:0015343 What is the equivalent term in ChEBI ?
    +  siderophore (CHEBI:26672) 
