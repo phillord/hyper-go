@@ -24,7 +24,9 @@
 (declare-classes Location Membrane ATPase)
 (defoproperty bearer-of)
 
-(declare-classes Mitochondrion Chloroplast Cell Intracellular ExtracellularRegion PresynapticMembrane PostsynapticMembrane
+;; From CC and Cell Ontologies
+(declare-classes Mitochondrion Chloroplast Cell Intracellular ExtracellularRegion
+                 PresynapticMembrane PostsynapticMembrane Hepatocyte  IntracellularCanaliculus 
   :super Location)
 
 ;; Transporters
@@ -151,6 +153,7 @@
 (defentity deftransport "" 'transport)
 
 (deftransport ToTransport
+  :comment "GO:0005215"
   :cargo ch/chemical_entity)
 
 
@@ -170,6 +173,31 @@
 (deftransport ToTransportPhosphatidylcholine
   :comment "GO:0008525"
   :cargo ch/phosphatidylcholine)
+
+(deftransport ToTransportPolymyxin
+  :comment "GO:0042897"
+  :across Membrane
+  :cargo (owl-and ch/polymyxin (owl-some has-biological-role ch/antimicrobial_agent)))
+
+(deftransport ToTransportSphingolipid
+  :comment "GO:0046624"
+  :cargo ch/sphingolipid)
+
+(deftransport ToTransportCeramide
+  :comment "GO:0035620"
+  :cargo ch/ceramide)
+
+(deftransport ToTransportCeramide1-Phosphate
+  :comment "GO:1902388"
+  :cargo ch/ceramide_1-phosphate)
+
+(deftransport ToTransportSterol
+  :comment "GO:0015248"
+  :cargo ch/sterol)
+
+(deftransport ToTransportCholesterol
+  :comment "GO:0017127"
+  :cargo ch/cholesterol)
 
 ;; === next is GO:0017128
 
@@ -2214,7 +2242,7 @@
   :cargo (owl-and ch/acetylcholine (owl-some has-application-role ch/drug)
                   (owl-some has-biological-role ch/neurotransmitter)))
 
-(deftransport ToTransportAcetylcholineProtonAntiporter
+(deftransport ToTransportAcetylcholine:ProtonAntiporter
   :comment "GO:0005278"
   :across Membrane
   :cargo (owl-and ch/acetylcholine (owl-some hasConcentration LowConcentration)
@@ -2552,6 +2580,13 @@
   :across Membrane
   :cargo ch/bile_acid)
 
+(deftransport ToTransportCanalicularBileAcid
+  :comment "GO:0015126"
+  :across Membrane
+  :cargo ch/bile_acid
+  :from Hepatocyte
+  :to IntracellularCanaliculus)
+
 (deftransport ToTransportNicotine
   :comment "GO:0090416"
   :across Membrane
@@ -2868,7 +2903,9 @@
   ["Ectoine"			"GO:0033286"	ch/ectoine]
   ["Hydroxyectoine"		"GO:0033288"	ch/_5-hydroxyectoine]
   ["Bacteriocin"		"GO:0043214"	ch/bacteriocin]
-  ["Methionine"		"GO:1901243"	ch/methionine])
+  ["Methionine"		"GO:1901243"	ch/methionine]
+  ["Sphingolipid"		"GO:0046623"	ch/sphingolipid]
+  ["Ceramide"			"GO:0099038"	ch/ceramide])
 
 
 ;; ATP + H2O + cob(III)alamin(out) = ADP + phosphate + cob(III)alamin(in).
