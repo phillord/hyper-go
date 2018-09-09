@@ -56,7 +56,15 @@ However:
 
 The information in GO about each term is scarce. 
 
-Most of GO terms names are defined generally, while Chebi ontology is more specific in defining terms.
+Most of GO terms names are defined generally, while Chebi ontology is more specific in defining terms. 
+
+ * For example: + GO:0015087  cobalt ion transmembrane transporter activity. In Chebi there are: cobalt(1+), cobalt(2+), cobalt(3+), cobalt_cation. Same case for other terms.
+ 
+ * For example: + GO:0015445  silver-exporting ATPase activity: enables the transfer of a solute or solutes from one side of a membrane to the other according to the reaction: ATP + H2O + Ag+(in) -> ADP + phosphate + Ag+(out). 
+   
+-GO term name: silver ion (broad)
+-GO term from its defintion: silver(1+)
+In chebi: there are  - silver ion  - silver cation - silver(1+)
 
 It is not enough to link the GO term with the equivalent chebi term only by name matching. We have to know the GO name and definition to be able to link it with the right term in chebi. 
 
@@ -125,23 +133,12 @@ Terms under this pattern are transported either from the inside of the cell to t
 ISSUES:
 
 Different term naming schema between GO and chebi. 
- * For example:  GO:0015408   Ferric-transporting ATPase activity  \\
+ * For example:  + GO:0015408   Ferric-transporting ATPase activity. 
 		 CHEBI:29034  iron(3+)
-		 GO:0032778     ferric-hydroxamate-transporting ATPase activity  \\
+		 + GO:0015625    ferric-hydroxamate-transporting ATPase activity.  
 		 Chebi:  iron_III__hydroxamate
 
-GO term is a broad where chebi term is narrow:
- * For example: -GO:   cobalt-transporting ATPase activity
-		-Chebi cobalt_cation  (there is no term cobalt by it
-
- * For example:  GO:  silver-exporting ATPase activity: enables the transfer of a solute or solutes from one side of a membrane to the other according to the reaction: ATP + H2O + Ag+(in) -> ADP + phosphate + Ag+(out). 
-   
--GO term name: silver ion (broad)
--GO term from its defintion: silver(1+)
-In chebi: there are  - silver ion  - silver cation   - silver(1+)
-
  * َSome terms in GO can be found as a synonyms in ChEBI, such as  (GO) Quaternary amine = (ChEBI) Quaternary ammonium ion
- * 
 
 ** Transporting/Exporting/Importing driven by ATPase
 
@@ -158,7 +155,7 @@ Active transport: moves material from area of low concentration to area of highe
 Most of GO terms do not specify what is the source of energy: 
  + active borate transmembrane transporter activity GO:0046715 is an active but does not tell by which molecule is driven by. (According to this: Park, M., Li, Q., Shcheynikov, N., Zeng, W. and Muallem, S., 2004. NaBC1 is a ubiquitous electrogenic Na+-coupled borate transporter essential for cellular boron homeostasis and cell growth and proliferation. Molecular cell, 16(3), pp.331-341.) It is sodium ion Na+
 
-However, these clearly specified as proton:
+However, these clearly specified the energy source as proton:
  + zinc efflux active transmembrane transporter activity GO:0015341 : from the term definition its driven by proton motive force.
  + GO:0009977
  + GO:0005427
@@ -182,12 +179,11 @@ Both substances (sodium ion and potassium) going against their concentration gra
 
 I think: 
  * In GO: the antiporter called -exchanging, that is only with: sodium/proton: potassium-exchanging. 
-   However, the different between antiporters in Primary and Secondary active transporter are substances in the Primary are both going against their concentration gradient.
+   However, the different between antiporters in Primary and Secondary active transporter is the substances in the Primary are both going against their concentration gradient.
    
 Secondary active (Antiporter)
 
 One substance going with its concentration gradient and the other substance going against its concentration gradient.
-
 
  ** Diff between ATP and ATPase 
    +ATP synthase generate more ATP whereas as ATPase breaks apart ATP releasing energy to drive forward reactions that are not very spontaneous (can't happen on their own).
@@ -205,7 +201,7 @@ ISSUES:
 	Uniporter is an integral memebrane protein involved in facilitated diffusion
 	Uniporters rely on passive transport, as they do not directly require cellular energy to function.
 
-See this: http://www.physiologyweb.com/lecture_notes/membrane_transport/secondary_active_transport.html
+According to this: http://www.physiologyweb.com/lecture_notes/membrane_transport/secondary_active_transport.html
     
    * Transporter protein couples the movement of an ion (typically Na+ or H+) down its electrochemical gradient to the uphill movement of another molecule 
      or ion against a concentration/electrochemical gradient.
@@ -213,7 +209,6 @@ See this: http://www.physiologyweb.com/lecture_notes/membrane_transport/secondar
 
 Antiporter and Symporter
   * Sodium is the driving ion for many Symporter and antiporter.
-
 
 ** Passive transporter
 
