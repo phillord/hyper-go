@@ -82,12 +82,9 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    (DV): It might be a mistake in GO where they wrote threonine instead of L-threonine, becasue (in GO) GO:0015195 is a L-amino acid and it is the same in ChEBI L-threonine is L-apha_amino_acid. GO:0015565 is an amino_acid. 
    (DV): define the term GO:0015565 as L-threonine not as threonine.
 
-  * In GO: GO:0042878 D-glucarate, In ChEbi D-glucarate(1-) and D-glucarate(2-)
-  (DV): based on "Cross-Ontology Relations" in GO,  it is D-glucarate(2-).
+  * In GO: GO:0042878 D-glucarate, In ChEbi D-glucarate(1-) and D-glucarate(2-). (DV): based on "Cross-Ontology Relations" in GO,  it is D-glucarate(2-).
   
-  * In GO: S-methylmethionine GO:0000100 represented as one term, whereas In chebi there are two terms S-methylmethionine and S-methyl-L-methioninate \\ 
-  GO:0000100 is a modified amino acid and sulfur molecular entity == In chebi S-methyl-L-methioninate is a modified amino acid while S-methyl-L-methionine is a sulfur molecular entity \\
-(DV) define the term as S-methylmethionine
+  * In GO: S-methylmethionine GO:0000100 represented as one term, whereas In chebi there are two terms S-methylmethionine and S-methyl-L-methioninate. GO:0000100 is a modified amino acid and sulfur molecular entity --> In chebi S-methyl-L-methioninate is a modified amino acid while S-methyl-L-methionine is a sulfur molecular entity. (DV) define the term as S-methylmethionine
  
   * GO:0015233 pantothenate is conjugate base of (R)-pantothenic acid which is conjugate acid of the pantothenate. \\ (DV): I defined the term as (R)-pantothenic aci NOT pantothenate
   
