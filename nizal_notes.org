@@ -18,7 +18,7 @@
      + antimicrobial drug http://purl.obolibrary.org/obo/CHEBI_36043       OR
 
 Agent: antimicrobial agent is NOT a subclass of drug CHEBI:23888 \\
-Drug:  antimicrobial drug is a subclass of drug CHEBI:23888 \\
+Drug:  antimicrobial drug is a subclass of drug CHEBI:23888 
 
 However: 
    * There are some terms in GO that is_a Antibiotic, but in ChEBI has_role antimicrobial agent
