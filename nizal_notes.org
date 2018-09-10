@@ -218,6 +218,10 @@ Antiporter and Symporter
 
   * "Passive diffusion moves materials from an area of higher concentration to an area of lower concentration, it is described as moving solutes "down the concentration gradient"
 
+
+** Others
+  * GO:0022880 : This differs from primary and secondary active transport in that the solute is modified during transport. 
+
 ** Chemical Role
  
  * There are some terms in GO classified as is_a drug, whereas in ChEbi they are not. For example: GO:0042878
