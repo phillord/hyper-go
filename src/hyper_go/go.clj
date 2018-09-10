@@ -17,7 +17,7 @@
 
 ;; (owl-import (get-go-ontology))
 
-;;(owl-import tawny-chebi.chebi/chebi)
+(owl-import tawny-chebi.chebi/chebi)
 
 
 ;; Stuff from other ontologies
@@ -256,6 +256,12 @@
   :comment "GO:0042895"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/antimicrobial_drug)))
+
+;; chemical role
+(deftransport ToTransportXenobiotic
+  :comment "GO:0042910"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/xenobiotic)))
 
 ;; chemical role
 (deftransport ToTransportAuxin
@@ -765,6 +771,56 @@
   :comment "GO:0015144"
   :across Membrane
   :cargo ch/carbohydrate)
+
+(deftransport ToTransportOligosaccharide
+  :comment "GO:0015157"
+  :across Membrane
+  :cargo ch/oligosaccharide)
+
+(deftransport ToTransportRaffinose
+  :comment "GO:0015158"
+  :across Membrane
+  :cargo ch/raffinose)
+
+(deftransport ToTransportDisaccharide
+  :comment "GO:0015154"
+  :across Membrane
+  :cargo ch/disaccharide)
+
+(deftransport ToTransportTrehalose
+  :comment "GO:0015574"
+  :across Membrane
+  :cargo ch/trehalose)
+
+(deftransport ToTransportSucrose
+  :comment "GO:0008515"
+  :across Membrane
+  :cargo ch/sucrose)
+
+(deftransport ToTransportMelibios
+  :comment "GO:0015156"
+  :across Membrane
+  :cargo ch/melibiose)
+
+(deftransport ToTransportLactose
+  :comment "GO:0015155"
+  :across Membrane
+  :cargo ch/lactose)
+
+(deftransport ToTransportCellobiose
+  :comment "GO:0019191"
+  :across Membrane
+  :cargo ch/cellobiose)
+
+(deftransport ToTransportMaltose
+  :comment "GO:0005363"
+  :across Membrane
+  :cargo ch/maltose)
+
+(deftransport ToTransportOligogalacturonide
+  :comment "GO:0033155"
+  :across Membrane
+  :cargo ch/oligogalacturonide)
 
 (deftransport ToTransportAldarate
   :comment "GO:0042876"
@@ -2614,7 +2670,7 @@
 
 
 ;; Passive transport (not complete)
-(deftransport ToTransportLongChainFattyAcidPorin
+(deftransport ToTransportLongChainFattyAcid-Porin
   :comment "GO:0015483"
   :across Membrane
   :cargo ch/long-chain_fatty_acid)

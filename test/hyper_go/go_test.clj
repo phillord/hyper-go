@@ -50,7 +50,7 @@
     (tawny.reasoner/isubclass? ToTransportVitaminB6 ToTransportVitamin))))
 
 
-(deftest drug-transporter []
+(deftest drug-transporters []
   (is
    (tawny.reasoner/isubclass? ToTransportDrug ToTransportThiamine))
   (is
@@ -281,6 +281,10 @@
     (tawny.reasoner/isubclass? ToTransportInorganicAnion ToTransportAnion))))
 
 
+
+
+
+
 (deftest l-alpha_amino_acid-transporter []
   (is
    (tawny.reasoner/isubclass? ToTransportL-AminoAcid ToTransportL-alanine))
@@ -369,10 +373,6 @@
     (tawny.reasoner/isubclass? ToTransportPyridoxalPhosphate ToTransportVitaminB6))))
 
 
-(deftest sphingosine-sanity []
-  (is
-   (tawny.reasoner/isubclass? ToTransport ToTransportSphingosine )))
-
 (deftest quaternary_ammonium_compound-transporter []
   (is
    (tawny.reasoner/isubclass? ToTransportQuaternaryAmmoniumCompound ToTransportAminoAcidBetaine))
@@ -422,6 +422,43 @@
 (deftest alcohol-sanity []
   (is
    (tawny.reasoner/isubclass? ToTransportAlchohol ToTransportEthanolamine)))
+
+
+(deftest inorganic_cation-transporter []
+  (is
+   (tawny.reasoner/isubclass? ToTransportInorganicCation ToTransportDivalentInorganicCation))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportDivalentInorganicCation ToTransportInorganicCation)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportInorganicCation ToTransportMonovalentInorganicCation))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportMonovalentInorganicCation ToTransportInorganicCation)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportInorganicCation ToTransportTrivalentInorganicCation))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportTrivalentInorganicCation ToTransportInorganicCation))))
+
+
+(deftest carbohydrate-transporter []
+  (is
+   (tawny.reasoner/isubclass? ToTransportCarbohydrate ToTransportMonosaccharide))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportMonosaccharide ToTransportCarbohydrate)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportCarbohydrate ToTransportOligosaccharide))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportOligosaccharide ToTransportCarbohydrate)))
+  (is
+   (tawny.reasoner/isubclass? ToTransportCarbohydrate ToTransportPolysaccharide))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportPolysaccharide ToTransportCarbohydrate))))
+
 
 (deftest peptide-transporter []
   (is
