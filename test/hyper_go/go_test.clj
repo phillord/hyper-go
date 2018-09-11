@@ -1,7 +1,9 @@
 (ns hyper-go.go-test
   (:require [clojure.test :refer :all]
             [tawny owl reasoner fixture]
-            [hyper-go.go :refer :all]))
+            [hyper-go.go :refer :all]
+            [hyper-go.active_transport :refer :all]
+            [hyper-go.ATPase_coupled :refer :all]))
 
 
 (use-fixtures :once

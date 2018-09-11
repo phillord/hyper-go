@@ -1,161 +1,15 @@
 (ns hyper-go.go
   (:use [tawny.pattern])
-  (:require [tawny.owl :refer :all]
-            [tawny-chebi.chebi :as ch]))
+  (:require [tawny.owl  :refer :all]
+            [tawny-chebi.chebi :as ch]
+            [hyper-go.core :refer :all]))
 
 
-(defontology hyper-go
-  :iri "http://example.com/hyper-go")
-
-
-;; (defn get-go-ontology []
-;;   (tawny.owl/remove-ontology-maybe
-;;    (OWLOntologyID. (IRI/create "http://purl.obolibrary.org/obo/go.owl")))
-;;   (.loadOntologyFromOntologyDocument
-;;    (tawny.owl/owl-ontology-manager)
-;;    (IRI/create  "http://purl.obolibrary.org/obo/go.owl")))
-
-;; (owl-import (get-go-ontology))
-
-(owl-import tawny-chebi.chebi/chebi)
-
-
-;; Stuff from other ontologies
-(declare-classes Location Membrane ATPase)
-(defoproperty bearer-of)
-
-;; From CC and Cell Ontologies
-(declare-classes Mitochondrion Chloroplast Cell Intracellular ExtracellularRegion
-                 PresynapticMembrane PostsynapticMembrane Hepatocyte  IntracellularCanaliculus 
-  :super Location)
-
-;; Transporters
-;(defclass ToTransport)
-(defoproperty transports
-  :comment "Transports a specific substance or a group of related substances ")
-
-(defoproperty transports-from
-  :comment "Transport a substance usually FROM location TO another")
-(defoproperty transports-to
-  :comment "Transport some chemical entity usually FROM location TO another")
-
-(defoproperty has-part
-  :comment "A substance such as SALT has part Anion and Cation")
-(defoproperty transports-across
-  :comment "Usually transport across Membrane"
-  :range Membrane)
-
-(defoproperty dependent-on
-  :comment "A substance depend on other molecule to be transported")
-(defoproperty driven-by
-  :comment "A substance not ransported till driven by some other chemical entity, ion and enzyme")
-(defoproperty derived-from
-  :comment "A substance derived from other molecule")
-
-(defoproperty linked-to
-  :comment "One activity which happens at the same time as another and
-  which can only occur because the other does.")
-
-(defoproperty has-role
-  :comment "Transport a substance which has some role such as drug, vitamin, neurotransmitter and cofactor")
-
-(defoproperty has-biological-role
-  :comment "Transport a substance which has some role such as coenzyme, vitamin, neurotransmitter and cofactor"
-  :super has-role)
-
-(defoproperty has-chemical-role
-  :comment "Transport a substance which has some role such as antioxidant"
-  :super has-role)
-
-(defoproperty has-application-role
-  :comment "Transport a substance which has some role such as drug"
-  :super has-role)
-
-(defoproperty involved_in_regulation_of
-  :comment "http://purl.obolibrary.org/obo/RO_0002428")
-
-(defoproperty involved_in_positive_regulation_of
-  :comment "http://purl.obolibrary.org/obo/RO_0002429"
-  :super involved_in_regulation_of)
-
-(defoproperty involved_in_negative_regulation_of
-  :comment "http://purl.obolibrary.org/obo/RO_0002430"
-  :super involved_in_regulation_of)
-
-(defoproperty occurs_in
-  :comment "http://purl.obolibrary.org/obo/BFO_0000066")
-
-(defclass ValuePartition)
-
-(defpartition BindingAffinity
-  [LowAffinity HighAffinity]
-  :comment "Transports a substance with high/low affinity. Affinity is a property for the transporter not the thing being transported"
-  :super ValuePartition)
-
-(defpartition Mechanism
-  [Rotational Phosphorylative]
-  :comment "some chemical entities transported with a specific type of mechanism"
-  :super ValuePartition)
-
-(defpartition Acidity
-  [Acidic Neutral Alkaline]
-  :comment "Amino acid, Basic, acidic and neutral amino-acid have different ph scale"
-  :super ValuePartition)
-
-(deftier Concentration
-  [Low High]
-  :comment "In Active transporter: Particles or solutes moves from an area with high number of particles to an area of lower number of particles."
-  :super ValuePartition
-  :suffix true
-  :functional false)
-
-(defpartition Direction
-  [SameDirection OppositeDirection]
-  :comment "In Active transporter: Symporter and Antiporters"
-  :super ValuePartition)
-
-(defpartition Enantiomerism
-  [D-Enantiomer L-Enantiomer]
-  :super ValuePartition)
-
-
-(defn with-property [frames frame-maybe property]
-  (when-let [frame (frame-maybe frames)]
-    (owl-some property frame)))
-
-
-(defn transport-explicit [o clazz frames]
-  (owl-class clazz
-             :equivalent
-             (owl-and
-              (remove nil?
-                      [(with-property frames :from transports-from)
-                       (with-property frames :to transports-to)
-                       (with-property frames :cargo transports)
-                       (with-property frames :transports-with hasBindingAffinity)
-                       (with-property frames :across transports-across)
-                       (with-property frames :driven driven-by)
-                       (with-property frames :linked linked-to) 
-                       (with-property frames :role bearer-of)
-                       (with-property frames :when dependent-on)
-                       (with-property frames :mechanism hasMechanism)
-                       (with-property frames :direction hasDirection)
-                       (with-property frames :involved involved_in_regulation_of)
-                       (with-property frames :occurs occurs_in)]))))
-
-(def transport
-  (extend-frameify
-   owl-class
-   transport-explicit
-   [:from :to :cargo
-    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs]))
-
-(defentity deftransport "" 'transport)
+(ontology-to-namespace hyper-go.core/hyper-go)
 
 (deftransport ToTransport
   :comment "GO:0005215"
   :cargo ch/chemical_entity)
-
 
 (deftransport ToTransportLipid
   :comment "GO:0005319"
@@ -164,6 +18,14 @@
 (deftransport ToTransportPhospholipid
   :comment "GO:0005548"
   :cargo ch/phospholipid)
+
+(deftransport ToTransportPhosphatidylethanolamine
+  :comment "GO:1904121"
+  :cargo ch/phosphatidylethanolamine)
+
+(deftransport ToTransportPhosphatidicAcid
+  :comment "GO:1990050"
+  :cargo ch/phosphatidic_acid)
 
 (deftransport ToTransportLysophospholipid
   :comment "GO:0051978"
@@ -177,7 +39,7 @@
 (deftransport ToTransportPolymyxin
   :comment "GO:0042897"
   :across Membrane
-  :cargo (owl-and ch/polymyxin (owl-some has-biological-role ch/antimicrobial_agent)))
+  :cargo (owl-and ch/polymyxin (owl-some has-biological-role ch/antimicrobial_drug)))
 
 (deftransport ToTransportSphingolipid
   :comment "GO:0046624"
@@ -201,26 +63,11 @@
 
 ;; === next is GO:0017128
 
-
 ;;Transmembrane transporter activity
 (deftransport ToTransportTransmembrane
   :comment "GO:0022857"
   :across Membrane
   :cargo ch/chemical_entity)
-
-;; Requires energy to transports molecules.
-;; The energy derived directly from the breakdown of ATP.
-(deftransport ToTransportPrimaryActiveTransmembrane
-  :comment "GO:0015399"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven ATPase)
-
-(deftransport ToTransportP-P-bond-hydrolysis-driven
-  :comment "GO:0015405"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase ch/nucleoside_triphosphate))
 
 ;; chemical role
 (deftransport ToTransportDrug
@@ -587,7 +434,7 @@
 (deftransport ToTransportFluconazole
   :comment "GO:0015244"
   :across Membrane
-  :cargo (owl-and ch/fluconazole (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic)))
+  :cargo (owl-and ch/fluconazole (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic)))
 
 (deftransport ToTransportAcadesine
   :comment "GO:1903089"
@@ -602,7 +449,7 @@
 (deftransport ToTransportSulfathiazole
   :comment "GO:0015546"
   :across Membrane
-  :cargo (owl-and ch/sulfathiazole (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic)))
+  :cargo (owl-and ch/sulfathiazole (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic)))
 
 (deftransport ToTransportThiamine
   :comment "GO:0015234"
@@ -640,36 +487,6 @@
   :across Membrane
   :cargo ch/sulfate)
 
-;; Requires energy to transports molecules.
-;; Move molecules against thier concentration gradient
-(deftransport ToTransportActiveTransmembrane
-  :comment "GO:0022804"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
-
-(deftransport ToTransportActiveIonTransmembrane
-  :comment "GO:0022853"
-  :across Membrane
-  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
-
-(deftransport ToTransportIonInvolvedInRegulationOfPresynapticMembranePotential
-  :comment "GO:0099521"
-  :across Membrane
-  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-  :involved PresynapticMembrane
-  :occurs PresynapticMembrane)
-
-(deftransport ToTransportIonInvolvedInRegulationOfPostsynapticMembranePotential
-  :comment "GO:0099581"
-  :across Membrane
-  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-  :involved PostsynapticMembrane
-  :occurs PostsynapticMembrane)
-
 
 ;;Enables the transfer of a specific substance or related group of substances from the outside of the cell to the inside of the cell across a membrane.
 (deftransport ToTransportInfluxTransmembrane
@@ -688,50 +505,42 @@
   :to ExtracellularRegion)
 
 
-
-;;Enables the transfer of a solute from one side of a membrane to the other, up its concentration gradient.
-;;Transport works equally well in either direction and is driven by a chemiosmotic source of energy, not direct ATP coupling.
-;;Secondary active transporters include symporters and antiporters.
-(deftransport ToTransportSecondaryActiveTransmembrane
-  :comment "GO:0015291"
+(deftransport ToTransportCarbohydrateDerivative
+  :comment "GO:1901505"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
-  :direction (owl-or SameDirection OppositeDirection))
+  :cargo ch/carbohydrate_derivative)
 
 
-;;Solute A(out) + solute B(in) = solute A(in) + solute B(out).
-(deftransport ToTransportAntiporterActivity
-  :comment "GO:0015297"
+(deftransport ToTransportGlucoside
+  :comment "GO:0042947"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
-  :direction OppositeDirection)
+  :cargo ch/glucoside)
 
-(deftransport ToTransportSymporterActivity
-  :comment "GO:0015293"
+(deftransport ToTransportAlpha-Glucoside
+  :comment "GO:0015151"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven  (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
-  :direction SameDirection)
+  :cargo ch/alpha-glucoside)
 
-(deftransport ToTransportNucleosideSecondaryActiveTransmembrane
-  :comment "GO:0010174"
+(deftransport ToTransportBeta-Glucoside
+  :comment "GO:0015573"
   :across Membrane
-  :cargo (owl-and ch/nucleoside (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+  :cargo ch/beta-glucoside)
 
-(deftransport ToTransportPeptideSecondaryActiveTransmembrane
-  :comment "GO:0022897"
+(deftransport ToTransportArbutin
+  :comment "GO:0042951"
   :across Membrane
-  :cargo (owl-and ch/peptide (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+  :cargo ch/hydroquinone_O-beta-D-glucopyranoside)
 
-(deftransport ToTransportOligopeptideSecondaryActiveTransmembrane
-  :comment "GO:0005427"
+(deftransport ToTransportAbscisicAcidGlucosylEster
+  :comment "GO:1902417"
   :across Membrane
-  :cargo (owl-and ch/oligopeptide (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+  :cargo ch/_+_-abscisic_acid_D-glucopyranosyl_ester)
+
+
+
+
+
+
 
 (deftransport ToTransportFerricTriacetylfusarinineC
   :comment "GO:0015621"
@@ -1021,7 +830,7 @@
 (deftransport ToTransportBenomyl
   :comment "GO:1901479"
   :across Membrane
-  :cargo (owl-and ch/benomyl (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic)))
+  :cargo (owl-and ch/benomyl (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic)))
 
 (deftransport ToTransportMethotrexate
   :comment "GO:0015350"
@@ -1054,11 +863,7 @@
   :across Membrane
   :cargo ch/protein)
 
-(deftransport ToTransportProteinActive
-  :comment "GO:0009977"
-  :across Membrane
-  :cargo (owl-and ch/protein (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+
 
 ;; (deftransport ToTransportProtein-DNAComplex
 ;;   :comment ""
@@ -1068,7 +873,7 @@
 (deftransport ToTransportMicrocin
   :comment "GO:0015638"
   :across Membrane
-  :cargo (owl-and ch/microcin (owl-some has-biological-role ch/antimicrobial_agent)))
+  :cargo (owl-and ch/microcin (owl-some has-biological-role ch/antimicrobial_drug)))
 
 (deftransport ToTransportOligopeptide
   :comment "GO:0035673"
@@ -1130,15 +935,6 @@
   :cargo ch/zinc_2+_
   :from Intracellular
   :to ExtracellularRegion)
-
-(deftransport ToTransportZincIonEffluxActive
-  :comment "GO:0015341"
-  :across Membrane
-  :cargo (owl-and ch/zinc_2+_ (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
-  :from Intracellular
-  :to ExtracellularRegion)
-
 
 (deftransport ToTransportFerricIron
   :comment "GO:0015091"
@@ -1528,13 +1324,6 @@
   :cargo (owl-and ch/L-glutamine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
                   (owl-some has-application-role ch/drug)))
 
-(deftransport ToTransportNeutralL-AminoAcidSecondaryActive
-  :comment "GO:0005294"
-  :across Membrane
-  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Neutral) (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
-
-
 (deftransport ToTransportBasicAminoAcid
   :comment "GO:0015174"
   :across Membrane
@@ -1869,7 +1658,7 @@
 (deftransport ToTransportCitrate:SuccinateAntiporter
   :comment "GO:0015515"
   :across Membrane
-  :cargo (owl-and ch/citrate_3-_ (owl-some has-biological-role ch/antimicrobial_agent)
+  :cargo (owl-and ch/citrate_3-_ (owl-some has-biological-role ch/antimicrobial_drug)
                   (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug)
                  (owl-some hasConcentration LowConcentration))
@@ -1897,7 +1686,7 @@
 (deftransport ToTransportTetracycline:ProtonAntiporter
   :comment "GO:0015520"
   :across Membrane
-  :cargo (owl-and ch/tetracycline (owl-some has-biological-role ch/antimicrobial_agent)
+  :cargo (owl-and ch/tetracycline (owl-some has-biological-role ch/antimicrobial_drug)
                   (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
@@ -1914,7 +1703,7 @@
   :comment "GO:0015313"
   :across Membrane
   :cargo (owl-and ch/fluconazole (owl-some hasConcentration LowConcentration)
-                  (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic))
+                  (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
@@ -1924,7 +1713,7 @@
 (deftransport ToTransportTetracycline
   :comment "GO:0008493"
   :across Membrane
-  :cargo (owl-and ch/tetracycline (owl-some has-biological-role ch/antimicrobial_agent)))
+  :cargo (owl-and ch/tetracycline (owl-some has-biological-role ch/antimicrobial_drug)))
 
 (deftransport ToTransportAluminumIon
   :comment "GO:0015083"
@@ -2077,12 +1866,6 @@
   :across Membrane
   :cargo ch/silicate_ion)
 
-(deftransport ToTransportActiveBorate
-  :comment "GO:0046715"
-  :across Membrane
-  :cargo (owl-and ch/borate (owl-some hasConcentration LowConcentration)
-                  (owl-some has-application-role ch/drug))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
 (deftransport ToTransportFluoride
   :comment "GO:1903425"
@@ -2210,7 +1993,7 @@
 (deftransport ToTransportCycloheximide
   :comment "GO:0015243"
   :across Membrane
-  :cargo (owl-and ch/cycloheximide (owl-some has-biological-role ch/antimicrobial_agent)))
+  :cargo (owl-and ch/cycloheximide (owl-some has-biological-role ch/antimicrobial_drug)))
 
 (deftransport ToTransportAmmoniumIon
   :comment "GO:0008519"
@@ -2293,11 +2076,6 @@
   :across Membrane
   :cargo (owl-and ch/L-methionine (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug)))
 
-(deftransport ToTransportL-methionineSecondaryActiveTransmembrane
-  :comment "GO:0000102"
-  :across Membrane
-  :cargo (owl-and ch/L-methionine (owl-some hasConcentration LowConcentration)  (owl-some hasAcidity Neutral) (owl-some has-application-role ch/drug))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
 (deftransport ToTransportGlycerophosphodiester
   :comment "GO:0001406"
@@ -2489,7 +2267,7 @@
 (deftransport ToTransportCitrate
   :comment "GO:0015137"
   :across Membrane
-  :cargo (owl-and ch/citrate_3-_ (owl-some has-biological-role ch/antimicrobial_agent)))
+  :cargo (owl-and ch/citrate_3-_ (owl-some has-biological-role ch/antimicrobial_drug)))
 
 (deftransport ToTransportIcosanoid
   :comment "GO:0071714"
@@ -2529,7 +2307,7 @@
 (deftransport ToTransportBenzoate
   :comment "GO:0042925"
   :across Membrane
-  :cargo (owl-and ch/benzoate (owl-some has-biological-role  ch/antimicrobial_agent   ch/human_xenobiotic_metabolite)))
+  :cargo (owl-and ch/benzoate (owl-some has-biological-role  ch/antimicrobial_drug   ch/human_xenobiotic_metabolite)))
 
 (deftransport ToTransportAldonate
   :comment "GO:0042879"
@@ -2585,12 +2363,12 @@
 (deftransport ToTransport3-PhenylpropionicAcid
   :comment "GO:0042890"
   :across Membrane
-  :cargo (owl-and ch/_3-phenylpropionic_acid (owl-some has-biological-role ch/antimicrobial_agent)))
+  :cargo (owl-and ch/_3-phenylpropionic_acid (owl-some has-biological-role ch/antimicrobial_drug)))
 
 (deftransport ToTransportNalidixicAcid
   :comment "GO:0015547"
   :across Membrane
-  :cargo (owl-and ch/nalidixic_acid (owl-some has-biological-role ch/antimicrobial_agent ch/xenobiotic)))
+  :cargo (owl-and ch/nalidixic_acid (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic)))
 
 (deftransport ToTransportGlycolicAcid
   :comment "GO:0043879"
@@ -2600,7 +2378,7 @@
 (deftransport ToTransportAcetate
   :comment "GO:0015123"
   :across Membrane
-  :cargo (owl-and ch/acetate (owl-some has-biological-role ch/antimicrobial_agent)))
+  :cargo (owl-and ch/acetate (owl-some has-biological-role ch/antimicrobial_drug)))
 
 (deftransport ToTransportBileAcid
   :comment "GO:0015125"
@@ -2664,12 +2442,12 @@
 (deftransport ToTransportFormate
   :comment "GO:0015499"
   :across Membrane
-  :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_agent)))
+  :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_drug)))
 
 (deftransport ToTransportFormateEfflux
   :comment "GO:0015660"
   :across Membrane
-  :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_agent))
+  :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_drug))
   :from Intracellular
   :to ExtracellularRegion)
 
@@ -2822,13 +2600,6 @@
 
 
 
-
-
-
-
-
-
-
 (defn di-porter [from to]
   (let [first-transport
         (:cargo :from)
@@ -2841,8 +2612,6 @@
                 (owl-some has-part first-transport)
                 (owl-some has-part second-transport)))))
 
-
-(save-ontology "hyper-go.owl" :owl)
 
 ;; ;; (require 'tawny.reasoner)
 ;; ;; (tawny.reasoner/reasoner-factory :hermit)
