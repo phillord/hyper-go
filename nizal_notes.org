@@ -81,6 +81,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
  
 
 ** Diff classification between GO and ChEBI
+
   * In many cases a term in GO has no role or some roles, whereas in ChEBI has some extra roles. 
      + For example GO:1905131 and GO:0034634
   
@@ -98,6 +99,11 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
   
    * Long-chain fatty acid (GO:0005324) is NOT subclass of Fatty acid, whereas in ChEBI Long-chain fatty acid is a subclass of Fatty acid. (DT) ChEBI classification looks more accurate.
 
+
+
+
+ * GO:1902417 (+)-abscisic acid D-glucopyranosyl ester transmembrane  is_a glucoside. In ChEBI is_a D-glucoside -> glucoside -> carbohydrate_derivative
+   + Same for GO:0042951
 
  * GO classification
    + GO:0015395 classified as Secondary Active transporter, whereas it should be classified as passive diffusion based on its definition.
