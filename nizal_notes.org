@@ -13,45 +13,7 @@
    + e.x: GO:1901236
 
 
-  * GO:0042895 Antibiotic transmembrane transporter, What is the equivalent term in ChEBI ?
-     + antimicrobial agent http://purl.obolibrary.org/obo/CHEBI_33281      OR 
-     + antimicrobial drug http://purl.obolibrary.org/obo/CHEBI_36043       OR
-
-Agent: antimicrobial agent is NOT a subclass of drug CHEBI:23888 \\
-Drug:  antimicrobial drug is a subclass of drug CHEBI:23888 
-
-However: 
-   * There are some terms in GO that is_a Antibiotic, but in ChEBI has_role antimicrobial agent
-       + e.x: GO:0042897  - GO:0042898 - GO:0015638 - GO:0022885
-       
-   *  There are some terms in GO that is_a Antibiotic, and in ChEBI has_role both antimicrobial agent and antimicrobial drug
-       + e.x: GO:0008493 tetracycline  -  GO:0042896 - GO:0015244 - GO:1901479 - GO:0015547
-       + e.x: GO:0015243 has different roles such as: biological and application roles.
-       
-   * There are some terms in GO that is_a Antibiotic, but in ChEBI has No role Antibiotic
-      + e.x: GO:0015499 formate  is conjugate base of formic acid which has_role antibacterial agent
-      + e.x: GO:0015552 propionate is conjugate base of propionic acid which has_role antifungal drug that is both antibacterial agent and drug.
-      + e.x: GO:0042925  (same above)
-
-
- * GO:0042910 xenobiotic transmembrane transporter What is the equivalent term in ChEBI ?
-   +  xenobiotic http://purl.obolibrary.org/obo/CHEBI_35703
-   +  human xenobiotic metabolite CHEBI:76967
-   
-   + e.x: GO:0015244   has role xenobiotic
-   + e.x: GO:0042926  has role human xenobiotic metabolite 
-   + e.x: GO:0005368  is_a xenobiotic in GO, but not in ChEBI
-   + e.x: GO:0015566  is_a xenobiotic in GO, but not in ChEBI
-   + e.x: GO:0042911  is_a xenobiotic in GO, but not in ChEBI
-
- * siderophore transmembrane transporter GO:0015343 What is the equivalent term in ChEBI ?
-   +  siderophore (CHEBI:26672) 
-   + Fe(III)-complexed hydroxamate siderophore (CHEBI:84688)  
-   
-   + e.x: GO:0042933  has role siderophore
-   + e.x: GO:0042929  is a Fe(III)-complexed hydroxamate siderophore 
-
-
+ 
 ** General issue
 
 The information in GO about each term is scarce. 
@@ -229,8 +191,6 @@ Antiporter and Symporter
   * GO:0022880 : This differs from primary and secondary active transport in that the solute is modified during transport. 
 
 ** Chemical Role
- 
- * There are some terms in GO classified as is_a drug, whereas in ChEbi they are not. For example: GO:0042878
 
  * Chemical role in GO:
     1. drug
@@ -240,6 +200,51 @@ Antiporter and Symporter
     5. xenobiotic
     6. neurotransmitter
     7. Siderophore : classified in more detailed in ChEBI whereas in GO just as role
+    
+   * There are some terms in GO classified as is_a drug, whereas in ChEbi they are not. For example: 
+       + GO:0015141 succinate transmembrane transporter activity is_a a drug in GO, whereas in ChEBI it is not, but it is conjugate base of succinate(1−) which in turn is is conjugate base of succinic acid that has_role drug.
+       + GO:0042878 (smae case of above)
+    
+  * GO:0042895 Antibiotic transmembrane transporter, What is the equivalent term in ChEBI ?
+     + antimicrobial agent http://purl.obolibrary.org/obo/CHEBI_33281      OR 
+     + antimicrobial drug http://purl.obolibrary.org/obo/CHEBI_36043       OR
+
+Agent: antimicrobial agent is NOT a subclass of drug CHEBI:23888 \\
+Drug:  antimicrobial drug is a subclass of drug CHEBI:23888 
+
+However: 
+   * There are some terms in GO that is_a Antibiotic, but in ChEBI has_role antimicrobial agent
+       + e.x: GO:0042897  - GO:0042898 - GO:0015638 - GO:0022885
+       
+   *  There are some terms in GO that is_a Antibiotic, and in ChEBI has_role both antimicrobial agent and antimicrobial drug
+       + e.x: GO:0008493 tetracycline  -  GO:0042896 - GO:0015244 - GO:1901479 - GO:0015547
+       + e.x: GO:0015243 has different roles such as: biological and application roles.
+       
+   * There are some terms in GO that is_a Antibiotic, but in ChEBI has No role Antibiotic
+      + e.x: GO:0015499 formate  is conjugate base of formic acid which has_role antibacterial agent
+      + e.x: GO:0015552 propionate is conjugate base of propionic acid which has_role antifungal drug that is both antibacterial agent and drug.
+      + e.x: GO:0042925  (same above)
+
+
+ * GO:0042910 xenobiotic transmembrane transporter What is the equivalent term in ChEBI ?
+   +  xenobiotic http://purl.obolibrary.org/obo/CHEBI_35703
+   +  human xenobiotic metabolite CHEBI:76967
+   
+   + e.x: GO:0015244   has role xenobiotic
+   + e.x: GO:0042926  has role human xenobiotic metabolite 
+   + e.x: GO:0005368  is_a xenobiotic in GO, but not in ChEBI
+   + e.x: GO:0015566  is_a xenobiotic in GO, but not in ChEBI
+   + e.x: GO:0042911  is_a xenobiotic in GO, but not in ChEBI
 
   * xenobiotic transmembrane transporter activity (GO:0042910)  is NOT a drug
   * xenobiotic transmembrane transporter activity (GO:0008559)  has role some drug,   Is this an enzyme EC 3.6.3.44 ?  Catalysing transmembrane movement of substances
+
+
+ * siderophore transmembrane transporter GO:0015343 What is the equivalent term in ChEBI ?
+   +  siderophore (CHEBI:26672) 
+   + Fe(III)-complexed hydroxamate siderophore (CHEBI:84688)  
+   
+   + e.x: GO:0042933  has role siderophore
+   + e.x: GO:0042929  is a Fe(III)-complexed hydroxamate siderophore 
+
+
