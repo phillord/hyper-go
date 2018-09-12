@@ -59,7 +59,7 @@
   ["FerricDicitrate"		"GO:0102026"	ch/iron_III__dicitrate]
   ["ProtohemeIX"		"GO:0103115"	ch/heme_b]
   ["Alpha-D-Galactofuranose"	"GO:0103116"	ch/UDP-alpha-D-galactofuranose] 	;; Not entirely sure
-  ["Phospholipid"           	"GO:0004012"    ch/phospholipid ]
+  ["Phospholipid"           	"GO:0004012"    ch/phospholipid]
   ["Glycerol-3Phosphate"	"GO:0015430"	ch/sn-glycerol_3-phosphate]
   ["GlutathioneS-conjugate" 	"GO:0071997"	ch/glutathione_conjugate]		;; linked to broad term in ChEBI
   ["Glycerol-2-phosphate"	"GO:0070812"	ch/glycerol_2-phosphate]
@@ -113,7 +113,11 @@
   ["Bacteriocin"		"GO:0043214"	ch/bacteriocin]
   ["Methionine"		"GO:1901243"	ch/methionine]
   ["Sphingolipid"		"GO:0046623"	ch/sphingolipid]
-  ["Ceramide"			"GO:0099038"	ch/ceramide])
+  ["Ceramide"			"GO:0099038"	ch/ceramide]   ;;Need Review
+  ["Phosphatidylserine"	"GO:0090556"	ch/phosphatidyl-L-serine]
+  ["Phosphatidylethanolamine"	"GO:0090555"	ch/phosphatidylethanolamine]
+  ["Phosphatidylcholine"	"GO:0090554"	ch/phosphatidylcholine]
+  )
 
 
 ;; ATP + H2O + cob(III)alamin(out) = ADP + phosphate + cob(III)alamin(in).
