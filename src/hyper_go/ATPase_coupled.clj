@@ -231,9 +231,6 @@
 
 
 
-
-
-
 ;;#A substance or substances transported from the inside of the cell to the outside.
 ;; Driven by ATPase
 (defn substance-exporting-ATPase [lis]
