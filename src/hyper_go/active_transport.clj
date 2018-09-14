@@ -180,17 +180,26 @@
   :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
-;; ===== Next is GO:0015379
+(deftransport ToTransportChloride:PotassiumSymporter
+  :comment "GO:0015379"
+  :across Membrane
+  :cargo (owl-and ch/chloride (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+(deftransport ToTransportCarbohydrate:CationSymporter
+  :comment "GO:0005402"
+  :across Membrane
+  :cargo (owl-and ch/carbohydrate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+
+;; ===== Next is GO:0015487
+
 
 
 ;; AminoAcid secondary: symporters
-(deftransport ToTransportSolute:SodiumSymporter
-  :comment "GO:0015370"
-  :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
-  :direction SameDirection)
-
 (deftransport ToTransportOrganicAcid:SodiumSymporter
   :comment "GO:0005343"
   :across Membrane
@@ -360,13 +369,6 @@
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
-(deftransport ToTransportBicarbonate:SodiumSymporter
-  :comment "GO:0008510"
-  :across Membrane
-  :cargo (owl-and ch/hydrogencarbonate (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
-  :direction SameDirection)
-
 
 
 ;;=====================================================
@@ -393,13 +395,79 @@
 
 ;; Substances driven by Sodium_ion 
 (deftransporters-drivenby-sodium-symporter
+  ["Solute"			"GO:0015370"	ch/chemical_entity]
   ["Galactoside"		"GO:0044669"	ch/galactoside]
   ["Anion"			"GO:0015373"	ch/inorganic_anion]
   ["Iodide"			"GO:0008507"	ch/iodide]
   ["Chloride"			"GO:0015378"	ch/chloride]
-  ["Sulfate"			"GO:0015382"	ch/sulfate])
+  ["Sulfate"			"GO:0015382"	ch/sulfate]
+  ["Choline"			"GO:0005307"	ch/choline has-biological-role ch/neurotransmitter]
+  ["Bicarbonate"		"GO:0008510"	ch/hydrogencarbonate])
+
+
+
+;; https://link.springer.com/article/10.1007%2Fs00424-003-1064-5
+(deftransport ToTransportNeurotransmitter:SodiumSymporter
+  :comment "GO:0005328"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration)
+                  (owl-some has-biological-role ch/neurotransmitter))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+;; http://www.tcdb.org/search/result.php?tc=2.a.30
+;; {Na+ or K+ + Cl-} (out) ⇌ {Na+ or K+ + Cl-} (in).
+(deftransport ToTransportChloride:Potassium:SodiumSymporter
+  :comment "GO:0008511"
+  :across Membrane
+  :cargo (owl-and ch/chloride (owl-some hasConcentration LowConcentration))
+  :driven (owl-and (owl-or ch/potassium_1+_ ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+  :direction SameDirection)
+
+;; https://link.springer.com/article/10.1007%2Fs00424-003-1064-5
+(deftransport ToTransportSerotonin:Chloride:SodiumSymporter
+  :comment "GO:0005335"
+  :across Membrane
+  :cargo (owl-and ch/serotonin (owl-some hasConcentration LowConcentration)
+                  (owl-some has-biological-role ch/neurotransmitter))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+  :when ch/chloride
+  :direction SameDirection)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ;; === Next is the subclasses of GO:0015378
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -428,23 +496,52 @@
 
 ;; Substances driven by Proton 
 (deftransporters-drivenby-proton-symporter
-  ["Solute"		"GO:0015295"		ch/chemical_entity]
-  ["Selenite"		"GO:0097079"		ch/selenite_2-_]  ;; evidence PMID:20861301
-  ["Succinate"		"GO:0097434"		ch/succinate_2-_ has-application-role ch/drug]  ;; evidence PMID:1293882 
-  ["Glucosinolate"	"GO:0090448"		ch/glucosinolate]
-  ["FerricEnterobactin" "GO:0015345"		ch/ferrienterobactin_3-_ has-biological-role ch/siderophore]
-  ["Acetate"		"GO:0015360"		ch/acetate has-biological-role ch/antimicrobial_drug]
-  ["Nitrate"		"GO:0009671"		ch/nitrate]
+  ["Solute"			"GO:0015295"		ch/chemical_entity]
+  ["Selenite"			"GO:0097079"		ch/selenite_2-_]  ;; evidence PMID:20861301
+  ["Succinate"			"GO:0097434"		ch/succinate_2-_ has-application-role ch/drug]  ;; evidence PMID:1293882 
+  ["Glucosinolate"		"GO:0090448"		ch/glucosinolate]
+  ["FerricEnterobactin"	"GO:0015345"		ch/ferrienterobactin_3-_ has-biological-role ch/siderophore]
+  ["Acetate"			"GO:0015360"		ch/acetate has-biological-role ch/antimicrobial_drug]
+  ["Nitrate"			"GO:0009671"		ch/nitrate]
+  ["Carbohydrate"		"GO:0005351"		ch/carbohydrate]
+  ["Hexose"			"GO:0009679"		ch/hexose]
+  ["Fucose"			"GO:0015535"		ch/fucose]
+  ["Glucose"			"GO:0005356"		ch/glucose]
+  ["D-glucose"			"GO:0055055"		ch/D-glucose]
+  ["Fructose"			"GO:0055054"		ch/fructose]
+  ["Rhamnose"			"GO:0015561"		ch/rhamnose]
+  ["Mannose"			"GO:0055053"		ch/mannose]
+  ["Galactose"			"GO:0015517"		ch/galactose]
+  ["Raffinose"			"GO:0015529"		ch/raffinose]
+  ["2-dehydro-3-deoxy-D-gluconate" "GO:0015649"	ch/_2-dehydro-3-deoxy-D-gluconate]
+  ["D-xylose"			"GO:0015519"		ch/aldehydo-D-xylose]
+  ["Arabinose"			"GO:0015518"		ch/arabinose]
+  ["Lactose"			"GO:0015528"		ch/lactose]
+  ["Sucrose"			"GO:0008506"		ch/sucrose]
+  ["Maltose"			"GO:0005364"		ch/maltose]
+  ["Trehalose"			"GO:0044693"		ch/trehalose]
   )
 
 
+;; GO:0005360 insulin-responsive glucose:proton symporter 
+
+(deftransport ToTransportLowAffinityGlucose:ProtonSymporter
+  :comment "GO:0005359"
+  :across Membrane
+  :cargo (owl-and ch/glucose (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :transports-with LowAffinity
+  :direction SameDirection)
 
 
 
-
-
-
-
+(deftransport ToTransportHighAffinityGlucose:ProtonSymporter
+  :comment "GO:0005358"
+  :across Membrane
+  :cargo (owl-and ch/glucose (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :transports-with HighAffinity
+  :direction SameDirection)
 
 
 
