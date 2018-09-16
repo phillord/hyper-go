@@ -47,7 +47,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
   * In many cases a term in GO has no role or some roles, whereas in ChEBI has some extra roles. 
      + For example GO:1905131 and GO:0034634
   
-  * In GO: hexuronate transmembrane transporter activity GO:0015134 is a hexuronic acid. In ChEBI they are two different terms.
+  * In GO: hexuronate transmembrane transporter activity GO:0015134 is_a uronic acid . In ChEBI they are two different terms: hexuronate and hexuronic acid, the latter is_a  uronic acid. hexuronate is conjugate base of hexuronic acid and therefore it is conjugate base of uronic acid.
   
   * In GO: threonine efflux transmembrane GO:0015565 is a L-threonine transmembrane GO:0015195. In ChEBI it is the opposite. \\
    (DV): It might be a mistake in GO where they wrote threonine instead of L-threonine, becasue (in GO) GO:0015195 is a L-amino acid and it is the same in ChEBI L-threonine is L-apha_amino_acid. GO:0015565 is an amino_acid. 
