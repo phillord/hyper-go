@@ -147,11 +147,14 @@
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
 
+
+
 ;; =====================================================
 ;;============== Symporter Secondary Active transporters =========
 ;;======================================================
 
-;;solute(out) + cation(out) = solute(in) + cation(in). 
+;;solute(out) + cation(out) = solute(in) + cation(in).
+;; The cation is Na+, Li+ or H+. 
 (deftransport ToTransportSolute:CationSymporter
   :comment "GO:0015294"
   :across Membrane
@@ -194,8 +197,53 @@
   :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
+(deftransport ToTransportMelibiose:CationSymporter
+  :comment "GO:0015487"
+  :across Membrane
+  :cargo (owl-and ch/melibiose (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
 
-;; ===== Next is GO:0015487
+(deftransport ToTransportGlycoside-Pentoside-Hexuronide:CationSymporter
+  :comment "GO:0015487"
+  :across Membrane
+  :cargo (owl-and (owl-or ch/glycoside ch/pentoside ch/hexuronate
+                          (owl-some hasConcentration LowConcentration)))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+(deftransport ToTransportGlucuronate:CationSymporter
+  :comment "GO:0015488"
+  :across Membrane
+  :cargo (owl-and ch/glucuronate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+(deftransport ToTransportSucrose:CationSymporter
+  :comment "GO:0009669"
+  :across Membrane
+  :cargo (owl-and ch/sucrose (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+(deftransport ToTransportAminoAcid:CationSymporter
+  :comment "GO:0005416"
+  :across Membrane
+  :cargo (owl-and ch/amino_acid (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+
+
+(deftransport ToTransportAminoAcid:PotassiumSymporter
+  :comment "GO:0017032"
+  :across Membrane
+  :cargo (owl-and ch/amino_acid (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+
+;; ===== Next is
 
 
 
@@ -308,7 +356,6 @@
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
-
 (deftransport ToTransportMonocarboxylicAcid:SodiumSymporter
   :comment "GO:0015375"
   :across Membrane
@@ -338,15 +385,12 @@
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
-
-
 (deftransport ToTransportTaurine:SodiumSymporter
   :comment "GO:0005369"
   :across Membrane
   :cargo (owl-and ch/taurine (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
-
 
 (deftransport ToTransportNucleoside:SodiumSymporter
   :comment "GO:0005415"
@@ -371,6 +415,7 @@
 
 
 
+;; Next is GO:0015374
 ;;=====================================================
 ;;==== Sodium symporter Secondary Active transporters =
 ;;======================================================
@@ -402,8 +447,10 @@
   ["Chloride"			"GO:0015378"	ch/chloride]
   ["Sulfate"			"GO:0015382"	ch/sulfate]
   ["Choline"			"GO:0005307"	ch/choline has-biological-role ch/neurotransmitter]
-  ["Bicarbonate"		"GO:0008510"	ch/hydrogencarbonate])
-
+  ["Bicarbonate"		"GO:0008510"	ch/hydrogencarbonate]
+  ["Melibiose"			"GO:0043887"	ch/melibiose]
+  ["Glucose"			"GO:0005412"	ch/glucose]
+  )
 
 
 ;; https://link.springer.com/article/10.1007%2Fs00424-003-1064-5
@@ -436,7 +483,13 @@
 
 
 
-
+(deftransport ToTransportLowAffinityGlucose:SodiumSymporter
+  :comment "GO:0005362"
+  :across Membrane
+  :cargo (owl-and ch/glucose (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+  :transports-with LowAffinity
+  :direction SameDirection)
 
 
 
@@ -520,6 +573,12 @@
   ["Sucrose"			"GO:0008506"		ch/sucrose]
   ["Maltose"			"GO:0005364"		ch/maltose]
   ["Trehalose"			"GO:0044693"		ch/trehalose]
+  ["AminoAcid"			"GO:0005280"		ch/proton]
+  ["AromaticAminoAcid"		"GO:0015494"		ch/aromatic_amino_acid]
+  ["Phenylalanine"		"GO:0015492"		ch/phenylalanine]
+  ["GammaAminobutyricAcid"	"GO:0015495"		ch/gamma-aminobutyric_acid has-biological-role ch/neurotransmitter]
+  ["Proline"			"GO:0005297"		ch/proline]
+  ["Lysine"			"GO:0015493"		ch/lysine]
   )
 
 

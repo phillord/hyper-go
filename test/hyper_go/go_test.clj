@@ -1,13 +1,15 @@
 (ns hyper-go.go-test
   (:require [clojure.test :refer :all]
             [tawny owl reasoner fixture]
-            [hyper-go.go :refer :all]
-            [hyper-go.active_transport :refer :all]
-            [hyper-go.ATPase_coupled :refer :all]))
+            [hyper-go.core]
+            [hyper-go.go]
+            [hyper-go.active-transport]
+            [hyper-go.ATPase_coupled]))
+
 
 
 (use-fixtures :once
-  (tawny.fixture/ontology-and-reasoner hyper-go.go/hyper-go :elk))
+  (tawny.fixture/ontology-and-reasoner hypergo.go/hyper-go :elk))
 
 (deftest transmembrane-transporter []
   (is
@@ -550,3 +552,4 @@
   (is
    (not
     (tawny.reasoner/isubclass? ToTransportCopperIon ToTransportTransitionMetalIon))))
+

@@ -745,9 +745,26 @@
   :across Membrane
   :cargo ch/uronic_acid)
 
-;; (deftransport ToTransportHexuronate
-;;   :comment "GO:0015134"
-;;   :across Membrane)
+(deftransport ToTransportHexuronate
+  :comment "GO:0015134"
+  :across Membrane
+  :cargo ch/hexuronate)
+
+(deftransport ToTransportGlucuronate
+  :comment "GO:0015135"
+  :across Membrane
+  :cargo ch/glucuronate)
+
+(deftransport ToTransportD-Glucuronate
+  :comment "GO:0042880"
+  :across Membrane
+  :cargo (owl-and ch/D-glucuronate (owl-some hasEnantiomerism D-Enantiomer)))
+
+(deftransport ToTransportGalacturonate
+  :comment "GO:0015550"
+  :across Membrane
+  :cargo ch/galacturonate)
+
 
 (deftransport ToTransportAminoAcidDerivative
   :comment "GO:0072349"
