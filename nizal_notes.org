@@ -63,6 +63,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
  * In GO some chemical entities classified as the same (exact), whereas in ChEBI there are some distinctions:
      + e.x: in GO: GO:0015373 anion classified as monovalent anion (exact). In ChEBI: monovalent inorganic anion is any inorganic anion with a valency of one.
+     + e.x: GO:0015487 inorganic cation classified as monovalent cation (exact). In ChEBI: monovalent inorganic cation:  positive charge that does not contain carbon in covalent linkage, with a valency of one.
 
  * GO:1902417 (+)-abscisic acid D-glucopyranosyl ester transmembrane  is_a glucoside. In ChEBI is_a D-glucoside -> glucoside -> carbohydrate_derivative
    + Same for GO:0042951
