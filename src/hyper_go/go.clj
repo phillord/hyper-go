@@ -1207,12 +1207,6 @@
   :from Intracellular
   :to ExtracellularRegion)
 
-;;lysine(out) + cadaverine(in) = lysine(in) + cadaverine(out). 
-;; (deftransport ToTransportLysine:CadaverineAntiporter
-;;   :comment "GO:0043872"
-;;   :across Membrane
-;;   :cargo 
-
 
 (deftransport ToTransportAcidicAminoAcid
   :comment "GO:0015172"
@@ -1364,13 +1358,7 @@
   :across Membrane
   :cargo ch/ion)
 
-;; ion A(out) + ion B(in) = ion A(in) + ion B(out) where ion A and ion B are different types of ion. 
-(deftransport ToTransportIonAntiporter
-  :comment "GO:0099516"
-  :across Membrane
-  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
-  :direction OppositeDirection)
+
 
 
 (deftransport ToTransportTriosePhosphate
@@ -1725,13 +1713,7 @@
   :cargo (owl-and ch/acetylcholine (owl-some has-application-role ch/drug)
                   (owl-some has-biological-role ch/neurotransmitter)))
 
-(deftransport ToTransportAcetylcholine:ProtonAntiporter
-  :comment "GO:0005278"
-  :across Membrane
-  :cargo (owl-and ch/acetylcholine (owl-some hasConcentration LowConcentration)
-                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
-  :direction OppositeDirection)
+
 
 (deftransport ToTransportMethylammonium
   :comment "GO:0015200"
@@ -2231,12 +2213,7 @@
   :across Membrane
   :cargo ch/polyamine)
 
-(deftransport ToTransportPolyamine:ProtonAntiporter
-  :comment "GO:0015312"
-  :across Membrane
-  :cargo (owl-and ch/polyamine (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
-  :direction OppositeDirection)
+
 
 (deftransport ToTransportSpermine
   :comment "GO:0000297"

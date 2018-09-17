@@ -38,7 +38,6 @@
   :involved PostsynapticMembrane
   :occurs PostsynapticMembrane)
 
-
 ;; classified in GO as primary and secondary active transporter. !!
 (deftransport ToTransportProteinActive
   :comment "GO:0009977"
@@ -46,6 +45,8 @@
   :cargo (owl-and ch/protein (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
 
+
+;; ==== Next is GO:0008504
 
 ;; =====================================================
 ;;============== Primary Active transporters =========
@@ -537,6 +538,61 @@
 ;;=====================================================
 ;;==== Antiporter Secondary Active transporters =
 ;;======================================================
+
+
+
+;;#A substance or substances transported according to the reaction:
+;; solute(out) + H+(in) = solute(in) + H+(out).
+;; Driven by proton antiporter
+(defn substance-drivenby-proton-antiporter [lis]
+  `(deftransport ~(symbol (str "ToTransport" (first lis) ":ProtonAntiporter"))
+     :comment ~(second lis)
+     :cargo
+     ~(cond (= 5 (count lis))
+            `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration) (owl-some ~(nth lis 3) ~(nth lis 4)))
+            :else `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration)))
+     :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+     :across Membrane
+     :direction OppositeDirection))
+
+;; macro function to do the classes mapping 
+(defmacro deftransporters-drivenby-proton-antiporter [& lis]
+  `(do ~@(map substance-drivenby-proton-antiporter lis)))
+
+(deftransporters-drivenby-proton-antiporter
+  ["Solute"			"GO:0015299"		ch/chemical_entity]
+  ["Acridine"			"GO:0042962"		ch/acridine]
+  ["Polyamine"			"GO:0015312"		ch/polyamine]
+  ["Monoamine"			"GO:0015311"		ch/monoamine]
+  ["Drug"			"GO:0015307"		ch/chemical_entity has-application-role ch/drug]
+  )
+
+
+
+
+
+;; ion A(out) + ion B(in) = ion A(in) + ion B(out) where ion A and ion B are different types of ion. 
+(deftransport ToTransportIonAntiporter
+  :comment "GO:0099516"
+  :across Membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+;;lysine(out) + cadaverine(in) = lysine(in) + cadaverine(out). 
+;; (deftransport ToTransportLysine:CadaverineAntiporter
+;;   :comment "GO:0043872"
+;;   :across Membrane
+;;   :cargo 
+
+(deftransport ToTransportAcetylcholine:ProtonAntiporter
+  :comment "GO:0005278"
+  :across Membrane
+  :cargo (owl-and ch/acetylcholine (owl-some hasConcentration LowConcentration)
+                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
 
 (deftransport ToTransportAnion:AnionAntiporter
   :comment "GO:0015301"
