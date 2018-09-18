@@ -565,10 +565,19 @@
   ["Polyamine"			"GO:0015312"		ch/polyamine]
   ["Monoamine"			"GO:0015311"		ch/monoamine]
   ["Drug"			"GO:0015307"		ch/chemical_entity has-application-role ch/drug]
+  ["Tetracycline"		"GO:0015520"		ch/tetracycline has-biological-role ch/antimicrobial_drug]
+  ["Cycloheximide"		"GO:0015309"		ch/cycloheximide has-biological-role ch/antimicrobial_drug]
+  ["Amiloride"			"GO:0015308"		ch/amiloride has-application-role ch/drug]
+  ["Azole"			"GO:0045119"		ch/azole has-application-role ch/drug]
+  ["Aminotriazole"		"GO:0015314"		ch/amitrole has-application-role ch/drug]
+  ["MonovalentCation"		"GO:0005451"		ch/monovalent_inorganic_cation]
+  ["Sodium"			"GO:0015385"		ch/sodium_1+_]
+  ["Potassium"			"GO:0015386"		ch/potassium_1+_]
+  ["Lithium"			"GO:0010348"		ch/lithium_1+_]
+  ["MetalIon"			"GO:0051139"		ch/metal_cation]
+  ["Calcium"			"GO:0015369"		ch/calcium_2+_]
+  ["Manganese"			"GO:0010486"		ch/manganese_2+_]
   )
-
-
-
 
 
 ;; ion A(out) + ion B(in) = ion A(in) + ion B(out) where ion A and ion B are different types of ion. 
@@ -579,19 +588,26 @@
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-;;lysine(out) + cadaverine(in) = lysine(in) + cadaverine(out). 
-;; (deftransport ToTransportLysine:CadaverineAntiporter
-;;   :comment "GO:0043872"
-;;   :across Membrane
-;;   :cargo 
-
-(deftransport ToTransportAcetylcholine:ProtonAntiporter
-  :comment "GO:0005278"
+(deftransport ToTransportIonInvolvedInRegulationOfPostsynapticMembranePotentialAntiporter
+  :comment "GO:0099580"
   :across Membrane
-  :cargo (owl-and ch/acetylcholine (owl-some hasConcentration LowConcentration)
-                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
+  :involved PostsynapticMembrane
+  :occurs PostsynapticMembrane
   :direction OppositeDirection)
+
+(deftransport ToTransportIonInvolvedInRegulationOfPresynapticMembranePotentialAntiporter
+  :comment "GO:0099520"
+  :across Membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
+  :involved PresynapticMembrane
+  :occurs PresynapticMembrane
+  :direction OppositeDirection)
+
+
+
 
 
 (deftransport ToTransportAnion:AnionAntiporter
@@ -641,6 +657,19 @@
 
 
 
+;;lysine(out) + cadaverine(in) = lysine(in) + cadaverine(out). 
+;; (deftransport ToTransportLysine:CadaverineAntiporter
+;;   :comment "GO:0043872"
+;;   :across Membrane
+;;   :cargo 
+
+
+
+
+
+
+
+;;=======================
 
 (deftransport ToTransportOrganophosphate:InorganicPhosphateAntiporter
   :comment "GO:0015315"
@@ -730,32 +759,6 @@
   :direction OppositeDirection)
 
 
-(deftransport ToTransportIonInvolvedInRegulationOfPresynapticMembranePotentialAntiporter
-  :comment "GO:0099520"
-  :across Membrane
-  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
-  :involved PresynapticMembrane
-  :occurs PresynapticMembrane
-  :direction OppositeDirection)
-
-(deftransport ToTransportIonInvolvedInRegulationOfPostsynapticMembranePotentialAntiporter
-  :comment "GO:0099580"
-  :across Membrane
-  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
-  :involved PostsynapticMembrane
-  :occurs PostsynapticMembrane
-  :direction OppositeDirection)
-
-(deftransport ToTransportTetracycline:ProtonAntiporter
-  :comment "GO:0015520"
-  :across Membrane
-  :cargo (owl-and ch/tetracycline (owl-some has-biological-role ch/antimicrobial_drug)
-                  (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
-  :direction OppositeDirection)
-
 ;; cation A(out) + cation B(in) = cation A(in) + cation B(out). 
 (deftransport ToTransportCationCationAntiporter
   :comment "GO:0015491"
@@ -764,10 +767,32 @@
   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+
+
+
+
+
+
 (deftransport ToTransportFluconazole:ProtonAntiporter
   :comment "GO:0015313"
   :across Membrane
   :cargo (owl-and ch/fluconazole (owl-some hasConcentration LowConcentration)
                   (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportBenomyl:ProtonAntiporter
+  :comment "GO:0015310"
+  :across Membrane
+  :cargo (owl-and ch/benomyl (owl-some hasConcentration LowConcentration)
+                  (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportAcetylcholine:ProtonAntiporter
+  :comment "GO:0005278"
+  :across Membrane
+  :cargo (owl-and ch/acetylcholine (owl-some hasConcentration LowConcentration)
+                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)

@@ -16,7 +16,7 @@
 
 ;; (owl-import (get-go-ontology))
 
-(owl-import tawny-chebi.chebi/chebi)
+;;(owl-import tawny-chebi.chebi/chebi)
 
 
 ;; Stuff from other ontologies

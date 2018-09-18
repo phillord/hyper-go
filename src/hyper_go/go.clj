@@ -2272,3 +2272,5 @@
 ;; ;; (tawny.reasoner/isubclass? ToTransportAnion ToTransportChloride)
 
 ;; ;; (subclass? ch/chloride ch/cation)
+
+
