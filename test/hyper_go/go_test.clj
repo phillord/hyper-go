@@ -1,15 +1,16 @@
 (ns hyper-go.go-test
   (:require [clojure.test :refer :all]
-            [tawny owl reasoner fixture]
+            [tawny owl reasoner fixture])
+  (:use
             [hyper-go.core]
             [hyper-go.go]
-            [hyper-go.active-transport]
-            [hyper-go.ATPase_coupled]))
+            [hyper-go.ATPase_coupled]
+            [hyper-go.active_transporter]))
 
 
 
 (use-fixtures :once
-  (tawny.fixture/ontology-and-reasoner hypergo.go/hyper-go :elk))
+  (tawny.fixture/ontology-and-reasoner hyper-go.core/hyper-go :elk))
 
 (deftest transmembrane-transporter []
   (is
