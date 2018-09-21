@@ -1500,6 +1500,13 @@
   :across Membrane
   :cargo ch/nitrate)
 
+(deftransport ToTransportNitrateEfflux
+  :comment "GO:0010542"
+  :across Membrane
+  :cargo ch/nitrate
+  :from Intracellular
+  :to ExtracellularRegion)
+
 (deftransport ToTransportNitrite
   :comment "GO:0015113"
   :across Membrane
@@ -1511,6 +1518,7 @@
   :cargo ch/nitrite
   :from Intracellular
   :to ExtracellularRegion)
+
 
 (deftransport ToTransportInorganicDiphosphate
   :comment "GO:0030504"

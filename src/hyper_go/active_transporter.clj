@@ -7,7 +7,6 @@
 
 (ontology-to-namespace hyper-go.core/hyper-go)
 
-
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient
 (deftransport ToTransportActiveTransmembrane
@@ -85,27 +84,54 @@
   :driven (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
   :direction (owl-or SameDirection OppositeDirection))
 
+;; ;;#A substance or substances transported according to the reaction:
+;; ;;Solute (out) + n[H+ or Na+] (out) → Solute (in) + n[H+ or Na+] (in)
+;; ;; Driven by sodium symporter
+;; (defn secondary-substance-transporters [lis]
+;;   `(deftransport ~(symbol (str "ToTransport" (first lis) ":SecondaryActiveTransmembrane"))
+;;      :comment ~(second lis)
+;;      :cargo
+;;      ~(cond (= 5 (count lis))
+;;             `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration) (owl-some ~(nth lis 3) ~(nth lis 4)))
+;;             :else `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration)))
+;;      :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
+;;      :across Membrane
+;;      :direction (owl-or SameDirection OppositeDirection)))
 
-;;Solute A(out) + solute B(in) = solute A(in) + solute B(out).
-(deftransport ToTransportAntiporterActivity
-  :comment "GO:0015297"
+(deftransport ToTransportHighAffinityNitriteSecondaryActiveTransmembrane
+  :comment "GO:0015513"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
-  :direction OppositeDirection)
+  :cargo (owl-and ch/nitrite (owl-some hasConcentration LowConcentration))
+  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
+  :transports-with HighAffinity
+  :direction (owl-or SameDirection OppositeDirection))
 
-(deftransport ToTransportSymporterActivity
-  :comment "GO:0015293"
+(deftransport ToTransportMonocarboxylicAcidSecondaryActiveTransmembrane
+  :comment "GO:0015355"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven  (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
-  :direction SameDirection)
+  :cargo (owl-and ch/monocarboxylic_acid (owl-some hasConcentration LowConcentration))
+  :driven (owl-and (owl-or ch/chemical_entity ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
+  :transports-with HighAffinity
+  :direction (owl-or SameDirection OppositeDirection))
 
+;; https://link.springer.com/article/10.1007%2Fs11064-012-0857-3
+;; http://www.tcdb.org/search/result.php?tc=2.A.1.13
+(deftransport ToTransportPyruvateSecondaryActiveTransmembrane
+  :comment "GO:0005477"
+  :across Membrane
+  :cargo (owl-and ch/pyruvate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction (owl-or SameDirection OppositeDirection))
+
+
+;; http://www.tcdb.org/search/result.php?tc=2.A.41
 (deftransport ToTransportNucleosideSecondaryActiveTransmembrane
   :comment "GO:0010174"
   :across Membrane
   :cargo (owl-and ch/nucleoside (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
+  :direction (owl-or SameDirection OppositeDirection))
+
 
 (deftransport ToTransportPeptideSecondaryActiveTransmembrane
   :comment "GO:0022897"
@@ -171,7 +197,7 @@
   :direction SameDirection)
 
 (deftransport ToTransportAnion:CationSymporter
-  :comment "GO:0043893"
+  :comment "GO:0015296"
   :across Membrane
   :cargo (owl-and ch/inorganic_anion (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
@@ -206,10 +232,10 @@
   :direction SameDirection)
 
 (deftransport ToTransportGlycoside-Pentoside-Hexuronide:CationSymporter
-  :comment "GO:0015487"
+  :comment "GO:0015486"
   :across Membrane
-  :cargo (owl-and (owl-or ch/glycoside ch/pentoside ch/hexuronate
-                          (owl-some hasConcentration LowConcentration)))
+  :cargo (owl-and (owl-or ch/glycoside ch/pentoside ch/hexuronate)
+                          (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
@@ -249,6 +275,14 @@
   :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
+(deftransport ToTransportHexuronate:CationSymporter
+  :comment "GO:0015539"
+  :across Membrane
+  :cargo (owl-and ch/hexuronate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+
 (deftransport ToTransportAminoAcid:PotassiumSymporter
   :comment "GO:0017032"
   :across Membrane
@@ -260,6 +294,14 @@
 ;;=====================================================
 ;;==== Sodium symporter Secondary Active transporters =
 ;;======================================================
+
+
+(deftransport ToTransportSymporterActivity
+  :comment "GO:0015293"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven  (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
 
 ;;#A substance or substances transported according to the reaction:
 ;;solute(out) + Na+(out) = solute(in) + Na+(in).
@@ -317,6 +359,19 @@
 
 ;; neutral, basic amino acid:sodium:chloride symporter activity GO:0015374
 
+
+(deftransport ToTransportNeutral-BasicAminoAcid:Chloride:SodiumSymporter
+  :comment "GO:0015374"
+  :across Membrane
+  :cargo (owl-or (owl-and ch/amino_acid (owl-some hasConcentration LowConcentration)
+                          (owl-some hasAcidity Neutral))
+                 (owl-and ch/amino_acid (owl-some hasConcentration LowConcentration)
+                          (owl-some hasAcidity Alkaline)))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+          (owl-and ch/chloride (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
+
 (deftransport ToTransportCreatine:SodiumSymporter
   :comment "GO:0005309"
   :across Membrane
@@ -355,7 +410,7 @@
 (deftransport ToTransportPyrimidine-And-AdenineNucleobase:SodiumSymporter
   :comment "GO:0015389"
   :across Membrane
-  :cargo (owl-and (owl-or ch/pyrimidine_nucleoside ch/adenine (owl-some hasConcentration LowConcentration)))
+  :cargo (owl-and (owl-or ch/pyrimidine_nucleoside ch/adenine) (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
@@ -379,7 +434,7 @@
   :comment "GO:0008511"
   :across Membrane
   :cargo (owl-and ch/chloride (owl-some hasConcentration LowConcentration))
-  :driven (owl-and (owl-or ch/potassium_1+_ ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+  :driven (owl-and (owl-or ch/potassium_1+_ ch/sodium_1+_) (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
 ;; https://link.springer.com/article/10.1007%2Fs00424-003-1064-5
@@ -388,7 +443,8 @@
   :across Membrane
   :cargo (owl-and ch/serotonin (owl-some hasConcentration LowConcentration)
                   (owl-some has-biological-role ch/neurotransmitter))
-  :driven (owl-and ch/sodium_1+_ ch/chloride (owl-some hasConcentration HighConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+          (owl-and ch/chloride (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
 ;; https://link.springer.com/article/10.1007%2Fs00424-003-1064-5
@@ -397,7 +453,8 @@
   :across Membrane
   :cargo (owl-and ch/dopamine (owl-some hasConcentration LowConcentration)
                   (owl-some has-application-role ch/drug))
-  :driven (owl-and ch/sodium_1+_ ch/chloride (owl-some hasConcentration HighConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+          (owl-and ch/chloride (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
 ;; https://link.springer.com/article/10.1007%2Fs00424-003-1064-5
@@ -405,7 +462,8 @@
   :comment "GO:0005334"
   :across Membrane
   :cargo (owl-and ch/noradrenaline (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/sodium_1+_ ch/chloride (owl-some hasConcentration HighConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+          (owl-and ch/chloride (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
 
@@ -441,7 +499,6 @@
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :transports-with HighAffinity
   :direction SameDirection)
-
 
 
 
@@ -505,6 +562,8 @@
   ["Proline"			"GO:0005297"		ch/proline]
   ["Lysine"			"GO:0015493"		ch/lysine]
   ["Cytosine"			"GO:0015504"		ch/cytosine]
+  ["Shikimate"			"GO:0015533"		ch/shikimate]
+  ["Lactate"			"GO:0015650"		ch/lactate]
   )
 
 
@@ -539,7 +598,13 @@
 ;;==== Antiporter Secondary Active transporters =
 ;;======================================================
 
-
+;;Solute A(out) + solute B(in) = solute A(in) + solute B(out).
+(deftransport ToTransportAntiporterActivity
+  :comment "GO:0015297"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
 
 ;;#A substance or substances transported according to the reaction:
 ;; solute(out) + H+(in) = solute(in) + H+(out).
@@ -620,7 +685,7 @@
 ;; http://europepmc.org/abstract/MED/21568705
 ;; http://www.tcdb.org/search/result.php?tc=2.A.48
 ;;RFC is an organic anion antiporter that utilizes the high
-;;transmembrane organic phosphate gradient to achieve uphill folate transport into cel
+;;transmembrane organic phosphate gradient to achieve uphill folate transport into cells
 (deftransport ToTransportFolate:AnionAntiporter
   :comment "GO:0008518"
   :across Membrane
@@ -642,6 +707,7 @@
   :driven (owl-and ch/GDP (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+;; http://www.tcdb.org/search/result.php?tc=2.A.3.7#2.A.3.7.1
 (deftransport ToTransportGlutamate:Gamma-aminobutyricAcidAntiporter
   :comment "GO:0070909"
   :across Membrane
@@ -656,7 +722,12 @@
   :driven (owl-and ch/phosphate (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-
+(deftransport ToTransportTriosePhosphoenolpyruvate:PhosphateAntiporter
+  :comment "GO:0015121"
+  :across Membrane
+  :cargo (owl-and ch/phosphoenolpyruvate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
 
 
 
@@ -772,8 +843,6 @@
 
 
 
-
-
 (deftransport ToTransportFluconazole:ProtonAntiporter
   :comment "GO:0015313"
   :across Membrane
@@ -797,3 +866,6 @@
                   (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
+
+
+(save-ontology "hyper-go.owl" :owl)
