@@ -1359,8 +1359,6 @@
   :cargo ch/ion)
 
 
-
-
 (deftransport ToTransportTriosePhosphate
   :comment "GO:0071917"
   :across Membrane

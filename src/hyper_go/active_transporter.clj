@@ -672,8 +672,6 @@
   :direction OppositeDirection)
 
 
-
-
 ;; http://www.tcdb.org/search/result.php?tc=2.A.31
 (deftransport ToTransportAnion:AnionAntiporter
   :comment "GO:0015301"
@@ -693,27 +691,37 @@
   :driven (owl-and ch/anion (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+;; ATP (out) + ADP (in) (+ energy?) ⇌ ATP (in) + ADP (out)
+;;http://www.tcdb.org/search/result.php?tc=2.A.12.1#2.A.12.1.1
+;;https://www.ncbi.nlm.nih.gov/pubmed/19001371
 (deftransport ToTransportATP:ADPAntiporter
   :comment "GO:0005471"
   :across Membrane
   :cargo (owl-and ch/ATP (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/ADP (owl-some hasConcentration HighConcentration))
+         (owl-and ch/ADP (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/phosphate (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+;; http://www.tcdb.org/search/result.php?tc=2.A.12.5
+;; https://jb.asm.org/content/188/17/6261.long
 (deftransport ToTransportGTP:GDPAntiporter
   :comment "GO:0010292"
   :across Membrane
   :cargo (owl-and ch/GTP (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/GDP (owl-some hasConcentration HighConcentration))
+         (owl-and ch/GDP (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/phosphate (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
 ;; http://www.tcdb.org/search/result.php?tc=2.A.3.7#2.A.3.7.1
+;; https://www.nature.com/articles/nature10917
 (deftransport ToTransportGlutamate:Gamma-aminobutyricAcidAntiporter
   :comment "GO:0070909"
   :across Membrane
   :cargo (owl-and ch/gamma-aminobutyric_acid (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/glutamate_2-_ (owl-some hasConcentration HighConcentration))
+         (owl-and ch/glutamate_2-_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
+
 
 (deftransport ToTransportTriosePhosphate:PhosphateAntiporter
   :comment "GO:0009670"
