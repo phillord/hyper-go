@@ -70,8 +70,13 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
  * GO:1902417 (+)-abscisic acid D-glucopyranosyl ester transmembrane  is_a glucoside. In ChEBI is_a D-glucoside -> glucoside -> carbohydrate_derivative
    + Same for GO:0042951
 
- * GO classification
+  * GO:0005371 tricarboxylate secondary active is as conjugate base of GO:0015142 tricarboxylic acid transmembrane; not direct is_a subclass based on ChEBI.
+
+
+  * GO classification
    + GO:0015395 classified as Secondary Active transporter, whereas it should be classified as passive diffusion based on its definition.
+
+
 
 ** Are they the same ?
     + sodium-dependent L-ascorbate transmembrane transporter activity  GO:0070890   and \\ 
