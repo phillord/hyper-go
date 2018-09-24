@@ -111,6 +111,8 @@
   ["Cystine"			"GO:0015328"		ch/cystine hasAcidity Neutral]
   ["Peptide-acetyl-CoA"	"GO:0015325"		ch/acetyl-CoA]
   ["ThyroidHormone"		"GO:0015349"		ch/thyroid_hormone]
+  ["P-aminobenzoyl-Glutamate"	"GO:0015558"		ch/N-_4-aminobenzoyl_-L-glutamic_acid]
+  ["Sulfate"			"GO:0008271"		ch/sulfate]
   )
 
 
@@ -122,11 +124,19 @@
   :transports-with HighAffinity
   :direction (owl-or SameDirection OppositeDirection))
 
-(deftransport ToTransportMonocarboxylicAcidSecondaryActiveTransmembrane
+(deftransport ToTransportHighAffinityMonocarboxylicAcidSecondaryActiveTransmembrane
   :comment "GO:0015355"
   :across Membrane
   :cargo (owl-and ch/monocarboxylic_acid (owl-some hasConcentration LowConcentration))
   :driven (owl-and (owl-or ch/chemical_entity ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
+  :transports-with HighAffinity
+  :direction (owl-or SameDirection OppositeDirection))
+
+(deftransport ToTransportHighAffinitySulfateSecondaryActiveTransmembrane
+  :comment "GO:0015381"
+  :across Membrane
+  :cargo (owl-and ch/sulfate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
   :transports-with HighAffinity
   :direction (owl-or SameDirection OppositeDirection))
 
@@ -587,6 +597,7 @@
   ["Shikimate"			"GO:0015533"		ch/shikimate]
   ["Lactate"			"GO:0015650"		ch/lactate]
   ["Citrate"			"GO:0015531"		ch/citrate_3-_]
+  ["Sulfate"			"GO:0008512"		ch/sulfate]
   )
 
 
@@ -898,5 +909,7 @@
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+
+;;  GO:0015383 
 
 (save-ontology "hyper-go.owl" :owl)
