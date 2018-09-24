@@ -84,19 +84,35 @@
   :driven (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
   :direction (owl-or SameDirection OppositeDirection))
 
-;; ;;#A substance or substances transported according to the reaction:
-;; ;;Solute (out) + n[H+ or Na+] (out) → Solute (in) + n[H+ or Na+] (in)
-;; ;; Driven by sodium symporter
-;; (defn secondary-substance-transporters [lis]
-;;   `(deftransport ~(symbol (str "ToTransport" (first lis) ":SecondaryActiveTransmembrane"))
-;;      :comment ~(second lis)
-;;      :cargo
-;;      ~(cond (= 5 (count lis))
-;;             `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration) (owl-some ~(nth lis 3) ~(nth lis 4)))
-;;             :else `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration)))
-;;      :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
-;;      :across Membrane
-;;      :direction (owl-or SameDirection OppositeDirection)))
+;;#A substance or substances transported according to the reaction:
+;;Solute (out) + n[H+ or Na+] (out) → Solute (in) + n[H+ or Na+] (in)
+;; Driven by sodium symporter
+(defn secondary-substance-transporters [lis]
+  `(deftransport ~(symbol (str "ToTransport" (first lis) "SecondaryActiveTransmembrane"))
+     :comment ~(second lis)
+     :cargo
+     ~(cond (= 5 (count lis))
+            `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration) (owl-some ~(nth lis 3) ~(nth lis 4)))
+            :else `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration)))
+     :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
+     :across Membrane
+     :direction (owl-or SameDirection OppositeDirection)))
+
+
+;; macro function to do the classes mapping 
+(defmacro defsecondary-substance-transporters [& lis]
+  `(do ~@(map secondary-substance-transporters lis)))
+
+(defsecondary-substance-transporters
+  ["Antimonite"		"GO:0042960"		ch/antimonite]
+  ["Tricarboxylate"		"GO:0005371"		ch/tricarboxylic_acid_trianion]
+  ["Citrate"			"GO:0071913"		ch/citric_acid]
+  ["SulfurContainingAminoAcid"	"GO:1901680"		ch/sulfur-containing_amino_acid]
+  ["Cystine"			"GO:0015328"		ch/cystine hasAcidity Neutral]
+  ["Peptide-acetyl-CoA"	"GO:0015325"		ch/acetyl-CoA]
+  ["ThyroidHormone"		"GO:0015349"		ch/thyroid_hormone]
+  )
+
 
 (deftransport ToTransportHighAffinityNitriteSecondaryActiveTransmembrane
   :comment "GO:0015513"
@@ -123,7 +139,22 @@
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction (owl-or SameDirection OppositeDirection))
 
+(deftransport ToTransportPeptideSecondaryActiveTransmembrane
+  :comment "GO:0022897"
+  :across Membrane
+  :cargo (owl-and ch/peptide (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction (owl-or SameDirection OppositeDirection))
 
+(deftransport ToTransportL-methionineSecondaryActiveTransmembrane
+  :comment "GO:0000102"
+  :across Membrane
+  :cargo (owl-and ch/L-methionine (owl-some hasConcentration LowConcentration) (owl-some hasAcidity Neutral)
+                  (owl-some has-application-role ch/drug))
+  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton) (owl-some hasConcentration HighConcentration))
+  :direction (owl-or SameDirection OppositeDirection))
+
+  
 ;; http://www.tcdb.org/search/result.php?tc=2.A.41
 (deftransport ToTransportNucleosideSecondaryActiveTransmembrane
   :comment "GO:0010174"
@@ -133,11 +164,7 @@
   :direction (owl-or SameDirection OppositeDirection))
 
 
-(deftransport ToTransportPeptideSecondaryActiveTransmembrane
-  :comment "GO:0022897"
-  :across Membrane
-  :cargo (owl-and ch/peptide (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+
 
 (deftransport ToTransportOligopeptideSecondaryActiveTransmembrane
   :comment "GO:0005427"
@@ -166,12 +193,7 @@
                   (owl-some has-application-role ch/drug))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
-(deftransport ToTransportL-methionineSecondaryActiveTransmembrane
-  :comment "GO:0000102"
-  :across Membrane
-  :cargo (owl-and ch/L-methionine (owl-some hasConcentration LowConcentration) (owl-some hasAcidity Neutral)
-                  (owl-some has-application-role ch/drug))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+
 
 
 
@@ -564,6 +586,7 @@
   ["Cytosine"			"GO:0015504"		ch/cytosine]
   ["Shikimate"			"GO:0015533"		ch/shikimate]
   ["Lactate"			"GO:0015650"		ch/lactate]
+  ["Citrate"			"GO:0015531"		ch/citrate_3-_]
   )
 
 
@@ -722,7 +745,7 @@
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-
+;; http://europepmc.org/abstract/MED/10839820
 (deftransport ToTransportTriosePhosphate:PhosphateAntiporter
   :comment "GO:0009670"
   :across Membrane
@@ -730,6 +753,7 @@
   :driven (owl-and ch/phosphate (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+;; http://europepmc.org/abstract/MED/10839820
 (deftransport ToTransportTriosePhosphoenolpyruvate:PhosphateAntiporter
   :comment "GO:0015121"
   :across Membrane
@@ -738,20 +762,20 @@
   :direction OppositeDirection)
 
 
-
-
+;; https://www.ncbi.nlm.nih.gov/pubmed/14982633
+;; https://link.springer.com/article/10.1007%2Fs00726-011-0989-9
 ;;lysine(out) + cadaverine(in) = lysine(in) + cadaverine(out). 
-;; (deftransport ToTransportLysine:CadaverineAntiporter
-;;   :comment "GO:0043872"
-;;   :across Membrane
-;;   :cargo 
-
-
-
+(deftransport ToTransportLysine:CadaverineAntiporter
+  :comment "GO:0043872"
+  :across Membrane
+  :cargo (owl-and ch/lysine (owl-some hasConcentration LowConcentration))
+         (owl-and ch/cadaverine (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
 
 
 ;;=======================
-
+;; http://www.tcdb.org/search/result.php?tc=2.A.1.4#2.A.1.4.1
 (deftransport ToTransportOrganophosphate:InorganicPhosphateAntiporter
   :comment "GO:0015315"
   :across Membrane
@@ -802,32 +826,33 @@
   :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-;; maybe need review
 (deftransport ToTransportXoglutarate:MalateAntiporter
   :comment "GO:0015367"
   :across Membrane
   :cargo (owl-and ch/_2-oxoglutaric_acid (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/malate_2-_ (owl-some hasConcentration HighConcentration))
+         (owl-and ch/malate_2-_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-;; Ref: http://europepmc.org/abstract/MED/21719707
-;; need review
+;; Ref: http://www.tcdb.org/search/result.php?tc=2.A.81
 (deftransport ToTransportAspartate:AlanineAntiporter
   :comment "GO:0070906"
   :across Membrane
   :cargo (owl-and ch/alanine (owl-some hasConcentration LowConcentration) (owl-some hasAcidity Neutral))
-  :driven (owl-and ch/L-aspartate_2-_ (owl-some hasConcentration HighConcentration))
+         (owl-and ch/L-aspartate_2-_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-;; need review
+
 (deftransport ToTransportCystine:GlutamateAntiporter
   :comment "GO:0015327"
   :across Membrane
   :cargo (owl-and ch/cystine (owl-some hasConcentration LowConcentration)
                   (owl-some hasAcidity Neutral))
-  :driven (owl-and ch/glutamate_2-_ (owl-some hasConcentration HighConcentration)
+         (owl-and ch/glutamate_2-_ (owl-some hasConcentration LowConcentration)
                    (owl-some hasAcidity Acidic) (owl-some has-application-role ch/drug)
                    (owl-some has-biological-role ch/neurotransmitter))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
 (deftransport ToTransportCitrate:SuccinateAntiporter
@@ -835,10 +860,10 @@
   :across Membrane
   :cargo (owl-and ch/citrate_3-_ (owl-some has-biological-role ch/antimicrobial_drug)
                   (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug)
-                 (owl-some hasConcentration LowConcentration))
+         (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug)
+                  (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
-
 
 ;; cation A(out) + cation B(in) = cation A(in) + cation B(out). 
 (deftransport ToTransportCationCationAntiporter
@@ -847,8 +872,6 @@
   :cargo (owl-and ch/cation (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
-
-
 
 
 (deftransport ToTransportFluconazole:ProtonAntiporter

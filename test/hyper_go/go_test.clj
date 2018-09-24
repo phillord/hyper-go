@@ -554,3 +554,11 @@
    (not
     (tawny.reasoner/isubclass? ToTransportCopperIon ToTransportTransitionMetalIon))))
 
+
+(deftest tricarboxylic_acid-transporter []
+  (is
+   (tawny.reasoner/isubclass? ToTransportTricarboxylicAcid ToTransportTricarboxylateSecondaryActiveTransmembrane))
+  (is
+   (not
+    (tawny.reasoner/isubclass? ToTransportTricarboxylateSecondaryActiveTransmembrane ToTransportTricarboxylicAcid))))
+
