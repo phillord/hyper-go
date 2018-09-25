@@ -368,3 +368,5 @@
   :across Membrane
   :from  ExtracellularRegion
   :to  Intracellular)
+
+(save-ontology "hyper-go.owl" :owl)

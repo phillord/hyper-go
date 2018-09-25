@@ -110,9 +110,19 @@
   ["SulfurContainingAminoAcid"	"GO:1901680"		ch/sulfur-containing_amino_acid]
   ["Cystine"			"GO:0015328"		ch/cystine hasAcidity Neutral]
   ["Peptide-acetyl-CoA"	"GO:0015325"		ch/acetyl-CoA]
-  ["ThyroidHormone"		"GO:0015349"		ch/thyroid_hormone]
+  ["ThyroidHormone"		"GO:0015349"		ch/chemical_entity has-biological-role ch/thyroid_hormone]
   ["P-aminobenzoyl-Glutamate"	"GO:0015558"		ch/N-_4-aminobenzoyl_-L-glutamic_acid]
   ["Sulfate"			"GO:0008271"		ch/sulfate]
+  ["Oligopeptide"		"GO:0015322"		ch/oligopeptide]
+  ["Arsenite"			"GO:0008490"		ch/arsenate_3-_]
+  ["InorganicPhosphate"	"GO:0005315"		ch/inorganic_phosphate]
+  ["Oxaloacetate"		"GO:0000227"		ch/oxaloacetate_2-_]
+  ["Sterol"			"GO:0015352"		ch/sterol]
+  ["Bilirubin"			"GO:0015351"		ch/bilirubin]
+  ["Nucleoside"		"GO:0010174"		ch/nucleoside] ;; http://www.tcdb.org/search/result.php?tc=2.a.31
+  ["Cyanate"			"GO:0015541"		ch/cyanate]
+  ["Pyruvate"			"GO:0005477"		ch/pyruvate]
+  ["OrganicCation"		"GO:0008513"		ch/organic_cation]
   )
 
 
@@ -124,12 +134,11 @@
   :transports-with HighAffinity
   :direction (owl-or SameDirection OppositeDirection))
 
-(deftransport ToTransportHighAffinityMonocarboxylicAcidSecondaryActiveTransmembrane
+(deftransport ToTransportMonocarboxylicAcidSecondaryActiveTransmembrane
   :comment "GO:0015355"
   :across Membrane
   :cargo (owl-and ch/monocarboxylic_acid (owl-some hasConcentration LowConcentration))
-  :driven (owl-and (owl-or ch/chemical_entity ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
-  :transports-with HighAffinity
+  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
   :direction (owl-or SameDirection OppositeDirection))
 
 (deftransport ToTransportHighAffinitySulfateSecondaryActiveTransmembrane
@@ -140,20 +149,45 @@
   :transports-with HighAffinity
   :direction (owl-or SameDirection OppositeDirection))
 
-;; https://link.springer.com/article/10.1007%2Fs11064-012-0857-3
-;; http://www.tcdb.org/search/result.php?tc=2.A.1.13
-(deftransport ToTransportPyruvateSecondaryActiveTransmembrane
-  :comment "GO:0005477"
+
+(deftransport ToTransportHighAffinityAmmoniumSecondaryActiveTransmembrane
+  :comment "GO:0015398"
   :across Membrane
-  :cargo (owl-and ch/pyruvate (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :cargo (owl-and ch/ammonium (owl-some hasConcentration LowConcentration))
+  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
+  :transports-with HighAffinity
   :direction (owl-or SameDirection OppositeDirection))
+
+
+(deftransport ToTransportLowAffinityAmmoniumSecondaryActiveTransmembrane
+  :comment "GO:0015400"
+  :across Membrane
+  :cargo (owl-and ch/ammonium (owl-some hasConcentration LowConcentration))
+  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
+  :transports-with LowAffinity
+  :direction (owl-or SameDirection OppositeDirection))
+
 
 (deftransport ToTransportPeptideSecondaryActiveTransmembrane
   :comment "GO:0022897"
   :across Membrane
   :cargo (owl-and ch/peptide (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction (owl-or SameDirection OppositeDirection))
+
+(deftransport ToTransportOligopeptideSecondaryActiveTransmembrane
+  :comment "GO:0005427"
+  :across Membrane
+  :cargo (owl-and ch/oligopeptide (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction (owl-or SameDirection OppositeDirection))
+
+(deftransport ToTransportNeutralL-AminoAcidSecondaryActiveTransmembrane
+  :comment "GO:0005294"
+  :across Membrane
+  :cargo (owl-and ch/L-alpha-amino_acid  (owl-some hasConcentration LowConcentration)
+                  (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer))
+  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
   :direction (owl-or SameDirection OppositeDirection))
 
 (deftransport ToTransportL-methionineSecondaryActiveTransmembrane
@@ -164,23 +198,28 @@
   :driven (owl-and (owl-or ch/sodium_1+_ ch/proton) (owl-some hasConcentration HighConcentration))
   :direction (owl-or SameDirection OppositeDirection))
 
-  
 ;; http://www.tcdb.org/search/result.php?tc=2.A.41
-(deftransport ToTransportNucleosideSecondaryActiveTransmembrane
-  :comment "GO:0010174"
-  :across Membrane
-  :cargo (owl-and ch/nucleoside (owl-some hasConcentration LowConcentration))
-  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton)(owl-some hasConcentration HighConcentration))
-  :direction (owl-or SameDirection OppositeDirection))
 
 
 
 
-(deftransport ToTransportOligopeptideSecondaryActiveTransmembrane
-  :comment "GO:0005427"
-  :across Membrane
-  :cargo (owl-and ch/oligopeptide (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 (deftransport ToTransportZincIonEffluxActive
   :comment "GO:0015341"
@@ -190,11 +229,7 @@
   :from Intracellular
   :to ExtracellularRegion)
 
-(deftransport ToTransportNeutralL-AminoAcidSecondaryActive
-  :comment "GO:0005294"
-  :across Membrane
-  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Neutral) (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+
 
 (deftransport ToTransportActiveBorate
   :comment "GO:0046715"
@@ -884,6 +919,39 @@
   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+;; Need review
+;; (deftransport ToTransportCalcium:CationAntiporterInvolvedInRegulationOfPostsynapticCytosolicCalciumIonConcentration
+;;   :comment "GO:1905060"
+;;   :across Membrane
+;;   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+;;   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
+;;   :involved PostsynapticC
+;;   :occurs PostsynapticMembrane
+;;   :direction OppositeDirection)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 (deftransport ToTransportFluconazole:ProtonAntiporter
   :comment "GO:0015313"
@@ -908,6 +976,18 @@
                   (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;;  GO:0015383 

@@ -2280,3 +2280,4 @@
 ;; ;; (subclass? ch/chloride ch/cation)
 
 
+(save-ontology "hyper-go.owl" :owl)

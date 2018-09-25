@@ -16,7 +16,7 @@
 
 ;; (owl-import (get-go-ontology))
 
-(owl-import tawny-chebi.chebi/chebi)
+;;(owl-import tawny-chebi.chebi/chebi)
 
 
 ;; Stuff from other ontologies
@@ -150,3 +150,5 @@
     :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs]))
 
 (defentity deftransport "" 'transport)
+
+(save-ontology "hyper-go.owl" :owl)
