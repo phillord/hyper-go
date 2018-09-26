@@ -119,6 +119,8 @@ Different term naming schema between GO and chebi.
 
 ** Transporting/Exporting/Importing driven by ATPase
 
+ATPases are a class of enzymes that catalyze the decomposition of ATP into ADP and a free phosphate ion. 
+
 All of the following are primary active transmembrane transporter that are driven by ATP energy (ATPase):
 
 chemical_entity-transporting
