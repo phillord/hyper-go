@@ -207,10 +207,54 @@
   :from ExtracellularRegion
   :to Intracellular Chloroplast)
 
+
+
+(deftransport ToTransportCalciumTransportingDrivenWithATPase
+  :comment "GO:1905059"
+  :comment "InvolvedInRegulationOfPostsynapticCytosolicCalciumIonConcentration"
+  :across Membrane
+  :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven ATPase
+  :involved PostsynapticCytosolic
+  :super (owl-or (owl-and (owl-some transports-from Intracellular)
+                          (owl-some transports-to ExtracellularRegion))
+                 (owl-and (owl-some transports-from ExtracellularRegion)
+                          (owl-some transports-to Intracellular))))
+
+
+(deftransport ToTransportCalciumTransportingDrivenWithATPase
+  :comment "GO:1905056"
+  :comment "InvolvedInRegulationOfPresynapticCytosolicCalciumIonConcentration"
+  :across Membrane
+  :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven ATPase
+  :involved PresynapticCytosolic
+  :super (owl-or (owl-and (owl-some transports-from Intracellular)
+                          (owl-some transports-to ExtracellularRegion))
+                 (owl-and (owl-some transports-from ExtracellularRegion)
+                          (owl-some transports-to Intracellular))))
+
+
+(deftransport ToTransportCalciumTransportingDrivenWithATPase
+  :comment "GO:0086039"
+  :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
+  :across Membrane
+  :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven ATPase
+  :involved CardiacMuscleCellMembranePotential
+  :super (owl-or (owl-and (owl-some transports-from Intracellular)
+                          (owl-some transports-to ExtracellularRegion))
+                 (owl-and (owl-some transports-from ExtracellularRegion)
+                          (owl-some transports-to Intracellular))))
+
+
+
+;; Both Na+ and K+ are going against their concentration gradient
 ;; ATP + H2O + Na+(in) + K+(out) = ADP + phosphate + Na+(out) + K+(in). 
 (deftransport ToTransportSodiumPotassiumExchangingDrivenWithATPase
   :comment "GO:0005391"
-  :cargo (owl-and ch/sodium_1+_ ch/potassium_1+_ (owl-some hasConcentration LowConcentration))
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration))
+         (owl-and ch/potassium_1+_ (owl-some hasConcentration LowConcentration))
   :driven ATPase
   :across Membrane
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
@@ -218,15 +262,34 @@
                       (owl-and (owl-some transports-from ExtracellularRegion)
                                (owl-some transports-to Intracellular))))
 
+(deftransport ToTransportSodiumPotassiumExchangingDrivenWithATPase
+  :comment "GO:0086037"
+  :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration))
+         (owl-and ch/potassium_1+_ (owl-some hasConcentration LowConcentration))
+  :driven ATPase
+  :across Membrane
+  :involved CardiacMuscleCellMembranePotential
+  :super (owl-or (owl-and (owl-some transports-from Intracellular)
+                               (owl-some transports-to ExtracellularRegion))
+                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to Intracellular))))
+
+
+;; Both Na+ and H+ are going against their concentration gradient
 (deftransport ToTransportPotassiumProtonExchangingDrivenWithATPase
   :comment "GO:0008900"
-  :cargo (owl-and ch/potassium_1+_ ch/proton (owl-some hasConcentration LowConcentration))
+  :cargo (owl-and ch/potassium_1+_  (owl-some hasConcentration LowConcentration))
+         (owl-and ch/proton  (owl-some hasConcentration LowConcentration))
   :driven ATPase
   :across Membrane
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
                                (owl-some transports-to ExtracellularRegion))
                       (owl-and (owl-some transports-from ExtracellularRegion)
                                (owl-some transports-to Intracellular))))
+
+
+
 
 
 

@@ -705,6 +705,62 @@
   :across Membrane
   :cargo ch/monosaccharide)
 
+(deftransport ToTransportHexose
+  :comment "GO:0015149"
+  :across Membrane
+  :cargo ch/hexose)
+
+(deftransport ToTransportRhamnose
+  :comment "GO:0015153"
+  :across Membrane
+  :cargo ch/rhamnose)
+
+(deftransport ToTransportMannose
+  :comment "GO:0015578"
+  :across Membrane
+  :cargo ch/mannose)
+
+(deftransport ToTransportGlucose
+  :comment "GO:0005355"
+  :across Membrane
+  :cargo ch/glucose)
+
+(deftransport ToTransportGlucoseWithHighAffinity
+  :comment "GO:0140108"
+  :across Membrane
+  :cargo ch/glucose
+  :transports-with HighAffinity)
+
+(deftransport ToTransportD-Glucose
+  :comment "GO:0055056"
+  :across Membrane
+  :cargo (owl-and ch/D-glucose (owl-some hasEnantiomerism D-Enantiomer)))
+
+(deftransport ToTransportGalactose
+  :comment "GO:0005354"
+  :across Membrane
+  :cargo ch/galactose)
+
+(deftransport ToTransportFructose
+  :comment "GO:0005353"
+  :across Membrane
+  :cargo ch/fructose)
+
+(deftransport ToTransportAllose
+  :comment "GO:0015593"
+  :across Membrane
+  :cargo ch/allose)
+
+(deftransport ToTransportSorbose
+  :comment "GO:0019194"
+  :across Membrane
+  :cargo ch/sorbose)
+
+(deftransport ToTransportFucose
+  :comment "GO:0015150"
+  :across Membrane
+  :cargo ch/fucose)
+
 (deftransport ToTransportPentose
   :comment "GO:0015146"
   :across Membrane

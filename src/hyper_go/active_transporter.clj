@@ -912,45 +912,61 @@
   :direction OppositeDirection)
 
 ;; cation A(out) + cation B(in) = cation A(in) + cation B(out). 
-(deftransport ToTransportCationCationAntiporter
+(deftransport ToTransportCation:CationAntiporter
   :comment "GO:0015491"
   :across Membrane
   :cargo (owl-and ch/cation (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+
+;;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1428153/
+(deftransport ToTransportTyrosine:TyramineAntiporter
+  :comment "GO:0070908"
+  :across Membrane
+  :cargo (owl-and ch/tyrosine (owl-some hasConcentration LowConcentration))
+         (owl-and ch/tyramine (owl-some hasConcentration LowConcentration)
+                              (owl-some has-application-role ch/neurotransmitter))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+
+;;https://jb.asm.org/content/175/10/2864?ijkey=406fa4de435f1936d566cb632c3aecfefeddbe1e&keytype2=tf_ipsecsha
+(deftransport ToTransportHistidine:HistamineAntiporter
+  :comment "GO:0070907"
+  :across Membrane
+  :cargo (owl-and ch/histidine (owl-some hasConcentration LowConcentration))
+         (owl-and ch/histamine (owl-some hasConcentration LowConcentration)
+                               (owl-some has-application-role ch/neurotransmitter))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+;; http://europepmc.org/abstract/MED/22031603
+(deftransport ToTransportMagnesium:SodiumAntiporter
+  :comment "GO:0061768"
+  :across Membrane
+  :cargo (owl-and ch/magnesium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
 ;; Need review
-;; (deftransport ToTransportCalcium:CationAntiporterInvolvedInRegulationOfPostsynapticCytosolicCalciumIonConcentration
-;;   :comment "GO:1905060"
-;;   :across Membrane
-;;   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
-;;   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
-;;   :involved PostsynapticC
-;;   :occurs PostsynapticMembrane
-;;   :direction OppositeDirection)
+(deftransport ToTransportCalcium:CationAntiporter
+  :comment "GO:1905060"
+  :comment "InvolvedInRegulationOfPostsynapticCytosolicCalciumIonConcentration"
+  :across Membrane
+  :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
+  :involved PostsynapticCytosolic
+  :direction OppositeDirection)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+(deftransport ToTransportCalcium:CationAntiporter
+  :comment "GO:1905055"
+  :comment "InvolvedInRegulationOfPresynapticCytosolicCalciumIonConcentration"
+  :across Membrane
+  :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
+  :involved PresynapticCytosolic
+  :direction OppositeDirection)
 
 
 (deftransport ToTransportFluconazole:ProtonAntiporter
@@ -973,14 +989,28 @@
   :comment "GO:0005278"
   :across Membrane
   :cargo (owl-and ch/acetylcholine (owl-some hasConcentration LowConcentration)
-                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
+                  (owl-some has-application-role ch/drug)
+                  (owl-some has-biological-role ch/neurotransmitter))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-
-
-
-
+(deftransport ToTransportSodium:ProtonAntiporter
+  :comment "GO:0086040"
+  :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
+  :across Membrane
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :involved CardiacMuscleCellMembranePotential
+  :direction OppositeDirection)
+  
+(deftransport ToTransportCalcium:SodiumAntiporter
+  :comment "GO:0086038"
+  :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
+  :across Membrane
+  :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+  :involved CardiacMuscleCellMembranePotential
+  :direction OppositeDirection)
 
 
 

@@ -25,7 +25,8 @@
 
 ;; From CC and Cell Ontologies
 (declare-classes Mitochondrion Chloroplast Cell Intracellular ExtracellularRegion
-                 PresynapticMembrane PostsynapticMembrane Hepatocyte  IntracellularCanaliculus 
+                 PresynapticMembrane PostsynapticMembrane Hepatocyte  IntracellularCanaliculus
+                 PostsynapticCytosolic PresynapticCytosolic CardiacMuscleCellMembranePotential ;;OBA_0000046
   :super Location)
 
 ;; Transporters
