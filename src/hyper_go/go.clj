@@ -132,6 +132,12 @@
   :from ExtracellularRegion
   :to Intracellular)
 
+;; chemical role
+(deftransport ToTransportCoenzyme
+  :comment "GO:0051185"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/coenzyme)))
+
 
 (deftransport ToTransportPoly-beta-1_6-N-acetyl-D-glucosamine
   :comment "GO:1901515"
@@ -471,6 +477,7 @@
   :comment "GO:1901478"
   :across Membrane
   :cargo ch/amitrole)
+
 
 (deftransport ToTransportSulfurMolecularEntity
   :comment "GO:1901682"
@@ -1440,6 +1447,13 @@
   :across  Membrane
   :cargo ch/cation)
 
+(deftransport ToTransportCationEfflux
+  :comment "GO:0046583"
+  :across Membrane
+  :cargo ch/cation
+  :from Intracellular
+  :to ExtracellularRegion)
+
 (deftransport ToTransportOrganicCation
   :comment "GO:0015101"
   :across Membrane
@@ -2117,6 +2131,11 @@
   :comment "GO:0015225"
   :across Membrane
   :cargo (owl-and ch/biotin (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/coenzyme ch/B_vitamin)))
+
+(deftransport ToTransportBiopterin
+  :comment "GO:0015224"
+  :across Membrane 
+  :cargo (owl-and ch/biopterin (owl-some has-biological-role ch/coenzyme)))
 
 (deftransport ToTransportFattyAcid
   :comment "GO:0015245"

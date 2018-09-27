@@ -109,7 +109,7 @@
   ["Citrate"			"GO:0071913"		ch/citric_acid]
   ["SulfurContainingAminoAcid"	"GO:1901680"		ch/sulfur-containing_amino_acid]
   ["Cystine"			"GO:0015328"		ch/cystine hasAcidity Neutral]
-  ["Peptide-acetyl-CoA"	"GO:0015325"		ch/acetyl-CoA]
+  ["Peptide-acetyl-CoA"	"GO:0015324"		ch/acetyl-CoA]
   ["ThyroidHormone"		"GO:0015349"		ch/chemical_entity has-biological-role ch/thyroid_hormone]
   ["P-aminobenzoyl-Glutamate"	"GO:0015558"		ch/N-_4-aminobenzoyl_-L-glutamic_acid]
   ["Sulfate"			"GO:0008271"		ch/sulfate]
@@ -1012,14 +1012,43 @@
   :involved CardiacMuscleCellMembranePotential
   :direction OppositeDirection)
 
+;; http://www.jbc.org/content/277/42/39251.full.pdf
+(deftransport ToTransportR-Carnitine:4-trimethylammonio-ButanoateAntiporter
+  :comment "GO:0044667"
+  :across Membrane
+  :cargo (owl-and ch/_R_-carnitine (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/_4-_trimethylammonio_butanoate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
 
 
+;; http://www.jbc.org/content/282/1/176.full.pdf
+;; http://www.tcdb.org/search/result.php?tc=3.B.1#ref1550
+;; https://www.ncbi.nlm.nih.gov/pmc/articles/PMC211485/pdf/jbacter00188-0104.pdf
+(deftransport ToTransportArginine:AgmatineAntiporter
+  :comment "GO:0043862"
+  :across Membrane
+  :cargo (owl-and ch/agmatine (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/arginine (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)  
+
+;; https://www.ncbi.nlm.nih.gov/pmc/articles/PMC211485/pdf/jbacter00188-0104.pdf
+(deftransport ToTransportAgmatine:PutrescineAntiporter
+  :comment "GO:0043861"
+  :across Membrane
+  :cargo (owl-and ch/agmatine (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/putrescine (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection) 
+
+;; https://www.ncbi.nlm.nih.gov/pmc/articles/PMC211485/pdf/jbacter00188-0104.pdf
+(deftransport ToTransportArginine:OrnithineAntiporter
+  :comment "GO:0043858"
+  :across Membrane
+  :cargo (owl-and ch/ornithine (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/arginine (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection) 
 
 
-
-
-
-
+;;  GO:0015325
 ;;  GO:0015383 
 
 (save-ontology "hyper-go.owl" :owl)

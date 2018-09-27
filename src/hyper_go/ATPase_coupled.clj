@@ -37,7 +37,7 @@
   ["Ferric"                 	"GO:0015408"    ch/iron_3+_]
   ["Calcium"                	"GO:0005388"    ch/calcium_2+_ ]
   ["Potassium"              	"GO:0008556"    ch/potassium_1+_ ]
-  ["Copper"                 	"GO:0043682"    ch/copper_2+_ ]
+  ["Copper"                 	"GO:0043682"    ch/copper_2+_]
   ["Cobalt"			"GO:0032778"	ch/cobalt_cation]
   ["Arsenite"			"GO:0015446"	ch/arsenate_ion]
   ["Manganese"              	"GO:0015410"    ch/manganese_2+_]
@@ -117,6 +117,7 @@
   ["Phosphatidylserine"	"GO:0090556"	ch/phosphatidyl-L-serine]
   ["Phosphatidylethanolamine"	"GO:0090555"	ch/phosphatidylethanolamine]
   ["Phosphatidylcholine"	"GO:0090554"	ch/phosphatidylcholine]
+  ["Phytochelatin"		"GO:0044604"	ch/phytochelatin]
   )
 
 
