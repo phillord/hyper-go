@@ -110,7 +110,7 @@
   ["MonocarboxylicAcid"	"GO:0033285"	ch/monocarboxylic_acid]
   ["Ectoine"			"GO:0033286"	ch/ectoine]
   ["Hydroxyectoine"		"GO:0033288"	ch/_5-hydroxyectoine]
-  ["Bacteriocin"		"GO:0043214"	ch/bacteriocin]
+  ["Bacteriocin"		"GO:0043214"	ch/bacteriocin has-biological-role ch/antimicrobial_drug]
   ["Methionine"		"GO:1901243"	ch/methionine]
   ["Sphingolipid"		"GO:0046623"	ch/sphingolipid]
   ["Ceramide"			"GO:0099038"	ch/ceramide]   ;;Need Review

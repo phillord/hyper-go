@@ -138,6 +138,10 @@
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/coenzyme)))
 
+(deftransport ToTransportCarbonDioxide
+  :comment "GO:0035379"
+  :across Membrane
+  :cargo (owl-and ch/carbon_dioxide (owl-some has-application-role ch/drug)))
 
 (deftransport ToTransportPoly-beta-1_6-N-acetyl-D-glucosamine
   :comment "GO:1901515"
@@ -909,6 +913,11 @@
   :across Membrane
   :cargo ch/amide)
 
+(deftransport ToTransportFosmidomycin
+  :comment "GO:0042898"
+  :across Membrane
+  :cargo (owl-and ch/fosmidomycin (owl-some has-biological-role ch/antimicrobial_drug)))
+
 
 ;; need review
 ;; Not sure what type of antibiotic.!!
@@ -949,6 +958,16 @@
   :across Membrane
   :cargo ch/protein)
 
+(deftransport ToTransportBacteriocin
+  :comment "GO:0022885"
+  :across Membrane
+  :cargo (owl-and ch/bacteriocin (owl-some has-application-role ch/antimicrobial_drug)))
+
+(deftransport ToTransportColicin
+  :comment "GO:0042912"
+  :across Membrane
+  :cargo (owl-and ch/colicin (owl-some has-application-role ch/antimicrobial_drug)))
+
 
 
 ;; (deftransport ToTransportProtein-DNAComplex
@@ -988,6 +1007,14 @@
   :comment "GO:0015318"
   :across Membrane
   :cargo ch/inorganic_molecular_entity)
+
+;; Need review
+;; acridine has no role xenobiotic in ChEBI
+(deftransport ToTransportArcidine
+  :comment "GO:0042911"
+  :across Membrane
+  :cargo (owl-and ch/acridine (owl-some has-biological-role ch/xenobiotic)))
+
 
 (deftransport ToTransportInorganicCation
   :comment "GO:0022890"
@@ -1218,6 +1245,11 @@
   :across Membrane
   :cargo (owl-and ch/amino_acid (owl-some hasAcidity Neutral)))
 
+(deftransport ToTransportSerine
+  :comment "GO:0022889"
+  :across Membrane
+  :cargo (owl-and ch/serine (owl-some hasAcidity Neutral)))
+
 (deftransport ToTransportAlanine
   :comment "GO:0022858"
   :across Membrane
@@ -1415,12 +1447,16 @@
   :transports-with LowAffinity)
 
 
+(deftransport ToTransportAlkanesulfonate
+  :comment "GO:0042959"
+  :across Membrane
+  :cargo (owl-and ch/_1_1-diunsubstituted_alkanesulfonate (owl-some has-application-role ch/xenobiotic)))
+
 
 (deftransport ToTransportIon
   :comment "GO:0015075"
   :across Membrane
   :cargo ch/ion)
-
 
 (deftransport ToTransportTriosePhosphate
   :comment "GO:0071917"
@@ -1446,6 +1482,13 @@
   :comment "GO:0008324"
   :across  Membrane
   :cargo ch/cation)
+
+(deftransport ToTransportSiliconEfflux
+  :comment "GO:0032523"
+  :across Membrane
+  :cargo ch/silicon_4+_
+  :from Intracellular
+  :to ExtracellularRegion)
 
 (deftransport ToTransportCationEfflux
   :comment "GO:0046583"
@@ -1514,6 +1557,24 @@
   :comment "GO:0008514"
   :across Membrane
   :cargo ch/organic_anion)
+
+(deftransport ToTransportRiboflavin
+  :comment "GO:0032217"
+  :across Membrane
+  :cargo (owl-and ch/riboflavin (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
+
+
+(deftransport ToTransportDehydroascorbicAcid
+  :comment "GO:0033300"
+  :across Membrane
+  :cargo (owl-and ch/L-dehydroascorbic_acid (owl-some has-biological-role ch/vitamin)))
+
+;; https://www.sciencedirect.com/science/article/pii/S0006291X0400292X?via%3Dihub
+(deftransport ToTransportOrganicAnion
+  :comment "GO:0043250"
+  :across Membrane
+  :cargo ch/organic_anion
+  :when ch/sodium_1+_)
 
 (deftransport ToTransportInorganicAnion
   :comment "GO:0015103"
@@ -1974,10 +2035,10 @@
   :across Membrane
   :cargo ch/malonate_1-_)
 
-;; (deftransport ToTransportIsopropylmalate
-;;   :comment "GO:0034658"
-;;   :across Membrane
-;;   :cargo 
+(deftransport ToTransportIsopropylmalate
+  :comment "GO:0034658"
+  :across Membrane
+  :cargo ch/_2-isopropylmalate_2-_)
 
 (deftransport ToTransportOxalate
   :comment "GO:0019531"
@@ -2287,14 +2348,10 @@
   :across Membrane
   :cargo ch/copper_cation)
 
-;; === Next is 
-
 (deftransport ToTransportPolyamine
   :comment "GO:0015203"
   :across Membrane
   :cargo ch/polyamine)
-
-
 
 (deftransport ToTransportSpermine
   :comment "GO:0000297"
@@ -2321,6 +2378,28 @@
   :comment "GO:0015545"
   :across Membrane
   :cargo (owl-and ch/bicozamycin (owl-some has-biological-role ch/bicozamycin)))
+
+
+;; Enables the directed movement of proteins into, out of or within a cell, or between cells. 
+(deftransport ToTransportProtein
+  :comment "GO:0008565"
+  :cargo ch/protein)
+
+(deftransport ToTransportLipoprotein
+  :comment "GO:0042954"
+  :cargo ch/lipoprotein)
+
+
+(deftransport ToTransportGlycoprotein
+  :comment "GO:0034437"
+  :cargo ch/glycoprotein)
+
+(deftransport ToTransportGlycolipid
+  :comment "GO:0034202"
+  :cargo ch/glycolipid)
+
+
+
 
 
 

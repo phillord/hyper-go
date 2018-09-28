@@ -44,6 +44,12 @@
   :cargo (owl-and ch/protein (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
 
+;; need review
+(deftransport ToTransport2-aminoethylphosphonateActiveTransmembrane
+  :comment "GO:0033224"
+  :across Membrane
+  :cargo (owl-and ch/_2-aminoethyl_phosphonic_acid (owl-some hasConcentration LowConcentration))
+  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
 
 ;; ==== Next is GO:0008504
 
@@ -657,7 +663,24 @@
   :direction SameDirection)
 
 
+(deftransport ToTransportHighAffinityThiamine:ProtonSymporter
+  :comment "GO:0034216"
+  :across Membrane
+  :cargo (owl-and ch/thiamine (owl-some hasConcentration LowConcentration)
+                  (owl-some has-application-role ch/drug)
+                  (owl-some has-biological-role ch/vitamin))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :transports-with HighAffinity
+  :direction SameDirection)
 
+(deftransport ToTransportThiamine:ProtonSymporter
+  :comment "GO:0034215"
+  :across Membrane
+  :cargo (owl-and ch/thiamine (owl-some hasConcentration LowConcentration)
+                  (owl-some has-application-role ch/drug)
+                  (owl-some has-biological-role ch/vitamin))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
 
 
 
