@@ -42,6 +42,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    + Copper chelate GO:0051981
    + copper-nicotianamine GO:0051982
    + alkanesulfonate GO:0042959
+   + colicin transmembrane transporter GO:0042912  and group A colicin GO:0042913 : https://mailman.stanford.edu/pipermail/go-ontology/2013-February/002885.html
    
  * GO Incorrect classification
    + The (GO:0015513) high-affinity secondary active nitrite transmembrane transporter activity, classified as is_a nitrate transmembrane transporter activity GO:0015112, which I think it is not correct.The GO:0015513 is_a  GO:0015113 not GO:0015112
