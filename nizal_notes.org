@@ -49,8 +49,11 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
 ** Diff classification between GO and ChEBI
 
-  * In many cases a term in GO has no role or some roles, whereas in ChEBI has some extra roles. 
-     + For example GO:1905131 and GO:0034634
+  * In many cases a term in GO has no role or some roles, whereas in ChEBI has some extra roles, for example:
+     +  GO:1905131 and GO:0034634
+  * In many cases a term in GO has some role, but in Chebi the term do not have that role, has some other roles, for example:
+     +  acridine transmembrane GO:0042911
+     + benomyl transmembrane transporter GO:1901479
   
   * In GO: hexuronate transmembrane transporter activity GO:0015134 is_a uronic acid . In ChEBI they are two different terms: hexuronate and hexuronic acid, the latter is_a  uronic acid. hexuronate is conjugate base of hexuronic acid and therefore it is conjugate base of uronic acid.
   
@@ -75,9 +78,10 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
   * GO:0005371 tricarboxylate secondary active is as conjugate base of GO:0015142 tricarboxylic acid transmembrane; not direct is_a subclass based on ChEBI.
 
-
   * GO classification
    + GO:0015395 classified as Secondary Active transporter, whereas it should be classified as passive diffusion based on its definition.
+   
+  * dehydroascorbic acid transmembrane transporter GO:0033300 in GO has role vitamin, which is not the case in ChEBI. However, in ChEBI  L-dehydroascorbic acid CHEBI:27956 has roel vitamin. L-dehydroascorbic acid is_a dehydroascorbic acid.
 
 
 
