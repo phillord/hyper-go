@@ -639,7 +639,10 @@
   ["Lactate"			"GO:0015650"		ch/lactate]
   ["Citrate"			"GO:0015531"		ch/citrate_3-_]
   ["Sulfate"			"GO:0008512"		ch/sulfate]
+  ["GlycineBetaine"		"GO:0015653"		ch/glycine_betaine]
   )
+
+
 
 
 ;; GO:0005360 insulin-responsive glucose:proton symporter 
@@ -735,7 +738,6 @@
   ["Calcium"			"GO:0015369"		ch/calcium_2+_]
   ["Manganese"			"GO:0010486"		ch/manganese_2+_]
   )
-
 
 ;; ion A(out) + ion B(in) = ion A(in) + ion B(out) where ion A and ion B are different types of ion. 
 (deftransport ToTransportIonAntiporter
@@ -1069,6 +1071,23 @@
   :cargo (owl-and ch/ornithine (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/arginine (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection) 
+
+;; http://www.ebi.ac.uk/interpro/entry/IPR004817
+(deftransport ToTransportPotassiumIonAntiporter
+  :comment "GO:0022821"
+  :across Membrane
+  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and (owl-or ch/sodium_1+_ ch/proton) (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+;; http://www.ebi.ac.uk/interpro/entry/IPR004817
+(deftransport ToTransportPotassiumCalcium:SodiumAntiporter
+  :comment "GO:0008273"
+  :across Membrane
+  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration LowConcentration))
+         (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
 
 
 ;;  GO:0015325

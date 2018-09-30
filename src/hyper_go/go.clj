@@ -61,7 +61,16 @@
   :comment "GO:0017127"
   :cargo ch/cholesterol)
 
-;; === next is GO:0017128
+(deftransport ToTransportPhospholipidScramblase
+  :comment "GO:0017128"
+  :cargo ch/phospholipid
+  :from LeafletOfMembraneBilayer
+  :to LeafletOfMembraneBilayer)
+
+(deftransport ToTransportGlycolipid
+  :comment "GO:0017089"
+  :cargo ch/glycolipid)
+
 
 ;;Transmembrane transporter activity
 (deftransport ToTransportTransmembrane
@@ -137,6 +146,13 @@
   :comment "GO:0051185"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/coenzyme)))
+
+
+(deftransport ToTransportToxin
+  :comment "GO:0019534"
+  :across Membrane
+  :cargo ch/toxin)
+
 
 (deftransport ToTransportCarbonDioxide
   :comment "GO:0035379"
@@ -532,6 +548,15 @@
   :across Membrane
   :cargo ch/carbohydrate_derivative)
 
+(deftransport ToTransportGalactosamine
+  :comment "GO:0019196"
+  :across Membrane
+  :cargo ch/galactosamine)
+
+(deftransport ToTransportN-acetylgalactosamine
+  :comment "GO:0015571"
+  :across Membrane
+  :cargo ch/N-acetylgalactosamine)
 
 (deftransport ToTransportGlucoside
   :comment "GO:0042947"
@@ -1219,9 +1244,6 @@
   :comment "GO:0033229"
   :across Membrane
   :cargo (owl-and ch/cysteine (owl-some hasAcidity Neutral)))
-
-
-
 
 
 (deftransport ToTransportL-ascorbateWithSodiumCondition

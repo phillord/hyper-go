@@ -27,6 +27,7 @@
 (declare-classes Mitochondrion Chloroplast Cell Intracellular ExtracellularRegion
                  PresynapticMembrane PostsynapticMembrane Hepatocyte  IntracellularCanaliculus
                  PostsynapticCytosolic PresynapticCytosolic CardiacMuscleCellMembranePotential ;;OBA_0000046
+                 LeafletOfMembraneBilayer
   :super Location)
 
 ;; Transporters
