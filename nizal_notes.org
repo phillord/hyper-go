@@ -6,6 +6,7 @@
 
 ** GO-ChEBI linking \\
   There is "Cross-Ontology Relations" in GO, represent a relation between each term in GO with the ChEBI term, but it is not always accurate.
+   + methylgalactoside transmembrane transporter GO:0015592
    + e.x: GO:0015134 hexuronate transmembrane transporter activity  mapped with hexuronic acid.
    + e.x: GO:0015229 L-ascorbicAcid
    + e.x: GO:0000100
