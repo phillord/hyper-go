@@ -382,7 +382,8 @@
   :comment "GO:0015599"
   :driven ATPase
   :across Membrane
-  :cargo (owl-and ch/glutamine (owl-some hasConcentration LowConcentration) (owl-some has-application-role ch/drug)
+  :cargo (owl-and ch/glutamine (owl-some hasConcentration LowConcentration)
+                  (owl-some has-application-role ch/drug)
                   (owl-some hasAcidity Neutral))
   :from ExtracellularRegion
   :to Intracellular)

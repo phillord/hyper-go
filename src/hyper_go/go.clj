@@ -542,11 +542,20 @@
   :from Intracellular
   :to ExtracellularRegion)
 
-
 (deftransport ToTransportCarbohydrateDerivative
   :comment "GO:1901505"
   :across Membrane
   :cargo ch/carbohydrate_derivative)
+ 
+(deftransport ToTransportN-acetylglucosamine
+  :comment "GO:0015572"
+  :across Membrane
+  :cargo ch/N-acetylglucosamine)
+
+(deftransport ToTransportMethylgalactoside
+  :comment "GO:0015592"
+  :across Membrane
+  :cargo ch/methyl_galactoside)
 
 (deftransport ToTransportGalactosamine
   :comment "GO:0019196"
@@ -729,6 +738,7 @@
   :across Membrane
   :cargo ch/peptidoglycan)
 
+;;(deftransport ToTransportPeptidoglycanPeptide
 
 (deftransport ToTransportLipid-linkedPeptidoglycan
   :comment "GO:0015648"
@@ -1205,10 +1215,10 @@
   :across Membrane
   :cargo (owl-and ch/L-leucine (owl-some hasEnantiomerism L-Enantiomer) (owl-some hasAcidity Neutral)))
 
-;; (deftransport ToTransportL-diaminopimelate
-;;   :comment "GO:0015626"
-;;   :across Membrane
-;;   :cargo (owl-and ch/L-diaminopimelate (owl-some
+(deftransport ToTransportL-diaminopimelate
+  :comment "GO:0015626"
+  :across Membrane
+  :cargo (owl-and ch/LL-2_6-diaminopimelic_acid (owl-some hasEnantiomerism L-Enantiomer)))
 
 (deftransport ToTransportL-ornithine
   :comment "GO:0000064"
@@ -1488,6 +1498,16 @@
 
 
 ;; ==== Next is GO:0044667 ====
+
+;; Acriflavine has no role Xenobiotic in ChEBI
+(deftransport ToTransportAcriflavine
+  :comment "GO:0015566"
+  :across Membrane
+  :cargo (owl-and ch/_3_6-diamino-10-methylacridinium_chloride (owl-some has-application-role ch/drug)
+                  (owl-some has-biological-role ch/xenobiotic)))
+
+
+
 
 (deftransport ToTransportTetracycline
   :comment "GO:0008493"

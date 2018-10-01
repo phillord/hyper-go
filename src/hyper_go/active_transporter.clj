@@ -640,6 +640,7 @@
   ["Citrate"			"GO:0015531"		ch/citrate_3-_]
   ["Sulfate"			"GO:0008512"		ch/sulfate]
   ["GlycineBetaine"		"GO:0015653"		ch/glycine_betaine]
+  ["QuaternaryAmmoniumGroup"	"GO:0015652"		ch/quaternary_nitrogen_compound]
   )
 
 
