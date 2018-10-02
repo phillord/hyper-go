@@ -55,8 +55,9 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
   * In many cases a term in GO has some role, but in Chebi the term do not have that role, has some other roles, for example:
      +  acridine transmembrane GO:0042911
      + benomyl transmembrane transporter GO:1901479
+     
   * In some cases a term in GO has some role, but in Chebi the term do not have that role. However, the ACID of that term match the GO classification (has the same role in GO or more specific role)
-     + In GO propionate transmembrane transporter GO:0015552 has role antibiotic (antibiotic = antimicrobial_drug), Whereas in ChEBI it is not. The GO:0015552 is conjugate base of Propionic Acid which has role antifungal drug that is_a drug, but not antimicrobial_drug.
+     + In GO propionate transmembrane transporter GO:0015552 has role antibiotic (antibiotic = antimicrobial_drug), Whereas in ChEBI it is not. The GO:0015552 is conjugate base of Propionic Acid which has role antifungal drug that is_a drug, but not antimicrobial_drug. (DV) define the term as Propionic Acid becuase it matches GO classification (has role drug and is_a a short-chain fatty acid (CHEBI:26666)
   
   * In GO: hexuronate transmembrane transporter activity GO:0015134 is_a uronic acid . In ChEBI they are two different terms: hexuronate and hexuronic acid, the latter is_a  uronic acid. hexuronate is conjugate base of hexuronic acid and therefore it is conjugate base of uronic acid.
   
