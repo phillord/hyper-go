@@ -2262,6 +2262,12 @@
   :across Membrane
   :cargo ch/short-chain_fatty_acid)
 
+;; Propanoate has no role antibiotic
+(deftransport ToTransportPropionicAcid
+  :comment "GO:00155522"
+  :across Membrane
+  :cargo (owl-and ch/propionic_acid (owl-some has-biological-role ch/antimicrobial_drug)))
+
 (deftransport ToTransportLongChainFattyAcid
   :comment "GO:0005324"
   :across Membrane
@@ -2421,6 +2427,16 @@
   :across Membrane
   :cargo (owl-and ch/bicozamycin (owl-some has-biological-role ch/bicozamycin)))
 
+(deftransport ToTransportCCCP
+  :comment "GO:0015549"
+  :comment "carbonyl cyanide m-chlorophenylhydrazone transmembrane transporter"
+  :across Membrane
+  :cargo ch/CCCP)
+
+(deftransport ToTransportOrganomercurial
+  :comment "GO:0015548"
+  :across Membrane
+  :cargo ch/organomercury_compound)
 
 ;; Enables the directed movement of proteins into, out of or within a cell, or between cells. 
 (deftransport ToTransportProtein

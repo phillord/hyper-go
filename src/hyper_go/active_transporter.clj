@@ -641,6 +641,12 @@
   ["Sulfate"			"GO:0008512"		ch/sulfate]
   ["GlycineBetaine"		"GO:0015653"		ch/glycine_betaine]
   ["QuaternaryAmmoniumGroup"	"GO:0015652"		ch/quaternary_nitrogen_compound]
+  ["3-hydroxyphenylPropiona"	"GO:0015540"		ch/_3-hydroxyphenyl_propanoate]
+  ["SialicAcid"		"GO:0015538"		ch/sialic_acid]
+  ["Xanthosine"		"GO:0015537"		ch/xanthosine]
+  ["Alpha-ketoglutarate"	"GO:0015532"		ch/_2-oxoglutarate_2-_ has-biological-role ch/cofactor]
+  ["Nucleoside"		"GO:0015506"		ch/nucleoside]
+  ["Uridine"			"GO:0015394"		ch/uridine]
   )
 
 
@@ -685,8 +691,6 @@
                   (owl-some has-biological-role ch/vitamin))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
-
-
 
 
 
@@ -927,6 +931,7 @@
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+;; need review
 (deftransport ToTransportCitrate:SuccinateAntiporter
   :comment "GO:0015515"
   :across Membrane
@@ -936,6 +941,15 @@
                   (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
+
+;; https://jb.asm.org/content/189/5/1597.long
+(deftransport ToTransportTartrate:SuccinateAntiporter
+  :comment "GO:0015516"
+  :across Membrane
+  :cargo (owl-and ch/tartrate_salt (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug))
+  :direction OppositeDirection)
+
 
 ;; cation A(out) + cation B(in) = cation A(in) + cation B(out). 
 (deftransport ToTransportCation:CationAntiporter
@@ -1069,8 +1083,8 @@
 (deftransport ToTransportArginine:OrnithineAntiporter
   :comment "GO:0043858"
   :across Membrane
-  :cargo (owl-and ch/ornithine (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/arginine (owl-some hasConcentration HighConcentration))
+  :cargo (owl-and ch/arginine (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/ornithine (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection) 
 
 ;; http://www.ebi.ac.uk/interpro/entry/IPR004817
@@ -1089,6 +1103,16 @@
          (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
+
+;; http://europepmc.org/articles/PMC49116
+;; https://www.ncbi.nlm.nih.gov/pmc/articles/PMC211485/pdf/jbacter00188-0104.pdf
+(deftransport ToTransportPutrescine:OrnithineAntiporter
+  :comment "GO:0015496"
+  :across Membrane
+  :cargo (owl-and ch/putrescine (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/ornithine (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection) 
+
 
 
 ;;  GO:0015325
