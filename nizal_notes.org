@@ -228,6 +228,7 @@ Antiporter and Symporter
    * There are some terms in GO classified as is_a drug, whereas in ChEbi they are not. For example: 
        + GO:0015141 succinate transmembrane transporter activity is_a a drug in GO, whereas in ChEBI it is not, but it is conjugate base of succinate(1−) which in turn is is conjugate base of succinic acid that has_role drug.
        + GO:0042878 (smae case of above)
+       + GO:0015549 has role drug in GO but not in ChEBI 
     
   * GO:0042895 Antibiotic transmembrane transporter, What is the equivalent term in ChEBI ?
      + antimicrobial agent http://purl.obolibrary.org/obo/CHEBI_33281      OR 
