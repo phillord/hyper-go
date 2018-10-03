@@ -317,7 +317,7 @@
       ["Cadmium"			"GO:0008551"    ch/cadmium_2+_]
       ["Proton"			"GO:0036442"	ch/proton]
       ["Protein"			"GO:0008564"	ch/protein]
-      ["GlutathioneS-conjugate" 	"GO:0071997"	ch/glutathione_conjugate]
+      ["GlutathioneS-conjugate" 	"GO:0015431"	ch/glutathione_conjugate]
       ["BileAcid"			"GO:0015432"	ch/bile_acid]
       ["Silver"			"GO:0015445"	ch/silver_1+_]
       ["Zinc"				"GO:0016463"	ch/zinc_2+_]
@@ -434,4 +434,3 @@
   :from  ExtracellularRegion
   :to  Intracellular)
 
-(save-ontology "hyper-go.owl" :owl)

@@ -13,7 +13,28 @@
   :comment "GO:0022804"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
+  :driven (owl-or EnergySource (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
+
+(deftransport ToTransportActiveTransmembrane
+  :comment "GO:0015451"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven Decarboxylation)
+
+;; methyl transfer-driven active transmembrane transporter
+(deftransport ToTransportActiveTransmembrane
+  :comment "GO:0015452"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/methyl (owl-some hasConcentration HighConcentration)))
+
+;; light-driven active transmembrane transporter 
+(deftransport ToTransportActiveTransmembrane
+  :comment "GO:0015454"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/photon (owl-some hasConcentration HighConcentration)))
+
 
 (deftransport ToTransportActiveIonTransmembrane
   :comment "GO:0022853"
@@ -50,6 +71,10 @@
   :across Membrane
   :cargo (owl-and ch/_2-aminoethyl_phosphonic_acid (owl-some hasConcentration LowConcentration))
   :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
+
+
+
+
 
 ;; ==== Next is GO:0008504
 
@@ -276,6 +301,13 @@
   :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
+(deftransport ToTransportCalcium:CationAntiporter
+  :comment "GO:0015368"
+  :across Membrane
+  :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
+
 (deftransport ToTransportChloride:CationSymporter
   :comment "GO:0015377"
   :across Membrane
@@ -427,6 +459,7 @@
   ["NeutralAminoAcid"		"GO:0005295"	ch/amino_acid hasAcidity Neutral]
   ["Alanine"			"GO:0015655"	ch/alanine hasAcidity Neutral]
   ["Myo-inositol"		"GO:0005367"	ch/myo-inositol]
+  ["Purine"			"GO:0015390"	ch/purine]
   )
 
 
@@ -647,6 +680,10 @@
   ["Alpha-ketoglutarate"	"GO:0015532"		ch/_2-oxoglutarate_2-_ has-biological-role ch/cofactor]
   ["Nucleoside"		"GO:0015506"		ch/nucleoside]
   ["Uridine"			"GO:0015394"		ch/uridine]
+  ["Potassium"			"GO:0015387"		ch/potassium_1+_]
+  ["Malate"			"GO:0015366"		ch/malate]
+  ["FerricTriacetylfusarinineC" "GO:0015346"		ch/N'_N''_N'''-triacetylfusarinine_C has-biological-role ch/siderophore]
+  ["Peptide"			"GO:0015333"		ch/peptide]
   )
 
 
@@ -895,6 +932,15 @@
   :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+
+(deftransport ToTransportDicarboxylate:InorganicPhosphateAntiporter
+  :comment "GO:0015364"
+  :across Membrane
+  :cargo (owl-and ch/dicarboxylic_acid (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_phosphate (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+
 (deftransport ToTransportGlycerolPhosphate:InorganicPhosphateAntiporter
   :comment "GO:0015527"
   :across Membrane
@@ -1113,9 +1159,13 @@
   :driven (owl-and ch/ornithine (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection) 
 
+;; https://onlinelibrary.wiley.com/doi/pdf/10.1002/%28SICI%291097-010X%2819990701%29284%3A2%3C158%3A%3AAID-JEZ5%3E3.0.CO%3B2-S
+(deftransport ToTransportSulfate:BicarbonateAntiporter
+  :comment "GO:0015383"
+  :across Membrane
+  :cargo (owl-and ch/sulfate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and (owl-or ch/proton ch/hydrogencarbonate) (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection) 
 
 
 ;;  GO:0015325
-;;  GO:0015383 
-
-(save-ontology "hyper-go.owl" :owl)

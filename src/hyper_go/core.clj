@@ -119,6 +119,11 @@
   [D-Enantiomer L-Enantiomer]
   :super ValuePartition)
 
+(defpartition EnergySource
+  [Light Decarboxylation ATPase]
+  :comment "In Primary Active transporter: transport works equally well in either direction and is driven by a primary energy source "
+  :super ValuePartition)
+
 
 (defn with-property [frames frame-maybe property]
   (when-let [frame (frame-maybe frames)]
@@ -153,4 +158,3 @@
 
 (defentity deftransport "" 'transport)
 
-(save-ontology "hyper-go.owl" :owl)
