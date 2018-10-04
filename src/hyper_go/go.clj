@@ -19,6 +19,10 @@
   :comment "GO:0005548"
   :cargo ch/phospholipid)
 
+(deftransport ToTransportPhosphatidylinositol
+  :comment "GO:0008526"
+  :cargo ch/phosphatidylinositol)
+
 (deftransport ToTransportPhosphatidylethanolamine
   :comment "GO:1904121"
   :cargo ch/phosphatidylethanolamine)
@@ -64,6 +68,12 @@
 (deftransport ToTransportPhospholipidScramblase
   :comment "GO:0017128"
   :cargo ch/phospholipid
+  :from LeafletOfMembraneBilayer
+  :to LeafletOfMembraneBilayer)
+
+(deftransport ToTransportIntermembranePhosphatidylinositol
+  :comment "GO:0120018"
+  :cargo ch/phosphatidylinositol
   :from LeafletOfMembraneBilayer
   :to LeafletOfMembraneBilayer)
 
@@ -497,7 +507,6 @@
   :comment "GO:1901478"
   :across Membrane
   :cargo ch/amitrole)
-
 
 (deftransport ToTransportSulfurMolecularEntity
   :comment "GO:1901682"
@@ -1042,6 +1051,11 @@
   :comment "GO:0015318"
   :across Membrane
   :cargo ch/inorganic_molecular_entity)
+
+(deftransport ToTransportWater
+  :comment "GO:0005372"
+  :across Membrane
+  :cargo ch/water)
 
 ;; Need review
 ;; acridine has no role xenobiotic in ChEBI
@@ -1623,6 +1637,10 @@
   :across Membrane
   :cargo ch/inorganic_anion)
 
+(deftransport ToTransportArsenite
+  :comment "GO:0015105"
+  :across Membrane
+  :cargo ch/arsenite_3-_)
 
 (deftransport ToTransportChromate
   :comment "GO:0015109"
@@ -2336,6 +2354,11 @@
   :across Membrane
   :cargo ch/metal_cation)
 
+(deftransport ToTransportMagnesiumIon
+  :comment "GO:0015095"
+  :across Membrane
+  :cargo ch/magnesium_cation)
+
 (deftransport ToTransportCalciumIon
   :comment "GO:0015085"
   :across Membrane
@@ -2437,6 +2460,11 @@
   :comment "GO:0015548"
   :across Membrane
   :cargo ch/organomercury_compound)
+
+(deftransport ToTransportHeme
+  :comment "GO:0015232"
+  :across Membrane
+  :cargo (owl-and ch/heme (owl-some has-biological-role ch/cofactor)))
 
 ;; Enables the directed movement of proteins into, out of or within a cell, or between cells. 
 (deftransport ToTransportProtein

@@ -387,6 +387,13 @@
   :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
   :direction SameDirection)
 
+(deftransport ToTransportSialate:CationSymporter
+  :comment "GO:0015306"
+  :across Membrane
+  :cargo (owl-and ch/N-acetylneuraminic_acid (owl-some hasConcentration LowConcentration)
+                  (owl-some has-biological-role ch/antimicrobial_drug))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction SameDirection)
 
 (deftransport ToTransportAminoAcid:PotassiumSymporter
   :comment "GO:0017032"
@@ -684,6 +691,11 @@
   ["Malate"			"GO:0015366"		ch/malate]
   ["FerricTriacetylfusarinineC" "GO:0015346"		ch/N'_N''_N'''-triacetylfusarinine_C has-biological-role ch/siderophore]
   ["Peptide"			"GO:0015333"		ch/peptide]
+  ["Phosphate"			"GO:0015317"		ch/phosphate]
+  ["Auxin"			"GO:0009672"		ch/auxin]
+  ["Myo-inositol"		"GO:0005366"		ch/myo-inositol]
+  ["Alpha-glucoside"		"GO:0005352"		ch/alpha-glucoside]
+  ["Allantoin"			"GO:0005274"		ch/allantoin has-application-role ch/drug]
   )
 
 
@@ -699,7 +711,21 @@
   :transports-with LowAffinity
   :direction SameDirection)
 
+(deftransport ToTransportLowAffinitySulfate:ProtonSymporter
+  :comment "GO:0009676"
+  :across Membrane
+  :cargo (owl-and ch/sulfate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :transports-with LowAffinity
+  :direction SameDirection)
 
+(deftransport ToTransportHighAffinitySulfate:ProtonSymporter
+  :comment "GO:0009675"
+  :across Membrane
+  :cargo (owl-and ch/sulfate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :transports-with HighAffinity
+  :direction SameDirection)
 
 (deftransport ToTransportHighAffinityGlucose:ProtonSymporter
   :comment "GO:0005358"
@@ -736,12 +762,27 @@
 ;;======================================================
 
 ;;Solute A(out) + solute B(in) = solute A(in) + solute B(out).
-(deftransport ToTransportAntiporterActivity
+(deftransport ToTransportAntiporterActivit
   :comment "GO:0015297"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
+
+(deftransport ToTransportSolute:CationAntiporter
+  :comment "GO:0015298"
+  :across Membrane
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
+;; http://www.ebi.ac.uk/interpro/entry/IPR004836
+(deftransport ToTransportCalcium:SodiumAntiporter
+  :comment "GO:0005432"
+  :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection)
+
 
 ;;#A substance or substances transported according to the reaction:
 ;; solute(out) + H+(in) = solute(in) + H+(out).
@@ -993,7 +1034,25 @@
   :comment "GO:0015516"
   :across Membrane
   :cargo (owl-and ch/tartrate_salt (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug))
+  :driven (owl-and ch/succinate_2-_ (owl-some hasConcentration LowConcentration)
+                   (owl-some has-application-role ch/drug))
+  :direction OppositeDirection)
+
+(deftransport ToTransportfumarate:SuccinateAntiporter
+  :comment "GO:0005469"
+  :across Membrane
+  :cargo (owl-and ch/fumarate_2-_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug)
+                   (owl-some hasConcentration LowConcentration))
+  :direction OppositeDirection)
+
+(deftransport ToTransportfumarate:L-aspartateAntiporter
+  :comment "GO:0062057"
+  :across Membrane
+  :cargo (owl-and ch/fumarate_2-_ (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/L-aspartate_2-_ (owl-some hasConcentration HighConcentration)
+                   (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
+                  (owl-some has-biological-role ch/neurotransmitter))
   :direction OppositeDirection)
 
 
@@ -1102,8 +1161,8 @@
 (deftransport ToTransportR-Carnitine:4-trimethylammonio-ButanoateAntiporter
   :comment "GO:0044667"
   :across Membrane
-  :cargo (owl-and ch/_R_-carnitine (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/_4-_trimethylammonio_butanoate (owl-some hasConcentration HighConcentration))
+  :cargo (owl-and ch/_4-_trimethylammonio_butanoate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/_R_-carnitine (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
 
@@ -1166,6 +1225,39 @@
   :cargo (owl-and ch/sulfate (owl-some hasConcentration LowConcentration))
   :driven (owl-and (owl-or ch/proton ch/hydrogencarbonate) (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection) 
+
+;; http://www.farmacia.uniba.it/annuari/2011/1038.pdf
+(deftransport ToTransportCarnitine:AcylcarnitineAntiporter
+  :comment "GO:0005476"
+  :across Membrane
+  :cargo (owl-and ch/O-acylcarnitine (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/carnitine (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection) 
+
+(deftransport ToTransportInorganicAnionAntiporter
+  :comment "GO:0005452"
+  :across Membrane
+  :cargo (owl-and ch/inorganic_anion (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/inorganic_anion (owl-some hasConcentration HighConcentration))
+  :direction OppositeDirection) 
+
+
+
+
+;;=====================================================
+;;============ Uniporter transporters =================
+;;=====================================================
+
+;; Uniporters (the preferred term), also
+;; called single-species transporters or facilitated diffusion carriers
+;; catalyze the transport of a single molecular species,
+;; and transport therefore occurs independently of the movement of other molecular species.
+
+;; (deftransport ToTransportUniporter
+;;   :comment "GO:0015292"
+;;   :across Membrane
+;;   :cargo ch/chemical_entity)
+
 
 
 ;;  GO:0015325
