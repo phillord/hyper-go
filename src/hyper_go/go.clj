@@ -141,14 +141,14 @@
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 ;; chemical role
 (deftransport ToTransportAuxinInflux
   :comment "GO:0010328"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
-  :from ExtracellularRegion
+  :from extracellular_region
   :to Intracellular)
 
 ;; chemical role
@@ -540,7 +540,7 @@
   :comment ""
   :cargo ch/chemical_entity
   :across Membrane
-  :from ExtracellularRegion
+  :from extracellular_region
   :to Intracellular)
 
 ;;Enables the transfer of a specific substance or related group of substances from the inside of the cell to the outside of the cell across a membrane.
@@ -549,7 +549,7 @@
   :cargo ch/chemical_entity
   :across Membrane
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportCarbohydrateDerivative
   :comment "GO:1901505"
@@ -710,7 +710,7 @@
   :across Membrane
   :cargo ch/lipopolysaccharide
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportPolysaccharide
   :comment "GO:0015159"
@@ -1095,7 +1095,7 @@
   :across Membrane
   :cargo ch/zinc_2+_
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportFerricIron
   :comment "GO:0015091"
@@ -1153,7 +1153,7 @@
   :across Membrane
   :cargo (owl-and ch/L-alpha-amino_acid (owl-some hasEnantiomerism L-Enantiomer))
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportD-AminoAcid
   :comment "GO:0042943"
@@ -1346,7 +1346,7 @@
   :across Membrane
   :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 
 (deftransport ToTransportAcidicAminoAcid
@@ -1544,14 +1544,14 @@
   :across Membrane
   :cargo ch/silicon_4+_
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportCationEfflux
   :comment "GO:0046583"
   :across Membrane
   :cargo ch/cation
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportOrganicCation
   :comment "GO:0015101"
@@ -1667,7 +1667,7 @@
   :across Membrane
   :cargo (owl-and ch/borate (owl-some has-application-role ch/drug))
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportTungstate
   :comment "GO:1901237"
@@ -1694,7 +1694,7 @@
   :across Membrane
   :cargo ch/nitrate
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportNitrite
   :comment "GO:0015113"
@@ -1706,7 +1706,7 @@
   :across Membrane
   :cargo ch/nitrite
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 
 (deftransport ToTransportInorganicDiphosphate
@@ -1774,7 +1774,7 @@
   :cargo (owl-and ch/L-threonine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
                   (owl-some has-application-role ch/drug))
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportOrganicHydroxyCompound
   :comment "GO:1901618"
@@ -2268,13 +2268,6 @@
   :across Membrane
   :cargo (owl-and ch/_R_-3-hydroxybutyrate (owl-some has-application-role ch/drug)))
 
-
-;; Passive transport (not complete)
-(deftransport ToTransportLongChainFattyAcid-Porin
-  :comment "GO:0015483"
-  :across Membrane
-  :cargo ch/long-chain_fatty_acid)
-
 (deftransport ToTransportShortChainFattyAcid
   :comment "GO:0015636"
   :across Membrane
@@ -2306,7 +2299,7 @@
   :across Membrane
   :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_drug))
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 (deftransport ToTransportEctoine
   :comment "GO:0051471"
@@ -2475,7 +2468,6 @@
   :comment "GO:0042954"
   :cargo ch/lipoprotein)
 
-
 (deftransport ToTransportGlycoprotein
   :comment "GO:0034437"
   :cargo ch/glycoprotein)
@@ -2483,6 +2475,307 @@
 (deftransport ToTransportGlycolipid
   :comment "GO:0034202"
   :cargo ch/glycolipid)
+
+
+
+
+;; Passive transport
+
+(deftransport ToTransportPassiveTransmembrane
+  :comment "GO:0022803"
+  :across Membrane
+  :mechanism (owl-or Diffusion Facilitated_diffusion)
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; channel activity
+(deftransport ToTransportSoluteByChannel
+  :comment "GO:0015267"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; gated channel activity
+(deftransport ToTransportSoluteByGatedChannel
+  :comment "GO:0022836"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Stimulus)
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; voltage-gated channel activity
+(deftransport ToTransportSoluteByVoltageGatedChannel
+  :comment "GO:0022832"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; voltage-gated ion channel activity
+(deftransport ToTransportIonByVoltageGatedChannel
+  :comment "GO:0005244"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+;; voltage-gated ion channel activity involved in regulation of presynaptic membrane potential
+(deftransport ToTransportIonByVoltageGatedChannel
+  :comment "GO:0099508"
+  :comment "Involved in regulation of presynaptic membrane potential"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :involved presynaptic_membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+;; voltage-gated ion channel activity involved in regulation of postsynaptic  membrane potential
+(deftransport ToTransportIonByVoltageGatedChannel
+  :comment "GO:1905030"
+  :comment "Involved in regulation of postsynaptic membrane potential"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :involved postsynaptic_membrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+;; voltage-gated cation channel activity
+(deftransport ToTransportCationByVoltageGatedChannel
+  :comment "GO:0022843"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+;; voltage-gated proton channel activity
+(deftransport ToTransportProtonByVoltageGatedChannel
+  :comment "GO:0030171"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :cargo (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+
+;; voltage-gated calcium ion channel activity
+(deftransport ToTransportCalciumIonByVoltageGatedChannel
+  :comment "GO:0005245"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+;; High voltage-gated calcium ion channel activity
+(deftransport ToTransportCalciumIonByHighVoltageGatedChannel
+  :comment "GO:0008331"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus HighVoltage)
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+;; Low voltage-gated calcium ion channel activity
+(deftransport ToTransportCalciumIonByLowVoltageGatedChannel
+  :comment "GO:0008332"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus LowVoltage)
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+;; voltage-gated calcium ion channel activity involved in cardiac muscle cell action potential
+(deftransport ToTransportCalciumIonByVoltageGatedChannel
+  :comment "GO:0086007"
+  :comment "Involved in cardiac muscle cell action potential"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :involved cardiac_muscle_cell_action_potential
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+;; === Next is GO:0086056
+
+
+;; voltage-gated anion channel activity
+(deftransport ToTransportAnionByVoltageGatedChannel
+  :comment "GO:0008308"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :cargo (owl-and ch/anion (owl-some hasConcentration HighConcentration)))
+
+;; voltage-gated chloride channel activity
+(deftransport ToTransportChlorideByVoltageGatedChannel
+  :comment "GO:0005247"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+  :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
+
+
+
+
+;; propanediol channel activity
+(deftransport ToTransportPropanediolByChannel
+  :comment "GO:0015255"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/propanediol (owl-some hasConcentration HighConcentration)))
+
+;; glycerol channel activity
+(deftransport ToTransportGlycerolByChannel
+  :comment "GO:0015254"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/glycerol (owl-some hasConcentration HighConcentration)))
+
+;; ;; substrate-specific channel activity
+;; (deftransport ToTransportsubstrate-specificByChannel
+;;   :comment "GO:0022838"
+;;   :across Membrane
+;;   :mechanism Facilitated_diffusion
+;;   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; water channel activity
+(deftransport ToTransportWaterByChannel
+  :comment "GO:0015250"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/water (owl-some hasConcentration HighConcentration)))
+
+;; ion channel activity
+(deftransport ToTransportIonByChannel
+  :comment "GO:0005216"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+
+;; anion channel activity
+(deftransport ToTransportAnionByChannel
+  :comment "GO:0005253"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/anion (owl-some hasConcentration HighConcentration)))
+
+
+;; chloride channel activity
+(deftransport ToTransportChlorideByChannel
+  :comment "GO:0005254"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
+
+;; fluoride channel activity
+(deftransport ToTransportFluorideByChannel
+  :comment "GO:0062054"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/fluoride (owl-some hasConcentration HighConcentration)))
+
+
+;; cation channel activity
+(deftransport ToTransportCationByChannel
+  :comment "GO:0005261"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+;; osmolarity-sensing cation channel activity
+(deftransport ToTransportOsmolarity-sensingCationByChannel
+  :comment "GO:1990760"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Osmolarity)
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+
+(deftransport ToTransportMechanosensitiveIonByChannel
+  :comment "GO:0008381"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus MechanicalStress)
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitiveCationByChannel
+  :comment "GO:0140135"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus MechanicalStress)
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitivePotassiumByChannel
+  :comment "GO:0098782"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus MechanicalStress)
+  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitiveCalciumByChannel
+  :comment "GO:0015275"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus MechanicalStress)
+  :cargo (owl-and ch/calcium_cation (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitiveCalciumByChannel
+  :comment "GO:0097364"
+  :comment "Involved in regulation of action potential"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus MechanicalStress)
+  :involved ActionPotential
+  :cargo (owl-and ch/calcium_cation (owl-some hasConcentration HighConcentration)))
+
+
+(deftransport ToTransportMechanosensitiveCalciumByChannel
+  :comment "GO:0097365"
+  :comment "Involved in regulation of cardiac muscle cell action potential"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus MechanicalStress)
+  :involved cardiac_muscle_cell_action_potential
+  :cargo (owl-and ch/calcium_cation (owl-some hasConcentration HighConcentration)))
+
+
+;; proton channel activity
+(deftransport ToTransportProtonByChannel
+  :comment "GO:0015252"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+
+;; sodium channel activity
+(deftransport ToTransportSodiumByChannel
+  :comment "GO:0005272"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+
+;; calcium channel activity
+(deftransport ToTransportCalciumIonByChannel
+  :comment "GO:0005262"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+
+;; iron ion channel activity
+(deftransport ToTransportIronIonByChannel
+  :comment "GO:0097689"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/iron_cation (owl-some hasConcentration HighConcentration)))
+
+;; urea channel activity
+(deftransport ToTransportUreaByChannel
+  :comment "GO:0015265"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/urea (owl-some hasConcentration HighConcentration)))
+
+
+;; Passive transport (not complete)
+(deftransport ToTransportLongChainFattyAcid-Porin
+  :comment "GO:0015483"
+  :across Membrane
+  :cargo ch/long-chain_fatty_acid)
+
 
 
 

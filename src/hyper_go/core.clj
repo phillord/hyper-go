@@ -24,10 +24,10 @@
 (defoproperty bearer-of)
 
 ;; From CC and Cell Ontologies
-(declare-classes Mitochondrion Chloroplast Cell Intracellular ExtracellularRegion
-                 PresynapticMembrane PostsynapticMembrane Hepatocyte  IntracellularCanaliculus
-                 PostsynapticCytosolic PresynapticCytosolic CardiacMuscleCellMembranePotential ;;OBA_0000046
-                 LeafletOfMembraneBilayer
+(declare-classes Mitochondrion Chloroplast Cell Intracellular extracellular_region ;;GO:0005576
+                 presynaptic_membrane postsynaptic_membrane Hepatocyte  IntracellularCanaliculus
+                 PostsynapticCytosolic PresynapticCytosolic cardiac_muscle_cell_membrane_potential ;;OBA_0000046
+                 LeafletOfMembraneBilayer ActionPotential cardiac_muscle_cell_action_potential ;;GO:0086001
   :super Location)
 
 ;; Transporters
@@ -94,7 +94,7 @@
   :super ValuePartition)
 
 (defpartition Mechanism
-  [Rotational Phosphorylative]
+  [Rotational Phosphorylative Diffusion Facilitated_diffusion]
   :comment "some chemical entities transported with a specific type of mechanism"
   :super ValuePartition)
 
@@ -123,6 +123,11 @@
   [Light Decarboxylation ATPase]
   :comment "In Primary Active transporter: transport works equally well in either direction and is driven by a primary energy source "
   :super ValuePartition)
+
+(defpartition Stimulus
+  [Osmolarity MechanicalStress Ligand Voltage HighVoltage LowVoltage]
+  :super ValuePartition)
+
 
 
 (defn with-property [frames frame-maybe property]
@@ -157,4 +162,3 @@
     :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs]))
 
 (defentity deftransport "" 'transport)
-

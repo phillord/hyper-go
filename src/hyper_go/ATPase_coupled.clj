@@ -19,8 +19,8 @@
      :driven ATPase
      :across Membrane
      :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular)))))
 
 ;; macro function to do the classes mapping 
@@ -29,14 +29,14 @@
 
 ;; Substances driven by ATPase (transporting)
 (deftransporters-drivenby-ATPase
-  [""                       	"GO:0042626"    ch/chemical_entity]
+  ["Substance"                  "GO:0042626"    ch/chemical_entity]
   ["Thiamine"			"GO:0048502"	ch/thiamine]
   ["Beta-glucan"		"GO:0015441"	ch/beta-D-glucan]
   ["Ion"			"GO:0042625"	ch/ion]
   ["Cation"                 	"GO:0019829"    ch/cation]
   ["Ferric"                 	"GO:0015408"    ch/iron_3+_]
   ["Calcium"                	"GO:0005388"    ch/calcium_2+_ ]
-  ["Potassium"              	"GO:0008556"    ch/potassium_1+_ ]
+  ["Potassium"              	"GO:0008556"    ch/potassium_1+_]
   ["Copper"                 	"GO:0043682"    ch/copper_2+_]
   ["Cobalt"			"GO:0032778"	ch/cobalt_cation]
   ["Arsenite"			"GO:0015446"	ch/arsenate_ion]
@@ -130,8 +130,8 @@
   :driven ATPase
   :across Membrane
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular))))
 
 
@@ -143,8 +143,8 @@
   :across Membrane
   :mechanism Rotational
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular))))
 
 (deftransport ToTransportIonsTransportingDrivenWithATPaseViaPhosphorylativeMechanism
@@ -154,8 +154,8 @@
   :across Membrane
   :mechanism Phosphorylative
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular))))
 
 
@@ -166,8 +166,8 @@
   :across Membrane
   :mechanism Rotational
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular))))
 
 
@@ -178,8 +178,8 @@
   :across Membrane
   :mechanism Rotational
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular))))
 
 ;; ATP(4-) + cob(I)alamin + H2O <=> ADP(3-) + hydrogenphosphate + cob(I)alamin + H+
@@ -190,22 +190,22 @@
   :driven ATPase
   :across Membrane
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular))))
 
 (deftransport ToTransportProteinIntoMitochondrionDrivenWithATPase
   :comment "GO:0008566"
   :cargo ch/protein
   :driven ATPase
-  :from ExtracellularRegion
+  :from extracellular_region
   :to Intracellular Mitochondrion)
 
 (deftransport ToTransportProteinIntoChloroplastStromaDrivenWithATPase
   :comment "GO:0016464"
   :cargo ch/protein
   :driven ATPase
-  :from ExtracellularRegion
+  :from extracellular_region
   :to Intracellular Chloroplast)
 
 
@@ -218,8 +218,8 @@
   :driven ATPase
   :involved PostsynapticCytosolic
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                          (owl-some transports-to ExtracellularRegion))
-                 (owl-and (owl-some transports-from ExtracellularRegion)
+                          (owl-some transports-to extracellular_region))
+                 (owl-and (owl-some transports-from extracellular_region)
                           (owl-some transports-to Intracellular))))
 
 
@@ -231,8 +231,8 @@
   :driven ATPase
   :involved PresynapticCytosolic
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                          (owl-some transports-to ExtracellularRegion))
-                 (owl-and (owl-some transports-from ExtracellularRegion)
+                          (owl-some transports-to extracellular_region))
+                 (owl-and (owl-some transports-from extracellular_region)
                           (owl-some transports-to Intracellular))))
 
 
@@ -242,10 +242,10 @@
   :across Membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven ATPase
-  :involved CardiacMuscleCellMembranePotential
+  :involved cardiac_muscle_cell_membrane_potential
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                          (owl-some transports-to ExtracellularRegion))
-                 (owl-and (owl-some transports-from ExtracellularRegion)
+                          (owl-some transports-to extracellular_region))
+                 (owl-and (owl-some transports-from extracellular_region)
                           (owl-some transports-to Intracellular))))
 
 
@@ -259,8 +259,8 @@
   :driven ATPase
   :across Membrane
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular))))
 
 (deftransport ToTransportSodiumPotassiumExchangingDrivenWithATPase
@@ -270,10 +270,10 @@
          (owl-and ch/potassium_1+_ (owl-some hasConcentration LowConcentration))
   :driven ATPase
   :across Membrane
-  :involved CardiacMuscleCellMembranePotential
+  :involved cardiac_muscle_cell_membrane_potential
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular))))
 
 
@@ -285,8 +285,8 @@
   :driven ATPase
   :across Membrane
   :super (owl-or (owl-and (owl-some transports-from Intracellular)
-                               (owl-some transports-to ExtracellularRegion))
-                      (owl-and (owl-some transports-from ExtracellularRegion)
+                               (owl-some transports-to extracellular_region))
+                      (owl-and (owl-some transports-from extracellular_region)
                                (owl-some transports-to Intracellular))))
 
 
@@ -304,7 +304,7 @@
      :driven ATPase
      :across Membrane
      :from Intracellular
-     :to ExtracellularRegion))
+     :to extracellular_region))
 
 ;; macro function to do the classes mapping 
 (defmacro defexporters-drivenby-ATPase [& lis]
@@ -334,7 +334,7 @@
   :driven ATPase
   :across Membrane
   :from Intracellular
-  :to ExtracellularRegion
+  :to extracellular_region
   :mechanism Phosphorylative)
 
 (deftransport ToTransportSodiumExportingDrivenWithATPaseViaPhosphorylativeMechanism
@@ -342,7 +342,7 @@
   :cargo ch/sodium_1+_
   :driven ATPase
   :from Intracellular
-  :to ExtracellularRegion
+  :to extracellular_region
   :mechanism Phosphorylative)
 
 
@@ -356,7 +356,7 @@
      :cargo (owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration))
      :driven ATPase
      :across Membrane
-     :from ExtracellularRegion
+     :from extracellular_region
      :to Intracellular))
 
 ;; macro function to do the classes mapping 
@@ -385,7 +385,7 @@
   :cargo (owl-and ch/glutamine (owl-some hasConcentration LowConcentration)
                   (owl-some has-application-role ch/drug)
                   (owl-some hasAcidity Neutral))
-  :from ExtracellularRegion
+  :from extracellular_region
   :to Intracellular)
 
 
@@ -395,7 +395,7 @@
                   (owl-some hasAcidity Alkaline))
   :driven ATPase
   :across Membrane
-  :from ExtracellularRegion
+  :from extracellular_region
   :to Intracellular)
 
 (deftransport ToTransportL-arginineImportingDrivenWithATPase
@@ -404,7 +404,7 @@
                   (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
   :driven ATPase
   :across Membrane
-  :from ExtracellularRegion
+  :from extracellular_region
   :to Intracellular)
 
 (deftransport ToTransportD-riboseImportingDrivenWithATPase
@@ -413,7 +413,7 @@
                   (owl-some hasEnantiomerism D-Enantiomer))
   :driven ATPase
   :across Membrane
-  :from ExtracellularRegion
+  :from extracellular_region
   :to Intracellular)
 
 (deftransport ToTransportD-xyloseImportingDrivenWithATPase
@@ -422,7 +422,7 @@
                   (owl-some hasEnantiomerism D-Enantiomer))
   :driven ATPase
   :across Membrane
-  :from ExtracellularRegion
+  :from extracellular_region
   :to Intracellular)
 
 (deftransport ToTransportL-arabinoseImportingDrivenWithATPase
@@ -431,6 +431,6 @@
                   (owl-some hasEnantiomerism L-Enantiomer))
   :driven ATPase
   :across Membrane
-  :from  ExtracellularRegion
+  :from  extracellular_region
   :to  Intracellular)
 

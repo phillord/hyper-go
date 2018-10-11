@@ -42,21 +42,22 @@
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
 
-(deftransport ToTransportIonInvolvedInRegulationOfPresynapticMembranePotential
+(deftransport ToTransportIon
   :comment "GO:0099521"
+  :comment "Involved in regulation of presynaptic membrane potential"
   :across Membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-  :involved PresynapticMembrane
-  :occurs PresynapticMembrane)
+  :involved presynaptic_membrane
+  :occurs presynaptic_membrane)
 
-(deftransport ToTransportIonInvolvedInRegulationOfPostsynapticMembranePotential
+(deftransport ToTransportIonInvolvedInRegulationOfpostsynaptic_membranePotential
   :comment "GO:0099581"
   :across Membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-  :involved PostsynapticMembrane
-  :occurs PostsynapticMembrane)
+  :involved postsynaptic_membrane
+  :occurs postsynaptic_membrane)
 
 ;; classified in GO as primary and secondary active transporter. !!
 (deftransport ToTransportProteinActive
@@ -258,7 +259,7 @@
   :cargo (owl-and ch/zinc_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :from Intracellular
-  :to ExtracellularRegion)
+  :to extracellular_region)
 
 
 
@@ -830,22 +831,22 @@
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-(deftransport ToTransportIonInvolvedInRegulationOfPostsynapticMembranePotentialAntiporter
+(deftransport ToTransportIonInvolvedInRegulationOfpostsynaptic_membranePotentialAntiporter
   :comment "GO:0099580"
   :across Membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
-  :involved PostsynapticMembrane
-  :occurs PostsynapticMembrane
+  :involved postsynaptic_membrane
+  :occurs postsynaptic_membrane
   :direction OppositeDirection)
 
-(deftransport ToTransportIonInvolvedInRegulationOfPresynapticMembranePotentialAntiporter
+(deftransport ToTransportIonInvolvedInRegulationOfpresynaptic_membranePotentialAntiporter
   :comment "GO:0099520"
   :across Membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
-  :involved PresynapticMembrane
-  :occurs PresynapticMembrane
+  :involved presynaptic_membrane
+  :occurs presynaptic_membrane
   :direction OppositeDirection)
 
 
@@ -1141,20 +1142,20 @@
 
 (deftransport ToTransportSodium:ProtonAntiporter
   :comment "GO:0086040"
-  :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
+  :comment "Involved in regulation of cardiac muscle cell membrane potential"
   :across Membrane
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
-  :involved CardiacMuscleCellMembranePotential
+  :involved cardiac_muscle_cell_membrane_potential
   :direction OppositeDirection)
   
 (deftransport ToTransportCalcium:SodiumAntiporter
   :comment "GO:0086038"
-  :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
+  :comment "Involved in regulation of cardiac muscle cell membrane potential"
   :across Membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
-  :involved CardiacMuscleCellMembranePotential
+  :involved cardiac_muscle_cell_membrane_potential
   :direction OppositeDirection)
 
 ;; http://www.jbc.org/content/277/42/39251.full.pdf
