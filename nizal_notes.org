@@ -208,6 +208,9 @@ Antiporter and Symporter
 ** Passive transporter
 
   * "Passive diffusion moves materials from an area of higher concentration to an area of lower concentration, it is described as moving solutes "down the concentration gradient"
+  * For molecules to transport in passive form:
+      + Small and does not have a charge, for example carbon dioxide, molecular oxygen and water
+      
 
 
 ** Others
