@@ -2578,6 +2578,15 @@
   :when (owl-some hasStimulus LowVoltage)
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
+;; intermediate voltage-gated calcium ion channel activity
+(deftransport ToTransportCalciumIonByIntermediateVoltageGatedChannel
+  :comment "GO:1990028"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus IntermediateVoltage)
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+
 ;; voltage-gated calcium ion channel activity involved in cardiac muscle cell action potential
 (deftransport ToTransportCalciumIonByVoltageGatedChannel
   :comment "GO:0086007"
@@ -2588,7 +2597,117 @@
   :involved cardiac_muscle_cell_action_potential
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
-;; === Next is GO:0086056
+
+;; light-activated voltage-gated calcium ion channel activity
+(deftransport ToTransportLightActivatedCalciumIonByVoltageGatedChannel
+  :comment "GO:0008086"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Voltage)
+        (owl-some hasStimulus Light)
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+;; ligand-gated channel activity: Transmembrane channel open/close in response to binding of a ligand
+;; Ligands: are moleclues that acts like keys that fit certain binding pockets or locks on the receptor.
+(deftransport ToTransportSoluteByLigandGatedChannel
+  :comment "GO:0022834"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Ligand)
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; transmitter-gated channel activity
+;; transfer of a solute by a channel that opens when a specific neurotransmitter has been bound by the channel 
+(deftransport ToTransportSoluteByTransmitterGatedChannel
+  :comment "GO:0022835"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus (owl-and ch/chemical_entity (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; histamine-gated chloride channel activity
+;; transfer of a chloride ion by a channel that opens when histamine has been bound by the channel 
+(deftransport ToTransportChlorideByHistamineGatedChannel
+  :comment "GO:0019182"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus (owl-and ch/histamine (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
+
+;; transmitter-gated ion channel activity
+;; transfer of a ion by a channel that opens when a specific neurotransmitter has been bound by the channel 
+(deftransport ToTransportIonByTransmitterGatedChannel
+  :comment "GO:0022824"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus (owl-and ch/chemical_entity (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+;; Any transmitter-gated ion channel activity that is involved in regulation of postsynaptic membrane potentia
+(deftransport ToTransportIonByTransmitterGatedChannel
+  :comment "GO:1904315"
+  :comment "Involved in regulation of postsynaptic membrane potential"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :involved postsynaptic_membrane
+  :when (owl-some hasStimulus (owl-and ch/chemical_entity (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+
+;;  enables the transmembrane transfer of a cation by a channel that opens upon binding acetylcholine
+(deftransport ToTransportCationByAcetylcholineGatedChannel
+  :comment "GO:0022848"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus (owl-and ch/acetylcholine (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+;; transfer of a cation by a channel that opens when serotonin has been bound by the channel 
+(deftransport ToTransportCationBySerotoninGatedChannel
+  :comment "GO:0022850"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus (owl-and ch/serotonin (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+;; transfer of a chloride by a channel that opens when glycine has been bound by the channel 
+(deftransport ToTransportChlorideByGlycineGatedChannel
+  :comment "GO:0022852"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus (owl-and ch/glycine (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
+
+;; transfer of a chloride by a channel that opens when GABA has been bound by the channel 
+(deftransport ToTransportChlorideByGABAGatedChannel
+  :comment "GO:0022851"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus (owl-and ch/gamma-aminobutyric_acid (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
+
+
+
+
+
+
+
+
+;; extracellularly glutamate-gated chloride channel activity
+(deftransport ToTransportChlorideByExtracellularlyGlutamateGatedChannel
+  :comment "GO:0008068"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus ch/glutamate_1-_)
+  :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
+
+
+
+
+
+
+
+;; === Next is 
 
 
 ;; voltage-gated anion channel activity

@@ -125,9 +125,8 @@
   :super ValuePartition)
 
 (defpartition Stimulus
-  [Osmolarity MechanicalStress Ligand Voltage HighVoltage LowVoltage]
+  [Osmolarity MechanicalStress Ligand Voltage HighVoltage LowVoltage IntermediateVoltage Light]
   :super ValuePartition)
-
 
 
 (defn with-property [frames frame-maybe property]
