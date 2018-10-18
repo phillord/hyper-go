@@ -24,8 +24,8 @@
 (defoproperty bearer-of)
 
 ;; From CC and Cell Ontologies
-(declare-classes Mitochondrion Chloroplast Cell Intracellular extracellular_region ;;GO:0005576
-                 presynaptic_membrane postsynaptic_membrane Hepatocyte  IntracellularCanaliculus
+(declare-classes Mitochondrion Chloroplast Cell intracellular extracellular_region ;;GO:0005576
+                 presynaptic_membrane postsynaptic_membrane Hepatocyte  intracellular_canaliculus
                  PostsynapticCytosolic PresynapticCytosolic cardiac_muscle_cell_membrane_potential ;;OBA_0000046
                  LeafletOfMembraneBilayer ActionPotential cardiac_muscle_cell_action_potential ;;GO:0086001
   :super Location)

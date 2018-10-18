@@ -140,7 +140,7 @@
   :comment "GO:0010329"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 ;; chemical role
@@ -149,7 +149,7 @@
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
   :from extracellular_region
-  :to Intracellular)
+  :to intracellular)
 
 ;; chemical role
 (deftransport ToTransportCoenzyme
@@ -541,14 +541,14 @@
   :cargo ch/chemical_entity
   :across Membrane
   :from extracellular_region
-  :to Intracellular)
+  :to intracellular)
 
 ;;Enables the transfer of a specific substance or related group of substances from the inside of the cell to the outside of the cell across a membrane.
 (deftransport ToTransportEffluxTransmembrane
   :comment "GO:0015562"
   :cargo ch/chemical_entity
   :across Membrane
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportCarbohydrateDerivative
@@ -709,7 +709,7 @@
   :comment "GO:0015634"
   :across Membrane
   :cargo ch/lipopolysaccharide
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportPolysaccharide
@@ -1094,7 +1094,7 @@
   :comment "GO:0022883"
   :across Membrane
   :cargo ch/zinc_2+_
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportFerricIron
@@ -1152,7 +1152,7 @@
   :comment "GO:0034639"
   :across Membrane
   :cargo (owl-and ch/L-alpha-amino_acid (owl-some hasEnantiomerism L-Enantiomer))
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportD-AminoAcid
@@ -1345,7 +1345,7 @@
   :comment "GO:0015661"
   :across Membrane
   :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 
@@ -1543,14 +1543,14 @@
   :comment "GO:0032523"
   :across Membrane
   :cargo ch/silicon_4+_
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportCationEfflux
   :comment "GO:0046583"
   :across Membrane
   :cargo ch/cation
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportOrganicCation
@@ -1666,7 +1666,7 @@
   :comment "GO:0080139"
   :across Membrane
   :cargo (owl-and ch/borate (owl-some has-application-role ch/drug))
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportTungstate
@@ -1693,7 +1693,7 @@
   :comment "GO:0010542"
   :across Membrane
   :cargo ch/nitrate
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportNitrite
@@ -1705,7 +1705,7 @@
   :comment "GO:0015514"
   :across Membrane
   :cargo ch/nitrite
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 
@@ -1773,7 +1773,7 @@
   :across Membrane
   :cargo (owl-and ch/L-threonine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
                   (owl-some has-application-role ch/drug))
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportOrganicHydroxyCompound
@@ -2236,7 +2236,7 @@
   :across Membrane
   :cargo ch/bile_acid
   :from Hepatocyte
-  :to IntracellularCanaliculus)
+  :to intracellular_canaliculus)
 
 (deftransport ToTransportNicotine
   :comment "GO:0090416"
@@ -2298,7 +2298,7 @@
   :comment "GO:0015660"
   :across Membrane
   :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_drug))
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 (deftransport ToTransportEctoine
@@ -2686,20 +2686,129 @@
   :when (owl-some hasStimulus (owl-and ch/gamma-aminobutyric_acid (owl-some has-biological-role ch/neurotransmitter)))
   :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
 
+(deftransport ToTransportIonByGlutamateGatedChannel
+  :comment "GO:0004970"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus (owl-and ch/L-glutamic_acid (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportIonByATPGatedChannel
+  :comment "GO:0035381"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus ch/ATP)
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+;; intracellularly ATP-gated ion channel activity
+(deftransport ToTransportIonByintracellularlyATPGatedChannel
+  :comment "GO:0099142"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus ch/ATP)
+  :occurs intracellular
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+;; intracellularly ATP-gated chloride channel activity
+(deftransport ToTransportChlorideByintracellularlyATPGatedChannel
+  :comment "GO:0005260"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus ch/ATP)
+  :occurs intracellular
+  :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
+
+;; intracellularly ATP-gated chloride channel activity
+(deftransport ToTransportCationByExtracellularlyATPGatedChannel
+  :comment "GO:0004931"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus ch/ATP)
+  :occurs extracellular_region
+  :cargo (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration)))
 
 
+;; ligand-gated ion channel activity
+(deftransport ToTransportIonByLigandGatedChannel
+  :comment "GO:0015276"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Ligand)
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
+;; ligand-gated cation channel activity
+(deftransport ToTransportCationByLigandGatedChannel
+  :comment "GO:0099094"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Ligand)
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
+;; ligand-gated calcium channel activity
+(deftransport ToTransportCalciumIonByLigandGatedChannel
+  :comment "GO:0099604"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Ligand)
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
-
+;; glutamate-gated calcium ion channel activiy
+(deftransport ToTransportCalciumIonByGlutamateGatedChannel
+  :comment "GO:0022849"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus (owl-and ch/L-glutamic_acid (owl-some has-biological-role ch/neurotransmitter)))
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; extracellularly glutamate-gated chloride channel activity
 (deftransport ToTransportChlorideByExtracellularlyGlutamateGatedChannel
   :comment "GO:0008068"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :when (owl-some hasStimulus ch/glutamate_1-_)
+  :occurs  extracellular_region
+  :when (owl-some hasStimulus (owl-and ch/L-glutamic_acid (owl-some has-biological-role ch/neurotransmitter)))
   :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
+
+
+;; intracellular phosphatidylinositol-3,5-bisphosphate-sensitive cation
+(deftransport ToTransportCationByIntracellularPhosphatidylinositol-3-5-bisphosphateChannel
+  :comment "GO:0097682"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :occurs intracellular
+  :when (owl-some hasStimulus ch/_1-phosphatidyl-1D-myo-inositol_3_4-bisphosphate_5-_)
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+
+;; ligand-gated sodium channel activity
+(deftransport ToTransportSodiumIonByLigandGatedChannel
+  :comment "GO:0015280"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Ligand)
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+
+
+;; === Next is GO:0044736
+
+
+
+
+;; calcium-release channel activity
+(deftransport ToTransportCalciumIon-releaseByChannel
+  :comment "GO:0015278"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :when (owl-some hasStimulus Ligand)
+  :from intracellular
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+
+;; ======= Nexet is subclasses of GO:0015278
+
+
+
+
 
 
 
