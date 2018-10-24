@@ -258,7 +258,7 @@
   :across Membrane
   :cargo (owl-and ch/zinc_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
-  :from Intracellular
+  :from intracellular
   :to extracellular_region)
 
 
@@ -1098,20 +1098,20 @@
 ;; Need review
 (deftransport ToTransportCalcium:CationAntiporter
   :comment "GO:1905060"
-  :comment "InvolvedInRegulationOfPostsynapticCytosolicCalciumIonConcentration"
+  :comment "Involved in regulation of postsynaptic cytosolic calcium ion concentration"
   :across Membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
-  :involved PostsynapticCytosolic
+  :involved concentration_of_calcium_ion_in_postsynaptic_cytosol
   :direction OppositeDirection)
 
 (deftransport ToTransportCalcium:CationAntiporter
   :comment "GO:1905055"
-  :comment "InvolvedInRegulationOfPresynapticCytosolicCalciumIonConcentration"
+  :comment "Involved in regulation of presynaptic cytosolic calcium ion concentration"
   :across Membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
-  :involved PresynapticCytosolic
+  :involved concentration_of_calcium_ion_in_presynaptic_cytosol
   :direction OppositeDirection)
 
 

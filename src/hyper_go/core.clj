@@ -26,9 +26,14 @@
 ;; From CC and Cell Ontologies
 (declare-classes Mitochondrion Chloroplast Cell intracellular extracellular_region ;;GO:0005576
                  presynaptic_membrane postsynaptic_membrane Hepatocyte  intracellular_canaliculus
-                 PostsynapticCytosolic PresynapticCytosolic cardiac_muscle_cell_membrane_potential ;;OBA_0000046
-                 LeafletOfMembraneBilayer ActionPotential cardiac_muscle_cell_action_potential ;;GO:0086001
+                 concentration_of_calcium_ion_in_postsynaptic_cytosol
+                 concentration_of_calcium_ion_in_presynaptic_cytosol
+                 cardiac_muscle_cell_membrane_potential ;;OBA_0000046
+                 cardiac_muscle_cell_action_potential
+                 LeafletOfMembraneBilayer cardiac_muscle_cell_action_potential ;;GO:0086001
   :super Location)
+
+
 
 ;; Transporters
 ;(defclass ToTransport)
@@ -125,7 +130,7 @@
   :super ValuePartition)
 
 (defpartition Stimulus
-  [Osmolarity MechanicalStress Ligand Voltage HighVoltage LowVoltage IntermediateVoltage Light]
+  [Osmolarity MechanicalStress Ligand Voltage HighVoltage LowVoltage IntermediateVoltage Light volume-sensitive]
   :super ValuePartition)
 
 
@@ -161,3 +166,23 @@
     :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs]))
 
 (defentity deftransport "" 'transport)
+
+
+
+
+;; ==== Biological Process ========
+
+(defclass SinoatrialNodeCellActionPotential
+  :comment "GO:0086015")
+
+(defclass PurkinjeMyocyteActionPotential
+  :comment "GO:0086017")
+
+(defclass BundleOfHisCellActionPotential
+  :comment "GO:0086043")
+
+(defclass AtrioventricularNodeCellActionPotential
+  :comment "GO:0086016")
+
+(defclass ActionPotential
+  :comment "GO:0001508")

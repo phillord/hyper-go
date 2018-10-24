@@ -212,11 +212,11 @@
 
 (deftransport ToTransportCalciumTransportingDrivenWithATPase
   :comment "GO:1905059"
-  :comment "InvolvedInRegulationOfPostsynapticCytosolicCalciumIonConcentration"
+  :comment "Involved in regulation of postsynaptic cytosolic calcium ion concentration"
   :across Membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven ATPase
-  :involved PostsynapticCytosolic
+  :involved concentration_of_calcium_ion_in_postsynaptic_cytosol
   :super (owl-or (owl-and (owl-some transports-from intracellular)
                           (owl-some transports-to extracellular_region))
                  (owl-and (owl-some transports-from extracellular_region)
@@ -225,11 +225,11 @@
 
 (deftransport ToTransportCalciumTransportingDrivenWithATPase
   :comment "GO:1905056"
-  :comment "InvolvedInRegulationOfPresynapticCytosolicCalciumIonConcentration"
+  :comment "Involved in regulation of presynaptic cytosolic calcium ion concentration"
   :across Membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven ATPase
-  :involved PresynapticCytosolic
+  :involved concentration_of_calcium_ion_in_postsynaptic_cytosol
   :super (owl-or (owl-and (owl-some transports-from intracellular)
                           (owl-some transports-to extracellular_region))
                  (owl-and (owl-some transports-from extracellular_region)
