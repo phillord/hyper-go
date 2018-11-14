@@ -20,7 +20,7 @@
 
 
 ;; Stuff from other ontologies
-(declare-classes Location Membrane ATPase)
+(declare-classes Location Membrane ATPase Channel)
 (defoproperty bearer-of)
 
 ;; From CC and Cell Ontologies
@@ -47,6 +47,7 @@
 
 (defoproperty has-part
   :comment "A substance such as SALT has part Anion and Cation")
+
 (defoproperty transports-across
   :comment "Usually transport across Membrane"
   :range Membrane)
@@ -76,6 +77,10 @@
 (defoproperty has-application-role
   :comment "Transport a substance which has some role such as drug"
   :super has-role)
+
+(defoproperty transports-through
+  :comment "transports solute through a channel or pore"
+  :range Channel)
 
 (defoproperty involved_in_regulation_of
   :comment "http://purl.obolibrary.org/obo/RO_0002428")
@@ -131,8 +136,17 @@
 
 (defpartition Stimulus
   [Osmolarity MechanicalStress Ligand Voltage HighVoltage LowVoltage IntermediateVoltage Light volume-sensitive]
+  :comment "Gate channel: enables the transmembrane transfer of solute by a channel that opens in response to a specific stimulus."
   :super ValuePartition)
 
+(defdproperty hasDaSize 
+  :comment "Porin activity: enables the transfer of substances, sized less than 1000 Da, from one side of a membrane to the other."
+  :range :XSD_INTEGER )
+
+(defpartition PoreSize
+  [Wide Narrow]
+  :comment "Pore channel: enables the transport of a solute across a membrane via a large pore, un-gated channel"
+  :super ValuePartition)
 
 (defn with-property [frames frame-maybe property]
   (when-let [frame (frame-maybe frames)]
@@ -156,14 +170,15 @@
                        (with-property frames :mechanism hasMechanism)
                        (with-property frames :direction hasDirection)
                        (with-property frames :involved involved_in_regulation_of)
-                       (with-property frames :occurs occurs_in)]))))
+                       (with-property frames :occurs occurs_in)
+                       (with-property frames :via transports-through)]))))
 
 (def transport
   (extend-frameify
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs]))
+    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via]))
 
 (defentity deftransport "" 'transport)
 
