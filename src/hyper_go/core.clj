@@ -134,8 +134,9 @@
   :comment "In Primary Active transporter: transport works equally well in either direction and is driven by a primary energy source "
   :super ValuePartition)
 
+;; some of these valuepartition is a Biological Process such as "phosphorylation GO:0016310", dephosphorylation GO:0016311".
 (defpartition Stimulus
-  [Osmolarity MechanicalStress Ligand Voltage HighVoltage LowVoltage IntermediateVoltage Light volume-sensitive]
+  [Osmolarity MechanicalStress Ligand Voltage HighVoltage LowVoltage IntermediateVoltage Light volume-sensitive Phosphorylation Dephosphorylation]
   :comment "Gate channel: enables the transmembrane transfer of solute by a channel that opens in response to a specific stimulus."
   :super ValuePartition)
 
@@ -201,3 +202,9 @@
 
 (defclass ActionPotential
   :comment "GO:0001508")
+
+(defclass VentricularCardiacMuscleCellMembraneRepolarization
+  :comment "GO:0099625")
+
+(defclass AtrialCardiacMuscleCellActionPotential
+  :comment "GO:0086014")
