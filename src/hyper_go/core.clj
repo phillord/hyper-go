@@ -24,12 +24,13 @@
 (defoproperty bearer-of)
 
 ;; From CC and Cell Ontologies
-(declare-classes Mitochondrion Chloroplast Cell intracellular extracellular_region ;;GO:0005576
-                 presynaptic_membrane postsynaptic_membrane Hepatocyte  intracellular_canaliculus
+(declare-classes 
+                 presynaptic_membrane postsynaptic_membrane   
                  concentration_of_calcium_ion_in_postsynaptic_cytosol
                  concentration_of_calcium_ion_in_presynaptic_cytosol
                  cardiac_muscle_cell_membrane_potential ;;OBA_0000046
                  cardiac_muscle_cell_action_potential
+                 
                  LeafletOfMembraneBilayer cardiac_muscle_cell_action_potential ;;GO:0086001
   :super Location)
 
@@ -208,3 +209,44 @@
 
 (defclass AtrialCardiacMuscleCellActionPotential
   :comment "GO:0086014")
+
+(defclass CalciumIonHomeostasis
+  :comment "GO:0055074")
+
+
+;; ================= Cellular Component ============
+
+(defclass Cell
+  :comment "GO:0005623")
+
+(defclass Intracellular
+  :comment "GO:0005622")
+
+(defclass ExtracellularRegion
+  :comment "GO:0005576")
+
+(defclass Mitochondrion
+  :comment "GO:0005739")
+
+(defclass Chloroplast
+  :comment "GO:0009507")
+
+(defclass Cytosol
+  :comment "GO:0005829")
+
+(defclass PresynapticCytosol
+  :comment "GO:0099523")
+
+(defclass PostsynapticCytosol
+  :comment "GO:0099524")
+
+(defclass IntracellularCanaliculus
+  :comment "GO:0046691")
+
+(defclass PoreComplex
+
+
+;; ==================== Other Ontology ================
+
+(defclass Hepatocyte
+  :comment "CL:0000182")

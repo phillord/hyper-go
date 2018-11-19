@@ -258,8 +258,8 @@
   :across Membrane
   :cargo (owl-and ch/zinc_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
-  :from intracellular
-  :to extracellular_region)
+  :from Intracellular
+  :to ExtracellularRegion)
 
 
 
