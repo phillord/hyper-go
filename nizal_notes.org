@@ -210,7 +210,14 @@ Antiporter and Symporter
   * "Passive diffusion moves materials from an area of higher concentration to an area of lower concentration, it is described as moving solutes "down the concentration gradient"
   * For molecules to transport in passive form:
       + Small and does not have a charge, for example carbon dioxide, molecular oxygen and water
-      
+
+** Channel activity
+  
+  * Allow passage of solutes through a transmembrane aqueous Pore or Channel.
+  * Channel opens in response to a specific stimulus such as: 
+      + voltage, ligand, specific ion, specific biologicalprocess and specific molecule.
+  *Gap junctions: are channels between adjacent cells (cell-to-cell only) that allow for the transport of ions, nutrients, and other molecules.
+  *Gap junctions: directly connect the cytoplasm of two cells which allow molecules to pass through regulated gate between cells
 
 
 ** Others
