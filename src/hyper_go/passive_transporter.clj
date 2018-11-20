@@ -22,7 +22,7 @@
   :comment "GO:0015267"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via Channel
+  :via (owl-or Channel PoreComplex)
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; gated channel activity
@@ -498,7 +498,17 @@
   :comment "GO:0022829"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasPoreSize Wide))
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; gap junction channel activity
+(deftransport ToTransportSoluteByGapJunctionWidePoreChannel
+  :comment "GO:0005243"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :from Cell
+  :to Cell
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; Proin Activity
@@ -506,26 +516,40 @@
   :comment "GO:0015288"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via Channel
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
   :cargo (owl-and ch/chemical_entity (owl-some hasDaSize [(span < 1000)])
                   (owl-some hasConcentration HighConcentration)))
 
-;; nucleoside-specific channel porin activity
-(deftransport ToTransportNucleosideByPorinChannel
-  :comment "GO:0015471"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via Channel
-  :cargo (owl-and ch/nucleoside (owl-some hasDaSize [(span < 1000)])
-                  (owl-some hasConcentration HighConcentration)))
 
 ;; oligosaccharide transporting porin Activity
 (deftransport ToTransportOligosaccharideByPorinChannel
   :comment "GO:0015478"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via Channel
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
   :cargo (owl-and ch/oligosaccharide (owl-some hasDaSize [(span < 1000)])
+                  (owl-some hasConcentration HighConcentration)))
+
+;; autotransporter activity
+(deftransport ToTransportPassengerProteinByPorinChannel
+  :comment "GO:0015474"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :from PeriplasmicSpace
+  :to ExtracellularRegion
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
+  :cargo (owl-and ch/chemical_entity (owl-some hasDaSize [(span < 1000)])
+                  (owl-some hasConcentration HighConcentration)))
+
+;; hemaglutinin autotransporter activity
+(deftransport ToTransportHemaglutininByPorinChannel
+  :comment "GO:0015476"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :from PeriplasmicSpace
+  :to ExtracellularRegion
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
+  :cargo (owl-and ch/glycoprotein (owl-some hasDaSize [(span < 1000)])
                   (owl-some hasConcentration HighConcentration)))
 
 ;; toxin export channel Activity
@@ -534,7 +558,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :to ExtracellularRegion
-  :via Channel
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
   :cargo (owl-and ch/toxin (owl-some hasDaSize [(span < 1000)])
                   (owl-some hasConcentration HighConcentration)))
 
@@ -543,8 +567,17 @@
   :comment "GO:0015481"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via Channel
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
   :cargo (owl-and ch/maltose (owl-some hasDaSize [(span < 1000)])
+                  (owl-some hasConcentration HighConcentration)))
+
+;; nucleoside-specific channel porin activity
+(deftransport ToTransportNucleosideByPorinChannel
+  :comment "GO:0015471"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
+  :cargo (owl-and ch/nucleoside (owl-some hasDaSize [(span < 1000)])
                   (owl-some hasConcentration HighConcentration)))
 
 ;; long-chain fatty acid transporting porin activity
@@ -552,7 +585,7 @@
   :comment "GO:0015483"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via Channel
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
   :cargo (owl-and ch/long-chain_fatty_acid (owl-some hasDaSize [(span < 1000)])
                   (owl-some hasConcentration HighConcentration)))
 

@@ -244,6 +244,10 @@
   :comment "GO:0046691")
 
 (defclass PoreComplex
+  :comment "GO:0046930")
+
+(defclass PeriplasmicSpace
+  :comment "GO:0042597")
 
 
 ;; ==================== Other Ontology ================
