@@ -511,6 +511,18 @@
   :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
+;; Need Review- not complete
+;; gap junction channel activity involved in cell communication by electrical coupling
+(deftransport ToTransportSoluteByGapJunctionWidePoreChannel
+  :comment "GO:1903763"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :from Cell
+  :to Cell
+  :involved CellCommunicationByElectricalCoupling
+  :via (owl-and PoreComplex (owl-some hasPoreSize Wide))
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
 ;; Proin Activity
 (deftransport ToTransportSoluteByPorinChannel
   :comment "GO:0015288"
@@ -922,6 +934,14 @@
   :via Channel
   :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
 
+;; pH-gated chloride channel activity
+(deftransport ToTransportChlorideBypHGatedChannel
+  :comment "GO:0061797"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus CellularResponseTopH))
+  :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
+
 ;; Intracellular chloride channel activity
 (deftransport ToTransportChlorideIntracellularByChannel
   :comment "GO:0061778"
@@ -948,6 +968,44 @@
   :mechanism Facilitated_diffusion
   :via Channel
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+;; calcium activated cation channel activity
+(deftransport ToTransportCationByChannelCalciumActivated
+  :comment "GO:0005227"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus
+                                  (owl-and ch/calcium_1+_ (owl-some hasConcentration HighConcentration))))
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+;; calcium-activated potassium channel activity
+(deftransport ToTransportPotassiumIonByChannelCalciumActivated
+  :comment "GO:0015269"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus
+                                   (owl-and ch/calcium_1+_ (owl-some hasConcentration HighConcentration))))
+  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
+
+;; ;; small conductance calcium-activated potassium channel activity
+;; (deftransport ToTransportPotassiumIonByChannelCalciumActivated
+;;   :comment "GO:0016286"
+;;   :across Membrane
+;;   :mechanism Facilitated_diffusion
+;;   :via (owl-and Channel (owl-some hasStimulus
+;;                                  (owl-and ch/calcium_1+_ (owl-some hasConcentration HighConcentration))))
+;;   :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
+
+
+
+;; chloride-activated potassium channel activity
+(deftransport ToTransportPotassiumIonByChannelChlorideActivated
+  :comment "GO:0070089"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus
+                                  (owl-and ch/chloride (owl-some hasConcentration HighConcentration))))
+  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
 
 ;; potassium channel activity
 (deftransport ToTransportPotassiumIonByChannel
@@ -1104,7 +1162,3 @@
   :involved SinoatrialNodeCellActionPotential
   :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
-
-
-
-

@@ -213,6 +213,12 @@
 (defclass CalciumIonHomeostasis
   :comment "GO:0055074")
 
+(defclass CellCommunicationByElectricalCoupling
+  :comment "GO:0010644")
+
+(defclass CellularResponseTopH
+  :comment "GO:0071467")
+
 
 ;; ================= Cellular Component ============
 
