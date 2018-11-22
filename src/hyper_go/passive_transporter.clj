@@ -492,6 +492,43 @@
   :via (owl-and Channel (owl-some hasStimulus Ligand))
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
+(deftransport ToTransportSodiumIonByProtonGatedChannel
+  :comment "GO:0044736"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus ch/proton))
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+
+;; channel-forming ionophore activity
+(deftransport ToTransportSoluteByPoreChannel
+  :comment "GO:0022886"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via PoreComplex
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; narrow pore channel activity
+(deftransport ToTransportSoluteByNarrowPoreChannel
+  :comment "GO:0022842"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and PoreComplex (owl-some hasPoreSize Narrow))
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportSoluteByNarrowPoreChannel
+  :comment "GO:0022831"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and PoreComplex (owl-some hasPoreSize Narrow) (owl-some hasStimulus Stimulus))
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportPotassiumByNarrowPoreChannel
+  :comment "GO:0022841"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and PoreComplex (owl-some hasPoreSize Narrow))
+  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
+
 
 ;; wide pore channel activity
 (deftransport ToTransportSoluteByWidePoreChannel
@@ -611,6 +648,27 @@
   :via (owl-and Channel (owl-some hasStimulus Ligand))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
+;; calcium-induced calcium release activity
+(deftransport ToTransportCalciumIonByCalcium-inducedChannel
+  :comment "GO:0048763"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :from Intracellular
+  :via (owl-and Channel (owl-some hasStimulus
+                                  (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration))))
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+
+;; ;; calcium-induced calcium release activity involved in regulation of postsynaptic cytosolic calcium ion concentration
+;; (deftransport ToTransportCalciumIonByCalcium-inducedChannel
+;;   :comment "GO:1905058"
+;;   :across Membrane
+;;   :mechanism Facilitated_diffusion
+;;   :from Intracellular
+;;   :involved
+;;   :via (owl-and Channel (owl-some hasStimulus
+;;                                   (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration))))
+  
 ;; NAADP-sensitive calcium-release channel activity
 (deftransport ToTransportCalciumIonByNAADP-sensitiveChannel
   :comment "GO:0072345"
@@ -658,9 +716,6 @@
   :occurs PostsynapticCytosol
   :via (owl-and Channel (owl-some hasStimulus ch/_1D-myo-inositol_1_4_5-trisphosphate))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
-
-;; ======= Nexet is subclasses of GO:0015278
-
 
 
 ;; Intracellular cyclic nucleotide activated cation channel activity
@@ -975,7 +1030,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus
-                                  (owl-and ch/calcium_1+_ (owl-some hasConcentration HighConcentration))))
+                                  (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration))))
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
 ;; calcium-activated potassium channel activity
@@ -984,7 +1039,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus
-                                   (owl-and ch/calcium_1+_ (owl-some hasConcentration HighConcentration))))
+                                   (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration))))
   :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
 
 ;; ;; small conductance calcium-activated potassium channel activity
@@ -993,7 +1048,7 @@
 ;;   :across Membrane
 ;;   :mechanism Facilitated_diffusion
 ;;   :via (owl-and Channel (owl-some hasStimulus
-;;                                  (owl-and ch/calcium_1+_ (owl-some hasConcentration HighConcentration))))
+;;                                  (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration))))
 ;;   :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
 
 

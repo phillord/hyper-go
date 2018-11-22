@@ -763,7 +763,7 @@
 ;;======================================================
 
 ;;Solute A(out) + solute B(in) = solute A(in) + solute B(out).
-(deftransport ToTransportAntiporterActivit
+(deftransport ToTransportAntiporterActivity
   :comment "GO:0015297"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
@@ -784,6 +784,13 @@
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
+(deftransport ToTransportSulfateAntiporterByVoltageGatedChannel
+  :comment "GO:0015297"
+  :across Membrane
+  :cargo (owl-and ch/sulfate (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/sulfate (owl-some hasConcentration HighConcentration))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :direction OppositeDirection)
 
 ;;#A substance or substances transported according to the reaction:
 ;; solute(out) + H+(in) = solute(in) + H+(out).

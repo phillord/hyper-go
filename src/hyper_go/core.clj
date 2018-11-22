@@ -30,7 +30,6 @@
                  concentration_of_calcium_ion_in_presynaptic_cytosol
                  cardiac_muscle_cell_membrane_potential ;;OBA_0000046
                  cardiac_muscle_cell_action_potential
-                 
                  LeafletOfMembraneBilayer cardiac_muscle_cell_action_potential ;;GO:0086001
   :super Location)
 
