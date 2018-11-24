@@ -1276,10 +1276,6 @@
   :cargo ch/L-ascorbate
   :when ch/sodium_1+_)
 
-
-;; ==== Next is GO:0009674 =====
-
-
 (deftransport ToTransportBicarbonate
   :comment "GO:0015106"
   :across Membrane
@@ -1509,19 +1505,12 @@
   :across Membrane
   :cargo ch/glyceraldehyde_3-phosphate)
 
-
-
-;; ==== Next is GO:0044667 ====
-
 ;; Acriflavine has no role Xenobiotic in ChEBI
 (deftransport ToTransportAcriflavine
   :comment "GO:0015566"
   :across Membrane
   :cargo (owl-and ch/_3_6-diamino-10-methylacridinium_chloride (owl-some has-application-role ch/drug)
                   (owl-some has-biological-role ch/xenobiotic)))
-
-
-
 
 (deftransport ToTransportTetracycline
   :comment "GO:0008493"

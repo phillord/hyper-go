@@ -24,8 +24,7 @@
 (defoproperty bearer-of)
 
 ;; From CC and Cell Ontologies
-(declare-classes 
-                 presynaptic_membrane postsynaptic_membrane   
+(declare-classes
                  concentration_of_calcium_ion_in_postsynaptic_cytosol
                  concentration_of_calcium_ion_in_presynaptic_cytosol
                  cardiac_muscle_cell_membrane_potential ;;OBA_0000046
@@ -130,7 +129,7 @@
   :super ValuePartition)
 
 (defpartition EnergySource
-  [Light Decarboxylation ATPase]
+  [Light Decarboxylation Oxidoreduction ATPase]
   :comment "In Primary Active transporter: transport works equally well in either direction and is driven by a primary energy source "
   :super ValuePartition)
 
@@ -254,8 +253,17 @@
 (defclass PeriplasmicSpace
   :comment "GO:0042597")
 
+(defclass PresynapticMembrane
+  :comment "GO:0042734")
+
+(defclass PostsynapticMembrane
+  :comment "GO:0045211")
+
 
 ;; ==================== Other Ontology ================
 
 (defclass Hepatocyte
   :comment "CL:0000182")
+
+(defclass MembranePotential
+  :comment "OBA:0000099")

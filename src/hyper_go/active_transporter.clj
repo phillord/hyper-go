@@ -9,89 +9,80 @@
 
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient
-(deftransport ToTransportActiveTransmembrane
+(deftransport ToTransportSoluteByActiveTransmembraneTransporter
   :comment "GO:0022804"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
   :driven (owl-or EnergySource (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
 
-(deftransport ToTransportActiveTransmembrane
+(deftransport ToTransportSoluteByActiveTransmembraneDrivenByDecarboxylation
   :comment "GO:0015451"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
   :driven Decarboxylation)
 
 ;; methyl transfer-driven active transmembrane transporter
-(deftransport ToTransportActiveTransmembrane
+(deftransport ToTransportSoluteByActiveTransmembraneDrivenByMethyltransfer
   :comment "GO:0015452"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/methyl (owl-some hasConcentration HighConcentration)))
 
 ;; light-driven active transmembrane transporter 
-(deftransport ToTransportActiveTransmembrane
+(deftransport ToTransportSoluteByActiveTransmembraneDrivenByLight
   :comment "GO:0015454"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/photon (owl-some hasConcentration HighConcentration)))
+  :driven (owl-and Light (owl-some hasConcentration HighConcentration)))
 
-
-(deftransport ToTransportActiveIonTransmembrane
+;; active ion transmembrane transporter activity
+(deftransport ToTransportIonByActiveTransmembraneTransporter
   :comment "GO:0022853"
   :across Membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
+  :driven (owl-or EnergySource (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
 
-(deftransport ToTransportIon
-  :comment "GO:0099521"
-  :comment "Involved in regulation of presynaptic membrane potential"
-  :across Membrane
-  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-  :involved presynaptic_membrane
-  :occurs presynaptic_membrane)
-
-(deftransport ToTransportIonInvolvedInRegulationOfpostsynaptic_membranePotential
-  :comment "GO:0099581"
-  :across Membrane
-  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-  :involved postsynaptic_membrane
-  :occurs postsynaptic_membrane)
-
-;; classified in GO as primary and secondary active transporter. !!
-(deftransport ToTransportProteinActive
+;; classified in GO as primary and secondary active transporter. !!classified in GO as primary and secondary active transporter. !!
+(deftransport ToTransportProteinByActiveTransmembraneTransporterDivenByProton
   :comment "GO:0009977"
   :across Membrane
   :cargo (owl-and ch/protein (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
 
-;; need review
+;; 2-aminoethylphosphonate transmembrane transporter activity
 (deftransport ToTransport2-aminoethylphosphonateActiveTransmembrane
   :comment "GO:0033224"
   :across Membrane
   :cargo (owl-and ch/_2-aminoethyl_phosphonic_acid (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
+  :driven (owl-or EnergySource (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
 
 
+;; monoamine transmembrane transporter activity
+(deftransport ToTransportMonoamineByActiveTransmembraneTransporter
+  :comment "GO:0008504"
+  :across Membrane
+  :cargo (owl-and ch/monoamine (owl-some hasConcentration LowConcentration))
+  :driven (owl-or EnergySource (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
 
-
-
-;; ==== Next is GO:0008504
 
 ;; =====================================================
 ;;============== Primary Active transporters =========
 ;;======================================================
 
-
-
 ;; Requires energy to transports molecules.
 ;; The energy derived directly from the breakdown of ATP.
-(deftransport ToTransportPrimaryActiveTransmembrane
+(deftransport ToTransportSoluteByPrimaryActiveTransmembrane
   :comment "GO:0015399"
   :across Membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven ATPase)
+  :driven ATPase
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration)))
+
+;; oxidoreduction-driven active transmembrane transporter activity
+(deftransport ToTransportSoluteByActiveTransmembraneDrivenByOxidoreduction
+  :comment "GO:0015453"
+  :across Membrane
+  :driven Oxidoreduction
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration)))
 
 (deftransport ToTransportP-P-bond-hydrolysis-driven
   :comment "GO:0015405"
@@ -841,10 +832,10 @@
 (deftransport ToTransportIonInvolvedInRegulationOfpostsynaptic_membranePotentialAntiporter
   :comment "GO:0099580"
   :across Membrane
+  :involved MembranePotential
+  :occurs PostsynapticMembrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
-  :involved postsynaptic_membrane
-  :occurs postsynaptic_membrane
   :direction OppositeDirection)
 
 (deftransport ToTransportIonInvolvedInRegulationOfpresynaptic_membranePotentialAntiporter
@@ -852,8 +843,8 @@
   :across Membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
-  :involved presynaptic_membrane
-  :occurs presynaptic_membrane
+  :occurs PresynapticMembrane
+  :involved MembranePotential
   :direction OppositeDirection)
 
 

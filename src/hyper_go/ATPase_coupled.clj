@@ -121,6 +121,24 @@
   )
 
 
+(deftransport ToTransportIonByActiveTransmembraneDrivenWithATPase
+  :comment "GO:0099521"
+  :comment "Involved in regulation of presynaptic membrane potential"
+  :across Membrane
+  :driven ATPase
+  :occurs PresynapticMembrane
+  :involved MembranePotential
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration)))
+
+(deftransport ToTransportIonByActiveTransmembraneDrivenWithATPase
+  :comment "GO:0099581"
+  :comment "Involved in regulation of postsynaptic membrane potential"
+  :across Membrane
+  :involved MembranePotential
+  :occurs PostsynapticMembrane
+  :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
+  :driven (owl-or ATPase (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
+
 ;; ATP + H2O + cob(III)alamin(out) = ADP + phosphate + cob(III)alamin(in).
 ;; Cobalamin is also known as vitamin B12. 
 (deftransport ToTransportCobalaminTransportingDrivenWithATPase

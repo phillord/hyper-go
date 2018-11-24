@@ -81,8 +81,9 @@
   :comment "Involved in regulation of presynaptic membrane potential"
   :across Membrane
   :mechanism Facilitated_diffusion
+  :occurs PresynapticMembrane
+  :involved MembranePotential
   :via (owl-and Channel (owl-some hasStimulus Voltage))
-  :involved presynaptic_membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity involved in regulation of postsynaptic  membrane potential
@@ -91,8 +92,9 @@
   :comment "Involved in regulation of postsynaptic membrane potential"
   :across Membrane
   :mechanism Facilitated_diffusion
+  :involved MembranePotential
+  :occurs PostsynapticMembrane
   :via (owl-and Channel (owl-some hasStimulus Voltage))
-  :involved postsynaptic_membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated cation channel activity
@@ -244,7 +246,8 @@
   :comment "Involved in regulation of postsynaptic membrane potential"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :involved postsynaptic_membrane
+  :occurs PostsynapticMembrane
+  :involved MembranePotential
   :via (owl-and Channel (owl-some hasStimulus
                                   (owl-and ch/chemical_entity (owl-some has-biological-role ch/neurotransmitter))))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
@@ -343,8 +346,8 @@
   :comment "Involved in regulation of presynaptic membrane potential"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :involved presynaptic_membrane
-  :occurs presynaptic_membrane
+  :occurs PresynapticMembrane
+  :involved MembranePotential
   :via (owl-and Channel (owl-some hasStimulus Ligand))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
@@ -751,8 +754,8 @@
   :comment "Involved in regulation of postsynaptic membrane potential"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :occurs Intracellular
-  :involved postsynaptic_membrane
+  :occurs PostsynapticMembrane
+  :involved MembranePotential
   :via (owl-and Channel (owl-some hasStimulus ch/_7-deaza-cGMP))
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
@@ -763,7 +766,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :occurs Intracellular
-  :involved presynaptic_membrane
+  :involved MembranePotential
   :via (owl-and Channel (owl-some hasStimulus ch/_7-deaza-cGMP))
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
