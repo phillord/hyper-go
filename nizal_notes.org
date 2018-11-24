@@ -49,6 +49,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    
  * GO Incorrect classification
    + The (GO:0015513) high-affinity secondary active nitrite transmembrane transporter activity, classified as is_a nitrate transmembrane transporter activity GO:0015112, which I think it is not correct.The GO:0015513 is_a  GO:0015113 not GO:0015112
+   +  GO:0009977 proton motive force dependent protein transmembrane transporter activity: classified in GO as primary and secondary active transporter. !!
 
 ** Diff classification between GO and ChEBI
 
