@@ -227,6 +227,35 @@ Antiporter and Symporter
    + Ca2+-activated K+ channels are a diverse group of channels that are activated by an increase in intracellular Ca2+ concentration.
    + Source: http://www.ebi.ac.uk/interpro/entry/IPR003930   and  http://europepmc.org/abstract/MED/9687354
 
+** What is Membrane Potential (Em)?
+  * It is the charge across the memebrane.
+ * What is the Cell Resting Potential ?
+  + The voltage difference between intracellular space and the extracellular space when a neuron is in non activated state (resting state).
+  + The resting membrane potential of neuron ranges between negative 50 and negative 80 millivolts (mV).
+  + The resting potential is the electrical charge that the cell has when it is resting and not stimulated by any open ion channels.
+  + The cell is in its resting state the channels are closed,but still leaky and ions move in and out of the cell.
+  + The electrical charge inside the cell is more negative than outside the cell becasue of the high concentration of sodium outside the cell, inside the cell are more potassium ions but also negatively charged proteins.
+ 
+** What is Action Potential?
+  + The cell membrane is filled with ion channels that allow ions to enter the cell when stimulated by Action potential.
+  + The voltage difference between the inside of the cell and the outside will allow the cell to receive electrical signals known as "Action Potential".
+  + The Action Potential is created becasue of the concentration difference of ions between the intracellular space and the extracellular space (there is a higher concentration of sodium ions outside the neuron and high concentration of potassium inside;
+the extracellular space is more positive than inside the neuron; this creates voltage difference of -70 mV which created by leaky ions and channels that are more permeable to potassium ions than sodium ions)
+  + When the cell membrane stimulated by some action potential it causes sodium Na+ channel to open, letting in positive ions --> this change the electrical enviroment  and make it more positive inside the cell and less positive outside, this is called "Depolarization".
+  + Depolarization: make the electrical enviroment more positive inside the cell
+  + Repolarization: the intracellular space became negative again.
+  + Hyper-polarization: too negative in the intracellular space when the cell pumped out too many ions (more negative than resting potential), this is corrected by leaky ion channels and sodium potassium pump to reach the minus 70 mV, the resting state.
+
+** What is Donnan Equilibrium(Eion)?
+  * It is the membrane potential at which the movement into the cell EQUALS the movement out of the cell.
+  * For example: The Donnan Equilibrium for Sodium NA+ (Ena) is 58mV, if the Membrane Potential is at 58mV NA+ is relaxed.
+
+
+** What is a Ligand in Cell Biology?
+  * Small molecules that transmit signals in between or within cells.
+  * Ligands bind to cellular proteins called receptors which send the received signals to other parts of the cell.
+  * Tow types: intracellular ligands(bind to receptors inside the cell) and extracellular ligands (bind to receptors outside the cell).
+  * In general: ligand is an ion, molecule, or molecular group that binds to another chemical entity to form a larger complex.
 
 ** Others
   * GO:0022880 : This differs from primary and secondary active transport in that the solute is modified during transport. 
