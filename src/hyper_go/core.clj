@@ -62,6 +62,9 @@
   :comment "One activity which happens at the same time as another and
   which can only occur because the other does.")
 
+(defoproperty bind-to
+  :comment "A substance bind to a another substance to form larger complex or allwo some process such as ligand")
+
 (defoproperty has-role
   :comment "Transport a substance which has some role such as drug, vitamin, neurotransmitter and cofactor")
 
@@ -135,7 +138,7 @@
 
 ;; some of these valuepartition is a Biological Process such as "phosphorylation GO:0016310", dephosphorylation GO:0016311".
 (defpartition Stimulus
-  [Osmolarity MechanicalStress Ligand Voltage HighVoltage LowVoltage IntermediateVoltage Light volume-sensitive Phosphorylation Dephosphorylation]
+  [Osmolarity MechanicalStress Voltage HighVoltage LowVoltage IntermediateVoltage Light volume-sensitive Phosphorylation Dephosphorylation]
   :comment "Gate channel: enables the transmembrane transfer of solute by a channel that opens in response to a specific stimulus."
   :super ValuePartition)
 
@@ -164,7 +167,7 @@
                        (with-property frames :transports-with hasBindingAffinity)
                        (with-property frames :across transports-across)
                        (with-property frames :driven driven-by)
-                       (with-property frames :linked linked-to) 
+                       (with-property frames :linked linked-to)
                        (with-property frames :role bearer-of)
                        (with-property frames :when dependent-on)
                        (with-property frames :mechanism hasMechanism)
@@ -258,6 +261,9 @@
 
 (defclass PostsynapticMembrane
   :comment "GO:0045211")
+
+(defclass ReceptorComplex
+  :comment "GO:0043235")
 
 
 ;; ==================== Other Ontology ================
