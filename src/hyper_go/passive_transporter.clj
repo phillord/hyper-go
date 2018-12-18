@@ -2,9 +2,11 @@
   (:use [tawny.pattern])
   (:require [tawny.owl  :refer :all]
             [tawny-chebi.chebi :as ch]
-            [hyper-go.core :refer :all]))
+            [hyper-go.core :refer :all]
+            [tawny-go.go :as go]))
 
-(ontology-to-namespace hyper-go.core/hyper-go)
+
+(ontology-to-namespace hyper-go.core/HyperGo)
 
 
 
@@ -14,7 +16,7 @@
 (deftransport ToTransportPassiveTransmembrane
   :comment "GO:0022803"
   :across Membrane
-  :mechanism (owl-or Diffusion Facilitated_diffusion)
+  :mechanism (owl-or Facilitated_diffusion)
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; channel activity
@@ -30,7 +32,7 @@
   :comment "GO:0022836"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Stimulus))
+  :via (owl-and Channel (owl-some opens-in go/response_to_stimulus))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; phosphorylation-gated channel activity
@@ -38,7 +40,7 @@
   :comment "GO:0022828"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Phosphorylation))
+  :via (owl-and Channel (owl-some opens-in ResponseToPhosphorylation))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; dephosphorylation-gated channel activity
@@ -46,7 +48,7 @@
   :comment "GO:0022859"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Dephosphorylation))
+  :via (owl-and Channel (owl-some opens-in RresponseToDephosphorylation))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 
@@ -55,7 +57,7 @@
   :comment "GO:0022839"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus ch/ion))
+  :via (owl-and Channel (owl-some opens-in ch/ion))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 
@@ -64,7 +66,7 @@
   :comment "GO:0022832"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :via (owl-and Channel (owl-some opens-in Voltage))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity
@@ -1166,7 +1168,9 @@
   :comment "GO:0005228"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus (owl-or ch/ion ch/sodium_1+_)))
+  :via (owl-and Channel (owl-some hasStimulus
+                                  (owl-and (owl-or ch/ion ch/sodium_1+_)
+                                           (owl-some occurs_in Intracellular))))
   :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
 
 ;; Intracellular calcium activated potassium channel activity
@@ -1174,15 +1178,20 @@
   :comment "GO:0005229"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus (owl-or ch/ion ch/calcium_ion)))
+  :via (owl-and Channel (owl-some hasStimulus
+                                  (owl-and (owl-or ch/ion ch/calcium_ion)
+                                           (owl-some occurs_in Intracellular))))
   :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
 
+
 ;; osmolarity-sensing cation channel activity
-(deftransport ToTransportOsmolarity-sensingCationByChannel
+(deftransport ToTransportCationByOsmolarity-sensingChannel
   :comment "GO:1990760"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Osmolarity))
+  :via (owl-and Channel (owl-some hasStimulus
+                                  (owl-and Osmolarity
+                                           (owl-some occurs_in ExtracellularRegion))))
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
 

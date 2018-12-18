@@ -5,7 +5,7 @@
             [hyper-go.core :refer :all]))
 
 
-(ontology-to-namespace hyper-go.core/hyper-go)
+(ontology-to-namespace hyper-go.core/HyperGo)
 
 ;; Requires energy to transports molecules.
 ;; Move molecules against thier concentration gradient

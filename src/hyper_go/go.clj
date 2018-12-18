@@ -1,11 +1,13 @@
 (ns hyper-go.go
   (:use [tawny.pattern])
   (:require [tawny.owl  :refer :all]
+            [tawny.emacs  :refer :all]
+            [tawny.query  :refer :all]
             [tawny-chebi.chebi :as ch]
             [hyper-go.core :refer :all]))
 
 
-(ontology-to-namespace hyper-go.core/hyper-go)
+(ontology-to-namespace hyper-go.core/hyperGo)
 
 (deftransport ToTransport
   :comment "GO:0005215"
@@ -157,12 +159,10 @@
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/coenzyme)))
 
-
 (deftransport ToTransportToxin
   :comment "GO:0019534"
   :across Membrane
   :cargo ch/toxin)
-
 
 (deftransport ToTransportCarbonDioxide
   :comment "GO:0035379"
@@ -2466,37 +2466,4 @@
   :cargo ch/glycolipid)
 
 
-
-
-
-
-
-(defn di-porter [from to]
-  (let [first-transport
-        (:cargo :from)
-        second-transport
-        (:carg :to)]
-    (owl-class (str "di-porter" from " " to)
-               :equivalent
-               (owl-and
-                ToTransport
-                (owl-some has-part first-transport)
-                (owl-some has-part second-transport)))))
-
-
-;; ;; (require 'tawny.reasoner)
-;; ;; (tawny.reasoner/reasoner-factory :hermit)
-;; ;; (tawny.reasoner/reasoner-factory :elk)
-
-;; ;; (subclass? ToTransport ToTransportCation)
-;; ;; (subclass? ToTransportCation ToTransport)
-
-;; ;; (tawny.reasoner/isubclass? ToTransportCation ToTransportCationDrivenWithATPase)
-;; ;; (tawny.reasoner/isubclass? ToTransportCation ToTransport)
-
-
-;; ;; (tawny.reasoner/isubclass? ToTransportChloride ToTransportAnion)
-;; ;; (tawny.reasoner/isubclass? ToTransportAnion ToTransportChloride)
-
-;; ;; (subclass? ch/chloride ch/cation)
-
+(save-ontology "hyper.owl" :owl)

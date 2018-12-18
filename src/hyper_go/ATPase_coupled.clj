@@ -5,7 +5,7 @@
             [hyper-go.core :refer :all]))
 
 
-(ontology-to-namespace hyper-go.core/hyper-go)
+(ontology-to-namespace hyper-go.core/HyperGo)
 
 ;; A substance or substances transported either from the inside of the cell to the outside and and vice versa.
 ;; Driven by ATPase
@@ -451,4 +451,3 @@
   :across Membrane
   :from  ExtracellularRegion
   :to  Intracellular)
-

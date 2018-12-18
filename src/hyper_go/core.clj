@@ -1,23 +1,13 @@
 (ns hyper-go.core
     (:use [tawny.pattern])
   (:require [tawny.owl :refer :all]
-            [tawny-chebi.chebi :as ch]))
+            [tawny-chebi.chebi :as ch]
+            [tawny-go.go :as go]))
 
-(defontology hyper-go
-  :iri "http://example.com/hyper-go")
-
-
-;; (defn get-go-ontology []
-;;   (tawny.owl/remove-ontology-maybe
-;;    (OWLOntologyID. (IRI/create "http://purl.obolibrary.org/obo/go.owl")))
-;;   (.loadOntologyFromOntologyDocument
-;;    (tawny.owl/owl-ontology-manager)
-;;    (IRI/create  "http://purl.obolibrary.org/obo/go.owl")))
-
-;; (owl-import (get-go-ontology))
+(defontology HyperGo
+  :iri "http://purl.obolibrary.org/obo/HyperGo")
 
 ;;(owl-import tawny-chebi.chebi/chebi)
-
 
 ;; Stuff from other ontologies
 (declare-classes Location Membrane ATPase Channel)
@@ -30,9 +20,7 @@
                  cardiac_muscle_cell_membrane_potential ;;OBA_0000046
                  cardiac_muscle_cell_action_potential
                  LeafletOfMembraneBilayer cardiac_muscle_cell_action_potential ;;GO:0086001
-  :super Location)
-
-
+                 :super Location)
 
 ;; Transporters
 ;(defclass ToTransport)
@@ -61,6 +49,9 @@
 (defoproperty linked-to
   :comment "One activity which happens at the same time as another and
   which can only occur because the other does.")
+
+(defoproperty opens-in
+  :comment "A channel/pore opens in response to some to a specific stimulus")
 
 (defoproperty bind-to
   :comment "A substance bind to a another substance to form larger complex or allwo some process such as ligand")
@@ -106,7 +97,7 @@
   :super ValuePartition)
 
 (defpartition Mechanism
-  [Rotational Phosphorylative Diffusion Facilitated_diffusion]
+  [Rotational Phosphorylative Facilitated_diffusion]
   :comment "some chemical entities transported with a specific type of mechanism"
   :super ValuePartition)
 
@@ -187,7 +178,6 @@
 
 
 
-
 ;; ==== Biological Process ========
 
 (defclass SinoatrialNodeCellActionPotential
@@ -219,7 +209,6 @@
 
 (defclass CellularResponseTopH
   :comment "GO:0071467")
-
 
 ;; ================= Cellular Component ============
 
@@ -265,6 +254,13 @@
 (defclass ReceptorComplex
   :comment "GO:0043235")
 
+;;================ Not Exist in GO ======================
+
+(defclass ResponseToPhosphorylation
+  :super go/response_to_stimulus)
+
+(defclass RresponseToDephosphorylation
+  :super go/response_to_stimulus)
 
 ;; ==================== Other Ontology ================
 
