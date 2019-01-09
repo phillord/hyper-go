@@ -2,7 +2,8 @@
   (:use [tawny.pattern])
   (:require [tawny.owl  :refer :all]
             [tawny-chebi.chebi :as ch]
-            [hyper-go.core :refer :all]))
+            [hyper-go.core :refer :all]
+            [tawny-go.go :as go]))
 
 
 (ontology-to-namespace hyper-go.core/HyperGo)
@@ -26,7 +27,7 @@
   :comment "GO:0015452"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/methyl (owl-some hasConcentration HighConcentration)))
+  :driven (owl-and Methyl_transfer_reaction (owl-some hasConcentration HighConcentration)))
 
 ;; light-driven active transmembrane transporter 
 (deftransport ToTransportSoluteByActiveTransmembraneDrivenByLight
@@ -47,7 +48,7 @@
   :comment "GO:0009977"
   :across Membrane
   :cargo (owl-and ch/protein (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+  :driven (owl-and pH-dependent (owl-some hasConcentration HighConcentration)))
 
 ;; 2-aminoethylphosphonate transmembrane transporter activity
 (deftransport ToTransport2-aminoethylphosphonateActiveTransmembrane
@@ -74,7 +75,7 @@
 (deftransport ToTransportSoluteByPrimaryActiveTransmembrane
   :comment "GO:0015399"
   :across Membrane
-  :driven ATPase
+  :driven (owl-or ATP_Hydrolysis ATP_Synthesis Oxidoreduction Decarboxylation Methyl_transfer_reaction Light)
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration)))
 
 ;; oxidoreduction-driven active transmembrane transporter activity
@@ -88,10 +89,7 @@
   :comment "GO:0015405"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATPase ch/nucleoside_triphosphate))
-
-
-
+  :driven (owl-or ATP_Hydrolysis ATP_Synthesis))
 
 ;; =====================================================
 ;;============== Secondary Active transporters =========
@@ -829,11 +827,11 @@
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-(deftransport ToTransportIonInvolvedInRegulationOfpostsynaptic_membranePotentialAntiporter
+(deftransport ToTransportIonAntiporter
   :comment "GO:0099580"
   :across Membrane
-  :involved MembranePotential
-  :occurs PostsynapticMembrane
+  :occurs go/postsynaptic_membrane
+  :involved go/regulation_of_postsynaptic_membrane_potential
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
@@ -1100,7 +1098,7 @@
   :across Membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
-  :involved concentration_of_calcium_ion_in_postsynaptic_cytosol
+  :involved go/regulation_of_postsynaptic_cytosolic_calcium_ion_concentration
   :direction OppositeDirection)
 
 (deftransport ToTransportCalcium:CationAntiporter
@@ -1109,7 +1107,7 @@
   :across Membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/cation (owl-some hasConcentration HighConcentration))
-  :involved concentration_of_calcium_ion_in_presynaptic_cytosol
+  :involved go/regulation_of_presynaptic_cytosolic_calcium_ion_concentration
   :direction OppositeDirection)
 
 
@@ -1144,7 +1142,7 @@
   :across Membrane
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
-  :involved cardiac_muscle_cell_membrane_potential
+  :involved go/regulation_of_cardiac_muscle_cell_membrane_potential
   :direction OppositeDirection)
   
 (deftransport ToTransportCalcium:SodiumAntiporter
@@ -1153,7 +1151,7 @@
   :across Membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
-  :involved cardiac_muscle_cell_membrane_potential
+  :involved go/regulation_of_cardiac_muscle_cell_membrane_potential
   :direction OppositeDirection)
 
 ;; http://www.jbc.org/content/277/42/39251.full.pdf

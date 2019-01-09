@@ -10,15 +10,11 @@
 ;;(owl-import tawny-chebi.chebi/chebi)
 
 ;; Stuff from other ontologies
-(declare-classes Location Membrane ATPase Channel)
+(declare-classes Location Membrane Channel)
 (defoproperty bearer-of)
 
 ;; From CC and Cell Ontologies
 (declare-classes
-                 concentration_of_calcium_ion_in_postsynaptic_cytosol
-                 concentration_of_calcium_ion_in_presynaptic_cytosol
-                 cardiac_muscle_cell_membrane_potential ;;OBA_0000046
-                 cardiac_muscle_cell_action_potential
                  LeafletOfMembraneBilayer cardiac_muscle_cell_action_potential ;;GO:0086001
                  :super Location)
 
@@ -75,16 +71,14 @@
   :comment "transports solute through a channel or pore"
   :range Channel)
 
-(defoproperty involved_in_regulation_of
+(defoproperty involved_in
   :comment "http://purl.obolibrary.org/obo/RO_0002428")
 
-(defoproperty involved_in_positive_regulation_of
-  :comment "http://purl.obolibrary.org/obo/RO_0002429"
-  :super involved_in_regulation_of)
+(defoproperty involved_in_positive
+  :super involved_in)
 
-(defoproperty involved_in_negative_regulation_of
-  :comment "http://purl.obolibrary.org/obo/RO_0002430"
-  :super involved_in_regulation_of)
+(defoproperty involved_in_negative
+  :super involved_in)
 
 (defoproperty occurs_in
   :comment "http://purl.obolibrary.org/obo/BFO_0000066")
@@ -123,7 +117,7 @@
   :super ValuePartition)
 
 (defpartition EnergySource
-  [Light Decarboxylation Oxidoreduction ATPase]
+  [Light Decarboxylation Oxidoreduction Methyl_transfer_reaction ATP_Hydrolysis ATP_Synthesis pH-dependent]
   :comment "In Primary Active transporter: transport works equally well in either direction and is driven by a primary energy source "
   :super ValuePartition)
 
@@ -163,7 +157,7 @@
                        (with-property frames :when dependent-on)
                        (with-property frames :mechanism hasMechanism)
                        (with-property frames :direction hasDirection)
-                       (with-property frames :involved involved_in_regulation_of)
+                       (with-property frames :involved involved_in)
                        (with-property frames :occurs occurs_in)
                        (with-property frames :via transports-through)]))))
 

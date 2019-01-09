@@ -7,7 +7,7 @@
             [hyper-go.core :refer :all]))
 
 
-(ontology-to-namespace hyper-go.core/hyperGo)
+(ontology-to-namespace hyper-go.core/HyperGo)
 
 (deftransport ToTransport
   :comment "GO:0005215"
