@@ -260,6 +260,12 @@ the extracellular space is more positive than inside the neuron; this creates vo
 ** Others
   * GO:0022880 : This differs from primary and secondary active transport in that the solute is modified during transport. 
 
+What is inward rectification (Kir)?
+   * allow large positive charge inward direction (into the cell) than in the outward direction (out of the cell).
+   * inwardly rectifying K+ channels support the flow of positively charged K+ ions into the cell, pushing the membrane potential back to the resting potential.
+   *  inwardly-rectifying potassium channels: have evolved distinct voltage-independent mechanisms for opening and closing, including gating by G proteins, pH and ATP.
+
+
 ** Chemical Role
 
  * Chemical role in GO:
