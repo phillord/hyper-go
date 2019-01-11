@@ -481,3 +481,17 @@
                   (owl-some hasEnantiomerism L-Enantiomer))
   :from  ExtracellularRegion
   :to  Intracellular)
+
+
+
+;; ======================================================
+;;    Transport driving by a chemical reaction
+;;=====================
+
+(deftransport ToTransportProtonDrivenByChemicalReaction
+  :comment "GO:0003957"
+  :across Membrane
+  :driven go/oxidoreductase_activity
+  :cargo ch/proton
+  :from Intracellular
+  :to ExtracellularRegion)

@@ -71,8 +71,7 @@
   :comment "transports solute through a channel or pore"
   :range Channel)
 
-(defoproperty involved_in
-  :comment "http://purl.obolibrary.org/obo/RO_0002428")
+(defoproperty involved_in)
 
 (defoproperty involved_in_positive
   :super involved_in)
@@ -82,6 +81,10 @@
 
 (defoproperty occurs_in
   :comment "http://purl.obolibrary.org/obo/BFO_0000066")
+
+(defoproperty contributes-to)
+
+(defoproperty as-results-of)
 
 (defclass ValuePartition)
 
@@ -123,7 +126,10 @@
 
 ;; some of these valuepartition is a Biological Process such as "phosphorylation GO:0016310", dephosphorylation GO:0016311".
 (defpartition Stimulus
-  [Osmolarity MechanicalStress Voltage HighVoltage LowVoltage IntermediateVoltage Light volume-sensitive Phosphorylation Dephosphorylation]
+  [Osmolarity MechanicalStress Voltage
+   HighVoltage LowVoltage IntermediateVoltage
+   Light volume-sensitive Phosphorylation
+   Dephosphorylation inward-rectification]
   :comment "Gate channel: enables the transmembrane transfer of solute by a channel that opens in response to a specific stimulus."
   :super ValuePartition)
 
@@ -159,14 +165,15 @@
                        (with-property frames :direction hasDirection)
                        (with-property frames :involved involved_in)
                        (with-property frames :occurs occurs_in)
-                       (with-property frames :via transports-through)]))))
+                       (with-property frames :via transports-through)
+                       (with-property frames :results as-results-of)]))))
 
 (def transport
   (extend-frameify
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via]))
+    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via :results]))
 
 (defentity deftransport "" 'transport)
 

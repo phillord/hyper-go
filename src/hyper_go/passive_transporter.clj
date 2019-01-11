@@ -260,7 +260,6 @@
                                            (owl-some bind-to ReceptorComplex))))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
-
 ;;  enables the transmembrane transfer of a cation by a channel that opens upon binding acetylcholine
 (deftransport ToTransportCationByAcetylcholineGatedChannel
   :comment "GO:0022848"
@@ -268,7 +267,8 @@
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus
                                   (owl-and ch/acetylcholine (owl-some has-biological-role ch/neurotransmitter)
-                                           (owl-some bind-to ReceptorComplex))))
+                                           (owl-some bind-to ReceptorComplex)))
+                 (owl-some contributes-to go/membrane_hyperpolarization))
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
 ;; transfer of a cation by a channel that opens when serotonin has been bound by the channel 
@@ -309,6 +309,16 @@
                                   (owl-and ch/L-glutamic_acid (owl-some has-biological-role ch/neurotransmitter))))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
+
+(deftransport ToTransportIonByGlutamateGatedChannel
+  :comment "GO:0004971"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus
+                                  (owl-and ch/L-glutamic_acid (owl-some has-biological-role ch/neurotransmitter))))
+  :cargo (owl-and ch/_aminomethyl_phosphonic_acid (owl-some hasConcentration HighConcentration)))
+
+
 (deftransport ToTransportIonByATPGatedChannel
   :comment "GO:0035381"
   :across Membrane
@@ -344,7 +354,8 @@
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus
                                   (owl-and ch/ATP (owl-some bind-to ReceptorComplex)
-                                           (owl-some occurs_in ExtracellularRegion))))
+                                           (owl-some occurs_in ExtracellularRegion)))
+                 (owl-some contributes-to go/membrane_hyperpolarization))
   :cargo (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration)))
 
 ;; ligand-gated ion channel activity
@@ -398,6 +409,18 @@
                                            (owl-some occurs_in ExtracellularRegion))))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
+;; extracellular ligand-gated ion channel activity
+(deftransport ToTransportIonByExtracellularLigandGatedChannel
+  :comment "GO:0005231"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus
+                                  (owl-and ch/chemical_entity (owl-some bind-to ReceptorComplex)
+                                           (owl-some occurs_in ExtracellularRegion)))
+                (owl-some contributes-to go/membrane_hyperpolarization))
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+
 ;;  Inhibitory ligands, such as GABA or glycine, open chloride-selective channels. 
 (deftransport ToTransportIonByInhibitoryExtracellularLigandGatedChannel
   :comment "GO:0005237"
@@ -415,7 +438,8 @@
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus
                                   (owl-and ch/glycine (owl-some bind-to ReceptorComplex)
-                                           (owl-some occurs_in ExtracellularRegion))))
+                                           (owl-some occurs_in ExtracellularRegion)))
+                 (owl-some contributes-to go/membrane_hyperpolarization))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; extracellularly glycine-gated chloride channel activity
@@ -425,7 +449,8 @@
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus
                                   (owl-and ch/glycine (owl-some bind-to ReceptorComplex)
-                                           (owl-some occurs_in ExtracellularRegion))))
+                                           (owl-some occurs_in ExtracellularRegion)))
+                 (owl-some contributes-to go/membrane_hyperpolarization))
   :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
 
 ;; extracellular phenylacetaldehyde-gated ion channel activity
@@ -465,7 +490,8 @@
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus
                                   (owl-and ch/L-glutamic_acid (owl-some bind-to ReceptorComplex)
-                                           (owl-some occurs_in ExtracellularRegion))))
+                                           (owl-some occurs_in ExtracellularRegion)))
+                 (owl-some contributes-to go/membrane_hyperpolarization))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; ligand-gated cation channel activity
@@ -511,9 +537,11 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus
-                                  (owl-and ch/L-glutamic_acid (owl-some has-biological-role ch/neurotransmitter)
+                                  (owl-and ch/L-glutamic_acid
+                                           (owl-some has-biological-role ch/neurotransmitter)
                                            (owl-some bind-to ReceptorComplex)
-                                           (owl-some occurs_in ExtracellularRegion))))
+                                           (owl-some occurs_in ExtracellularRegion)))
+                 (owl-some contributes-to go/membrane_hyperpolarization))
   :cargo (owl-and ch/chloride (owl-some hasConcentration HighConcentration)))
 
 
@@ -891,6 +919,8 @@
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
+
+
 
 ;; voltage-gated sodium channel activity involved in cardiac muscle cell action potential
 (deftransport ToTransportSodiumIonByVoltageGatedChannel

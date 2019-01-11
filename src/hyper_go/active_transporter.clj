@@ -690,8 +690,15 @@
 
 
 
-
+;; what is exactly in resposne to stimulus?!
 ;; GO:0005360 insulin-responsive glucose:proton symporter 
+(deftransport ToTransportGlucose:ProtonSymporterInResponseToStimulusByInsulin
+  :comment "GO:0005360"
+  :across Membrane
+  :cargo (owl-and ch/glucose (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
+  :results go/response_to_insulin
+  :direction SameDirection)
 
 (deftransport ToTransportLowAffinityGlucose:ProtonSymporter
   :comment "GO:0005359"
