@@ -2262,7 +2262,7 @@
   :across Membrane
   :cargo ch/short-chain_fatty_acid)
 
-;; Propanoate has no role antibiotic
+;; Propanoate has no role antibiotic, but propionic acid does.
 (deftransport ToTransportPropionicAcid
   :comment "GO:00155522"
   :across Membrane

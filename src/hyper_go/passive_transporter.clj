@@ -12,12 +12,68 @@
 
 
 ;; Passive transport
-
 (deftransport ToTransportPassiveTransmembrane
   :comment "GO:0022803"
   :across Membrane
-  :mechanism (owl-or Facilitated_diffusion)
+  :mechanism (owl-or Facilitated_diffusion MembranePotential)
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; uniporter activity
+(deftransport ToTransportSubstanceByFacilitatedDiffusionCarrier
+  :comment "GO:0015292"
+  :acoss Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportHexoseByFacilitatedDiffusionCarrier
+  :comment "GO:0008516"
+  :acoss Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/hexose (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportFructoseByFacilitatedDiffusionCarrier
+  :comment "GO:0015284"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/fructose (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportGlucoseByFacilitatedDiffusionCarrier
+  :comment "GO:0015304"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/glucose (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportGalactoseByFacilitatedDiffusionCarrier
+  :comment "GO:0050782"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/galactose (owl-some hasConcentration HighConcentration)))
+
+;; Propanoate has no role antibiotic, but propionic acid does.
+(deftransport ToTransportPropionateByFacilitatedDiffusionCarrier
+  :comment "GO:0015544"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/propionic_acid (owl-some has-biological-role ch/antimicrobial_drug)
+                  (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportSubstanceDrivenByMembranePotential
+  :comment "GO:0022810"
+  :across Membrane
+  :driven MembranePotential
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportPotassiumIonDrivenByMembranePotential
+  :comment "GO:0022819"
+  :across Membrane
+  :driven MembranePotential
+  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportSodiumIonDrivenByMembranePotential
+  :comment "GO:0022818"
+  :across Membrane
+  :driven MembranePotential
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
 ;; channel activity
 (deftransport ToTransportSoluteByChannel
@@ -50,7 +106,6 @@
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some opens-in RresponseToDephosphorylation))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-
 
 ;; ion gated channel activity
 (deftransport ToTransportSoluteByIonGatedChannel

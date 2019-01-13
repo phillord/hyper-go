@@ -146,7 +146,6 @@
   ["OrganicCation"		"GO:0008513"		ch/organic_cation]
   )
 
-
 (deftransport ToTransportHighAffinityNitriteSecondaryActiveTransmembrane
   :comment "GO:0015513"
   :across Membrane
@@ -222,26 +221,6 @@
 ;; http://www.tcdb.org/search/result.php?tc=2.A.41
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 (deftransport ToTransportZincIonEffluxActive
   :comment "GO:0015341"
   :across Membrane
@@ -250,19 +229,12 @@
   :from Intracellular
   :to ExtracellularRegion)
 
-
-
 (deftransport ToTransportActiveBorate
   :comment "GO:0046715"
   :across Membrane
   :cargo (owl-and ch/borate (owl-some hasConcentration LowConcentration)
                   (owl-some has-application-role ch/drug))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
-
-
-
-
-
 
 ;; =====================================================
 ;;============== Symporter Secondary Active transporters =========
