@@ -46,6 +46,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    + colicin transmembrane transporter GO:0042912  and group A colicin GO:0042913 : https://mailman.stanford.edu/pipermail/go-ontology/2013-February/002885.html
    + adhesin autotransporter activity GO:0015475  NOT Defined
    + hemaglutinin autotransporter activity GO:0015476 :(DV) hemaglutinin: refers to glycoproteins which cause red blood cells (RBCs) to agglutinate (from https://en.wikipedia.org/wiki/Hemagglutinin). So this term mapped to  glycoprotein CHEBI:17089.
+   + sodium-dependent multivitamin transmembrane transporter activity GO:0008523: (DV): looks like it's an immaterial concept.
    
  * GO Incorrect classification
    + The (GO:0015513) high-affinity secondary active nitrite transmembrane transporter activity, classified as is_a nitrate transmembrane transporter activity GO:0015112, which I think it is not correct.The GO:0015513 is_a  GO:0015113 not GO:0015112
