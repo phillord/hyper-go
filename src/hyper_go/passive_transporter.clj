@@ -105,6 +105,13 @@
   :via (owl-and Channel (owl-some opens-in go/response_to_temperature_stimulus))
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
+;; nucleoside transmembrane transporter activity, down a concentration gradient
+(deftransport ToTransportNucleosideByChannel
+  :comment "GO:0015395"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/nucleoside (owl-some hasConcentration HighConcentration)))
+
 ;; phosphorylation-gated channel activity
 (deftransport ToTransportSoluteByPhosphorylationGatedChannel
   :comment "GO:0022828"
