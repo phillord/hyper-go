@@ -85,8 +85,9 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
 
  * GO:0005371 tricarboxylate secondary active is as conjugate base of GO:0015142 tricarboxylic acid transmembrane; not direct is_a subclass based on ChEBI.
 
+
  * GO classification
-   + GO:0015395 classified as Secondary Active transporter, whereas it should be classified as passive diffusion based on its definition.
+   + GO:0015395 classified as Secondary Active transporter, whereas it should be classified as passive diffusion based on its definition. Based on this http://europepmc.org/abstract/MED/10353709 , it classified as passive diffusion.
    
  * dehydroascorbic acid transmembrane transporter GO:0033300 in GO has role vitamin, which is not the case in ChEBI. However, in ChEBI  L-dehydroascorbic acid CHEBI:27956 has role vitamin. L-dehydroascorbic acid is_a dehydroascorbic acid.
  
