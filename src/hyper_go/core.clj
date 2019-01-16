@@ -137,10 +137,17 @@
   :comment "Porin activity: enables the transfer of substances, sized less than 1000 Da, from one side of a membrane to the other."
   :range :XSD_INTEGER )
 
-(defpartition PoreSize
-  [Wide Narrow]
+(defpartition PoreChannelSize
+  [WidePore NarrowPore]
   :comment "Pore channel: enables the transport of a solute across a membrane via a large pore, un-gated channel"
   :super ValuePartition)
+
+
+(defclass Gap-junction
+  :super WidePore)
+
+(defclass Porins
+  :super WidePore)
 
 (defn with-property [frames frame-maybe property]
   (when-let [frame (frame-maybe frames)]
@@ -213,47 +220,47 @@
 
 ;; ================= Cellular Component ============
 
-(defclass Cell
-  :comment "GO:0005623")
+;; (defclass Cell
+;;   :comment "GO:0005623")
 
-(defclass Intracellular
-  :comment "GO:0005622")
+;; ;; (defclass Intracellular
+;; ;;   :comment "GO:0005622")
 
-(defclass ExtracellularRegion
-  :comment "GO:0005576")
+;; ;; (defclass ExtracellularRegion
+;; ;;   :comment "GO:0005576")
 
-(defclass Mitochondrion
-  :comment "GO:0005739")
+;; (defclass Mitochondrion
+;;   :comment "GO:0005739")
 
-(defclass Chloroplast
-  :comment "GO:0009507")
+;; (defclass Chloroplast
+;;   :comment "GO:0009507")
 
-(defclass Cytosol
-  :comment "GO:0005829")
+;; (defclass Cytosol
+;;   :comment "GO:0005829")
 
-(defclass PresynapticCytosol
-  :comment "GO:0099523")
+;; (defclass PresynapticCytosol
+;;   :comment "GO:0099523")
 
-(defclass PostsynapticCytosol
-  :comment "GO:0099524")
+;; (defclass PostsynapticCytosol
+;;   :comment "GO:0099524")
 
-(defclass IntracellularCanaliculus
-  :comment "GO:0046691")
+;; (defclass IntracellularCanaliculus
+;;   :comment "GO:0046691")
 
-(defclass PoreComplex
-  :comment "GO:0046930")
+;; ;; (defclass PoreComplex
+;; ;;   :comment "GO:0046930")
 
-(defclass PeriplasmicSpace
-  :comment "GO:0042597")
+;; (defclass PeriplasmicSpace
+;;   :comment "GO:0042597")
 
-(defclass PresynapticMembrane
-  :comment "GO:0042734")
+;; (defclass PresynapticMembrane
+;;   :comment "GO:0042734")
 
-(defclass PostsynapticMembrane
-  :comment "GO:0045211")
+;; (defclass PostsynapticMembrane
+;;   :comment "GO:0045211")
 
-(defclass ReceptorComplex
-  :comment "GO:0043235")
+;; ;; (defclass ReceptorComplex
+;; ;;   :comment "GO:0043235")
 
 ;;================ Not Exist in GO ======================
 
