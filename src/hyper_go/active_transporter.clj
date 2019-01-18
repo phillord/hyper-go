@@ -65,6 +65,179 @@
   :cargo (owl-and ch/monoamine (owl-some hasConcentration LowConcentration))
   :driven (owl-or EnergySource (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration))))
 
+ ;;; ===========================================
+ ;; ======  Active transport driven by PEP =====
+ ;;;============================================
+
+(deftransport ToTransportGlucoseDrivenByPhosphoenolpyruvate
+  :comment "GO:0022855"
+  :across Membrane
+  :cargo (owl-and ch/glucose (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/glucose_phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+
+(deftransport ToTransportGlucitolDrivenByPhosphoenolpyruvate
+  :comment "GO:0022856"
+  :across Membrane
+  :cargo (owl-and ch/glucitol (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/glucitol_phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+(deftransport ToTransportLactoseDrivenByPhosphoenolpyruvate
+  :comment "GO:0022869"
+  :across Membrane
+  :cargo (owl-and ch/lactose (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/lactose_6'-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+(deftransport ToTransportMannoseDrivenByPhosphoenolpyruvate
+  :comment "GO:0022870"
+  :across Membrane
+  :cargo (owl-and ch/mannose (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/mannose_6-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+
+(deftransport ToTransportSorboseDrivenByPhosphoenolpyruvate
+  :comment "GO:0022871"
+  :across Membrane
+  :cargo (owl-and ch/sorbose (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/sorbose_1-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+
+(deftransport ToTransportMannitolDrivenByPhosphoenolpyruvate
+  :comment "GO:0022872"
+  :across Membrane
+  :cargo (owl-and ch/mannitol (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/D-mannitol_1-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+
+(deftransport ToTransportMaltoseDrivenByPhosphoenolpyruvate
+  :comment "GO:0022873"
+  :across Membrane
+  :cargo (owl-and ch/maltose (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/maltose_6'-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+
+(deftransport ToTransportCellobioseDrivenByPhosphoenolpyruvate
+  :comment "GO:0022874"
+  :across Membrane
+  :cargo (owl-and ch/cellobiose (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/_6-phospho-beta-D-glucosyl-_1->4_-D-glucose (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+(deftransport ToTransportGalactitolDrivenByPhosphoenolpyruvate
+  :comment "GO:0022875"
+  :across Membrane
+  :cargo (owl-and ch/galactitol (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/galactitol_1-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+
+(deftransport ToTransportGalactosamineDrivenByPhosphoenolpyruvate
+  :comment "GO:0022876"
+  :across Membrane
+  :cargo (owl-and ch/galactosamine (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/galactosamine_phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+
+(deftransport ToTransportFructoseDrivenByPhosphoenolpyruvate
+  :comment "GO:0022877"
+  :across Membrane
+  :cargo (owl-and ch/fructose (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/fructose_6-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+(deftransport ToTransportSucroseDrivenByPhosphoenolpyruvate
+  :comment "GO:0022878"
+  :across Membrane
+  :cargo (owl-and ch/sucrose (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/sucrose_6_F_-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+
+(deftransport ToTransportTrehaloseDrivenByPhosphoenolpyruvate
+  :comment "GO:0022879"
+  :across Membrane
+  :cargo (owl-and ch/trehalose (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/trehalose_phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+
+(deftransport ToTransportN-acetylglucosamineDrivenByPhosphoenolpyruvate
+  :comment "GO:0022880"
+  :across Membrane
+  :cargo (owl-and ch/N-acetylglucosamine (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/N-acetyl-D-glucosamine_6-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+(deftransport ToTransportN-acetylgalactosamineDrivenByPhosphoenolpyruvate
+  :comment "GO:0022881"
+  :across Membrane
+  :cargo (owl-and ch/N-acetylgalactosamine (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/N-acetyl-D-galactosamine_6-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
+(deftransport ToTransportBeta-glucosideDrivenByPhosphoenolpyruvate
+  :comment "GO:0022882"
+  :across Membrane
+  :cargo (owl-and ch/beta-glucoside (owl-some hasConcentration LowConcentration)
+                  (owl-some transports-from go/intracellular)
+                  (owl-some transports-to go/extracellular_region))
+         (owl-and ch/_2-nitrophenyl_beta-D-glucoside_6-phosphate (owl-some transports-to go/intracellular)
+                  (owl-some transports-from go/intracellular))
+  :driven Phosphoenolpyruvate)
+
 
 ;; =====================================================
 ;;============== Primary Active transporters =========
@@ -226,8 +399,8 @@
   :across Membrane
   :cargo (owl-and ch/zinc_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportActiveBorate
   :comment "GO:0046715"
@@ -815,13 +988,13 @@
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-(deftransport ToTransportIonInvolvedInRegulationOfpresynaptic_membranePotentialAntiporter
+(deftransport ToTransportIonInvolvedInRegulationOfpresynapticMembranePotentialAntiporter
   :comment "GO:0099520"
   :across Membrane
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/ion (owl-some hasConcentration HighConcentration))
-  :occurs PresynapticMembrane
-  :involved MembranePotential
+  :occurs go/presynaptic_membrane
+  :involved go/regulation_of_presynaptic_membrane_potential
   :direction OppositeDirection)
 
 

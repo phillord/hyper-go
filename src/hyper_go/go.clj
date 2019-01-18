@@ -1,10 +1,11 @@
 (ns hyper-go.go
   (:use [tawny.pattern])
   (:require [tawny.owl  :refer :all]
+            [hyper-go.core :refer :all]
             [tawny.emacs  :refer :all]
             [tawny.query  :refer :all]
             [tawny-chebi.chebi :as ch]
-            [hyper-go.core :refer :all]))
+            [tawny-go.go :as go]))
 
 
 (ontology-to-namespace hyper-go.core/HyperGo)
@@ -142,16 +143,16 @@
   :comment "GO:0010329"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 ;; chemical role
 (deftransport ToTransportAuxinInflux
   :comment "GO:0010328"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
-  :from ExtracellularRegion
-  :to Intracellular)
+  :from go/extracellular_region
+  :to go/intracellular)
 
 ;; chemical role
 (deftransport ToTransportCoenzyme
@@ -540,16 +541,16 @@
   :comment ""
   :cargo ch/chemical_entity
   :across Membrane
-  :from ExtracellularRegion
-  :to Intracellular)
+  :from go/extracellular_region
+  :to go/intracellular)
 
 ;;Enables the transfer of a specific substance or related group of substances from the inside of the cell to the outside of the cell across a membrane.
 (deftransport ToTransportEffluxTransmembrane
   :comment "GO:0015562"
   :cargo ch/chemical_entity
   :across Membrane
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportCarbohydrateDerivative
   :comment "GO:1901505"
@@ -709,8 +710,8 @@
   :comment "GO:0015634"
   :across Membrane
   :cargo ch/lipopolysaccharide
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportPolysaccharide
   :comment "GO:0015159"
@@ -1094,8 +1095,8 @@
   :comment "GO:0022883"
   :across Membrane
   :cargo ch/zinc_2+_
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportFerricIron
   :comment "GO:0015091"
@@ -1152,8 +1153,8 @@
   :comment "GO:0034639"
   :across Membrane
   :cargo (owl-and ch/L-alpha-amino_acid (owl-some hasEnantiomerism L-Enantiomer))
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportD-AminoAcid
   :comment "GO:0042943"
@@ -1341,8 +1342,8 @@
   :comment "GO:0015661"
   :across Membrane
   :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 
 (deftransport ToTransportAcidicAminoAcid
@@ -1532,15 +1533,15 @@
   :comment "GO:0032523"
   :across Membrane
   :cargo ch/silicon_4+_
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportCationEfflux
   :comment "GO:0046583"
   :across Membrane
   :cargo ch/cation
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportOrganicCation
   :comment "GO:0015101"
@@ -1655,8 +1656,8 @@
   :comment "GO:0080139"
   :across Membrane
   :cargo (owl-and ch/borate (owl-some has-application-role ch/drug))
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportTungstate
   :comment "GO:1901237"
@@ -1682,8 +1683,8 @@
   :comment "GO:0010542"
   :across Membrane
   :cargo ch/nitrate
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportNitrite
   :comment "GO:0015113"
@@ -1694,8 +1695,8 @@
   :comment "GO:0015514"
   :across Membrane
   :cargo ch/nitrite
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 
 (deftransport ToTransportInorganicDiphosphate
@@ -1762,8 +1763,8 @@
   :across Membrane
   :cargo (owl-and ch/L-threonine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
                   (owl-some has-application-role ch/drug))
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportOrganicHydroxyCompound
   :comment "GO:1901618"
@@ -2225,7 +2226,7 @@
   :across Membrane
   :cargo ch/bile_acid
   :from Hepatocyte
-  :to IntracellularCanaliculus)
+  :to go/intracellular_canaliculus)
 
 (deftransport ToTransportNicotine
   :comment "GO:0090416"
@@ -2287,8 +2288,8 @@
   :comment "GO:0015660"
   :across Membrane
   :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_drug))
-  :from Intracellular
-  :to ExtracellularRegion)
+  :from go/intracellular
+  :to go/extracellular_region)
 
 (deftransport ToTransportEctoine
   :comment "GO:0051471"

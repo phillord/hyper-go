@@ -120,7 +120,9 @@
   :super ValuePartition)
 
 (defpartition EnergySource
-  [Light Decarboxylation Oxidoreduction Methyl_transfer_reaction ATP_Hydrolysis ATP_Synthesis pH-dependent]
+  [Light Decarboxylation Oxidoreduction
+   Methyl_transfer_reaction ATP_Hydrolysis
+   ATP_Synthesis pH-dependent Phosphoenolpyruvate]
   :comment "In Primary Active transporter: transport works equally well in either direction and is driven by a primary energy source "
   :super ValuePartition)
 
