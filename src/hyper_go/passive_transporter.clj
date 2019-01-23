@@ -205,7 +205,7 @@
   :comment "Involved in regulation of cytosolic calcium levels"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :involved CalciumIonHomeostasis
+  :involved go/regulation_of_cytosolic_calcium_ion_concentration
   :to go/cytosol
   :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
@@ -238,8 +238,7 @@
   :comment "Involved in regulation of postsynaptic cytosolic calcium levels"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :involved CalciumIonHomeostasis
-  :occurs go/postsynaptic_cytosol
+  :involved go/regulation_of_postsynaptic_cytosolic_calcium_ion_concentration
   :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
@@ -276,7 +275,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus Voltage))
-  :involved cardiac_muscle_cell_action_potential
+  :involved go/membrane_depolarization_during_cardiac_muscle_cell_action_potential
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; Need Review
@@ -1152,7 +1151,7 @@
   :comment "Involved in cardiac muscle cell action potential"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :involved cardiac_muscle_cell_action_potential
+  :involved go/membrane_depolarization_during_cardiac_muscle_cell_action_potential
   :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
@@ -1494,23 +1493,23 @@
                 (owl-some opens-in go/response_to_mechanical_stimulus))
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
-(deftransport ToTransportMechanosensitiveCalciumByChannel
+(deftransport ToTransportMechanosensitiveCalciumIonByChannel
   :comment "GO:0097364"
   :comment "Involved in regulation of action potential"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
-  :involved ActionPotential
+   :involved go/regulation_of_action_potential
+  :via (owl-and Channel (owl-some opens-in go/response_to_mechanical_stimulus))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 
-(deftransport ToTransportMechanosensitiveCalciumByChannel
+(deftransport ToTransportMechanosensitiveCalciumIonByChannel
   :comment "GO:0097365"
   :comment "Involved in regulation of cardiac muscle cell action potential"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :involved cardiac_muscle_cell_action_potential
-  :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
+  :involved go/cardiac_muscle_cell_action_potential
+  :via (owl-and Channel (owl-some opens-in go/response_to_mechanical_stimulus))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 

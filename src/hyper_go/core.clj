@@ -13,11 +13,6 @@
 (declare-classes Location Membrane Channel)
 (defoproperty bearer-of)
 
-;; From CC and Cell Ontologies
-(declare-classes
-                 LeafletOfMembraneBilayer cardiac_muscle_cell_action_potential ;;GO:0086001
-                 :super Location)
-
 ;; Transporters
 ;(defclass ToTransport)
 (defoproperty transports
@@ -121,7 +116,7 @@
 
 (defpartition EnergySource
   [Light Decarboxylation Oxidoreduction
-   Methyl_transfer_reaction ATP_Hydrolysis
+   Methyl_transfer_reaction ATP_Hydrolysis 
    ATP_Synthesis pH-dependent Phosphoenolpyruvate]
   :comment "In Primary Active transporter: transport works equally well in either direction and is driven by a primary energy source "
   :super ValuePartition)
@@ -188,37 +183,37 @@
 
 
 
-;; ==== Biological Process ========
+;; ;; ==== Biological Process ========
 
-(defclass SinoatrialNodeCellActionPotential
-  :comment "GO:0086015")
+;; (defclass SinoatrialNodeCellActionPotential
+;;   :comment "GO:0086015")
 
-(defclass PurkinjeMyocyteActionPotential
-  :comment "GO:0086017")
+;; (defclass PurkinjeMyocyteActionPotential
+;;   :comment "GO:0086017")
 
-(defclass BundleOfHisCellActionPotential
-  :comment "GO:0086043")
+;; (defclass BundleOfHisCellActionPotential
+;;   :comment "GO:0086043")
 
-(defclass AtrioventricularNodeCellActionPotential
-  :comment "GO:0086016")
+;; (defclass AtrioventricularNodeCellActionPotential
+;;   :comment "GO:0086016")
 
-(defclass ActionPotential
-  :comment "GO:0001508")
+;; (defclass ActionPotential
+;;   :comment "GO:0001508")
 
-(defclass VentricularCardiacMuscleCellMembraneRepolarization
-  :comment "GO:0099625")
+;; (defclass VentricularCardiacMuscleCellMembraneRepolarization
+;;   :comment "GO:0099625")
 
-(defclass AtrialCardiacMuscleCellActionPotential
-  :comment "GO:0086014")
+;; (defclass AtrialCardiacMuscleCellActionPotential
+;;   :comment "GO:0086014")
 
-(defclass CalciumIonHomeostasis
-  :comment "GO:0055074")
+;; (defclass CalciumIonHomeostasis
+;;   :comment "GO:0055074")
 
-(defclass CellCommunicationByElectricalCoupling
-  :comment "GO:0010644")
+;; (defclass CellCommunicationByElectricalCoupling
+;;   :comment "GO:0010644")
 
-(defclass CellularResponseTopH
-  :comment "GO:0071467")
+;; (defclass CellularResponseTopH
+;;   :comment "GO:0071467")
 
 ;; ================= Cellular Component ============
 
@@ -264,7 +259,7 @@
 ;; ;; (defclass ReceptorComplex
 ;; ;;   :comment "GO:0043235")
 
-;;================ Not Exist in GO ======================
+;;================ Not exist in GO ======================
 
 (defclass ResponseToPhosphorylation
   :super go/response_to_stimulus)
@@ -272,7 +267,7 @@
 (defclass RresponseToDephosphorylation
   :super go/response_to_stimulus)
 
-;; ==================== Other Ontology ================
+;; ==================== Exist in Other Ontology ================
 
 (defclass Hepatocyte
   :comment "CL:0000182")
