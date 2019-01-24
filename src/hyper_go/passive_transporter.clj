@@ -564,8 +564,8 @@
   :comment "GO:0005217"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus
-                                  (owl-and ch/chemical_entity (owl-some bind-to go/receptor_complex)
+  :via (owl-and Channel (owl-some opens-in 
+                                  (owl-and go/response_to_chemical (owl-some bind-to go/receptor_complex)
                                            (owl-some occurs_in go/intracellular))))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
@@ -871,8 +871,8 @@
   :comment "GO:0015278"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus
-                                  (owl-and ch/chemical_entity (owl-some bind-to go/receptor_complex)
+  :via (owl-and Channel (owl-some opens-in 
+                                  (owl-and go/response_to_chemical (owl-some bind-to go/receptor_complex)
                                            (owl-some occurs_in go/intracellular))))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
@@ -883,8 +883,7 @@
   :mechanism Facilitated_diffusion
   :from go/intracellular
   :to go/cytosol
-  :via (owl-and Channel (owl-some hasStimulus
-                                  (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)
+  :via (owl-and Channel (owl-some opens-in (owl-and go/response_to_calcium_ion
                                            (owl-some bind-to go/receptor_complex))))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
@@ -897,10 +896,8 @@
   :mechanism Facilitated_diffusion
   :from go/intracellular
   :to go/cytosol
-  :occurs go/postsynaptic_cytosol
-  :involved CalciumIonHomeostasis
-  :via (owl-and Channel (owl-some hasStimulus
-                                  (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)
+  :involved go/regulation_of_postsynaptic_cytosolic_calcium_ion_concentration
+  :via (owl-and Channel (owl-some opens-in (owl-and go/response_to_calcium_ion
                                            (owl-some bind-to go/receptor_complex))))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
@@ -911,10 +908,8 @@
   :mechanism Facilitated_diffusion
   :from go/intracellular
   :to go/cytosol
-  :occurs go/presynaptic_cytosol
-  :involved CalciumIonHomeostasis
-  :via (owl-and Channel (owl-some hasStimulus
-                                  (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)
+  :involved go/regulation_of_presynaptic_cytosolic_calcium_ion_concentration
+  :via (owl-and Channel (owl-some opens-in (owl-and go/response_to_calcium_ion
                                            (owl-some bind-to go/receptor_complex))))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
