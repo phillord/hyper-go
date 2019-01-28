@@ -169,9 +169,8 @@
   :comment "Involved in regulation of postsynaptic membrane potential"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :involved MembranePotential
-  :occurs go/postsynaptic_membrane
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :involved go/regulation_of_postsynaptic_membrane_potential
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated cation channel activity
@@ -179,7 +178,7 @@
   :comment "GO:0022843"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated proton channel activity
@@ -187,7 +186,7 @@
   :comment "GO:0030171"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium ion channel activity
@@ -195,7 +194,7 @@
   :comment "GO:0005245"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium channel activity involved in regulation of cytosolic calcium levels
@@ -206,7 +205,7 @@
   :mechanism Facilitated_diffusion
   :involved go/regulation_of_cytosolic_calcium_ion_concentration
   :to go/cytosol
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium channel activity involved in regulation of presynaptic cytosolic calcium levels
@@ -216,8 +215,8 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :involved go/regulation_of_presynaptic_cytosolic_calcium_ion_concentration
-  :occurs go/presynaptic_cytosol
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :occurs go/presynapse
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 
@@ -227,8 +226,8 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :involved go/positive_regulation_of_presynaptic_cytosolic_calcium_concentration
-  :occurs go/presynaptic_cytosol
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :occurs go/presynapse
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium channel activity involved in regulation of postsynaptic cytosolic calcium levels
@@ -238,7 +237,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :involved go/regulation_of_postsynaptic_cytosolic_calcium_ion_concentration
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 
