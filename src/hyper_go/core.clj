@@ -122,13 +122,13 @@
   :super ValuePartition)
 
 ;; some of these valuepartition is a Biological Process such as "phosphorylation GO:0016310", dephosphorylation GO:0016311".
-(defpartition Stimulus
-  [Osmolarity MechanicalStress Voltage
-   HighVoltage LowVoltage IntermediateVoltage
-   Light volume-sensitive Phosphorylation
-   Dephosphorylation inward-rectification]
-  :comment "Gate channel: enables the transmembrane transfer of solute by a channel that opens in response to a specific stimulus."
-  :super ValuePartition)
+;; (defpartition Stimulus
+;;   [Osmolarity MechanicalStress Voltage
+;;    HighVoltage LowVoltage IntermediateVoltage
+;;    Light volume-sensitive Phosphorylation
+;;    Dephosphorylation inward-rectification]
+;;   :comment "Gate channel: enables the transmembrane transfer of solute by a channel that opens in response to a specific stimulus."
+;;   :super ValuePartition)
 
 (defdproperty hasDaSize 
   :comment "Porin activity: enables the transfer of substances, sized less than 1000 Da, from one side of a membrane to the other."

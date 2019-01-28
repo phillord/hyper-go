@@ -142,7 +142,7 @@
   :comment "GO:0022832"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in Voltage))
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity
@@ -150,7 +150,7 @@
   :comment "GO:0005244"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity involved in regulation of presynaptic membrane potential
@@ -159,9 +159,8 @@
   :comment "Involved in regulation of presynaptic membrane potential"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :occurs go/presynaptic_membrane
-  :involved MembranePotential
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
+  :involved go/regulation_of_presynaptic_membrane_potential
+  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity involved in regulation of postsynaptic  membrane potential
