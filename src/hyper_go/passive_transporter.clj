@@ -9,8 +9,6 @@
 (ontology-to-namespace hyper-go.core/HyperGo)
 
 
-
-
 ;; Passive transport
 (deftransport ToTransportPassiveTransmembrane
   :comment "GO:0022803"
@@ -57,6 +55,13 @@
   :cargo (owl-and ch/propionic_acid (owl-some has-biological-role ch/antimicrobial_drug)
                   (owl-some hasConcentration HighConcentration)))
 
+;; nucleoside transmembrane transporter activity, down a concentration gradient
+(deftransport ToTransportNucleosideByChannel
+  :comment "GO:0015395"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :cargo (owl-and ch/nucleoside (owl-some hasConcentration HighConcentration)))
+
 (deftransport ToTransportSubstanceDrivenByMembranePotential
   :comment "GO:0022810"
   :across Membrane
@@ -83,41 +88,28 @@
   :via (owl-or Channel go/pore_complex)
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
+
+
+
+
+
+
+;; =================== Gated channel ==================
+
 ;; gated channel activity
 (deftransport ToTransportSoluteByGatedChannelInResponseToStimulus
   :comment "GO:0022836"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Stimulus))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-
-(deftransport ToTransportCationByGatedChannelInResponseToTemperatureStimulus
-  :comment "GO:0097603"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_temperature_stimulus))
-  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
-
-(deftransport ToTransportCationByGatedChannelInResponseToTemperatureStimulus
-  :comment "GO:0097604"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_temperature_stimulus))
-  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
-
-;; nucleoside transmembrane transporter activity, down a concentration gradient
-(deftransport ToTransportNucleosideByChannel
-  :comment "GO:0015395"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :cargo (owl-and ch/nucleoside (owl-some hasConcentration HighConcentration)))
 
 ;; phosphorylation-gated channel activity
 (deftransport ToTransportSoluteByPhosphorylationGatedChannel
   :comment "GO:0022828"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in ResponseToPhosphorylation))
+  :via (owl-and Channel (owl-some hasStimulus Phosphorylation))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; dephosphorylation-gated channel activity
@@ -125,16 +117,105 @@
   :comment "GO:0022859"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in RresponseToDephosphorylation))
+  :via (owl-and Channel (owl-some hasStimulus Dephosphorylation))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitiveIonByChannel
+  :comment "GO:0008381"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitiveIonByChannel
+  :comment "GO:0043854"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus MechanicalStress)
+                (owl-some bind-by ch/cyclic_nucleotide))
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitiveCationByChannel
+  :comment "GO:0140135"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitiveCalciumByChannel
+  :comment "GO:0015275"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitiveCalciumIonByChannel
+  :comment "GO:0097364"
+  :comment "Involved in regulation of action potential"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :involved go/regulation_of_action_potential
+  :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitiveCalciumIonByChannel
+  :comment "GO:0097365"
+  :comment "Involved in regulation of cardiac muscle cell action potential"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :involved go/regulation_of_cardiac_muscle_cell_action_potential
+  :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
+  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportMechanosensitivePotassiumByChannel
+  :comment "GO:0098782"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
+  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportSodiumIonByVoltageGatedChannel
+  :comment "GO:0101013"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus Voltage)
+                (owl-some hasStimulus MechanicalStress))
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
+
+
 
 ;; ion gated channel activity
 (deftransport ToTransportSoluteByIonGatedChannel
   :comment "GO:0022839"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in ch/ion))
+  :via (owl-and Channel (owl-some hasStimulus ch/ion))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
+
+;; osmolarity-sensing cation channel activity
+(deftransport ToTransportCationByOsmolarity-sensingChannel
+  :comment "GO:1990760"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus
+                                  (owl-and Osmolarity
+                                           (owl-some occurs_in go/extracellular_region))))
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportCationByGatedChannelInResponseToTemperatureStimulus
+  :comment "GO:0097603"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus temperature))
+  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
+
+(deftransport ToTransportCationByGatedChannelInResponseToTemperatureStimulus
+  :comment "GO:0097604"
+  :across Membrane
+  :mechanism Facilitated_diffusion
+  :via (owl-and Channel (owl-some hasStimulus temperature))
+  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
+
 
 
 ;; voltage-gated channel activity
@@ -142,7 +223,7 @@
   :comment "GO:0022832"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity
@@ -150,7 +231,7 @@
   :comment "GO:0005244"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity involved in regulation of presynaptic membrane potential
@@ -160,7 +241,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :involved go/regulation_of_presynaptic_membrane_potential
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity involved in regulation of postsynaptic  membrane potential
@@ -170,7 +251,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :involved go/regulation_of_postsynaptic_membrane_potential
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated cation channel activity
@@ -178,7 +259,7 @@
   :comment "GO:0022843"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated proton channel activity
@@ -186,7 +267,7 @@
   :comment "GO:0030171"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium ion channel activity
@@ -194,7 +275,7 @@
   :comment "GO:0005245"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium channel activity involved in regulation of cytosolic calcium levels
@@ -205,7 +286,7 @@
   :mechanism Facilitated_diffusion
   :involved go/regulation_of_cytosolic_calcium_ion_concentration
   :to go/cytosol
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium channel activity involved in regulation of presynaptic cytosolic calcium levels
@@ -216,7 +297,7 @@
   :mechanism Facilitated_diffusion
   :involved go/regulation_of_presynaptic_cytosolic_calcium_ion_concentration
   :occurs go/presynapse
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 
@@ -227,7 +308,7 @@
   :mechanism Facilitated_diffusion
   :involved go/positive_regulation_of_presynaptic_cytosolic_calcium_concentration
   :occurs go/presynapse
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium channel activity involved in regulation of postsynaptic cytosolic calcium levels
@@ -237,7 +318,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :involved go/regulation_of_postsynaptic_cytosolic_calcium_ion_concentration
-  :via (owl-and Channel (owl-some opens-in go/response_to_electrical_stimulus))
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 
@@ -272,8 +353,8 @@
   :comment "Involved in cardiac muscle cell action potential"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :involved go/membrane_depolarization_during_cardiac_muscle_cell_action_potential
+  :via (owl-and Channel (owl-some hasStimulus Voltage))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; Need Review
@@ -292,9 +373,9 @@
   :comment "GO:0022834"
   :across Membrane
   :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in 
-                                  (owl-and go/response_to_chemical
-                                           (owl-some bind-to go/receptor_complex))))
+  :via (owl-and Channel (owl-some hasStimulus 
+                                  (owl-or ch/molecule ch/ion
+                                           (owl-some bind-by go/receptor_complex))))
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
 
 ;; transmitter-gated channel activity
@@ -947,7 +1028,7 @@
   :across Membrane
   :mechanism Facilitated_diffusion
   :occurs go/postsynaptic_cytosol
-  :involved CalciumIonHomeostasis
+  :involved go/regulation_of_postsynaptic_cytosolic_calcium_ion_concentration
   :via (owl-and Channel (owl-some hasStimulus
                                   (owl-and ch/ryanodine (owl-some bind-to go/receptor_complex))))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
@@ -1430,80 +1511,8 @@
   :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
 
 
-;; osmolarity-sensing cation channel activity
-(deftransport ToTransportCationByOsmolarity-sensingChannel
-  :comment "GO:1990760"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus
-                                  (owl-and Osmolarity
-                                           (owl-some occurs_in go/extracellular_region))))
-  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
 
-(deftransport ToTransportMechanosensitiveIonByChannel
-  :comment "GO:0008381"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_mechanical_stimulus))
-  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
-
-
-(deftransport ToTransportMechanosensitiveIonByChannel
-  :comment "GO:0043854"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_mechanical_stimulus)
-                (owl-some bind-to ch/cyclic_nucleotide))
-  :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
-
-(deftransport ToTransportMechanosensitiveCationByChannel
-  :comment "GO:0140135"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_mechanical_stimulus))
-  :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
-
-(deftransport ToTransportMechanosensitivePotassiumByChannel
-  :comment "GO:0098782"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_mechanical_stimulus))
-  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
-
-(deftransport ToTransportMechanosensitiveCalciumByChannel
-  :comment "GO:0015275"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some opens-in go/response_to_mechanical_stimulus))
-  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
-
-(deftransport ToTransportSodiumIonByVoltageGatedChannel
-  :comment "GO:0101013"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :via (owl-and Channel (owl-some hasStimulus Voltage)
-                (owl-some opens-in go/response_to_mechanical_stimulus))
-  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
-
-(deftransport ToTransportMechanosensitiveCalciumIonByChannel
-  :comment "GO:0097364"
-  :comment "Involved in regulation of action potential"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-   :involved go/regulation_of_action_potential
-  :via (owl-and Channel (owl-some opens-in go/response_to_mechanical_stimulus))
-  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
-
-
-(deftransport ToTransportMechanosensitiveCalciumIonByChannel
-  :comment "GO:0097365"
-  :comment "Involved in regulation of cardiac muscle cell action potential"
-  :across Membrane
-  :mechanism Facilitated_diffusion
-  :involved go/cardiac_muscle_cell_action_potential
-  :via (owl-and Channel (owl-some opens-in go/response_to_mechanical_stimulus))
-  :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 
 ;; proton channel activity
