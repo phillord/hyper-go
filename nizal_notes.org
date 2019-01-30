@@ -96,6 +96,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
  * acriflavine transmembrane transporter GO:0015566
  
  * GO:0097364  involved in regulation of action potential, in GO linked with GO:0001508 action potential. It should be linked with GO:0098900 regulation of action potential.
+ * GO:0097365 involved in regulation of cardiac muscle cell action potential, in GO linked with GO:0086001. It should be linked with  GO:0098901 regulation of cardiac muscle cell action potential
 
 
 ** Are they the same ?
@@ -232,8 +233,11 @@ Antiporter and Symporter
    + Ca2+-activated K+ channels are a diverse group of channels that are activated by an increase in intracellular Ca2+ concentration.
    + Source: http://www.ebi.ac.uk/interpro/entry/IPR003930   and  http://europepmc.org/abstract/MED/9687354
   
-  *Voltage-gated channels: response to changes in the electric potential difference in the voltage difference between the two sides of the membrane. I think it means, response to electtrical stimulus GO:0051602.
-
+  
+  * voltage-gated channels: response to changes in the electric potential difference in the voltage difference between the two sides of the membrane. I think it means, response to electrical stimulus GO:0051602.
+  
+  * voltage-gated ion channel Any ion channel that opens and closes in response to changes in electrical potential across the
+  cell membrane in which the channel is situated
 
 ** What is Membrane Potential (Em)?
   * It is the charge across the memebrane.
