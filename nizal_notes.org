@@ -232,8 +232,11 @@ Antiporter and Symporter
    + Ca2+-activated K+ channels are a diverse group of channels that are activated by an increase in intracellular Ca2+ concentration.
    + Source: http://www.ebi.ac.uk/interpro/entry/IPR003930   and  http://europepmc.org/abstract/MED/9687354
   
-  *Voltage-gated channels: response to changes in the electric potential difference in the voltage difference between the two sides of the membrane. I think it means, response to electtrical stimulus GO:0051602.
-
+  
+  * voltage-gated channels: response to changes in the electric potential difference in the voltage difference between the two sides of the membrane. I think it means, response to electrical stimulus GO:0051602.
+  
+  * voltage-gated ion channel Any ion channel that opens and closes in response to changes in electrical potential across the
+  cell membrane in which the channel is situated
 
 ** What is Membrane Potential (Em)?
   * It is the charge across the memebrane.
