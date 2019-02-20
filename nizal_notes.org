@@ -33,18 +33,18 @@ It is not enough to link the GO term with the equivalent chebi term only by name
 
 GO-plus ontology: includes cross ontology relationships, including Chebi. However, it seems that the linkage was based on name matching only.
 
- * Terms seems not to exist in ChEBI:
-   + Basic amino acid	(DV) mapped to amino acid with acidity alkaline
-   + Neutral amino acid	(DV) mapped to amino acid with acidity Neutral
-   + Acidic amino acid	(DV) mapped to amino acid with acidity Acidic
+ * Terms not found in ChEBI:
+   + Basic amino acid	(DV) mapped to ch/amino_acid and add a property hasAcidity alkaline
+   + Neutral amino acid	(DV) mapped to ch/amino_acid and add a property hasAcidity Neutral
+   + Acidic amino acid	(DV) mapped to ch/amino_acid and add a property hasAcidity Acidic
    + Sugar               NOT DEFINED YET : look like sugar in GO immaterial concept !
-   + lactoferrin    GO:0033569
-   + Transferrin    GO:0033570
-   + Copper chelate GO:0051981
-   + copper-nicotianamine GO:0051982
+   + lactoferrin    GO:0033569 : define new class as a subclass of ch/protein
+   + Transferrin    GO:0033570 : define new class as a subclass of ch/iron_3+_
+   + Copper chelate GO:0051981 : define new class as a subclass of ch/copper_cation
+   + copper-nicotianamine GO:0051982 : define new class as a subclass of the CopperChelate.
    + alkanesulfonate GO:0042959
    + colicin transmembrane transporter GO:0042912  and group A colicin GO:0042913 : https://mailman.stanford.edu/pipermail/go-ontology/2013-February/002885.html
-   + adhesin autotransporter activity GO:0015475  NOT Defined
+   + adhesin autotransporter activity GO:0015475 : efine new class as a subclass of ch/chemical_entity
    + hemaglutinin autotransporter activity GO:0015476 :(DV) hemaglutinin: refers to glycoproteins which cause red blood cells (RBCs) to agglutinate (from https://en.wikipedia.org/wiki/Hemagglutinin). So this term mapped to  glycoprotein CHEBI:17089.
    + sodium-dependent multivitamin transmembrane transporter activity GO:0008523: (DV): looks like it's an immaterial concept.
    
