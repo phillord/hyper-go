@@ -71,19 +71,18 @@
 (deftransport ToTransportPhospholipidScramblase
   :comment "GO:0017128"
   :cargo ch/phospholipid
-  :from LeafletOfMembraneBilayer
-  :to LeafletOfMembraneBilayer)
+  :from go/leaflet_of_membrane_bilayer
+  :to go/leaflet_of_membrane_bilayer)
 
 (deftransport ToTransportIntermembranePhosphatidylinositol
   :comment "GO:0120018"
   :cargo ch/phosphatidylinositol
-  :from LeafletOfMembraneBilayer
-  :to LeafletOfMembraneBilayer)
+  :from go/leaflet_of_membrane_bilayer
+  :to go/leaflet_of_membrane_bilayer)
 
 (deftransport ToTransportGlycolipid
   :comment "GO:0017089"
   :cargo ch/glycolipid)
-
 
 ;;Transmembrane transporter activity
 (deftransport ToTransportTransmembrane
@@ -159,6 +158,15 @@
   :comment "GO:0051185"
   :across Membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/coenzyme)))
+
+(deftransport ToTransportProton
+  :comment "GO:0017077"
+  :across Membrane
+  :from go/mitochondrial_intermembrane_space
+  :to go/mitochondrial_matrix
+  :cargo (owl-and ch/proton
+                  (owl-some established-by go/electron_transport_chain)
+                  (owl-some during go/oxidative_phosphorylation)))
 
 (deftransport ToTransportToxin
   :comment "GO:0019534"
@@ -1103,10 +1111,18 @@
   :across Membrane
   :cargo ch/iron_3+_)
 
-;; (deftransport ToTransportTransferrin
-;;   :comment "GO:0033570"
-;;   :across Membrane
-;;   :
+;; transferrin not exist in Chebi
+(deftransport ToTransportTransferrin
+  :comment "GO:0033570"
+  :across Membrane
+  :cargo Transferrin)
+
+;; Lactoferrin not exist in Chebi
+(deftransport ToTransportLactoferrin
+  :comment "GO:0033570"
+  :across Membrane
+  :cargo Lactoferrin)
+
 
 (deftransport ToTransportMonovalentInorganicCation
   :comment "GO:0015077"
@@ -2401,6 +2417,16 @@
   :comment "GO:0005375"
   :across Membrane
   :cargo ch/copper_cation)
+
+(deftransport ToTransportCopperChelate
+  :comment "GO:0051981"
+  :across Membrane
+  :cargo CopperChelate)
+
+(deftransport ToTransportCopper-nicotianamine
+  :comment "GO:0051982"
+  :across Membrane
+  :cargo Copper-nicotianamine)
 
 (deftransport ToTransportPolyamine
   :comment "GO:0015203"

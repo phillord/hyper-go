@@ -4,17 +4,18 @@
             [tawny-chebi.chebi :as ch]
             [tawny-go.go :as go]))
 
-(defontology HyperGo
-  :iri "http://purl.obolibrary.org/obo/HyperGo")
 
 ;;(owl-import tawny-chebi.chebi/chebi)
 
+(defontology HyperGo
+  :iri "http://purl.obolibrary.org/obo/HyperGo")
+
+
 ;; Stuff from other ontologies
 (declare-classes Location Membrane Channel)
+
 (defoproperty bearer-of)
 
-;; Transporters
-;(defclass ToTransport)
 (defoproperty transports
   :comment "Transports a specific substance or a group of related substances ")
 
@@ -42,9 +43,9 @@
   which can only occur because the other does.")
 
 (defoproperty opens-in
-  :comment "A channel/pore opens in response to some to a specific stimulus")
+   :comment "A channel/pore opens in response to some to a specific stimulus")
 
-(defoproperty bind-by
+(defoproperty bound-by
   :comment "A substance bind to a another substance to form larger complex or allwo some process such as ligand")
 
 (defoproperty has-role
@@ -80,6 +81,9 @@
 (defoproperty contributes-to)
 
 (defoproperty as-results-of)
+
+(defoproperty established-by)
+(defoproperty during)
 
 (defclass ValuePartition)
 
@@ -125,7 +129,7 @@
 (defpartition Stimulus
   [Osmolarity MechanicalStress Voltage
    HighVoltage LowVoltage IntermediateVoltage
-   Light Ligand volume-sensitive Phosphorylation
+   Light volume-sensitive Phosphorylation
    Dephosphorylation inward-rectification temperature]
   :comment "Gate channel: enables the transmembrane transfer of solute by a channel that opens in response to a specific stimulus."
   :super ValuePartition)
@@ -134,17 +138,21 @@
   :comment "Porin activity: enables the transfer of substances, sized less than 1000 Da, from one side of a membrane to the other."
   :range :XSD_INTEGER )
 
-(defpartition PoreChannelSize
+(defpartition PoreSize
   [WidePore NarrowPore]
   :comment "Pore channel: enables the transport of a solute across a membrane via a large pore, un-gated channel"
   :super ValuePartition)
 
-
-(defclass Gap-junction
+(declare-classes Gap-junction Porins
   :super WidePore)
 
-(defclass Porins
-  :super WidePore)
+(defclass hemi-channel
+  :super Gap-junction)
+
+(defpartition ChannelType
+  [small-conductance intermediate-conductance large-conductance]
+  :comment "There are three types of Ca2+-activated K+ channel have been characterisedsmall-conductance (SK), intermediate conductance (IK) and large conductance (BK)")
+
 
 (defn with-property [frames frame-maybe property]
   (when-let [frame (frame-maybe frames)]
@@ -183,89 +191,28 @@
 
 
 
-;; ;; ==== Biological Process ========
+;;============ Not exist in Chebi or other ontologies ==========
 
-;; (defclass SinoatrialNodeCellActionPotential
-;;   :comment "GO:0086015")
+(defclass Adhesin
+  :super ch/chemical_entity
+  :comment "Class not found in Chebi")
 
-;; (defclass PurkinjeMyocyteActionPotential
-;;   :comment "GO:0086017")
+(defclass Transferrin
+  :super ch/iron_3+_
+  :comment "Class not found in Chebi")
 
-;; (defclass BundleOfHisCellActionPotential
-;;   :comment "GO:0086043")
+(defclass Lactoferrin
+  :super ch/protein
+  :comment "Class not found in Chebi")
 
-;; (defclass AtrioventricularNodeCellActionPotential
-;;   :comment "GO:0086016")
+(defclass CopperChelate
+  :super ch/copper_cation
+  :comment "Class not found in Chebi")
 
-;; (defclass ActionPotential
-;;   :comment "GO:0001508")
+(defclass Copper-nicotianamine
+  :super CopperChelate
+  :comment "Class not found in Chebi")
 
-;; (defclass VentricularCardiacMuscleCellMembraneRepolarization
-;;   :comment "GO:0099625")
-
-;; (defclass AtrialCardiacMuscleCellActionPotential
-;;   :comment "GO:0086014")
-
-;; (defclass CalciumIonHomeostasis
-;;   :comment "GO:0055074")
-
-;; (defclass CellCommunicationByElectricalCoupling
-;;   :comment "GO:0010644")
-
-;; (defclass CellularResponseTopH
-;;   :comment "GO:0071467")
-
-;; ================= Cellular Component ============
-
-;; (defclass Cell
-;;   :comment "GO:0005623")
-
-;; ;; (defclass Intracellular
-;; ;;   :comment "GO:0005622")
-
-;; ;; (defclass ExtracellularRegion
-;; ;;   :comment "GO:0005576")
-
-;; (defclass Mitochondrion
-;;   :comment "GO:0005739")
-
-;; (defclass Chloroplast
-;;   :comment "GO:0009507")
-
-;; (defclass Cytosol
-;;   :comment "GO:0005829")
-
-;; (defclass PresynapticCytosol
-;;   :comment "GO:0099523")
-
-;; (defclass PostsynapticCytosol
-;;   :comment "GO:0099524")
-
-;; (defclass IntracellularCanaliculus
-;;   :comment "GO:0046691")
-
-;; ;; (defclass PoreComplex
-;; ;;   :comment "GO:0046930")
-
-;; (defclass PeriplasmicSpace
-;;   :comment "GO:0042597")
-
-;; (defclass PresynapticMembrane
-;;   :comment "GO:0042734")
-
-;; (defclass PostsynapticMembrane
-;;   :comment "GO:0045211")
-
-;; ;; (defclass ReceptorComplex
-;; ;;   :comment "GO:0043235")
-
-;;================ Not exist in GO ======================
-
-(defclass ResponseToPhosphorylation
-  :super go/response_to_stimulus)
-
-(defclass RresponseToDephosphorylation
-  :super go/response_to_stimulus)
 
 ;; ==================== Exist in Other Ontology ================
 
@@ -274,3 +221,6 @@
 
 (defclass MembranePotential
   :comment "OBA:0000099")
+
+(defclass CardiacMuscleCell
+  :comment "CL:0000746")
