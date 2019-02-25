@@ -236,8 +236,13 @@ Antiporter and Symporter
   
   * voltage-gated channels: response to changes in the electric potential difference in the voltage difference between the two sides of the membrane. I think it means, response to electrical stimulus GO:0051602.
   
-  * voltage-gated ion channel Any ion channel that opens and closes in response to changes in electrical potential across the
-  cell membrane in which the channel is situated
+  * voltage-gated ion channel Any ion channel that opens and closes in response to changes in electrical potential across the cell membrane in which the channel is situated
+
+ * Ligand Gated Ion Channels also know as ionotropic receptors
+ * what is An ionotropic receptors (e.x ionotropic glutamate receptor) ?
+   + They are proteins that are sitting within the cell membrane.
+   + Allow ions; sodium ion, potassium ions, chloride ions, calcium ions, cations, etc.to move through them, when they are open.
+
 
 ** What is Membrane Potential (Em)?
   * It is the charge across the memebrane.
