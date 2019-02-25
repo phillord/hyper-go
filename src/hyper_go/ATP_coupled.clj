@@ -18,7 +18,7 @@
             `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration) (owl-some ~(nth lis 3) ~(nth lis 4)))
             :else `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration)))
      :driven ATP_Hydrolysis
-     :across Membrane
+     :across go/plasma_membrane
      :super (owl-or (owl-and (owl-some transports-from go/intracellular)
                                (owl-some transports-to go/extracellular_region))
                       (owl-and (owl-some transports-from go/extracellular_region)
@@ -125,7 +125,7 @@
 (deftransport ToTransportIonByActiveTransmembraneDrivenWithATP_Hydrolysis
   :comment "GO:0099521"
   :comment "Involved in regulation of presynaptic membrane potential"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :occurs go/presynaptic_membrane
   :involved go/regulation_of_presynaptic_membrane_potential
@@ -138,7 +138,7 @@
 (deftransport ToTransportIonByActiveTransmembraneDrivenWithATP_Hydrolysis
   :comment "GO:0099581"
   :comment "Involved in regulation of postsynaptic membrane potential"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :occurs go/postsynaptic_membrane
   :involved go/regulation_of_postsynaptic_membrane_potential
@@ -152,7 +152,7 @@
 ;; Cobalamin is also known as vitamin B12. 
 (deftransport ToTransportCobalaminTransportingDrivenWithATP_Hydrolysis
   :comment "GO:0015420"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/cobalamin (owl-some hasConcentration LowConcentration)
                   (owl-some has-application-role ch/drug)
@@ -166,7 +166,7 @@
 ;; ATP + H2O + ion(in) = ADP + phosphate + ion(out), by a rotational mechanism. 
 (deftransport ToTransportIonsTransportingDrivenWithATP_HydrolysisViaRotationalMechanism.
   :comment "GO:0044769"
-  :across Membrane
+  :across go/plasma_membrane
   :mechanism Rotational
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
@@ -177,7 +177,7 @@
 
 (deftransport ToTransportIonsTransportingDrivenWithATP_HydrolysisViaPhosphorylativeMechanism
   :comment "GO:0015662"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :mechanism Phosphorylative
   :cargo (owl-and ch/ion (owl-some hasConcentration LowConcentration))
@@ -189,7 +189,7 @@
 
 (deftransport ToTransportProtonTransportingDrivenWithATP_HydrolysisViaRotationalMechanism.
   :comment "GO:0046961"
-  :across Membrane
+  :across go/plasma_membrane
   :mechanism Rotational
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/proton (owl-some hasConcentration LowConcentration))
@@ -201,7 +201,7 @@
 
 (deftransport ToTransportSodiumTransportingDrivenWithATP_Hydrolysis
   :comment "GO:0046962"
-  :across Membrane
+  :across go/plasma_membrane
   :mechanism Rotational
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration))
@@ -213,7 +213,7 @@
 ;; ATP(4-) + cob(I)alamin + H2O <=> ADP(3-) + hydrogenphosphate + cob(I)alamin + H+
 (deftransport ToTransportCobIalaminDrivenWithATP_Hydrolysis
   :comment "GO:0102023"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/cob_I_alamin (owl-some hasConcentration LowConcentration)
                   (owl-some has-biological-role ch/B_vitamin))
@@ -224,7 +224,7 @@
 
 (deftransport ToTransportProteinIntoMitochondrionDrivenWithATP_Hydrolysis
   :comment "GO:0008566"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/protein (owl-some hasConcentration LowConcentration))
   :from go/extracellular_region
@@ -241,7 +241,7 @@
 (deftransport ToTransportCalciumTransportingDrivenWithATP_Hydrolysis
   :comment "GO:1905059"
   :comment "Involved in regulation of postsynaptic cytosolic calcium ion concentration"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :involved go/regulation_of_postsynaptic_cytosolic_calcium_ion_concentration 
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
@@ -254,7 +254,7 @@
 (deftransport ToTransportCalciumTransportingDrivenWithATP_Hydrolysis
   :comment "GO:1905056"
   :comment "Involved in regulation of presynaptic cytosolic calcium ion concentration"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :involved go/regulation_of_presynaptic_cytosolic_calcium_ion_concentration
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
@@ -267,7 +267,7 @@
 (deftransport ToTransportCalciumTransportingDrivenWithATP_Hydrolysis
   :comment "GO:0086039"
   :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :involved go/regulation_of_cardiac_muscle_cell_membrane_potential
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
@@ -282,7 +282,7 @@
 ;; ATP + H2O + Na+(in) + K+(out) = ADP + phosphate + Na+(out) + K+(in). 
 (deftransport ToTransportSodiumPotassiumExchangingDrivenWithATP_Hydrolysis
   :comment "GO:0005391"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration))
          (owl-and ch/potassium_1+_ (owl-some hasConcentration LowConcentration))
@@ -296,7 +296,7 @@
 (deftransport ToTransportSodiumPotassiumExchangingDrivenWithATP_Hydrolysis
   :comment "GO:0086037"
   :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :involved go/regulation_of_cardiac_muscle_cell_membrane_potential
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration))
@@ -313,7 +313,7 @@
   :cargo (owl-and ch/potassium_1+_  (owl-some hasConcentration LowConcentration))
          (owl-and ch/proton  (owl-some hasConcentration LowConcentration))
   :driven ATP_Hydrolysis
-  :across Membrane
+  :across go/plasma_membrane
   :super (owl-or (owl-and (owl-some transports-from go/intracellular)
                                (owl-some transports-to go/extracellular_region))
                       (owl-and (owl-some transports-from go/extracellular_region)
@@ -322,7 +322,7 @@
 ;; proton-transporting ATP synthase activity, rotational mechanism
 (deftransport ToTransportProtonTransportingDrivenWithATP_SynthaseViaRotationalMechanism
   :comment "GO:0046933"
-  :across Membrane
+  :across go/plasma_membrane
   :mechanism Rotational
   :driven ATP_Synthesis
   :cargo (owl-and ch/proton (owl-some hasConcentration LowConcentration))
@@ -333,7 +333,7 @@
 
 (deftransport ToTransportSodiumTransportingDrivenWithATP_SynthaseViaRotationalMechanism
   :comment "GO:0046932"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Synthesis
   :mechanism Rotational
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration))
@@ -350,7 +350,7 @@
      :comment ~(second lis)
      :cargo (owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration))
      :driven ATP_Hydrolysis
-     :across Membrane
+     :across go/plasma_membrane
      :from go/intracellular
      :to go/extracellular_region))
 
@@ -380,7 +380,7 @@
   :comment "GO:0008553"
   :cargo ch/proton
   :driven ATP_Hydrolysis
-  :across Membrane
+  :across go/plasma_membrane
   :from go/intracellular
   :to go/extracellular_region
   :mechanism Phosphorylative)
@@ -401,7 +401,7 @@
 (defn substance-importing-ATP_Hydrolysis [lis]
   `(deftransport ~(symbol (str "ToTransport" (first lis) "ImportingDrivenWithATP_Hydrolysis"))
      :comment ~(second lis)
-     :across Membrane
+     :across go/plasma_membrane
      :driven ATP_Hydrolysis
      :cargo (owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration))
      :from go/extracellular_region
@@ -428,7 +428,7 @@
 
 (deftransport ToTransportGlutamineImportingDrivenWithATP_Hydrolysis
   :comment "GO:0015599"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/glutamine (owl-some hasConcentration LowConcentration)
                   (owl-some has-application-role ch/drug)
@@ -439,7 +439,7 @@
 
 (deftransport ToTransportArginineImportingDrivenWithATP_Hydrolysis
   :comment "GO:0015598"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/arginine (owl-some hasConcentration LowConcentration)
                   (owl-some hasAcidity Alkaline))
@@ -448,7 +448,7 @@
 
 (deftransport ToTransportL-arginineImportingDrivenWithATP_Hydrolysis
   :comment "GO:0102022"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/L-arginine (owl-some hasConcentration LowConcentration)
                   (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
@@ -457,7 +457,7 @@
 
 (deftransport ToTransportD-riboseImportingDrivenWithATP_Hydrolysis
   :comment "GO:0015611"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/D-ribose (owl-some hasConcentration LowConcentration)
                   (owl-some hasEnantiomerism D-Enantiomer))
@@ -466,7 +466,7 @@
 
 (deftransport ToTransportD-xyloseImportingDrivenWithATP_Hydrolysis
   :comment "GO:0015614"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/D-xylose (owl-some hasConcentration LowConcentration)
                   (owl-some hasEnantiomerism D-Enantiomer))
@@ -475,7 +475,7 @@
 
 (deftransport ToTransportL-arabinoseImportingDrivenWithATP_Hydrolysis
   :comment "GO:0015612"
-  :across Membrane
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/L-arabinose (owl-some  hasConcentration LowConcentration)
                   (owl-some hasEnantiomerism L-Enantiomer))
@@ -483,14 +483,9 @@
   :to  go/intracellular)
 
 
-
-;; ======================================================
-;;    Transport driving by a chemical reaction
-;;=====================
-
 (deftransport ToTransportProtonDrivenByChemicalReaction
   :comment "GO:0003957"
-  :across Membrane
+  :across go/plasma_membrane
   :driven go/oxidoreductase_activity
   :cargo ch/proton
   :from go/intracellular

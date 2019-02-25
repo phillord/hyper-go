@@ -12,7 +12,7 @@
 
 
 ;; Stuff from other ontologies
-(declare-classes Location Membrane Channel)
+(declare-classes Location Channel)
 
 (defoproperty bearer-of)
 
@@ -28,8 +28,7 @@
   :comment "A substance such as SALT has part Anion and Cation")
 
 (defoproperty transports-across
-  :comment "Usually transport across Membrane"
-  :range Membrane)
+  :comment "Usually transport across Membrane")
 
 (defoproperty dependent-on
   :comment "A substance depend on other molecule to be transported")
@@ -85,6 +84,8 @@
 (defoproperty established-by)
 (defoproperty during)
 
+(defoproperty activated-by)
+
 (defclass ValuePartition)
 
 (defpartition BindingAffinity
@@ -130,7 +131,8 @@
   [Osmolarity MechanicalStress Voltage
    HighVoltage LowVoltage IntermediateVoltage
    Light volume-sensitive Phosphorylation
-   Dephosphorylation inward-rectification temperature]
+   Dephosphorylation inward-rectification temperature
+   EmptyingOfIntracellularCalciumStores]
   :comment "Gate channel: enables the transmembrane transfer of solute by a channel that opens in response to a specific stimulus."
   :super ValuePartition)
 
@@ -195,24 +197,31 @@
 
 (defclass Adhesin
   :super ch/chemical_entity
-  :comment "Class not found in Chebi")
+  :comment "Adhesin class not found in Chebi")
 
 (defclass Transferrin
   :super ch/iron_3+_
-  :comment "Class not found in Chebi")
+  :comment "Transferrin class not found in Chebi")
 
 (defclass Lactoferrin
   :super ch/protein
-  :comment "Class not found in Chebi")
+  :comment "Lactoferrin class not found in Chebi")
 
 (defclass CopperChelate
   :super ch/copper_cation
-  :comment "Class not found in Chebi")
+  :comment "Copper chelate class not found in Chebi")
 
 (defclass Copper-nicotianamine
   :super CopperChelate
-  :comment "Class not found in Chebi")
+  :comment " Copper-nicotianamine class not found in Chebi")
 
+(defclass PeptidoglycanPeptide
+  :super ch/peptidoglycan
+  :comment "peptidoglycan peptide class not found in Chebi")
+
+(defclass FoldedProtein
+  :super ch/protein
+  :comment "folded protein class not found in Chebi")
 
 ;; ==================== Exist in Other Ontology ================
 
