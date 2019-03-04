@@ -7,6 +7,8 @@
 
 ;;(owl-import tawny-chebi.chebi/chebi)
 
+;;(owl-import tawny-go.go/go)
+
 (defontology HyperGo
   :iri "http://purl.obolibrary.org/obo/HyperGo")
 
@@ -122,7 +124,7 @@
 (defpartition EnergySource
   [Light Decarboxylation Oxidoreduction
    Methyl_transfer_reaction ATP_Hydrolysis 
-   ATP_Synthesis pH-dependent Phosphoenolpyruvate]
+   ATP_Synthesis pH-dependent Phosphoenolpyruvate MembranePotential]
   :comment "In Primary Active transporter: transport works equally well in either direction and is driven by a primary energy source "
   :super ValuePartition)
 
@@ -228,8 +230,7 @@
 (defclass Hepatocyte
   :comment "CL:0000182")
 
-(defclass MembranePotential
-  :comment "OBA:0000099")
-
 (defclass CardiacMuscleCell
   :comment "CL:0000746")
+
+(save-ontology "go.owl" :owl)

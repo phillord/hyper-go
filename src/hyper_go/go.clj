@@ -2502,4 +2502,4 @@
   :cargo ch/glycolipid)
 
 
-(save-ontology "hyper.owl" :owl)
+(save-ontology "go.owl" :owl)

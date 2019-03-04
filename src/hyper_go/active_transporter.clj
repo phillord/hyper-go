@@ -522,7 +522,7 @@
 ;;Enables the transfer of a solute from one side of a membrane to the other, up its concentration gradient.
 ;;Transport works equally well in either direction and is driven by a chemiosmotic source of energy, not direct ATP coupling.
 ;;Secondary active transporters include symporters and antiporters.
-(deftransport ToTransportSecondaryActiveTransmembrane
+(deftransport ToTransportSubstanceBySecondaryActiveTransport
   :comment "GO:0015291"
   :across go/plasma_membrane
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
@@ -533,7 +533,7 @@
 ;;Solute (out) + n[H+ or Na+] (out) → Solute (in) + n[H+ or Na+] (in)
 ;; Driven by sodium symporter
 (defn secondary-substance-transporters [lis]
-  `(deftransport ~(symbol (str "ToTransport" (first lis) "SecondaryActiveTransmembrane"))
+  `(deftransport ~(symbol (str "ToTransport" (first lis) "BySecondaryActiveTransport"))
      :comment ~(second lis)
      :cargo
      ~(cond (= 5 (count lis))
@@ -690,7 +690,7 @@
   :across go/plasma_membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/inorganic_cation (owl-some hasConcentration HighConcentration))
-  :direction SameDirection)
+  :direction OppositeDirection)
 
 (deftransport ToTransportChloride:CationSymporter
   :comment "GO:0015377"
@@ -1179,6 +1179,7 @@
 ;; http://www.ebi.ac.uk/interpro/entry/IPR004836
 (deftransport ToTransportCalcium:SodiumAntiporter
   :comment "GO:0005432"
+  :across go/plasma_membrane
   :cargo (owl-and ch/calcium_2+_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
@@ -1450,19 +1451,19 @@
   :comment "GO:0015516"
   :across go/plasma_membrane
   :cargo (owl-and ch/tartrate_salt (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/succinate_2-_ (owl-some hasConcentration LowConcentration)
+  :driven (owl-and ch/succinate_2-_ (owl-some hasConcentration HighConcentration)
                    (owl-some has-application-role ch/drug))
   :direction OppositeDirection)
 
-(deftransport ToTransportfumarate:SuccinateAntiporter
+(deftransport ToTransportFumarate:SuccinateAntiporter
   :comment "GO:0005469"
   :across go/plasma_membrane
   :cargo (owl-and ch/fumarate_2-_ (owl-some hasConcentration LowConcentration))
   :driven (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug)
-                   (owl-some hasConcentration LowConcentration))
+                   (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-(deftransport ToTransportfumarate:L-aspartateAntiporter
+(deftransport ToTransportFumarate:L-aspartateAntiporter
   :comment "GO:0062057"
   :across go/plasma_membrane
   :cargo (owl-and ch/fumarate_2-_ (owl-some hasConcentration LowConcentration))
@@ -1511,7 +1512,7 @@
   :direction OppositeDirection)
 
 ;; Need review
-(deftransport ToTransportCalcium:CationAntiporter
+(deftransport ToTransportCalcium:CationAntiporterInvolvedInRegulationOfPostsynapticCytosolicCalciumIonConcentration
   :comment "GO:1905060"
   :comment "Involved in regulation of postsynaptic cytosolic calcium ion concentration"
   :across go/plasma_membrane
@@ -1520,7 +1521,7 @@
   :involved go/regulation_of_postsynaptic_cytosolic_calcium_ion_concentration
   :direction OppositeDirection)
 
-(deftransport ToTransportCalcium:CationAntiporter
+(deftransport ToTransportCalcium:CationAntiporterInvolvedInRegulationOfPresynapticCytosolicCalciumIonConcentration
   :comment "GO:1905055"
   :comment "Involved in regulation of presynaptic cytosolic calcium ion concentration"
   :across go/plasma_membrane
@@ -1555,7 +1556,7 @@
   :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-(deftransport ToTransportSodium:ProtonAntiporter
+(deftransport ToTransportSodium:ProtonAntiporterInvolvedInRegulationOfCardiacMuscleCellMembranePotential
   :comment "GO:0086040"
   :comment "Involved in regulation of cardiac muscle cell membrane potential"
   :across go/plasma_membrane
@@ -1564,7 +1565,7 @@
   :involved go/regulation_of_cardiac_muscle_cell_membrane_potential
   :direction OppositeDirection)
   
-(deftransport ToTransportCalcium:SodiumAntiporter
+(deftransport ToTransportCalcium:SodiumAntiporterInvolvedInRegulationOfCardiacMuscleCellMembranePotential
   :comment "GO:0086038"
   :comment "Involved in regulation of cardiac muscle cell membrane potential"
   :across go/plasma_membrane
@@ -1658,22 +1659,26 @@
   :direction OppositeDirection) 
 
 
-
-
 ;;=====================================================
-;;============ Uniporter transporters =================
+;;============ Uniporter Active transporters =================
 ;;=====================================================
 
-;; Uniporters (the preferred term), also
-;; called single-species transporters or facilitated diffusion carriers
-;; catalyze the transport of a single molecular species,
-;; and transport therefore occurs independently of the movement of other molecular species.
+(deftransport ToTransportSubstanceDrivenByMembranePotentialDifference
+  :comment "GO:0022810"
+  :across go/plasma_membrane
+  :driven MembranePotential
+  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration)))
 
-;; (deftransport ToTransportUniporter
-;;   :comment "GO:0015292"
-;;   :across go/plasma_membrane
-;;   :cargo ch/chemical_entity)
+(deftransport ToTransportPotassiumIonDrivenByMembranePotentialDifference
+  :comment "GO:0022819"
+  :across go/plasma_membrane
+  :driven MembranePotential
+  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration LowConcentration)))
 
+(deftransport ToTransportSodiumIonDrivenByMembranePotentialDifference
+  :comment "GO:0022818"
+  :across go/plasma_membrane
+  :driven MembranePotential
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration)))
 
-
-;;  GO:0015325
+(save-ontology "go.owl" :owl)

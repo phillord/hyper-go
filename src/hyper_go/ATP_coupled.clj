@@ -122,7 +122,7 @@
   )
 
 
-(deftransport ToTransportIonByActiveTransmembraneDrivenWithATP_Hydrolysis
+(deftransport ToTransportIonDrivenWithATP_HydrolysisInvolvedInRegulationOfPresynapticMembranePotential
   :comment "GO:0099521"
   :comment "Involved in regulation of presynaptic membrane potential"
   :across go/plasma_membrane
@@ -135,7 +135,7 @@
                       (owl-and (owl-some transports-from go/extracellular_region)
                                (owl-some transports-to go/intracellular))))
 
-(deftransport ToTransportIonByActiveTransmembraneDrivenWithATP_Hydrolysis
+(deftransport ToTransportIonByDrivenWithATP_HydrolysisInvolvedInRegulationOfPostsynapticMembranePotential
   :comment "GO:0099581"
   :comment "Involved in regulation of postsynaptic membrane potential"
   :across go/plasma_membrane
@@ -232,13 +232,14 @@
 
 (deftransport ToTransportProteinIntoChloroplastStromaDrivenWithATP_Hydrolysis
   :comment "GO:0016464"
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :cargo (owl-and ch/protein (owl-some hasConcentration LowConcentration))
   :from go/extracellular_region
   :to go/intracellular go/chloroplast)
 
 
-(deftransport ToTransportCalciumTransportingDrivenWithATP_Hydrolysis
+(deftransport ToTransportCalciumTransportingDrivenWithATP_HydrolysisInvolvedInRegulationOfPostsynapticCytosolicCalciumIonConcentration
   :comment "GO:1905059"
   :comment "Involved in regulation of postsynaptic cytosolic calcium ion concentration"
   :across go/plasma_membrane
@@ -251,7 +252,7 @@
                           (owl-some transports-to go/intracellular))))
 
 
-(deftransport ToTransportCalciumTransportingDrivenWithATP_Hydrolysis
+(deftransport ToTransportCalciumTransportingDrivenWithATP_HydrolysisInvolvedInRegulationOfPresynapticCytosolicCalciumIonConcentration
   :comment "GO:1905056"
   :comment "Involved in regulation of presynaptic cytosolic calcium ion concentration"
   :across go/plasma_membrane
@@ -264,9 +265,9 @@
                           (owl-some transports-to go/intracellular))))
 
 
-(deftransport ToTransportCalciumTransportingDrivenWithATP_Hydrolysis
+(deftransport ToTransportCalciumTransportingDrivenWithATP_HydrolysisInvolvedInRegulationOfCardiacMuscleCellMembranePotential
   :comment "GO:0086039"
-  :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
+  :comment "Involved In Regulation Of Cardiac Muscle Cell Membrane Potential"
   :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :involved go/regulation_of_cardiac_muscle_cell_membrane_potential
@@ -293,9 +294,9 @@
 
 ;; Both Na+ and K+ are going against their concentration gradient
 ;; ATP + H2O + Na+(in) + K+(out) = ADP + phosphate + Na+(out) + K+(in).
-(deftransport ToTransportSodiumPotassiumExchangingDrivenWithATP_Hydrolysis
+(deftransport ToTransportSodiumPotassiumExchangingDrivenWithATP_HydrolysisInvolvedInRegulationOfCardiacMuscleCellMembranePotential
   :comment "GO:0086037"
-  :comment "InvolvedInRegulationOfCardiacMuscleCellMembranePotential"
+  :comment "Involved In Regulation Of Cardiac Muscle Cell Membrane Potential"
   :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :involved go/regulation_of_cardiac_muscle_cell_membrane_potential
@@ -378,20 +379,21 @@
 
 (deftransport ToTransportProtonExportingDrivenWithATP_HydrolysisViaPhosphorylativeMechanism
   :comment "GO:0008553"
-  :cargo ch/proton
-  :driven ATP_Hydrolysis
   :across go/plasma_membrane
+  :driven ATP_Hydrolysis
   :from go/intracellular
   :to go/extracellular_region
-  :mechanism Phosphorylative)
+  :mechanism Phosphorylative
+  :cargo (owl-and ch/proton (owl-some hasConcentration LowConcentration)))
 
 (deftransport ToTransportSodiumExportingDrivenWithATP_HydrolysisViaPhosphorylativeMechanism
   :comment "GO:0008554"
-  :cargo ch/sodium_1+_
+  :across go/plasma_membrane
   :driven ATP_Hydrolysis
   :from go/intracellular
   :to go/extracellular_region
-  :mechanism Phosphorylative)
+  :mechanism Phosphorylative
+  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration)))
 
 
 
@@ -482,11 +484,13 @@
   :from  go/extracellular_region
   :to  go/intracellular)
 
-
+;; https://en.wikipedia.org/wiki/Electron_transport_chain
 (deftransport ToTransportProtonDrivenByChemicalReaction
   :comment "GO:0003957"
   :across go/plasma_membrane
-  :driven go/oxidoreductase_activity
+  go/oxidoreductase_activity__acting_on_NAD_P_H__NAD_P__as_acceptor
   :cargo ch/proton
   :from go/intracellular
   :to go/extracellular_region)
+
+(save-ontology "go.owl" :owl)

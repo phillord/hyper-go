@@ -62,25 +62,6 @@
   :mechanism Facilitated_diffusion
   :cargo (owl-and ch/nucleoside (owl-some hasConcentration HighConcentration)))
 
-(deftransport ToTransportSubstanceDrivenByMembranePotential
-  :comment "GO:0022810"
-  :across go/plasma_membrane
-  :driven MembranePotential
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration HighConcentration)))
-
-(deftransport ToTransportPotassiumIonDrivenByMembranePotential
-  :comment "GO:0022819"
-  :across go/plasma_membrane
-  :driven MembranePotential
-  :cargo (owl-and ch/potassium_1+_ (owl-some hasConcentration HighConcentration)))
-
-(deftransport ToTransportSodiumIonDrivenByMembranePotential
-  :comment "GO:0022818"
-  :across go/plasma_membrane
-  :driven MembranePotential
-  :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
-
-
 ;; channel activity
 (deftransport ToTransportSoluteByChannel
   :comment "GO:0015267"
@@ -145,7 +126,7 @@
   :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
-(deftransport ToTransportMechanosensitiveCalciumIonByChannel
+(deftransport ToTransportMechanosensitiveCalciumIonByChannelInvolvedInRegulationOfActionPotential
   :comment "GO:0097364"
   :comment "Involved in regulation of action potential"
   :across go/plasma_membrane
@@ -154,7 +135,7 @@
   :via (owl-and Channel (owl-some hasStimulus MechanicalStress))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
-(deftransport ToTransportMechanosensitiveCalciumIonByChannel
+(deftransport ToTransportMechanosensitiveCalciumIonByChannelInvolvedInRegulationOfCardiacMuscleCellActionPotential
   :comment "GO:0097365"
   :comment "Involved in regulation of cardiac muscle cell action potential"
   :across go/plasma_membrane
@@ -231,7 +212,7 @@
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity involved in regulation of presynaptic membrane potential
-(deftransport ToTransportIonByVoltageGatedChannel
+(deftransport ToTransportIonByVoltageGatedChannelInvolvedInRegulationOfPresynapticMembranePotential
   :comment "GO:0099508"
   :comment "Involved in regulation of presynaptic membrane potential"
   :across go/plasma_membrane
@@ -242,7 +223,7 @@
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated ion channel activity involved in regulation of postsynaptic  membrane potential
-(deftransport ToTransportIonByVoltageGatedChannel
+(deftransport ToTransportIonByVoltageGatedChannelInvolvedInRegulationOfPostsynapticMembranePotential
   :comment "GO:1905030"
   :comment "Involved in regulation of postsynaptic membrane potential"
   :across go/plasma_membrane
@@ -277,7 +258,7 @@
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium channel activity involved in regulation of cytosolic calcium levels
-(deftransport ToTransportCalciumIonByVoltageGatedChannel
+(deftransport ToTransportCalciumIonByVoltageGatedChannelInvolvedInRegulationOfCytosolicCalciumLevels
   :comment "GO:0099511"
   :comment "Involved in regulation of cytosolic calcium levels"
   :across go/plasma_membrane
@@ -289,7 +270,7 @@
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium channel activity involved in regulation of presynaptic cytosolic calcium levels
-(deftransport ToTransportCalciumIonByVoltageGatedChannel
+(deftransport ToTransportCalciumIonByVoltageGatedChannelInvolvedInRegulationOfPresynapticCytosolicCalciumLevels
   :comment "GO:0099626"
   :comment "Involved in regulation of presynaptic cytosolic calcium levels"
   :across go/plasma_membrane
@@ -301,7 +282,7 @@
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 
-(deftransport ToTransportCalciumIonByVoltageGatedChannel
+(deftransport ToTransportCalciumIonByVoltageGatedChannelInvolvedInPositiveRegulationOfPresynapticCytosolicCalciumLevels
   :comment "GO:0099635"
   :comment "Involved in positive regulation of presynaptic cytosolic calcium levels"
   :across go/plasma_membrane
@@ -313,7 +294,7 @@
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; voltage-gated calcium channel activity involved in regulation of postsynaptic cytosolic calcium levels
-(deftransport ToTransportCalciumIonByVoltageGatedChannel
+(deftransport ToTransportCalciumIonByVoltageGatedChannelInvolvedInRegulationOfPostsynapticCytosolicCalciumLevels
   :comment "GO:1905057"
   :comment "Involved in regulation of postsynaptic cytosolic calcium levels"
   :across go/plasma_membrane
@@ -351,7 +332,7 @@
 
 
 ;; voltage-gated calcium ion channel activity involved in cardiac muscle cell action potential
-(deftransport ToTransportCalciumIonByVoltageGatedChannel
+(deftransport ToTransportCalciumIonByVoltageGatedChannelInvolvedInCardiacMuscleCellActionPotential
   :comment "GO:0086007"
   :comment "Involved in cardiac muscle cell action potential"
   :across go/plasma_membrane
@@ -428,7 +409,7 @@
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; Any transmitter-gated ion channel activity that is involved in regulation of postsynaptic membrane potentia
-(deftransport ToTransportIonByTransmitterGatedChannel
+(deftransport ToTransportIonByTransmitterGatedChannelInvolvedInRegulationOfPostsynapticMembranePotential
   :comment "GO:1904315"
   :comment "Involved in regulation of postsynaptic membrane potential"
   :across go/plasma_membrane
@@ -580,7 +561,7 @@
   :cargo (owl-and ch/ion (owl-some hasConcentration HighConcentration)))
 
 ;; ligand-gated ion channel activity involved in regulation of presynaptic membrane potential
-(deftransport ToTransportIonByLigandGatedChannel
+(deftransport ToTransportIonByLigandGatedChannelInvolvedInRegulationOfPresynapticMembranePotential
   :comment "GO:0099507"
   :comment "Involved in regulation of presynaptic membrane potential"
   :across go/plasma_membrane
@@ -1079,7 +1060,7 @@
 
 
 ;; calcium-induced calcium release activity involved in regulation of postsynaptic cytosolic calcium ion concentration
-(deftransport ToTransportCalciumIonByCalcium-inducedChannel
+(deftransport ToTransportCalciumIonByCalcium-inducedChannelInvolvedInRegulationOfPostsynapticCytosolicCalciumIonConcentration
   :comment "GO:1905058"
   :comment "Involved in regulation of postsynaptic cytosolic calcium ion concentration"
   :across go/plasma_membrane
@@ -1094,7 +1075,7 @@
                                            (owl-some bound-by go/plasma_membrane_receptor_complex))))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
-(deftransport ToTransportCalciumIonByCalcium-inducedChannel
+(deftransport ToTransportCalciumIonByCalcium-inducedChannelInvolvedInRegulationOfPresynapticCytosolicCalciumIonConcentration
   :comment "GO:1905054"
   :comment "Involved in regulation of presynaptic cytosolic calcium ion concentration"
   :across go/plasma_membrane
@@ -1140,7 +1121,7 @@
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
 
 ;; ryanodine-sensitive calcium-release channel activity involved in regulation of postsynaptic cytosolic calcium levels
-(deftransport ToTransportCalciumIonByRyanodineSensitiveChannel
+(deftransport ToTransportCalciumIonByRyanodineSensitiveChannelInvolvedInRegulationOfPostsynapticCytosolicCalciumLevels
   :comment "GO:0098697"
   :comment "Involved in regulation of postsynaptic cytosolic calcium levels"
   :across go/plasma_membrane
@@ -1165,7 +1146,7 @@
 
 
 ;; inositol 1,4,5-trisphosphate-sensitive calcium-release channel activity
-(deftransport ToTransportCalciumIonByInositolTrisphosphateChannel
+(deftransport ToTransportCalciumIonByInositolTrisphosphateChannelInvolvedInRegulationOfPostsynapticCytosolicCalciumLevels
   :comment "GO:0098695"
   :comment "Involved in regulation of postsynaptic cytosolic calcium levels"
   :across go/plasma_membrane
@@ -1212,7 +1193,7 @@
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
 ;; intracellular cAMP-activated cation channel activity involved in regulation of presynaptic membrane potential
-(deftransport ToTransportCationByIntracellular-cAMPChannel
+(deftransport ToTransportCationByIntracellular-cAMPChannelInvolvedInRegulationOfPresynapticMembranePotential
   :comment "GO:0140232"
   :comment "Involved in regulation of presynaptic membrane potential"
   :across go/plasma_membrane
@@ -1226,7 +1207,7 @@
   :cargo (owl-and ch/cation (owl-some hasConcentration HighConcentration)))
 
 ;; go/intracellular cAMP-activated cation channel activity involved in regulation of postsynaptic membrane potential
-(deftransport ToTransportCationByIntracellular-cAMPChannel
+(deftransport ToTransportCationByIntracellular-cAMPChannelInvolvedInRegulationOfPostsynapticMembranePotential
   :comment "GO:0140233"
   :comment "Involved in regulation of postsynaptic membrane potential"
   :across go/plasma_membrane
