@@ -48,6 +48,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    + hemaglutinin autotransporter activity GO:0015476 :(DV) hemaglutinin: refers to glycoproteins which cause red blood cells (RBCs) to agglutinate (from https://en.wikipedia.org/wiki/Hemagglutinin). So this term mapped to glycoprotein CHEBI:17089. (Defined)
    + sodium-dependent multivitamin transmembrane transporter activity GO:0008523: (DV): looks like it's an immaterial concept, the cargo is either pantothenate, biotin and lipoate. (Defined)
    + eye pigment precursor GO:0005395  (NOT Defined)
+   + GO:0008982	protein-N(PI)-phosphohistidine-sugar phosphotransferase activity: because sugar not defined in ChEBI
    
   
  * GO Incorrect classification
