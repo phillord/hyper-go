@@ -283,19 +283,6 @@
   :driven (owl-and Phosphoenolpyruvate
                    (owl-some dependent-on ch/N_pros_-phospho-L-histidine_residue)))
 
-(deftransport ToTransportGlucoseDrivenByPhosphohistidinePhosphoenolpyruvate
-  :comment "GO:0022855"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/glucose (owl-some hasConcentration LowConcentration)
-                  (owl-some transports-from go/intracellular)
-                  (owl-some transports-to go/extracellular_region))
-         (owl-and ch/glucose_phosphate
-                  (owl-some transports-from go/extracellular_region)
-                  (owl-some transports-to go/intracellular))
-  :driven (owl-and Phosphoenolpyruvate
-                   (owl-some dependent-on ch/N_pros_-phospho-L-histidine_residue)))
-
-
 (deftransport ToTransportGlucitolDrivenByPhosphohistidinePhosphoenolpyruvate
   :comment "GO:0022856"
   :across go/plasma_membrane
