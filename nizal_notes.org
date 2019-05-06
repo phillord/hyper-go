@@ -17,7 +17,7 @@
  
 ** General issue
 
-The information in GO about each term is scarce. 
+Information in GO about each term is scarce. 
 
 Most of GO terms names are defined generally, while Chebi ontology is more specific in defining terms. 
 
