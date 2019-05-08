@@ -858,7 +858,7 @@
 (deftransport ToTransportL-ascorbicAcid
   :comment "GO:0015229"
   :across go/plasma_membrane
-  :cargo (owl-and ch/L-ascorbate (owl-some hasEnantiomerism L-Enantiomer)
+  :cargo (owl-and ch/L-ascorbic_acid (owl-some hasEnantiomerism L-Enantiomer)
                   (owl-some has-biological-role ch/vitamin ch/coenzyme)))
 
 
