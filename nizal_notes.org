@@ -4,8 +4,9 @@
      * Developer thought (DT)
 
 
-** GO-ChEBI linking \\
-  There is "Cross-Ontology Relations" in GO, represent a relation between each term in GO with the ChEBI term, but it is not always accurate.
+** GO-ChEBI cross-references 
+
+  * GO-plus ontology: includes cross ontology relationships, including Chebi. However, it seems that the linkage was based on string matching only. The linking between GO and chebi represented in the "Cross-Ontology Relations" section in GO, represents a relation between each term in GO with the corresponding term in ChEBI. However, it is not always accurate and not all GO terms being linked with chebi terms. For example:
    + methylgalactoside transmembrane transporter GO:0015592
    + e.x: GO:0015134 hexuronate transmembrane transporter activity  mapped with hexuronic acid.
    + e.x: GO:0015229 L-ascorbicAcid
