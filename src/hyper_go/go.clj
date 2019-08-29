@@ -1366,7 +1366,8 @@
 (deftransport ToTransportL-lysineEfflux
   :comment "GO:0015661"
   :across go/plasma_membrane
-  :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
+  :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline)
+                  (owl-some has-application-role ch/drug))
   :from go/intracellular
   :to go/extracellular_region)
 
@@ -2500,6 +2501,3 @@
 (deftransport ToTransportGlycolipid
   :comment "GO:0034202"
   :cargo ch/glycolipid)
-
-
-(save-ontology "go.owl" :owl)

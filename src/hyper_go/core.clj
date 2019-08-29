@@ -12,6 +12,7 @@
 (defontology HyperGo
   :iri "http://purl.obolibrary.org/obo/HyperGo")
 
+ch/nucleotide_5'-phosphate_1-__residue
 
 ;; Stuff from other ontologies
 (declare-classes Location Channel)
@@ -87,6 +88,13 @@
 (defoproperty during)
 
 (defoproperty activated-by)
+
+(defoproperty hasReactant
+  :comment "every chemical reaction has reactants substrates on the left-hand side of a chemical reaction")
+
+(defoproperty hasProduct
+  :comment "every chemical reaction has a product a substrates on the right-hand side of a chemical reaction")
+
 
 (defclass ValuePartition)
 
@@ -182,14 +190,16 @@
                        (with-property frames :involved involved_in)
                        (with-property frames :occurs occurs_in)
                        (with-property frames :via transports-through)
-                       (with-property frames :results as-results-of)]))))
+                       (with-property frames :results as-results-of)
+                       (with-property frames :reactant hasReactant)
+                       (with-property frames :product hasProduct)]))))
 
 (def transport
   (extend-frameify
    owl-class
    transport-explicit
    [:from :to :cargo
-    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via :results]))
+    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via :results :reactant :product]))
 
 (defentity deftransport "" 'transport)
 
@@ -233,4 +243,4 @@
 (defclass CardiacMuscleCell
   :comment "CL:0000746")
 
-(save-ontology "go.owl" :owl)
+
