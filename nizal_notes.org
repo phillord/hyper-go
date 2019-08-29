@@ -4,8 +4,11 @@
      * Developer thought (DT)
 
 
-** GO-ChEBI linking \\
-  There is "Cross-Ontology Relations" in GO, represent a relation between each term in GO with the ChEBI term, but it is not always accurate.
+** GO-ChEBI cross-references 
+
+  * GO-plus ontology: includes cross ontology relationships, including Chebi. However, it seems that the linkage was based on string matching only. The linking between GO and chebi represented in the "Cross-Ontology Relations" section in GO, represents a relation between each term in GO with the corresponding term in ChEBI. However, it is not always accurate and not all GO terms being linked with chebi terms. reference http://discovery.ucl.ac.uk/1436778/1/1471-2164-14-513.pdf
+  
+  For example:
    + methylgalactoside transmembrane transporter GO:0015592
    + e.x: GO:0015134 hexuronate transmembrane transporter activity  mapped with hexuronic acid.
    + e.x: GO:0015229 L-ascorbicAcid
@@ -17,7 +20,7 @@
  
 ** General issue
 
-The information in GO about each term is scarce. 
+Information in GO about each term is scarce. 
 
 Most of GO terms names are defined generally, while Chebi ontology is more specific in defining terms. 
 
@@ -48,6 +51,7 @@ GO-plus ontology: includes cross ontology relationships, including Chebi. Howeve
    + hemaglutinin autotransporter activity GO:0015476 :(DV) hemaglutinin: refers to glycoproteins which cause red blood cells (RBCs) to agglutinate (from https://en.wikipedia.org/wiki/Hemagglutinin). So this term mapped to glycoprotein CHEBI:17089. (Defined)
    + sodium-dependent multivitamin transmembrane transporter activity GO:0008523: (DV): looks like it's an immaterial concept, the cargo is either pantothenate, biotin and lipoate. (Defined)
    + eye pigment precursor GO:0005395  (NOT Defined)
+   + GO:0008982	protein-N(PI)-phosphohistidine-sugar phosphotransferase activity: because sugar not defined in ChEBI
    
   
  * GO Incorrect classification
