@@ -352,3 +352,14 @@ However:
    + e.x: GO:0042929  is a Fe(III)-complexed hydroxamate siderophore 
 
 
+** Catalytic Activity (CA)
+
+  Def: 
+
+  * Statistics
+  	+ Total number of classes: 7001
+	
+  *Notes:
+     + Not all CA classes has reference to Rhea: e.x:GO:0002948 --> RHEA:54084 and GO:0001888 --> RHEA:16224
+  
+  
