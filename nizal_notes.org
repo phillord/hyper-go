@@ -360,6 +360,6 @@ However:
   	+ Total number of classes: 7001
 	
   *Notes:
-     + Not all CA classes has reference to Rhea: e.x:GO:0002948 --> RHEA:54084 and GO:0001888 --> RHEA:16224
+     + Not all CA chemical reactions classes has reference to Rhea: e.x:GO:0002948 --> RHEA:54084 && GO:0001888 --> RHEA:16224 && GO:0003755 --> RHEA:16237 && GO:0003810 --> RHEA:43771 
   
   
