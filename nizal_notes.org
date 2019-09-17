@@ -357,15 +357,27 @@ However:
   Def: 
 
   * Statistics
-  	+ Total number of classes: 7001
+  	+ Total number of classes in CA: 7001
+	+ Total number of classes in CA not include classes from TA (already defined): 6837 
+	+ Most of the terms in CA are about chemical reacions, start their definition with "Catalysis of the reaction: substance + substance = substance + substance". The initial total number is: 4332
+	+ The chemical reactions classified to four main groups depend on the type of reaction: oxidoreductase activity (2097), transferase activity(2097), hydrolase activity(1555), lyase activity (576), isomerase activity(246) and other small group (cyclase activity (27), demethylase activity (23))
 	
-  *Notes:
-     + Not all CA chemical reactions classes has reference to Rhea: e.x:GO:0002948 --> RHEA:54084 && GO:0001888 --> RHEA:16224 && GO:0003755 --> RHEA:16237 && GO:0003810 --> RHEA:43771 
+
+ * There are other databases mainly about chemical reactions such as EC, MetaCyc, KEGG and Rhea
+      + Rhea is an expert curated resource of biochemical reactions designed for the annotation of enzymes and genome-scale metabolic networks and models.
+      + Rhea uses the ChEBI (Chemical Entities of Biological Interest) ontology of small molecules to precisely describe reactions participants and their chemical structures. 
+
+  *Challenges:
+      
+      * Within GO itself same entity but different representation. For example:
+     	+ FADH2 - FADH(2)
+	+ H2O - H(2)O
+	+ H+ - H(+)
+	+ NADP+ - NAD(P)+
+  
+      * Not all CA chemical reactions classes has reference to Rhea: e.x:GO:0002948 --> RHEA:54084 && GO:0001888 --> RHEA:16224 && GO:0003755 --> RHEA:16237 && GO:0003810 --> RHEA:43771 
      
-  * Same entity but different representation in GO
-     + FADH2 - FADH(2)
-     + H2O - H(2)O
-     + H+ - H(+)
+     
      
   
   
