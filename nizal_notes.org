@@ -374,10 +374,13 @@ However:
 	+ H2O - H(2)O
 	+ H+ - H(+)
 	+ NADP+ - NAD(P)+
+	+ coumaroyl-CoA - 4-coumaroyl-CoA
   
       * Not all CA chemical reactions classes has reference to Rhea: e.x:GO:0002948 --> RHEA:54084 && GO:0001888 --> RHEA:16224 && GO:0003755 --> RHEA:16237 && GO:0003810 --> RHEA:43771 
      
-     
+      * General terms in GO (does not have particular molecule from the ChEBI)
+      	+ GO:0050316
+	+ GO:0050321
      
   
   
