@@ -391,6 +391,7 @@ GO:0033830 --> RHEA:17841 && GO:0102511 --> RHEA:35434 && GO:0008412 --> RHEA:27
       * GO terms created based on self reading and external reference due to lack of info in GO: e.x
       	+ GO:0016401 (trans-2_3-dehydropalmitoyl-CoA): https://v12.chemtunes.com/biopath3/biopath/mols/trans-Hexadec-2-enoyl-CoA
 	
-     
-  
-  
+     * Reaction Directionality
+     	+ Allmost al the terms in CA identifying reactions and have an unspecified/unknown (=) direction.
+	+ In Rhea aach master reaction is associated to unspecified/unknown (=) and 3 directional reactions. Ref: https://www.rhea-db.org/documentation;jsessionid=EC317FA2C6507CCABE0CF3F0E688D35F
+     	+ We need to design the pattern that identify the terms with the (=) direction, however, some terms such as: GO:0036456 and GO:0033744 with same reaction participants but different direction
