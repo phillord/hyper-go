@@ -353,22 +353,23 @@ However:
 
 
 ** Catalytic Activity (CA)
-
-  Def: 
-
-  * Statistics
-  	+ Total number of classes in CA: 7001
+	* Statistics
+	+ Total number of classes in CA: 7001
 	+ Total number of classes in CA not include classes from TA (already defined): 6837 
 	+ Most of the terms in CA are about chemical reacions, start their definition with "Catalysis of the reaction: substance + substance = substance + substance". The initial total number is: 4332
 	+ The chemical reactions classified to four main groups depend on the type of reaction: oxidoreductase activity (2097), transferase activity(2097), hydrolase activity(1555), lyase activity (576), isomerase activity(246) and other small group (cyclase activity (27), demethylase activity (23))
 	
+	*Databases for chemical reactions
+	+There are other databases mainly about chemical reactions such as EC, MetaCyc, KEGG and Rhea
+        + Rhea is an expert curated resource of biochemical reactions designed for the annotation of enzymes and genome-scale metabolic networks and models.
+	+ Rhea uses the ChEBI (Chemical Entities of Biological Interest) ontology of small molecules to precisely describe reactions participants and their chemical structures.
+	
+	 * Reaction Directionality
+     	+ Allmost al the terms in CA identifying reactions and have an unspecified/unknown (=) direction.
+	+ In Rhea aach master reaction is associated to unspecified/unknown (=) and 3 directional reactions. Ref: https://www.rhea-db.org/documentation;jsessionid=EC317FA2C6507CCABE0CF3F0E688D35F
+     	+ We need to design the pattern that identify the terms with the (=) direction, however, some terms such as: GO:0036456 and GO:0033744 with same reaction participants but different direction
 
- * There are other databases mainly about chemical reactions such as EC, MetaCyc, KEGG and Rhea
-      + Rhea is an expert curated resource of biochemical reactions designed for the annotation of enzymes and genome-scale metabolic networks and models.
-      + Rhea uses the ChEBI (Chemical Entities of Biological Interest) ontology of small molecules to precisely describe reactions participants and their chemical structures. 
-
-  *Challenges:
-      
+ *Challenges:      
       * Within GO itself same entity but different representation. For example:
      	+ FADH2 - FADH(2)
 	+ H2O - H(2)O
@@ -391,7 +392,4 @@ GO:0033830 --> RHEA:17841 && GO:0102511 --> RHEA:35434 && GO:0008412 --> RHEA:27
       * GO terms created based on self reading and external reference due to lack of info in GO: e.x
       	+ GO:0016401 (trans-2_3-dehydropalmitoyl-CoA): https://v12.chemtunes.com/biopath3/biopath/mols/trans-Hexadec-2-enoyl-CoA
 	
-     * Reaction Directionality
-     	+ Allmost al the terms in CA identifying reactions and have an unspecified/unknown (=) direction.
-	+ In Rhea aach master reaction is associated to unspecified/unknown (=) and 3 directional reactions. Ref: https://www.rhea-db.org/documentation;jsessionid=EC317FA2C6507CCABE0CF3F0E688D35F
-     	+ We need to design the pattern that identify the terms with the (=) direction, however, some terms such as: GO:0036456 and GO:0033744 with same reaction participants but different direction
+    
