@@ -354,43 +354,43 @@ However:
 
 ** Catalytic Activity (CA)
 
- *Statistics and ontological nature of CA classes
-	+ Total number of classes in CA: 7001
-	+ Total number of classes in CA not include classes from TA (already defined): 6837 
-	+ Most of the terms in CA are about chemical reacions, start their definition with "Catalysis of the reaction: substance + substance = substance + substance". The initial total number is: 4332
-	+ The chemical reactions classified to four main groups depend on the type of reaction: oxidoreductase activity (2097), transferase activity(2097), hydrolase activity(1555), lyase activity (576), isomerase activity(246) and other small group (cyclase activity (27), demethylase activity (23))
+ * Statistics and ontological nature of CA classes
+   + Total number of classes in CA: 7001
+   + Total number of classes in CA not include classes from TA (already defined): 6837 
+   + Most of the terms in CA are about chemical reacions, start their definition with "Catalysis of the reaction: substance + substance = substance + substance". The initial total number is: 4332
+   + The chemical reactions classified to four main groups depend on the type of reaction: oxidoreductase activity (2097), transferase activity(2097), hydrolase activity(1555), lyase activity (576), isomerase activity(246) and other small group (cyclase activity (27), demethylase activity (23))
 	
- *Databases for chemical reactions
-	+There are other databases mainly about chemical reactions such as EC, MetaCyc, KEGG and Rhea
-        + Rhea is an expert curated resource of biochemical reactions designed for the annotation of enzymes and genome-scale metabolic networks and models.
-	+ Rhea uses the ChEBI (Chemical Entities of Biological Interest) ontology of small molecules to precisely describe reactions participants and their chemical structures.
+ * Databases for chemical reactions
+   + There are other databases mainly about chemical reactions such as EC, MetaCyc, KEGG and Rhea
+   + Rhea is an expert curated resource of biochemical reactions designed for the annotation of enzymes and genome-scale metabolic networks and models.
+   + Rhea uses the ChEBI (Chemical Entities of Biological Interest) ontology of small molecules to precisely describe reactions participants and their chemical structures.
 	
- *Reaction Directionality
-     	+ Allmost al the terms in CA identifying reactions and have an unspecified/unknown (=) direction.
-	+ In Rhea aach master reaction is associated to unspecified/unknown (=) and 3 directional reactions. Ref: https://www.rhea-db.org/documentation;jsessionid=EC317FA2C6507CCABE0CF3F0E688D35F
-     	+ We need to design the pattern that identify the terms with the (=) direction, however, some terms such as: GO:0036456 and GO:0033744 with same reaction participants but different direction
+ * Reaction Directionality
+   + Allmost al the terms in CA identifying reactions and have an unspecified/unknown (=) direction.
+   + In Rhea aach master reaction is associated to unspecified/unknown (=) and 3 directional reactions. Ref: https://www.rhea-db.org/documentation;jsessionid=EC317FA2C6507CCABE0CF3F0E688D35F
+   + We need to design the pattern that identify the terms with the (=) direction, however, some terms such as: GO:0036456 and GO:0033744 with same reaction participants but different direction
 
- *Challenges:
-      * Within GO itself same entity but different representation. For example:
-     	+ FADH2 - FADH(2)
-	+ H2O - H(2)O
-	+ H+ - H(+)
-	+ NADP+ - NAD(P)+
-	+ coumaroyl-CoA - 4-coumaroyl-CoA
-	+ CO2 - carbon dioxide
+ * Challenges:
+    * Within GO itself same entity but different representation. For example:
+      + FADH2 - FADH(2)
+      + H2O - H(2)O
+      + H+ - H(+)
+      + NADP+ - NAD(P)+
+      + coumaroyl-CoA - 4-coumaroyl-CoA
+      + CO2 - carbon dioxide
   
- *Not all CA chemical reactions classes has reference to Rhea, we have to find out: 
-	+ e.x:GO:0002948 --> RHEA:54084 && GO:0001888 --> RHEA:16224 && GO:0003755 --> RHEA:16237 && GO:0003810 --> RHEA:43771 && GO:0030743 --> RHEA:43212 && GO:0016436 --> RHEA:43184 && GO:0016437 --> RHEA:14433 && GO:0008825 --> RHEA:11991 && GO:0047144 --> RHEA:14236 && GO:1990259 --> RHEA:50904 && GO:0033801 --> RHEA:11435 && GO:000888 -->  RHEA:18592 && GO:0033837 --> RHEA:35628 && GO:0033830 --> RHEA:17841 && GO:0102511 --> RHEA:35434 && GO:0008412 --> RHEA:27782 && GO:0030792 --> RHEA:11685 && GO:0047946 --> RHEA:18472 && GO:0008353 --> RHEA:10219 && GO:0047961 --> RHEA:19872	&& GO:0050313 -->RHEA:12984 && GO:0004457 --> RHEA:23447
+ * Not all CA chemical reactions classes has reference to Rhea, we have to find out: 
+   + e.x:GO:0002948 --> RHEA:54084 && GO:0001888 --> RHEA:16224 && GO:0003755 --> RHEA:16237 && GO:0003810 --> RHEA:43771 && GO:0030743 --> RHEA:43212 && GO:0016436 --> RHEA:43184 && GO:0016437 --> RHEA:14433 && GO:0008825 --> RHEA:11991 && GO:0047144 --> RHEA:14236 && GO:1990259 --> RHEA:50904 && GO:0033801 --> RHEA:11435 && GO:000888 -->  RHEA:18592 && GO:0033837 --> RHEA:35628 && GO:0033830 --> RHEA:17841 && GO:0102511 --> RHEA:35434 && GO:0008412 --> RHEA:27782 && GO:0030792 --> RHEA:11685 && GO:0047946 --> RHEA:18472 && GO:0008353 --> RHEA:10219 && GO:0047961 --> RHEA:19872	&& GO:0050313 -->RHEA:12984 && GO:0004457 --> RHEA:23447
 	
- *General terms in GO (does not have particular molecule from the ChEBI)
-      	+ GO:0050316
-	+ GO:0050321
+ * General terms in GO (does not have particular molecule from the ChEBI)
+   + GO:0050316
+   + GO:0050321
 
 
  * Different representation of terms between the 3 ontologies (GO, Rhea and ChEBI)
-	+ GO:0004173 (palmitoyl-CoA), Rhea (hexadecanoyl-CoA), ChEBI (palmitoyl-CoA(4-))
+   + GO:0004173 (palmitoyl-CoA), Rhea (hexadecanoyl-CoA), ChEBI (palmitoyl-CoA(4-))
       
  * GO terms created based on self reading and external reference due to lack of info in GO: e.x
-      	+ GO:0016401 (trans-2_3-dehydropalmitoyl-CoA): https://v12.chemtunes.com/biopath3/biopath/mols/trans-Hexadec-2-enoyl-CoA
+   + GO:0016401 (trans-2_3-dehydropalmitoyl-CoA): https://v12.chemtunes.com/biopath3/biopath/mols/trans-Hexadec-2-enoyl-CoA
 	
     
