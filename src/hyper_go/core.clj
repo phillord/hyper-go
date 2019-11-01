@@ -12,10 +12,13 @@
 (defontology HyperGo
   :iri "http://purl.obolibrary.org/obo/HyperGo")
 
-ch/nucleotide_5'-phosphate_1-__residue
 
-;; Stuff from other ontologies
+
 (declare-classes Location Channel)
+
+;; =====================================================
+;; =========== Define Properties for TA and CA =========
+;; =====================================================
 
 (defoproperty bearer-of)
 
@@ -165,13 +168,11 @@ ch/nucleotide_5'-phosphate_1-__residue
   [small-conductance intermediate-conductance large-conductance]
   :comment "There are three types of Ca2+-activated K+ channel have been characterisedsmall-conductance (SK), intermediate conductance (IK) and large conductance (BK)")
 
-
 (defn with-property [frames frame-maybe property]
   (when-let [frame (frame-maybe frames)]
     (owl-some property frame)))
 
-
-(defn transport-explicit [o clazz frames]
+(defn function-explicit [o clazz frames]
   (owl-class clazz
              :equivalent
              (owl-and
@@ -194,18 +195,35 @@ ch/nucleotide_5'-phosphate_1-__residue
                        (with-property frames :reactant hasReactant)
                        (with-property frames :product hasProduct)]))))
 
+
+;;===========================
+;;==== Transport Activity ===
+;;==== GO:0003824 =========== 
 (def transport
   (extend-frameify
    owl-class
-   transport-explicit
+   function-explicit
    [:from :to :cargo
     :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via :results :reactant :product]))
 
 (defentity deftransport "" 'transport)
 
+;;===========================
+;;==== Catalytic activity ===
+;;==== GO:0003824 ===========
+
+(def catalyse
+  (extend-frameify
+   owl-class
+   function-explicit
+   [:reactant :product :when]))
+
+(defentity defcatalyse "" 'catalyse)
 
 
-;;============ Not exist in Chebi or other ontologies ==========
+;; =====================================================
+;; === Classes not exist in Chebi or other ontologies ==
+;; =====================================================
 
 (defclass Adhesin
   :super ch/chemical_entity
@@ -235,12 +253,28 @@ ch/nucleotide_5'-phosphate_1-__residue
   :super ch/protein
   :comment "folded protein class not found in Chebi")
 
-;; ==================== Exist in Other Ontology ================
 
+(defclass Adenine_1518_or_adenine_1519__in_16S_rRNA
+  :super ch/adenosine_5'-monophosphate_1-__residue
+  :comment "GO:0052908")
+
+(defclass N_6_-dimethyladenine_1518_or_N_6_-dimethyladenine_1519__in_16S_rRNA
+  :super ch/N_6__N_6_-dimethyladenosine_5'-monophosphate_1-__residue
+  :comment "GO:0052908")
+
+(defclass Adenine_1779_or_adenine_1780__in_18S_rRNA
+  :super ch/adenosine_5'-monophosphate_1-__residue
+  :comment "GO:0052909")
+
+(defclass N_6_-dimethyladenine_1779_or_N_6_-dimethyladenine_1780__in_18S_rRNA
+  :super ch/N_6__N_6_-dimethyladenosine_5'-monophosphate_1-__residue
+  :comment "GO:0052909")
+
+;; =====================================================
+;; ================ Classes from Other Ontologies ======
+;; =====================================================
 (defclass Hepatocyte
   :comment "CL:0000182")
 
 (defclass CardiacMuscleCell
   :comment "CL:0000746")
-
-
