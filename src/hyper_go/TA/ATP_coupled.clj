@@ -57,7 +57,7 @@
   ["Chloride"               	"GO:0008555"    ch/chloride]
   ["Nitrate"			"GO:0015414"	ch/nitrate]
   ["PhosphateIon"		"GO:0015415"	ch/phosphate_ion]
-  ["FerricDicitrate"		"GO:0102026"	ch/iron_III__dicitrate]
+  ["FerricDicitrate"		"GO:0102026"	ch/iron_chelate]
   ["ProtohemeIX"		"GO:0103115"	ch/heme_b]
   ["Alpha-D-Galactofuranose"	"GO:0103116"	ch/UDP-alpha-D-galactofuranose] 	;; Not entirely sure
   ["Phospholipid"           	"GO:0004012"    ch/phospholipid]
@@ -492,5 +492,3 @@
   :cargo ch/proton
   :from go/intracellular
   :to go/extracellular_region)
-
-(save-ontology "go.owl" :owl)

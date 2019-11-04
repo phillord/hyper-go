@@ -550,7 +550,7 @@
   ["InorganicPhosphate"	"GO:0005315"		ch/inorganic_phosphate]
   ["Oxaloacetate"		"GO:0000227"		ch/oxaloacetate_2-_]
   ["Sterol"			"GO:0015352"		ch/sterol]
-  ["Bilirubin"			"GO:0015351"		ch/bilirubin]
+  ["Bilirubin"			"GO:0015351"		ch/bilirubin_IXalpha]
   ["Nucleoside"		"GO:0010174"		ch/nucleoside] ;; http://www.tcdb.org/search/result.php?tc=2.a.31
   ["Cyanate"			"GO:0015541"		ch/cyanate]
   ["Pyruvate"			"GO:0005477"		ch/pyruvate]
@@ -1667,5 +1667,3 @@
   :across go/plasma_membrane
   :driven MembranePotential
   :cargo (owl-and ch/sodium_1+_ (owl-some hasConcentration LowConcentration)))
-
-(save-ontology "go.owl" :owl)

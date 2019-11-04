@@ -1477,7 +1477,8 @@
   :across go/plasma_membrane
   :mechanism Facilitated_diffusion
   :via Channel
-  :cargo (owl-and ch/ammonium_ion (owl-some hasConcentration HighConcentration)))
+  :cargo (owl-and ch/ammonium_ion_derivative
+                  (owl-some hasConcentration HighConcentration)))
 
 ;; water channel activity
 (deftransport ToTransportWaterByChannel
@@ -1716,5 +1717,3 @@
   :mechanism Facilitated_diffusion
   :via (owl-and Channel (owl-some hasStimulus EmptyingOfIntracellularCalciumStores))
   :cargo (owl-and ch/calcium_ion (owl-some hasConcentration HighConcentration)))
-
-(save-ontology "go.owl" :owl)

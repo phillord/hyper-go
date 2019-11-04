@@ -1,5 +1,5 @@
 (ns hyper-go.catalytic_activity
-  (:use [tawny.pattern])
+   (:use [tawny.pattern])
   (:require [tawny.owl  :refer :all]
             [tawny-chebi.chebi :as ch]
             [hyper-go.core :refer :all]

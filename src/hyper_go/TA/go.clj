@@ -1872,7 +1872,7 @@
 (deftransport ToTransportAmmoniumIon
   :comment "GO:0008519"
   :across go/plasma_membrane
-  :cargo ch/ammonium_ion)
+  :cargo ch/ammonium_ion_derivative)
 
 (deftransport ToTransportEthanolamine
   :comment "GO:0034228"
@@ -2026,7 +2026,7 @@
 (deftransport ToTransportBilirubin
   :comment "GO:0015127"
   :across go/plasma_membrane
-  :cargo ch/bilirubin)
+  :cargo ch/bilirubin_IXalpha)
 
 (deftransport ToTransportC4-dicarboxylate
   :comment "GO:0015556"
