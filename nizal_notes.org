@@ -358,7 +358,7 @@ However:
    + Total number of classes in CA: 7001
    + Total number of classes in CA not include classes from TA (already defined): 6837 
    + Most of the terms in CA are about chemical reacions, start their definition with "Catalysis of the reaction: substance + substance = substance + substance". The initial total number is: 4332
-   + The chemical reactions classified to four main groups depend on the type of reaction: oxidoreductase activity (2097), transferase activity(2097), hydrolase activity(1555), lyase activity (576), isomerase activity(246) and other small group (cyclase activity (27), demethylase activity (23))
+   + The chemical reactions classified to four main groups depend on the type of reaction: oxidoreductase activity (2097), transferase activity(2097), hydrolase activity(1555), lyase activity (576), ligase activity (262), isomerase activity(246) and other small group (cyclase activity (27), demethylase activity (23))
 	
  * Databases for chemical reactions
    + There are other databases mainly about chemical reactions such as EC, MetaCyc, KEGG and Rhea
