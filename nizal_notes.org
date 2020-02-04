@@ -434,3 +434,7 @@ However:
  * Issues with GO terms and ChEBI submitted to the github repositories
     + Merge GO:0043764 into GO:0103118: https://github.com/geneontology/go-ontology/issues/18488
     + Add new substances not in chebi: for example https://github.com/ebi-chebi/ChEBI/issues/3729, https://github.com/ebi-chebi/ChEBI/issues/3726, https://github.com/ebi-chebi/ChEBI/issues/3717
+    
+ * Terms in GO include two or more chemical reactions(2 Rhea reactions); define individually 
+    + GO:0004674 –> RHEA:46608 & RHEA:17989: we solve this by creating two different terms (one for serine and one for threonine), but with same GO ID.
+    + GO:0034211 --> RHEA:18673 & RHEA:44880: same solution above (it has extra biological property that its parent that is GTP-dependent)
