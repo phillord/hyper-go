@@ -25,7 +25,8 @@
      :product
      ~(cond (false? (empty? products))
             `(owl-and ~(vec products)))
-     )))
+
+     :enzyme Transferase)))
 
 (defmacro read-csv
   [csv-file]
@@ -35,3 +36,19 @@
 
 (def csv-data
   (read-csv "transferaseANDoxidoreductase.csv"))
+
+
+(defcatalyse GTP-DependentProteinSerineKinaseActivity
+  :comment "GO:0034211"
+  :reactant (owl-and ch/ATP_4-_ ch/L-serine_residue)
+  :product (owl-and ch/ADP_3-_ ch/hydron ch/O-phospho-L-serine_2-__residue)
+  :when ch/GTP_4-_
+  :enzyme Transferase)
+
+
+(defcatalyse GTP-DependentProteinThreonineKinaseActivity
+  :comment "GO:0034211"
+  :reactant (owl-and ch/ATP_4-_ ch/L-threonine_residue)
+  :product (owl-and ch/ADP_3-_ ch/hydron ch/O-phosphonato-L-threonine_2-__residue)
+  :when ch/GTP_4-_
+  :enzyme Transferase)

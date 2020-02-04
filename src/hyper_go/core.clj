@@ -168,6 +168,11 @@
   [small-conductance intermediate-conductance large-conductance]
   :comment "There are three types of Ca2+-activated K+ channel have been characterisedsmall-conductance (SK), intermediate conductance (IK) and large conductance (BK)")
 
+(defpartition EnzymeClass
+  [Transferase Oxidoreductase Hydrolase Lyase Ligase Isomerase Cyclase Demethylase]
+  :comment "The eight classes of enzymes defined in the catalytic activity which catalyse different biochemical reactions. "
+  :super ValuePartition)
+
 (defn with-property [frames frame-maybe property]
   (when-let [frame (frame-maybe frames)]
     (owl-some property frame)))
@@ -193,7 +198,8 @@
                        (with-property frames :via transports-through)
                        (with-property frames :results as-results-of)
                        (with-property frames :reactant hasReactant)
-                       (with-property frames :product hasProduct)]))))
+                       (with-property frames :product hasProduct)
+                       (with-property frames :enzyme hasEnzymeClass)]))))
 
 
 ;;===========================
@@ -204,19 +210,18 @@
    owl-class
    function-explicit
    [:from :to :cargo
-    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via :results :reactant :product]))
+    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via :results]))
 
 (defentity deftransport "" 'transport)
 
 ;;===========================
 ;;==== Catalytic activity ===
 ;;==== GO:0003824 ===========
-
 (def catalyse
   (extend-frameify
    owl-class
    function-explicit
-   [:reactant :product :when]))
+   [:reactant :product :when :enzyme]))
 
 (defentity defcatalyse "" 'catalyse)
 
@@ -278,3 +283,4 @@
 
 (defclass CardiacMuscleCell
   :comment "CL:0000746")
+
