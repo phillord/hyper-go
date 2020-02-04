@@ -1,4 +1,4 @@
-(ns hyper-go.go
+(ns hyper-go.simple_diffusion
   (:use [tawny.pattern])
   (:require [tawny.owl  :refer :all]
             [hyper-go.core :refer :all]
