@@ -1,4 +1,4 @@
-(ns hyper-go.catalytic_activity
+(ns hyper-go.transferase_activity
    (:use [tawny.pattern])
   (:require [tawny.owl  :refer :all]
             [tawny-chebi.chebi :as ch]
