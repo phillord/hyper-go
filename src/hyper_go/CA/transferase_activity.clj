@@ -38,7 +38,7 @@
   (read-csv "transferaseANDoxidoreductase.csv"))
 
 
-(defcatalyse GTP-DependentProteinSerineKinaseActivity
+(defcatalyse ToCatalyseGTP-DependentProteinSerineKinaseActivity
   :comment "GO:0034211"
   :reactant (owl-and ch/ATP_4-_ ch/L-serine_residue)
   :product (owl-and ch/ADP_3-_ ch/hydron ch/O-phospho-L-serine_2-__residue)
@@ -46,9 +46,20 @@
   :enzyme Transferase)
 
 
-(defcatalyse GTP-DependentProteinThreonineKinaseActivity
+(defcatalyse ToCatalyseGTP-DependentProteinThreonineKinaseActivity
   :comment "GO:0034211"
   :reactant (owl-and ch/ATP_4-_ ch/L-threonine_residue)
   :product (owl-and ch/ADP_3-_ ch/hydron ch/O-phosphonato-L-threonine_2-__residue)
   :when ch/GTP_4-_
   :enzyme Transferase)
+
+
+;;=======================================
+;;======== Transferase general terms ====
+;;=======================================
+
+;;(defcatalyse ToCatalyseN-acetyltransferaseActivity
+;;  :comment "GO:0008080"
+;;  :reactant 
+
+ch/carbon_dioxide
