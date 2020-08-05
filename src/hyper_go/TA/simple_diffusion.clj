@@ -305,10 +305,10 @@
   :across go/plasma_membrane
   :cargo ch/_5'-adenylyl_sulfate)
 
-;; (deftransport ToTransportAdenosineMonophosphate
-;;   :comment "GO:0080122"
-;;   :across go/plasma_membrane
-;;   :cargo (owl-and ch/adenosine_5'-monophosphate (owl-some has-application-role ch/drug)))
+(deftransport ToTransportAdenosineMonophosphate
+  :comment "GO:0080122"
+  :across go/plasma_membrane
+  :cargo ch/adenosine_5'-monophosphate)
 
 (deftransport ToTransportAdenosineDiphosphate
   :comment "GO:0015217"
