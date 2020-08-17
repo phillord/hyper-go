@@ -1,4 +1,4 @@
-(ns hyper-go.passive_transporter
+(ns hyper-go.facilitated_diffusion
   (:use [tawny.pattern])
   (:require [tawny.owl  :refer :all]
             [tawny-chebi.chebi :as ch]
