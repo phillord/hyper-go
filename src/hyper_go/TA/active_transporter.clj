@@ -1171,14 +1171,6 @@
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :direction OppositeDirection)
 
-(deftransport ToTransportSulfateAntiporterByVoltageGatedChannel
-  :comment "GO:0015297"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/sulfate (owl-some hasConcentration LowConcentration))
-  :driven (owl-and ch/sulfate (owl-some hasConcentration HighConcentration))
-  :via (owl-and Channel (owl-some hasStimulus Voltage))
-  :direction OppositeDirection)
-
 ;;#A substance or substances transported according to the reaction:
 ;; solute(out) + H+(in) = solute(in) + H+(out).
 ;; Driven by proton antiporter
