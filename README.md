@@ -8,7 +8,7 @@ ontologies. More about hypernormalisation available at https://arxiv.org/abs/171
 
 ## Author
 
-Nizal Alshammry (GitHub account: <a href="https://github.com/Nizal-Shammry">Nizal Alshammry<a/>
+Nizal Alshammry (GitHub account: <a href="https://github.com/Nizal-Shammry">Nizal Alshammry<a/>)
 
 
 ## License
