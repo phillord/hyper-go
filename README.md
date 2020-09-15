@@ -4,8 +4,6 @@ A hypernormnalised version of the Gene Ontology (GO). Hypernormalisation is
 a technique which support managing the development and maintenance of
 ontologies. More about hypernormalisation available at https://arxiv.org/abs/1711.07273
 
-## Usage
-
 ## Author
 
 Nizal Alshammry (GitHub account: <a href="https://github.com/Nizal-Shammry">Nizal Alshammry<a/>)
