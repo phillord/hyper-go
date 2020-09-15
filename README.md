@@ -1,4 +1,4 @@
-# hyper-go
+# Hyper-GO
 
 A hypernormnalised version of the Gene Ontology (GO). Hypernormalisation is
 a technique which support managing the development and maintenance of
