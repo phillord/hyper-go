@@ -1,14 +1,15 @@
 # hyper-go
 
-A Clojure library designed to ... well, that part is up to you.
+A hypernormnalised version of the Gene Ontology (GO). Hypernormalisation is
+a technique which support managing the development and maintenance of
+ontologies. More about hypernormalisation available at https://arxiv.org/abs/1711.07273
 
 ## Usage
 
-FIXME
+## Author
+
+Nizal Alshammry (GitHub account: <a href="https://github.com/Nizal-Shammry">Nizal Alshammry<a/>
+
 
 ## License
-
-Copyright © 2018 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Copyright (C) 2018, Newcastle University.
