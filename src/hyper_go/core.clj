@@ -22,6 +22,18 @@
 
 (defoproperty bearer-of)
 
+(defaproperty go_Id
+  :comment "GO Id, following the OBO-Format identifier")
+
+(defaproperty identitas_Id
+  :comment "Identitas Id")
+
+(defaproperty definition
+  :comment "GO class definition")
+
+(defaproperty has_exact_synonym
+  :comment "GO class exact synonym")
+
 (defoproperty transports
   :comment "Transports a specific substance or a group of related substances ")
 
@@ -81,7 +93,9 @@
   :super involved_in)
 
 (defoproperty occurs_in
+  :label "occurs in"
   :comment "http://purl.obolibrary.org/obo/BFO_0000066")
+
 
 (defoproperty contributes-to)
 
@@ -91,6 +105,7 @@
 (defoproperty during)
 
 (defoproperty activated-by)
+
 
 (defoproperty hasReactant
   :comment "every chemical reaction has reactants substrates on the left-hand side of a chemical reaction")
@@ -177,12 +192,19 @@
   (when-let [frame (frame-maybe frames)]
     (owl-some property frame)))
 
+;;(defn with-aproperty [frames frame-maybe property]
+;;  (when-let [frame (frame-maybe frames)]
+;;     (::annotation property frame)))
+
+
 (defn function-explicit [o clazz frames]
   (owl-class clazz
              :equivalent
              (owl-and
               (remove nil?
-                      [(with-property frames :from transports-from)
+                      [;(with-aproperty frames :goid go_Id)
+                       ;(with-aproperty frames :identId identitas_Id)
+                       (with-property frames :from transports-from)
                        (with-property frames :to transports-to)
                        (with-property frames :cargo transports)
                        (with-property frames :transports-with hasBindingAffinity)
@@ -209,19 +231,21 @@
   (extend-frameify
    owl-class
    function-explicit
-   [:from :to :cargo
-    :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via :results]))
+   [;:goid :identId
+    :from :to :cargo :role :when :driven :linked :transports-with :mechanism :across :direction :involved :occurs :via :results]))
 
 (defentity deftransport "" 'transport)
 
 ;;===========================
 ;;==== Catalytic activity ===
 ;;==== GO:0003824 ===========
+
 (def catalyse
   (extend-frameify
    owl-class
    function-explicit
-   [:reactant :product :when :enzyme]))
+   [;:goid :identId
+    :reactant :product :when :enzyme]))
 
 (defentity defcatalyse "" 'catalyse)
 
@@ -260,20 +284,20 @@
 
 
 (defclass Adenine_1518_or_adenine_1519__in_16S_rRNA
-  :super ch/adenosine_5'-monophosphate_1-__residue
-  :comment "GO:0052908")
+  :super ch/adenosine_5'-monophosphate_1-__residue)
+  ;;goId "GO:0052908")
 
 (defclass N_6_-dimethyladenine_1518_or_N_6_-dimethyladenine_1519__in_16S_rRNA
-  :super ch/N_6__N_6_-dimethyladenosine_5'-monophosphate_1-__residue
-  :comment "GO:0052908")
+  :super ch/N_6__N_6_-dimethyladenosine_5'-monophosphate_1-__residue)
+  ;;goId "GO:0052908")
 
 (defclass Adenine_1779_or_adenine_1780__in_18S_rRNA
-  :super ch/adenosine_5'-monophosphate_1-__residue
-  :comment "GO:0052909")
+  :super ch/adenosine_5'-monophosphate_1-__residue)
+  ;;goId "GO:0052909")
 
 (defclass N_6_-dimethyladenine_1779_or_N_6_-dimethyladenine_1780__in_18S_rRNA
-  :super ch/N_6__N_6_-dimethyladenosine_5'-monophosphate_1-__residue
-  :comment "GO:0052909")
+  :super ch/N_6__N_6_-dimethyladenosine_5'-monophosphate_1-__residue)
+  ;;goId "GO:0052909")
 
 ;; =====================================================
 ;; ================ Classes from Other Ontologies ======
@@ -284,3 +308,5 @@
 (defclass CardiacMuscleCell
   :comment "CL:0000746")
 
+
+(save-ontology "hyper-go.owl" :owl)

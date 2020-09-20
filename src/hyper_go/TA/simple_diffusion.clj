@@ -117,6 +117,7 @@
 ;; Neurotransmitters are any chemical substance that is capable of transmitting a nerve impulse from a neuron to another cell. 
 (deftransport ToTransportNeurotransmitter
   :comment "GO:0005326"
+  :across go/plasma_membrane
   :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/neurotransmitter)))
 
 ;; chemical role
@@ -861,10 +862,9 @@
   :cargo (owl-and ch/L-ascorbic_acid (owl-some hasEnantiomerism L-Enantiomer)
                   (owl-some has-biological-role ch/vitamin ch/coenzyme)))
 
-
+;;annotation "Uronic acids are any monocarboxylic acid formally derived by oxidizing to a carboxyl group the terminal hydroxymethylene group of either an aldose with four or more carbon atoms in the molecule, or of any glycoside derived from such an aldose."
 (deftransport ToTransportUronicAcid
   :comment "GO:0015133"
-  ;:annotation "Uronic acids are any monocarboxylic acid formally derived by oxidizing to a carboxyl group the terminal hydroxymethylene group of either an aldose with four or more carbon atoms in the molecule, or of any glycoside derived from such an aldose."
   :across go/plasma_membrane
   :cargo ch/uronic_acid)
 
@@ -1120,15 +1120,9 @@
   :across go/plasma_membrane
   :cargo ch/iron_3+_)
 
-;; transferrin not exist in Chebi
-(deftransport ToTransportTransferrin
-  :comment "GO:0033570"
-  :across go/plasma_membrane
-  :cargo Transferrin)
-
 ;; Lactoferrin not exist in Chebi
 (deftransport ToTransportLactoferrin
-  :comment "GO:0033570"
+  :comment "GO:0033569"
   :across go/plasma_membrane
   :cargo Lactoferrin)
 
@@ -2291,7 +2285,7 @@
 
 ;; Propanoate has no role antibiotic, but propionic acid does.
 (deftransport ToTransportPropionicAcid
-  :comment "GO:00155522"
+  :comment "GO:0015552"
   :across go/plasma_membrane
   :cargo (owl-and ch/propionic_acid (owl-some has-biological-role ch/antimicrobial_drug)))
 
@@ -2453,25 +2447,14 @@
   :across go/plasma_membrane
   :cargo ch/chloride)
 
-(deftransport ToTransportWithChemicalCondition
-  :across go/plasma_membrane
-  :cargo ch/chemical_entity
-  :when ch/chemical_entity)
-
-(deftransport ToTransportPhosphateWithSodiumCondition
-  :comment "GO:0015321"
-  :across go/plasma_membrane
-  :cargo ch/phosphate_ion
-  :when ch/sodium_1+_)
-
 (deftransport ToTransportBicozamycin
   :comment "GO:0015545"
   :across go/plasma_membrane
   :cargo (owl-and ch/bicozamycin (owl-some has-biological-role ch/bicozamycin)))
 
+;;"carbonyl cyanide m-chlorophenylhydrazone transmembrane transporter"
 (deftransport ToTransportCCCP
   :comment "GO:0015549"
-  :comment "carbonyl cyanide m-chlorophenylhydrazone transmembrane transporter"
   :across go/plasma_membrane
   :cargo ch/CCCP)
 
@@ -2485,18 +2468,6 @@
   :across go/plasma_membrane
   :cargo (owl-and ch/heme (owl-some has-biological-role ch/cofactor)))
 
-;; Enables the directed movement of proteins into, out of or within a cell, or between cells. 
-(deftransport ToTransportProtein
-  :comment "GO:0008565"
-  :cargo ch/protein)
-
-(deftransport ToTransportLipoprotein
-  :comment "GO:0042954"
-  :cargo ch/lipoprotein)
-
-(deftransport ToTransportGlycoprotein
-  :comment "GO:0034437"
-  :cargo ch/glycoprotein)
 
 (deftransport ToTransportGlycolipid
   :comment "GO:0034202"
