@@ -504,8 +504,6 @@
 
 ;; (deftransport ToTransportGlycolipid :annotation (goid"GO:0034202") :cargo ch/glycolipid)
 
-;; (deftransport ToTransportL-ascorbateWithSodiumCondition:annotation (goid "GO:0070890":across go/plasma_membrane:cargo ch/L-ascorbate:when ch/sodium_1+_)
-
 ;;High/Low affinity Transmembrane transporter activity
 (defn substance-transporting-across-membrane-affinity [lis]
   `(deftransport ~(symbol (str "ToTransport" (first lis) "TransmembraneWith" (nth lis 2)))
