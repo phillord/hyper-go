@@ -645,6 +645,12 @@
                   (owl-some has-application-role ch/drug))
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration)))
 
+(deftransport ToTransportProteinBySecondaryActiveTransmembrane
+  :annotation (goid "GO:0009977")
+  :across go/plasma_membrane
+  :cargo (owl-and ch/protein (owl-some hasConcentration LowConcentration))
+  :driven (owl-and ch/proton (owl-some hasConcentration HighConcentration)))
+
 ;; =====================================================
 ;;============== Symporter Secondary Active transporters =========
 ;;======================================================
@@ -794,7 +800,8 @@
      :comment ~(second lis)
      :cargo
      ~(cond (= 5 (count lis))
-            `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration) (owl-some ~(nth lis 3) ~(nth lis 4)))
+            `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration)
+                      (owl-some ~(nth lis 3) ~(nth lis 4)))
             :else `(owl-and ~(nth lis 2) (owl-some hasConcentration LowConcentration)))
      :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
      :across go/plasma_membrane
@@ -838,7 +845,8 @@
   ["Alanine"			"GO:0015655"	ch/alanine hasAcidity Neutral]
   ["Myo-inositol"		"GO:0005367"	ch/myo-inositol]
   ["Purine"			"GO:0015390"	ch/purine]
-  )
+  ["Lysophospholipid"           "GO:0051978"    ch/monoacylglycerol_phosphate]
+  ["OrganicAnion"               "GO:0043250"    ch/organic_anion])
 
 
 ;; neutral, basic amino acid:sodium:chloride symporter activity GO:0015374
@@ -992,11 +1000,6 @@
   :driven (owl-and ch/sodium_1+_ (owl-some hasConcentration HighConcentration))
   :transports-with HighAffinity
   :direction SameDirection)
-
-
-
-
-
 
 
 

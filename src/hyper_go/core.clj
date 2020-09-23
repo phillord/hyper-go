@@ -5,9 +5,9 @@
             [tawny-go.go :as go]))
 
 
-;;(owl-import tawny-chebi.chebi/chebi)
+(owl-import tawny-chebi.chebi/chebi)
 
-;;(owl-import tawny-go.go/go)
+(owl-import tawny-go.go/go)
 
 (defontology HyperGo
   :iri "http://purl.obolibrary.org/obo/HyperGo")
@@ -24,8 +24,13 @@
 (def identitasId (annotator identitas_Id))
 (defaproperty definition
   :comment "GO class definition")
+(def Def (annotator definition))
 (defaproperty has_exact_synonym
   :comment "GO class exact synonym")
+(def synon (annotator has_exact_synonym))
+(defaproperty database_across_reference
+  :comment "reference to related source: an ontology or database")
+(def database (annotator database_across_reference))
 
 (defoproperty transports
   :comment "Transports a specific substance or a group of related substances ")
@@ -65,7 +70,8 @@
   :comment "transports solute through a channel or pore")
 (defoproperty involved_in
   :comment "a molecular activity that involved in a biological process"
-  :comment "http://purl.obolibrary.org/obo/RO_0002331")
+  :annotation (database "RO_0002331"))
+
 (defoproperty involved_in_positive
   :super involved_in
   :comment "a molecular activity that positively involved in a biological process")
@@ -77,7 +83,7 @@
   :comment "a molecular activity that occurs in a specific cellular location")
 (defoproperty contributes-to
   :comment "a molecular activity that contributes to a biological process"
-  :comment "http://purl.obolibrary.org/obo/RO_0002326")
+  :annotation (database "RO_0002326"))
 (defoproperty established-by
   :comment "a molecular activity established by a biological activity.")
 (defoproperty during
@@ -270,9 +276,7 @@
 ;; ================ Classes from Other Ontologies ======
 ;; =====================================================
 (defclass Hepatocyte
-  :comment "CL:0000182")
+  :annotation (database "CL:0000182"))
 
 (defclass CardiacMuscleCell
-  :comment "CL:0000746")
-
-(save-ontology "ontology.owl" :owl)
+  :annotation (database "CL:0000746"))

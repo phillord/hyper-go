@@ -11,2464 +11,668 @@
 (ontology-to-namespace hyper-go.core/HyperGo)
 
 (deftransport ToTransport
-  :comment "GO:0005215"
+  :annotation (goid "GO:0005215")
+  :annotation (identitasId (identitas ""))
   :cargo ch/chemical_entity)
 
 (deftransport ToTransportLipid
-  :comment "GO:0005319"
+  :annotation (goid "GO:0005319")
   :cargo ch/lipid)
 
 (deftransport ToTransportPhospholipid
-  :comment "GO:0005548"
+  :annotation (goid "GO:0005548")
+  :annotation (identitasId (identitas ""))
   :cargo ch/phospholipid)
 
 (deftransport ToTransportPhosphatidylinositol
-  :comment "GO:0008526"
+  :annotation (goid "GO:0008526")
+  :annotation (identitasId (identitas ""))
   :cargo ch/phosphatidylinositol)
 
 (deftransport ToTransportPhosphatidylethanolamine
-  :comment "GO:1904121"
+  :annotation (goid "GO:1904121")
+  :annotation (identitasId (identitas ""))
   :cargo ch/phosphatidylethanolamine)
 
-(deftransport ToTransportPhosphatidicAcid
-  :comment "GO:1990050"
-  :cargo ch/phosphatidic_acid)
-
-(deftransport ToTransportLysophospholipid
-  :comment "GO:0051978"
-  :across go/plasma_membrane
-  :cargo ch/monoacylglycerol_phosphate)
-
 (deftransport ToTransportPhosphatidylcholine
-  :comment "GO:0008525"
+  :annotation (goid "GO:0008525")
+  :annotation (identitasId (identitas ""))
   :cargo ch/phosphatidylcholine)
 
-(deftransport ToTransportPolymyxin
-  :comment "GO:0042897"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/polymyxin (owl-some has-biological-role ch/antimicrobial_drug)))
 
 (deftransport ToTransportSphingolipid
-  :comment "GO:0046624"
+  :annotation (goid "GO:0046624")
+  :annotation (identitasId (identitas ""))
   :cargo ch/sphingolipid)
 
-(deftransport ToTransportCeramide
-  :comment "GO:0035620"
-  :cargo ch/ceramide)
-
-(deftransport ToTransportCeramide1-Phosphate
-  :comment "GO:1902388"
-  :cargo ch/ceramide_1-phosphate)
-
 (deftransport ToTransportSterol
-  :comment "GO:0015248"
+  :annotation (goid "GO:0015248")
+  :annotation (identitasId (identitas ""))
   :cargo ch/sterol)
 
+;;Transmembrane transporter activity
+(defn substance-transporting-across-membrane [lis]
+  `(deftransport ~(symbol (str "ToTransport" (first lis) "Transmembrane"))
+     :annotation (goid ~(second lis))
+     :annotation (identitasId ~(identitas ""))
+     :across go/plasma_membrane
+     :cargo
+     ~(cond (= 3 (count lis)) (nth lis 2)
+            (= 5 (count lis))
+            `(owl-and ~(nth lis 2)
+                      (owl-some ~(nth lis 3) ~(nth lis 4)))
+            (= 6 (count lis))
+            `(owl-and ~(nth lis 2)
+                      (owl-some ~(nth lis 3) ~(nth lis 4) ~(nth lis 5)))
+            (= 7 (count lis))
+            `(owl-and ~(nth lis 2)
+                      (owl-some ~(nth lis 3) ~(nth lis 4))
+                      (owl-some ~(nth lis 5) ~(nth lis 6)))
+            (= 8 (count lis))
+            `(owl-and ~(nth lis 2)
+                      (owl-some ~(nth lis 3) ~(nth lis 4))
+                      (owl-some ~(nth lis 5) ~(nth lis 6) ~(nth lis 7)))
+            (= 9 (count lis))
+            `(owl-and ~(nth lis 2)
+                      (owl-some ~(nth lis 3) ~(nth lis 4))
+                      (owl-some ~(nth lis 5) ~(nth lis 6))
+                      (owl-some ~(nth lis 7) ~(nth lis 8)))
+            (= 10 (count lis))
+            `(owl-and ~(nth lis 2)
+                      (owl-some ~(nth lis 3) ~(nth lis 4))
+                      (owl-some ~(nth lis 5) ~(nth lis 6))
+                      (owl-some ~(nth lis 7) ~(nth lis 8) ~(nth lis 9)))
+            (= 11 (count lis))
+            `(owl-and ~(nth lis 2)
+                      (owl-some ~(nth lis 3) ~(nth lis 4))
+                      (owl-some ~(nth lis 5) ~(nth lis 6))
+                      (owl-some ~(nth lis 7) ~(nth lis 8))
+                      (owl-some ~(nth lis 9)~(nth lis 10)))
+            (= 12 (count lis))
+            `(owl-and ~(nth lis 2)
+                      (owl-some ~(nth lis 3) ~(nth lis 4))
+                      (owl-some ~(nth lis 5) ~(nth lis 6))
+                      (owl-some ~(nth lis 7) ~(nth lis 8))
+                      (owl-some ~(nth lis 9)~(nth lis 10)~(nth lis 11)))
+
+            :else (println "Values of the ranges"))))
+
+;; macro function to do the classes mapping  
+(defmacro deftransporters-simple-diffusion-transmembrane [& lis]
+  `(do ~@(map substance-transporting-across-membrane lis)))
+
+;; List of the substances transport by simple diffusion across plasma membrane
+(deftransporters-simple-diffusion-transmembrane
+  ["Substance"	                   "GO:0022857"	ch/chemical_entity]
+  ["Drug"	                   "GO:0015238"	ch/chemical_entity	                 has-application-role	ch/drug]
+  ["Vitamin"	                   "GO:0090482"	ch/chemical_entity	                 has-biological-role	ch/vitamin]
+  ["Cofactor"	                   "GO:0051184"	ch/chemical_entity	                 has-biological-role	ch/cofactor]
+  ["Siderophore"	           "GO:0015343"	ch/chemical_entity	                 has-biological-role	ch/siderophore]
+  ["Neurotransmitter"	           "GO:0005326"	ch/chemical_entity	                 has-biological-role	ch/neurotransmitter]
+  ["Antibiotic"	           "GO:0042895"	ch/chemical_entity	                 has-biological-role	ch/antimicrobial_drug]
+  ["Xenobiotic"	           "GO:0042910"	ch/chemical_entity	                 has-biological-role	ch/xenobiotic]
+  ["Auxin"	                   "GO:0080161"	ch/chemical_entity	                 has-biological-role	ch/auxin]
+  ["Coenzyme"	                   "GO:0051185"	ch/chemical_entity	                 has-biological-role	ch/coenzyme]
+  ["Toxin"	                   "GO:0019534"	ch/toxin]
+  ["CarbonDioxide"	           "GO:0035379"	ch/carbon_dioxide	                 has-application-role	ch/drug]
+  ["Poly-beta-1_6-N-acetyl-D-glucosamine""GO:1901515"	ch/poly-beta-1_6-N-acetyl-D-glucosamine]
+  ["Lipo-chitinOligosaccharide"    "GO:1901513"	ch/lipo-chitin_oligosaccharide]
+  ["AcetateEster"	           "GO:1901375"	ch/acetate_ester]
+  ["Glucose6-Phosphate"	   "GO:0015152"	ch/D-glucose_6-phosphate]
+  ["Amine"	                   "GO:0005275"	ch/amine]
+  ["Nucleobase"	           "GO:0015205"	ch/nucleobase]
+  ["PyrimidineNucleobase"	   "GO:0005350"	ch/pyrimidine_nucleobase]
+  ["Uracil"	                   "GO:0015210"	ch/uracil	                                      has-application-role	ch/drug]
+  ["Cytosine"	                   "GO:0015209"	ch/cytosine]
+  ["PurineNucleobase"	           "GO:0005345"	ch/purine_nucleobase]
+  ["AdenineNucleobase"	           "GO:0015207"	ch/adenine]
+  ["GuanineNucleobase"	           "GO:0015208"	ch/guanine]
+  ["Xanthine"	                   "GO:0042907"	ch/xanthine]
+  ["NucleobaseContainingCompound"  "GO:0015932"	ch/nucleobase-containing_molecular_entity]
+  ["Nucleotide"	           "GO:0015215"	ch/nucleotide]
+  ["FlavinAdenineDinucleotide"	   "GO:0015230"	ch/flavin_adenine_dinucleotide	                      has-biological-role	ch/cofactor]
+  ["NicotinamideAdenineDinucleotide"	"GO:0051724"	ch/NAD	                                              has-biological-role	ch/coenzyme]
+  ["Deoxynucleotide"	           "GO:0030233"	ch/deoxyribonucleotide]
+  ["NicotinamideMononucleotide"    "GO:0015663"	ch/nicotinamide_mononucleotide	                      has-biological-role	ch/cofactor]
+  ["PurineNucleotide"	           "GO:0015216"	ch/purine_nucleotide]
+  ["GuanineNucleotide"	           "GO:0001409"	ch/guanyl_nucleotide]
+  ["AdenineNucleotide"	           "GO:0000295"	ch/adenyl_nucleotide]
+  ["3Phosphoadenosine-5Phosphosulfate""GO:0046964"	ch/_3'-phospho-5'-adenylyl_sulfate]
+  ["AdenosineTriphosphate"	   "GO:0005347"	ch/ATP	                                              has-application-role	ch/drug]
+  ["5AdenylylSulfate"	           "GO:1902557"	ch/_5'-adenylyl_sulfate]
+  ["AdenosineMonophosphate"	   "GO:0080122"	ch/adenosine_5'-monophosphate]
+  ["AdenosineDiphosphate"	   "GO:0015217"	ch/ADP]
+  ["Adenosine_3-5-bisphosphate"    "GO:0071077"	ch/adenosine_3'_5'-bisphosphate]
+  ["FattyAcyl-CoA"	           "GO:0015607"	ch/fatty_acyl-CoA	                              derived-from	ch/fatty_acid]
+  ["Coenzyme-A"	           "GO:0015228"	ch/coenzyme_A	                                      has-biological-role	ch/coenzyme]
+  ["Acetyl-CoA"	           "GO:0008521"	ch/acetyl-CoA	                                      has-biological-role	ch/coenzyme]
+  ["PurineRibonucleotide"	   "GO:0005346"	ch/purine_ribonucleotide]
+  ["NucleotideSulfate"	           "GO:0005340"	ch/nucleotide-sulfate]
+  ["FlavineMononucleotide"	   "GO:0044610"	ch/FMN	                                              has-biological-role	ch/coenzyme]
+  ["PyrimidineNucleotide"	   "GO:0015218"	ch/pyrimidine_nucleotide]
+  ["NucleotideSugar"	           "GO:0005338"	ch/nucleotide-sugar]
+  ["PyrimidineNucleotideSugar"	   "GO:0015165"	ch/pyrimidine_nucleotide-sugar]
+  ["UDP-N-Acetylgalactosamine"	   "GO:0005463"	ch/UDP-N-acetylgalactosamine-5_6-ene]
+  ["UDP-N-Acetylglucosamine"	   "GO:0005462"	ch/UDP-N-acetyl-alpha-D-glucosamine]
+  ["UDP-Xylose"	           "GO:0005464"	ch/UDP-alpha-D-xylose]
+  ["CMP-N-Acetylneuraminate"	   "GO:0005456"	ch/CMP-N-acetyl-beta-neuraminic_acid]
+  ["UDP-Galactose"	           "GO:0005459"	ch/UDP-D-galactose]
+  ["UDP-GlucuronicAcid"	   "GO:0005461"	ch/UDP-alpha-D-glucuronic_acid]
+  ["UDP-Glucose"	           "GO:0005460"	ch/UDP-D-glucose]
+  ["PurineNucleotideSugar"	   "GO:0036080"	ch/purine_nucleotide-sugar]
+  ["GDP-Fucose"	           "GO:0005457"	ch/GDP-fucose]
+  ["GDP-Mannose"	           "GO:0005458"	ch/GDP-mannose]
+  ["NucleicAcid"	           "GO:0051032"	ch/nucleic_acid]
+  ["DeoxyriboNucleicAcid"	   "GO:0051035"	ch/deoxyribonucleic_acid]
+  ["RiboNucleicAcid"	           "GO:0051033"	ch/ribonucleic_acid]
+  ["TransferRNA"	           "GO:0051034"	ch/transfer_RNA]
+  ["Protein-DNA-Complex"	   "GO:0015219"	ch/macromolecule	                               has-part	ch/protein	ch/deoxyribonucleic_acid]
+  ["Nucleoside"	           "GO:0005337"	ch/nucleoside]
+  ["PyrimidineNucleoside"	   "GO:0015214"	ch/pyrimidine_nucleoside]
+  ["Cytidine"	                   "GO:0015212"	ch/cytidine]
+  ["Uridine"	                   "GO:0015213"	ch/uridine]
+  ["PurineNucleoside"	           "GO:0015211"	ch/purine_nucleoside]
+  ["Xanthosine"	           "GO:0015553"	ch/xanthosine]
+  ["NicotinamideRiboside"	   "GO:0034257"	ch/N-ribosylnicotinamide]
+  ["ChlorophyllCatabolite"	   "GO:0010290"	ch/primary_fluorescent_chlorophyll_catabolite]
+  ["Azole"	                   "GO:1901474"	ch/azole]
+  ["Fluconazole"	           "GO:0015244"	ch/fluconazole	                                       has-biological-role	ch/antimicrobial_drug	ch/xenobiotic]
+  ["Acadesine"	                   "GO:1903089"	ch/acadesine	                                       has-application-role	ch/drug]
+  ["ThiaminePyrophosphate"	   "GO:0090422"	ch/thiamine_1+__diphosphate_1-_                        has-biological-role	ch/vitamin]
+  ["Sulfathiazole"	           "GO:0015546"	ch/sulfathiazole	                               has-biological-role	ch/antimicrobial_drug	ch/xenobiotic]
+  ["Thiamine"	                   "GO:0015234"	ch/thiamine	                                       has-application-role	ch/drug	   has-biological-role	ch/vitamin]
+  ["Aminotriazole"	           "GO:1901478"	ch/amitrole]
+  ["SulfurMolecularEntity"	   "GO:1901682"	ch/sulfur_molecular_entity]
+  ["S-adenosyl-L-methionine"	   "GO:0000095"	ch/S-adenosyl-L-methionine	                       has-application-role	ch/drug     has-biological-role	ch/coenzyme]
+  ["Sulfite"	                   "GO:0000319"	ch/sulfite]
+  ["Thiosulfate"	           "GO:0015117"	ch/thiosulfate]
+  ["Sulfate"	                   "GO:0015116"	ch/sulfate]
+  ["CarbohydrateDerivative"	   "GO:1901505"	ch/carbohydrate_derivative]
+  ["N-acetylglucosamine"	   "GO:0015572"	ch/N-acetylglucosamine]
+  ["Methylgalactoside"	           "GO:0015592"	ch/methyl_galactoside]
+  ["Galactosamine"	           "GO:0019196"	ch/galactosamine]
+  ["N-acetylgalactosamine"	   "GO:0015571"	ch/N-acetylgalactosamine]
+  ["Glucoside"	                   "GO:0042947"	ch/glucoside]
+  ["Alpha-Glucoside"	           "GO:0015151"	ch/alpha-glucoside]
+  ["Beta-Glucoside"	           "GO:0015573"	ch/beta-glucoside]
+  ["Arbutin"	                   "GO:0042951"	ch/hydroquinone_O-beta-D-glucopyranoside]
+  ["AbscisicAcidGlucosylEster"	   "GO:1902417"	ch/_+_-abscisic_acid_D-glucopyranosyl_ester]
+  ["FerricTriacetylfusarinineC"    "GO:0015621"	ch/N'_N''_N'''-triacetylfusarinine_C]
+  ["Carbohydrate"	           "GO:0015144"	ch/carbohydrate]
+  ["Oligosaccharide"	           "GO:0015157"	ch/oligosaccharide]
+  ["Raffinose"	                   "GO:0015158"	ch/raffinose]
+  ["Disaccharide"	           "GO:0015154"	ch/disaccharide]
+  ["Trehalose"	                   "GO:0015574"	ch/trehalose]
+  ["Sucrose"	                   "GO:0008515"	ch/sucrose]
+  ["Melibios"	                   "GO:0015156"	ch/melibiose]
+  ["Lactose"	                   "GO:0015155"	ch/lactose]
+  ["Cellobiose"	           "GO:0019191"	ch/cellobiose]
+  ["Maltose"	                   "GO:0005363"	ch/maltose]
+  ["Oligogalacturonide"	   "GO:0033155"	ch/oligogalacturonide]
+  ["Aldarate"	                   "GO:0042876"	ch/aldaric_acid_anion]
+  ["D-glucarate"	           "GO:0042878"	ch/D-glucarate_2-_	                 hasEnantiomerism	D-Enantiomer	                 has-application-role	ch/drug]
+  ["Galactarate"	           "GO:1902301"	ch/galactaric_acid_anion]
+  ["Galactitol"	           "GO:0015577"	ch/galactitol]
+  ["Macromolecule"	           "GO:0022884"	ch/biomacromolecule]
+  ["TeichoicAcid"	           "GO:0015162"	ch/teichoic_acid]
+  ["Lipopolysaccharide"	   "GO:0015221"	ch/lipopolysaccharide]
+  ["Polysaccharide"	           "GO:0015159"	ch/polysaccharide]
+  ["Beta-glucan"	           "GO:0015160"	ch/beta-D-glucan]
+  ["CapsularPolysaccharide"	   "GO:0015161"	ch/polysaccharide]
+  ["Arabinan"	                   "GO:0042901"	ch/arabinan]
+  ["Maltodextrin"	           "GO:0042958"	ch/maltodextrin]
+  ["Dextrin"	                   "GO:0042957"	ch/dextrin]
+  ["Peptidoglycan"	           "GO:0015647"	ch/peptidoglycan]
+  ["PeptidoglycanPeptide"	   "GO:0015640"	PeptidoglycanPeptide]
+  ["Lipid-linkedPeptidoglycan"	   "GO:0015648"	ch/lipid-linked_peptidoglycan]
+  ["Monosaccharide"	           "GO:0015145"	ch/monosaccharide]
+  ["Hexose"	                   "GO:0015149"	ch/hexose]
+  ["Rhamnose"	                   "GO:0015153"	ch/rhamnose]
+  ["Mannose"	                   "GO:0015578"	ch/mannose]
+  ["Glucose"	                   "GO:0005355"	ch/glucose]
+  ["D-Glucose"	                   "GO:0055056"	ch/D-glucose	                         hasEnantiomerism	D-Enantiomer]
+  ["Galactose"	                   "GO:0005354"	ch/galactose]
+  ["Fructose"	                   "GO:0005353"	ch/fructose]
+  ["Allose"	                   "GO:0015593"	ch/allose]
+  ["Sorbose"	                   "GO:0019194"	ch/sorbose]
+  ["Fucose"	                   "GO:0015150"	ch/fucose]
+  ["Pentose"	                   "GO:0015146"	ch/pentose]
+  ["D-ribose"	                   "GO:0015591"	ch/D-ribose	                         hasEnantiomerism	D-Enantiomer]
+  ["D-xylose"	                   "GO:0015148"	ch/D-xylose	                         hasEnantiomerism	D-Enantiomer]
+  ["Arabinose"	                   "GO:0042900"	ch/arabinose]
+  ["L-arabinose"	           "GO:0015147"	ch/L-arabinose	                         hasEnantiomerism	L-Enantiomer]
+  ["L-ascorbicAcid"	           "GO:0015229"	ch/L-ascorbic_acid	                 hasEnantiomerism	L-Enantiomer	                 has-biological-role	ch/vitamin	ch/coenzyme]
+  ["UronicAcid"	           "GO:0015133"	ch/uronic_acid]
+  ["Hexuronate"	           "GO:0015134"	ch/hexuronate]
+  ["Glucuronate"	           "GO:0015135"	ch/glucuronate]
+  ["D-Glucuronate"	           "GO:0042880"	ch/D-glucuronate	                 hasEnantiomerism	D-Enantiomer]
+  ["Galacturonate"	           "GO:0015550"	ch/galacturonate]
+  ["AminoAcidDerivative"	   "GO:0072349"	ch/amino_acid_derivative]
+  ["FolicAcid"	                   "GO:0008517"	ch/folic_acid	                         has-application-role	ch/drug	                 has-biological-role	ch/vitamin]
+  ["Creatine"	                   "GO:0005308"	ch/creatine	                         has-application-role	ch/drug	                 has-biological-role	ch/cofactor]
+  ["S-methylmethionine"	   "GO:0000100"	ch/S-methyl-L-methionine]
+  ["Carnitine"	                   "GO:0015226"	ch/carnitine]
+  ["R-Carnitine"	           "GO:1901235"	ch/_R_-carnitine	                 has-application-role	ch/drug	                 has-biological-role	ch/vitamin]
+  ["L-hydroxyproline"	           "GO:0034590"	ch/_4-hydroxy-L-proline	         hasEnantiomerism	L-Enantiomer]
+  ["5-formyltetrahydrofolicAcid"   "GO:0015231"	ch/_5-formyltetrahydrofolic_acid	 has-biological-role	ch/cofactor]
+  ["Carcinine"	                   "GO:1905131"	ch/carcinine]
+  ["Glutathione"	           "GO:0034634"	ch/glutathione	                          has-biological-role	ch/cofactor]
+  ["L-cystine"	                   "GO:0015184"	ch/L-cystine	                          hasEnantiomerism	L-Enantiomer]
+  ["4-TrimethylammonioButanoate"   "GO:1901236"	ch/_4-_trimethylammonio_butanoate]
+  ["AminoAcidBetaine"	           "GO:0015199"	ch/glycine_betaine]
+  ["Amide"	                   "GO:0042887"	ch/amide]
+  ["Fosmidomycin"	           "GO:0042898"	ch/fosmidomycin	                 has-biological-role	ch/antimicrobial_drug]
+  ["Benomyl"	                   "GO:1901479"	ch/benomyl	                         has-biological-role	ch/antimicrobial_drug	ch/xenobiotic]
+  ["Methotrexate"	           "GO:0015350"	ch/methotrexate	                 has-application-role	ch/drug]
+  ["Dethiobiotin"	           "GO:1901604"	ch/dethiobiotin]
+  ["Urea"	                   "GO:0015204"	ch/urea]
+  ["Allantoate"	           "GO:0015124"	ch/allantoate]
+  ["Peptide"	                   "GO:1904680"	ch/peptide]
+  ["Protein"	                   "GO:0008320"	ch/protein]
+  ["Bacteriocin"	           "GO:0022885"	ch/bacteriocin	                 has-application-role	ch/antimicrobial_drug]
+  ["Colicin"	                   "GO:0042912"	ch/colicin	                 has-application-role	ch/antimicrobial_drug]
+  ["Microcin"	                   "GO:0015638"	ch/microcin	                 has-biological-role	ch/antimicrobial_drug]
+  ["Oligopeptide"	           "GO:0035673"	ch/oligopeptide]
+  ["Tetrapeptide"	           "GO:1901584"	ch/tetrapeptide]
+  ["Tripeptide"	           "GO:0042937"	ch/tripeptide]
+  ["Dipeptide"	                   "GO:0071916"	ch/dipeptide]
+  ["InorganicMolecularEntity"	   "GO:0015318"	ch/inorganic_molecular_entity]
+  ["Water"	                   "GO:0005372"	ch/water]
+  ["Arcidine"	                   "GO:0042911"	ch/acridine	                         has-biological-role	ch/xenobiotic]
+  ["InorganicCation"	           "GO:0022890"	ch/inorganic_cation]
+  ["TrivalentInorganicCation"	   "GO:0072510"	ch/trivalent_inorganic_cation]
+  ["DivalentInorganicCation"	   "GO:0072509"	ch/divalent_inorganic_cation]
+  ["FerrousIron"	           "GO:0015093"	ch/iron_2+_]
+  ["ZincIon"	                   "GO:0005385"	ch/zinc_2+_]
+  ["FerricIron"	           "GO:0015091"	ch/iron_3+_]
+  ["MonovalentInorganicCation"	   "GO:0015077"	ch/monovalent_inorganic_cation]
+  ["Proton"	                   "GO:0015078"	ch/proton]
+  ["SodiumIon"	                   "GO:0015081"	ch/sodium_1+_]
+  ["PotassiumIon"	           "GO:0015079"	ch/potassium_1+_]
+  ["Alkane"	                   "GO:0015567"	ch/alkane]
+  ["Cyanate"	                   "GO:0015110"	ch/cyanate]
+  ["AminoAcid"	                   "GO:0015171"	ch/amino_acid]
+  ["L-AminoAcid"	           "GO:0015179"	ch/L-alpha-amino_acid	                 hasEnantiomerism	L-Enantiomer]
+  ["D-AminoAcid"	           "GO:0042943"	ch/D-alpha-amino_acid	                 hasEnantiomerism	D-Enantiomer]
+  ["D-methionine"	           "GO:0048474"	ch/D-methionine	                 hasEnantiomerism	D-Enantiomer]
+  ["D-aspartate"	           "GO:0140010"	ch/D-aspartate_2-_	                 hasEnantiomerism	D-Enantiomer]
+  ["D-alanine"	                   "GO:0042944"	ch/D-alanine	                         hasEnantiomerism	D-Enantiomer	                 hasAcidity	Neutral]
+  ["L-tyrosine"	           "GO:0005302"	ch/L-tyrosine	                         has-application-role	ch/drug	                 hasEnantiomerism	L-Enantiomer]
+  ["L-alanine"	                   "GO:0015180"	ch/L-alanine	                         hasAcidity	Neutral	                         hasEnantiomerism	L-Enantiomer]
+  ["L-serine"	                   "GO:0015194"	ch/L-serine	                         hasEnantiomerism	L-Enantiomer	                 hasAcidity	Neutral]
+  ["Homoserine"	           "GO:0042970"	ch/homoserine	                         hasAcidity	Neutral]
+  ["L-phenylalanine"	           "GO:0015192"	ch/L-phenylalanine	                 hasEnantiomerism	L-Enantiomer	                 has-application-role	ch/drug]
+  ["L-leucine"	                   "GO:0015190"	ch/L-leucine	                         hasEnantiomerism	L-Enantiomer	                 hasAcidity	Neutral]
+  ["L-diaminopimelate"	           "GO:0015626"	ch/LL-2_6-diaminopimelic_acid	         hasEnantiomerism	L-Enantiomer]
+  ["L-ornithine"	           "GO:0000064"	ch/L-ornithine	                         hasEnantiomerism	L-Enantiomer	                 has-application-role	ch/drug]
+  ["L-isoleucine"	           "GO:0015188"	ch/L-isoleucine	                 hasAcidity	Neutral	                         hasEnantiomerism	L-Enantiomer]
+  ["AromaticAminoAcid"	           "GO:0015173"	ch/aromatic_amino_acid]
+  ["BranchedChainAminoAcid"	   "GO:0015658"	ch/branched-chain_amino_acid]
+  ["SulfurAminoAcid"	           "GO:0000099"	ch/sulfur-containing_amino_acid]
+  ["Methionine"	           "GO:0043865"	ch/methionine]
+  ["Cysteine"	                   "GO:0033229"	ch/cysteine	                          hasAcidity	Neutral]
+  ["Bicarbonate"	           "GO:0015106"	ch/hydrogencarbonate]
+  ["NeutralAminoAcid"	           "GO:0015175"	ch/amino_acid	                          hasAcidity	Neutral]
+  ["Serine"	                   "GO:0022889"	ch/serine	                          hasAcidity	Neutral]
+  ["Alanine"	                   "GO:0022858"	ch/alanine	                          hasAcidity	Neutral]
+  ["L-glutamine"	           "GO:0015186"	ch/L-glutamine	                          hasAcidity	Neutral	       hasEnantiomerism	L-Enantiomer        has-application-role	ch/drug]
+  ["BasicAminoAcid"	           "GO:0015174"	ch/amino_acid	                          hasAcidity	Alkaline]
+  ["L-histidine"	           "GO:0005290"	ch/L-histidine	                          hasAcidity	Alkaline	       has-application-role	ch/drug]
+  ["Arginine"	                   "GO:0015181"	ch/arginine	                          hasAcidity	Alkaline]
+  ["AcidicAminoAcid"	           "GO:0015172"	ch/amino_acid	                          hasAcidity	Acidic]
+  ["Alkanesulfonate"	           "GO:0042959"	ch/_1_1-diunsubstituted_alkanesulfonate   has-application-role	ch/xenobiotic]
+  ["Ion"	                   "GO:0015075"	ch/ion]
+  ["TriosePhosphate"	           "GO:0071917"	ch/glyceraldehyde_3-phosphate]
+  ["Acriflavine"	           "GO:0015566"	ch/_3_6-diamino-10-methylacridinium_chloride	                 has-application-role	ch/drug          has-biological-role	ch/xenobiotic]
+  ["Tetracycline"	           "GO:0008493"	ch/tetracycline	                  has-biological-role	ch/antimicrobial_drug]
+  ["AluminumIon"	           "GO:0015083"	ch/aluminium_ion]
+  ["Cation"	                   "GO:0008324"	ch/cation]
+  ["OrganicCation"	           "GO:0015101"	ch/organic_cation]
+  ["Cadaverine"	           "GO:0015490"	ch/cadaverine]
+  ["Amiloride"	                   "GO:0015240"	ch/amiloride	                          has-application-role	ch/drug]
+  ["QuaternaryAmmoniumCompound"    "GO:0015651"	ch/quaternary_nitrogen_compound]
+  ["N-methylnicotinat"	           "GO:0090417"	ch/N-methylnicotinate]
+  ["AcylCarnitine"	           "GO:0015227"	ch/O-acylcarnitine]
+  ["OrganophosphateEster"	   "GO:0015605"	ch/organic_phosphate]
+  ["Glycerol-3-phosphate"	   "GO:0015169"	ch/sn-glycerol_3-phosphate]
+  ["AminoPhospholipid"	           "GO:0015247"	ch/aminophospholipid]
+  ["HexosePhosphate"	           "GO:0015119"	ch/hexose_phosphate]
+  ["Anion"	                   "GO:0008509"	ch/anion]
+  ["OrganicAnion"	           "GO:0008514"	ch/organic_anion]
+  ["Riboflavin"	           "GO:0032217"	ch/riboflavin	                          has-application-role	ch/drug	                 has-biological-role	ch/vitamin]
+  ["DehydroascorbicAcid"	   "GO:0033300"	ch/L-dehydroascorbic_acid	          has-biological-role	ch/vitamin]
+  ["InorganicAnion"	           "GO:0015103"	ch/inorganic_anion]
+  ["Arsenite"	                   "GO:0015105"	ch/arsenite_3-_]
+  ["Chromate"	                   "GO:0015109"	ch/chromate_2-_]
+  ["MolybdateIon"	           "GO:0015098"	ch/molybdate]
+  ["Chlorate"	                   "GO:0015107"	ch/chlorate]
+  ["Antimonite"	           "GO:0015104"	ch/antimonite]
+  ["Tungstate"	                   "GO:1901237"	ch/tungstate]
+  ["Tellurite"	                   "GO:0015654"	ch/tellurite]
+  ["Iodide"	                   "GO:0015111"	ch/iodide]
+  ["Nitrate"	                   "GO:0015112"	ch/nitrate]
+  ["Nitrite"	                   "GO:0015113"	ch/nitrite]
+  ["InorganicDiphosphate"	   "GO:0030504"	ch/diphosphate_ion]
+  ["PhosphateIon"	           "GO:0015114"	ch/phosphate_ion]
+  ["Silicate"	                   "GO:0015115"	ch/silicate_ion]
+  ["Fluoride"	                   "GO:1903425"	ch/fluoride]
+  ["ChromiumIon"	           "GO:0070835"	ch/chromium_ion]
+  ["LeadIon"	                   "GO:0015094"	ch/lead_ion]
+  ["L-tryptophan"	           "GO:0015196"	ch/L-tryptophan	                 hasEnantiomerism	L-Enantiomer	                 has-application-role	ch/drug]
+  ["Salt"	                   "GO:1901702"	ch/salt	                         has-part	ch/anion	ch/cation]
+  ["Tartrate"	                   "GO:0015554"	ch/tartrate_salt	                 has-part	ch/anion	ch/cation]
+  ["Urate"	                   "GO:0015143"	ch/urate_salt	                         has-part	ch/anion	ch/cation]
+  ["OrganicHydroxyCompound"	   "GO:1901618"	ch/organic_hydroxy_compound]
+  ["3-HydroxyphenylPropanoate"	   "GO:0015551"	ch/_3-hydroxyphenyl_propanoate]
+  ["Polyol"	                   "GO:0015166"	ch/polyol]
+  ["Mannitol"	                   "GO:0015575"	ch/mannitol]
+  ["Propanediol"	           "GO:0015170"	ch/propanediol]
+  ["Myo-inositol"	           "GO:0005365"	ch/myo-inositol]
+  ["Glucosylglycerol"	           "GO:0051474"	ch/glucosylglycerol]
+  ["Glucitol"	                   "GO:0015576"	ch/glucitol]
+  ["Arabinitol"	           "GO:0015167"	ch/arabinitol]
+  ["Glycerol"	                   "GO:0015168"	ch/glycerol]
+  ["Chloramphenicol"	           "GO:0042896"	ch/chloramphenicol	                 has-biological-role	ch/antineoplastic_agent]
+  ["Alchohol"	                   "GO:0015665"	ch/alcohol]
+  ["Retinol"	                   "GO:0034632"	ch/retinol	                         has-biological-role	ch/vitamin]
+  ["Salicin"	                   "GO:0042950"	ch/salicin	                         has-application-role	ch/drug]
+  ["Cycloheximide"	           "GO:0015243"	ch/cycloheximide	                 has-biological-role	ch/antimicrobial_drug]
+  ["AmmoniumIon"	           "GO:0008519"	ch/ammonium_ion_derivative]
+  ["Ethanolamine"	           "GO:0034228"	ch/ethanolamine]
+  ["Spermidine"	           "GO:0015606"	ch/spermidine]
+  ["Sphingosine"	           "GO:0010175"	ch/sphingosine]
+  ["Putrescine"	           "GO:0015489"	ch/putrescine]
+  ["Acetylcholine"	           "GO:0005277"	ch/acetylcholine	                 has-application-role	ch/drug	                 has-biological-role	ch/neurotransmitter]
+  ["Methylammonium"	           "GO:0015200"	ch/methylammonium]
+  ["Choline"	                   "GO:0015220"	ch/choline	                         has-biological-role	ch/neurotransmitter]
+  ["L-methionine"	           "GO:0015191"	ch/L-methionine	                 hasEnantiomerism	L-Enantiomer	                 has-application-role	ch/drug]
+  ["Glycerophosphodiester"	   "GO:0001406"	ch/glycerol_1-phosphodiester]
+  ["BetaAlanine"	           "GO:0001761"	ch/beta-alanine	                 hasAcidity	Neutral	has-biological-role	ch/neurotransmitter]
+  ["NitricOxide"	           "GO:0030184"	ch/nitric_oxide	                 has-application-role	ch/drug	      has-biological-role	ch/neurotransmitter]
+  ["GammaAminobutyricAcid"	   "GO:0015185"	ch/gamma-aminobutyric_acid	         has-biological-role	ch/neurotransmitter]
+  ["OrganicAcid"	           "GO:0005342"	ch/organic_acid]
+  ["Taurine"	                   "GO:0005368"	ch/taurine	                         has-biological-role	ch/xenobiotic]
+  ["ArsenateIon"	           "GO:1901683"	ch/arsenate_ion]
+  ["CarboxylicAcid"	           "GO:0046943"	ch/carboxylic_acid]
+  ["Gibberellin"	           "GO:1905201"	ch/gibberellin]
+  ["SialicAcid"	           "GO:0015136"	ch/sialic_acid]
+  ["DicarboxylicAcid"	           "GO:0005310"	ch/dicarboxylic_acid]
+  ["AlphaKetoglutarate"	   "GO:0015139"	ch/_2-oxoglutarate_2-_	                 has-biological-role	ch/cofactor]
+  ["Bilirubin"	                   "GO:0015127"	ch/bilirubin_IXalpha]
+  ["C4-dicarboxylate"	           "GO:0015556"	ch/C4-dicarboxylate]
+  ["Malate"	                   "GO:0015140"	ch/malate_2-_]
+  ["Fumarate"	                   "GO:0015138"	ch/fumarate_2-_]
+  ["Succinate"	                   "GO:0015141"	ch/succinate_2-_	                 has-application-role	ch/drug]
+  ["Oxaloacetate"	           "GO:0015131"	ch/oxaloacetate_2-_]
+  ["IronChelate"	           "GO:0015603"	ch/iron_chelate]
+  ["Ferrichrome"	           "GO:0042929"	ch/ferrichrome]
+  ["IronNicotianamine"	           "GO:0051980"	ch/nicotianamine]
+  ["FerricVibriobactin"            "GO:0019535"	ch/ferric-vibriobactin]
+  ["Chrysobactin"	           "GO:0042933"	ch/chrysobactin	                 has-biological-role	ch/siderophore]
+  ["Achromobactin"	           "GO:0042934"	ch/achromobactin	                 has-biological-role	ch/siderophore]
+  ["Enterobactin"	           "GO:0042931"	ch/enterobactin	                 has-biological-role	ch/siderophore]
+  ["FerricEnterobactin"	   "GO:0015620"	ch/ferrienterobactin]
+  ["SiderophoreIronFerrioxamine"   "GO:0015344"	ch/ferrioxamine_B]
+  ["FerricHydroxamate"	           "GO:0015622"	ch/iron_III__hydroxamate]
+  ["Malonate_1-"	           "GO:1901239"	ch/malonate_1-_]
+  ["Isopropylmalate"	           "GO:0034658"	ch/_2-isopropylmalate_2-_]
+  ["Oxalate"	                   "GO:0019531"	ch/oxalate]
+  ["TricarboxylicAcid"	           "GO:0015142"	ch/tricarboxylic_acid]
+  ["Citrate"	                   "GO:0015137"	ch/citrate_3-_	                         has-biological-role	ch/antimicrobial_drug]
+  ["Icosanoid"	                   "GO:0071714"	ch/icosanoid]
+  ["Prostaglandin"	           "GO:0015132"	ch/prostaglandin]
+  ["Arachidonate"	           "GO:1903962"	ch/arachidonate]
+  ["Glucuronoside"	           "GO:0015164"	ch/glucosiduronic_acid]
+  ["MonocarboxylicAcid"	   "GO:0008028"	ch/monocarboxylic_acid]
+  ["Pyruvate"	                   "GO:0050833"	ch/pyruvate]
+  ["Hydroxyectoine"	           "GO:0033287"	ch/_5-hydroxyectoine]
+  ["Benzoate"	                   "GO:0042925"	ch/benzoate	                         has-biological-role	ch/antimicrobial_drug	ch/human_xenobiotic_metabolite]
+  ["Aldonate"	                   "GO:0042879"	ch/aldonate]
+  ["Phosphoglycerate"	           "GO:0015120"	ch/phosphoglycerate]
+  ["D-Galactonate"	           "GO:0042881"	ch/D-galactonate	                 hasEnantiomerism	D-Enantiomer]
+  ["L-idonate"	                   "GO:0015568"	ch/L-idonate	                         hasEnantiomerism	L-Enantiomer	derived-from	ch/L-idose]
+  ["Glycerate"	                   "GO:1901974"	ch/glycerate]
+  ["Gluconate"	                   "GO:0015128"	ch/gluconate	                         derived-from	ch/glucose]
+  ["3-HydroxyphenylpropionicAcid"  "GO:0042926"	ch/_3-_3-hydroxyphenyl_propanoic_acid	 has-biological-role	ch/human_xenobiotic_metabolite]
+  ["AbscisicAcid"	           "GO:0090440"	ch/abscisic_acids]
+  ["Phosphoenolpyruvate"	   "GO:0089721"	ch/phosphoenolpyruvate]
+  ["3-PhenylpropionicAcid"	   "GO:0042890"	ch/_3-phenylpropionic_acid	         has-biological-role	ch/antimicrobial_drug]
+  ["NalidixicAcid"	           "GO:0015547"	ch/nalidixic_acid	                 has-biological-role	ch/antimicrobial_drug	ch/xenobiotic]
+  ["GlycolicAcid"	           "GO:0043879"	ch/glycolic_acid	                 has-application-role	ch/drug]
+  ["Acetate"	                   "GO:0015123"	ch/acetate	                         has-biological-role	ch/antimicrobial_drug]
+  ["BileAcid"	                   "GO:0015125"	ch/bile_acid]
+  ["Nicotine"	                   "GO:0090416"	ch/nicotine	                         has-application-role	ch/drug	                 has-biological-role	ch/vitamin]
+  ["Lactate"	                   "GO:0015129"	ch/lactate]
+  ["Biotin"	                   "GO:0015225"	ch/biotin	                          has-application-role	ch/drug        has-biological-role	ch/coenzyme	ch/B_vitamin]
+  ["Biopterin"	                   "GO:0015224"	ch/biopterin	                         has-biological-role	ch/coenzyme]
+  ["FattyAcid"	                   "GO:0015245"	ch/fatty_acid]
+  ["R-3-hydroxybutyrate"	   "GO:0097253"	ch/_R_-3-hydroxybutyrate	         has-application-role	ch/drug]
+  ["ShortChainFattyAcid"	   "GO:0015636"	ch/short-chain_fatty_acid]
+  ["PropionicAcid"	           "GO:0015552"	ch/propionic_acid	                 has-biological-role	ch/antimicrobial_drug]
+  ["LongChainFattyAcid"	   "GO:0005324"	ch/long-chain_fatty_acid]
+  ["Oleate"	                   "GO:1901480"	ch/oleate]
+  ["Formate"	                   "GO:0015499"	ch/formate	                         has-biological-role	ch/antimicrobial_drug]
+  ["Ectoine"	                   "GO:0051471"	ch/ectoine]
+  ["Shikimate"	                   "GO:0015530"	ch/shikimate]
+  ["4-Hydroxyphenylacetate"	   "GO:1901241"	ch/_4-hydroxyphenylacetate]
+  ["Mevalonate"	           "GO:0015130"	ch/mevalonate]
+  ["Mannosylglycerate"	           "GO:0051477"	ch/D-mannosyl-D-glyceric_acid]
+  ["Lactone"	                   "GO:0042971"	ch/lactone]
+  ["OrganicPhosphonate"	   "GO:0015604"	ch/organic_phosphonate]
+  ["Alkylphosphonate"	           "GO:0042917"	ch/alkylphosphonate]
+  ["MetalIon"	                   "GO:0046873"	ch/metal_cation]
+  ["MagnesiumIon"	           "GO:0015095"	ch/magnesium_cation]
+  ["CalciumIon"	           "GO:0015085"	ch/calcium_ion]
+  ["TransitionMetalIon"            "GO:0046915"	ch/transition_element_cation]
+  ["VanadiumIon"	           "GO:0015100"	ch/vanadium_cation]
+  ["IronIon"	                   "GO:0005381"	ch/iron_2+_]
+  ["ManganeseIon"	           "GO:0005384"	ch/manganese_2+_]
+  ["MolybdenumIon"	           "GO:0042888"	ch/molybdenum_cation]
+  ["SilverIon"	                   "GO:0015080"	ch/silver_cation]
+  ["CadmiumIon"	           "GO:0015086"	ch/cadmium_cation]
+  ["NickelCation"	           "GO:0015099"	ch/nickel_cation]
+  ["CobaltIon"	                   "GO:0015087"	ch/cobalt_cation]
+  ["MercuryIon"	           "GO:0015097"	ch/mercury_cation]
+  ["CopperIon"	                   "GO:0005375"	ch/copper_cation]
+  ["CopperChelate"	           "GO:0051981"	CopperChelate]
+  ["Copper-nicotianamine"          "GO:0051982"	Copper-nicotianamine]
+  ["Polyamine"	                   "GO:0015203"	ch/polyamine]
+  ["Spermine"	                   "GO:0000297"	ch/spermine	                 has-application-role	ch/drug]
+  ["Chloride"	                   "GO:0015108"	ch/chloride]
+  ["Bicozamycin"	           "GO:0015545"	ch/bicozamycin	                 has-biological-role	ch/bicozamycin]
+  ["CCCP"	                   "GO:0015549"	ch/CCCP]
+  ["Organomercurial"	           "GO:0015548"	ch/organomercury_compound]
+  ["Heme"	                   "GO:0015232"	ch/heme	                 has-biological-role	ch/cofactor]
+  ["Lactoferrin"	           "GO:0033570"	Lactoferrin]
+  ["L-lysine"	                   "GO:0015189"	ch/L-lysine	                          hasAcidity	Alkaline	       hasEnantiomerism	L-Enantiomer	    has-application-role	ch/drug]
+  ["L-proline"	                   "GO:0015193"	ch/L-proline	                          hasAcidity	Neutral	       hasEnantiomerism	L-Enantiomer	    has-application-role	ch/drug]
+  ["Glycine"	                   "GO:0015187"	ch/glycine	                          hasAcidity	Neutral                hasEnantiomerism	L-Enantiomer	 has-application-role	ch/drug  has-biological-role	ch/neurotransmitter]
+  ["L-glutamate"	           "GO:0005313"	ch/L-glutamate_2-_	                  hasAcidity	Acidic	               hasEnantiomerism	L-Enantiomer	 has-application-role	ch/drug   has-biological-role	ch/neurotransmitter]
+  ["L-asparagine"	           "GO:0015182"	ch/L-asparagine	                  hasEnantiomerism  L-Enantiomer       hasAcidity	Neutral	      has-application-role	ch/drug]
+  ["L-aspartate"	           "GO:0015183"	ch/L-aspartate_2-_	                  hasAcidity	Acidic                 hasEnantiomerism	L-Enantiomer	 has-biological-role	ch/neurotransmitter]
+  ["VitaminB6"	                   "GO:0031924"	ch/vitamin_B6	                  has-application-role	ch/drug        has-biological-role	ch/vitamin]
+  ["Pyridoxal"	                   "GO:0031925"	ch/pyridoxal	                  has-application-role	ch/drug        has-biological-role	ch/vitamin	ch/cofactor]
+  ["PyridoxalPhosphate"	   "GO:0031926"	ch/pyridoxal_5'-phosphate	          has-application-role	ch/vitamin_B6  has-biological-role	ch/vitamin	ch/coenzyme]
+  ["Pyridoxamine"	           "GO:0031927"	ch/pyridoxamine	                  has-application-role	ch/drug        has-biological-role	ch/vitamin]
+  ["Pyridoxine"	           "GO:0031928"	ch/pyridoxine	                          has-application-role	ch/drug        has-biological-role	ch/vitamin	ch/cofactor]
+  ["L-threonine"	           "GO:0015195"	ch/L-threonine	                          hasAcidity	Neutral	       hasEnantiomerism	L-Enantiomer	        has-application-role	ch/drug]
+  ["D-serine"	                   "GO:0042945"	ch/D-serine	                  hasEnantiomerism	D-Enantiomer	                 hasAcidity	Neutral	                 has-application-role	ch/drug]
+  ["L-arginine"	           "GO:0061459"	ch/L-arginine	                          hasAcidity	Alkaline	                         hasEnantiomerism	L-Enantiomer	                 has-application-role	ch/drug]
+  ["L-valine"	                   "GO:0005304"	ch/L-valine	                  hasAcidity	Neutral	                         hasEnantiomerism	L-Enantiomer	                 has-application-role	ch/drug]
+  ["R-PantothenicAcid"	           "GO:0015233"	ch/_R_-pantothenate	                 has-application-role	ch/drug	                 has-biological-role	ch/coenzyme	ch/vitamin]
+  ["Polymyxin"                     "GO:0042897"         ch/polymyxin                      has-biological-role ch/antimicrobial_drug])
+
+;; (deftransport ToTransportGlycolipid :annotation (goid"GO:0034202") :cargo ch/glycolipid)
+
+;; (deftransport ToTransportL-ascorbateWithSodiumCondition:annotation (goid "GO:0070890":across go/plasma_membrane:cargo ch/L-ascorbate:when ch/sodium_1+_)
+
+;;High/Low affinity Transmembrane transporter activity
+(defn substance-transporting-across-membrane-affinity [lis]
+  `(deftransport ~(symbol (str "ToTransport" (first lis) "TransmembraneWith" (nth lis 2)))
+     :annotation (goid ~(second lis))
+     :annotation (identitasId ~(identitas ""))
+     :across go/plasma_membrane
+     :transports-with ~(nth lis 2) 
+     :cargo
+     ~(cond (= 4 (count lis)) (nth lis 3)
+            (= 6 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5)))
+            (= 7 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5) ~(nth lis 6)))
+            (= 8 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7)))
+            (= 9 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7) ~(nth lis 8)))
+            (= 10 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7))
+                      (owl-some ~(nth lis 8) ~(nth lis 9)))
+            (= 11 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7))
+                      (owl-some ~(nth lis 8) ~(nth lis 9) ~(nth lis 10)))
+            (= 12 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7))
+                      (owl-some ~(nth lis 8) ~(nth lis 9))
+                      (owl-some ~(nth lis 10)~(nth lis 11)))
+            :else (println "Values of the ranges"))))
+
+
+;; macro function to do the classes mapping 
+(defmacro deftransporters-simple-diffusion-transmembrane-affinity [& liss]
+  `(do ~@(map substance-transporting-across-membrane-affinity liss)))
+
+;; List of the substances transport by simple diffusion across plasma membrane
+(deftransporters-simple-diffusion-transmembrane-affinity
+  ["Oligopeptide"   "GO:0015334"    HighAffinity   ch/oligopeptide]
+  ["Tryptophan"     "GO:0022893"    LowAffinity    ch/tryptophan]
+  ["NickelCation"   "GO:0044750"    HighAffinity   ch/nickel_cation]
+  ["Phosphate"      "GO:0048249"    HighAffinity   ch/phosphate_ion]
+  ["Fructose"       "GO:0061486"    HighAffinity   ch/fructose]
+  ["Nitrate"        "GO:0080054"    LowAffinity    ch/nitrate]
+  ["ZincIon"        "GO:0000006"    HighAffinity   ch/zinc_2+_]
+  ["ZincIon"        "GO:0000007"    LowAffinity    ch/zinc_2+_]
+  ["Phosphate"      "GO:0009673"    LowAffinity    ch/phosphate_ion]
+  ["CopperIon"      "GO:0015089"    HighAffinity   ch/copper_2+_]
+  ["FerricIronIon"  "GO:0015090"    LowAffinity    ch/iron_2+_]
+  ["FerricIronIon"  "GO:0015092"    HighAffinity   ch/iron_3+_]
+  ["Glucose"        "GO:0140108"    HighAffinity   ch/glucose]
+  ["PotassiumIon"   "GO:0140107"    HighAffinity   ch/potassium_1+_]
+  ["Arginine"       "GO:0005289"    HighAffinity   ch/arginine      hasAcidity Alkaline]
+  ["BasicAminoAcid" "GO:0097625"    LowAffinity    ch/amino_acid    hasAcidity Alkaline]
+  ["Lysine"         "GO:0005292"    HighAffinity   ch/lysine        hasAcidity Alkaline]
+  ["BasicAminoAcid" "GO:0005287"    HighAffinity   ch/amino_acid    hasAcidity Alkaline]
+  ["L-histidine"    "GO:0005291"    HighAffinity   ch/L-histidine   hasAcidity Alkaline   has-application-role ch/drug]
+  ["L-arginine"     "GO:0097626"    LowAffinity    ch/L-arginine    has-application-role  ch/drug]
+  ["GlutamateWith"  "GO:0005314"    HighAffinity   ch/glutamate_2-_ hasAcidity Acidic     hasEnantiomerism L-Enantiomer  has-application-role ch/drug has-biological-role ch/neurotransmitter]
+  ["Glutamine"      "GO:0015330"    HighAffinity   ch/glutamine     hasAcidity Neutral    hasEnantiomerism L-Enantiomer  has-application-role ch/drug]
+  ["L-ornithine"    "GO:0097627"    HighAffinity   ch/L-ornithine   hasEnantiomerism L-Enantiomer  has-application-role  ch/drug]
+  ["L-tryptophan"   "GO:0005300"    HighAffinity   ch/L-tryptophan  hasEnantiomerism L-Enantiomer  has-application-role  ch/drug]
+  ["L-tryptophan"   "GO:0022893"    LowAffinity    ch/L-tryptophan  hasEnantiomerism L-Enantiomer  has-application-role  ch/drug])
+
+
+;;Influx/Efflux Transmembrane transporter activity
+(defn substance-transporting-across-membrane-loca [lis]
+  `(deftransport ~(symbol (str "ToTransport" (first lis) "Transmembrane"))
+     :annotation (goid ~(second lis))
+     :annotation (identitasId ~(identitas ""))
+     :across go/plasma_membrane
+     :from ~(nth lis 2)
+     :to ~(nth lis 3)
+     :cargo
+     ~(cond (= 5 (count lis)) (nth lis 4)
+            (= 7 (count lis))
+            `(owl-and ~(nth lis 4)
+                      (owl-some ~(nth lis 5) ~(nth lis 6)))
+            (= 8 (count lis))
+            `(owl-and ~(nth lis 4)
+                      (owl-some ~(nth lis 5) ~(nth lis 6) ~(nth lis 7)))
+            (= 9 (count lis))
+            `(owl-and ~(nth lis 4)
+                      (owl-some ~(nth lis 5) ~(nth lis 6))
+                      (owl-some ~(nth lis 7) ~(nth lis 8)))
+            (= 10 (count lis))
+            `(owl-and ~(nth lis 4)
+                      (owl-some ~(nth lis 5) ~(nth lis 6))
+                      (owl-some ~(nth lis 7) ~(nth lis 8) ~(nth lis 9)))
+            (= 11 (count lis))
+            `(owl-and ~(nth lis 4)
+                      (owl-some ~(nth lis 5) ~(nth lis 6))
+                      (owl-some ~(nth lis 7) ~(nth lis 8))
+                      (owl-some ~(nth lis 9) ~(nth lis 10)))
+            (= 12 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 5) ~(nth lis 6))
+                      (owl-some ~(nth lis 7) ~(nth lis 8))
+                      (owl-some ~(nth lis 9) ~(nth lis 10) ~(nth lis 11)))
+            :else (println "Values of the ranges"))))
+
+;; macro function to do the classes mapping 
+(defmacro deftransporters-simple-diffusion-transmembrane-location [& lis]
+  `(do ~@(map substance-transporting-across-membrane-loca lis)))
+
+;; List of the substances transport by simple diffusion across plasma membrane
+(deftransporters-simple-diffusion-transmembrane-location
+  ["AuxinEfflux"  "GO:0010329"  go/intracellular         go/extracellular_region ch/chemical_entity has-biological-role ch/auxin]
+  ["AuxinInflux"  "GO:0010328"  go/extracellular_region  go/intracellular        ch/chemical_entity has-biological-role ch/auxin]
+  ["ProtonInflux" "GO:0017077"  go/mitochondrial_intermembrane_space go/mitochondrial_matrix  ch/proton established-by go/electron_transport_chain during go/oxidative_phosphorylation]
+  ["SubstanceEfflux" "GO:0015562"   go/intracellular    go/extracellular_region  ch/chemical_entity]
+  ["ZincIonEfflux"   "GO:0022883"   go/intracellular    go/extracellular_region  ch/zinc_2+_]
+  ["L-AminoAcidEfflux" "GO:0034639" go/intracellular    go/extracellular_region  ch/L-alpha-amino_acid  hasEnantiomerism L-Enantiomer]
+  ["L-lysineEfflux" "GO:0015661"    go/intracellular    go/extracellular_region  ch/L-lysine hasAcidity Alkaline has-application-role ch/drug]
+  ["SiliconEfflux"  "GO:0032523"    go/intracellular    go/extracellular_region  ch/silicon_4+_]
+  ["CationEfflux"   "GO:0046583"    go/intracellular    go/extracellular_region  ch/cation]
+  ["BorateEfflux"   "GO:0080139"    go/intracellular    go/extracellular_region  ch/borate  has-application-role ch/drug]
+  ["NitriteEfflux"  "GO:0015514"    go/intracellular    go/extracellular_region  ch/nitrite]
+  ["NitrateEfflux"  "GO:0010542"    go/intracellular    go/extracellular_region  ch/nitrate]
+  ["L-threonineEfflux" "GO:0015565" go/intracellular    go/extracellular_region  ch/L-threonine hasAcidity Neutral hasEnantiomerism L-Enantiomer  has-application-role ch/drug] ;;threonine not subclass of L-threonine (see nizal_notes.org)
+  ["CanalicularBileAcidInflux" "GO:0015126" Hepatocyte  go/intracellular_canaliculus  ch/bile_acid]
+  ["FormateEfflux" "GO:0015660"     go/intracellular    go/extracellular_region  ch/formate  has-biological-role ch/antimicrobial_drug]
+  ["PhospholipidScramblase"  "GO:0017128"  go/leaflet_of_membrane_bilayer go/leaflet_of_membrane_bilayer ch/phospholipid])
+
+
+
+;; The following classes have been changed to carrier recently,
+;; that is thay are not simple transport but facilitated diffusion)
+;; carrier
+(deftransport ToTransportPhosphatidicAcid
+  :annotation (goid "GO:1990050")
+  :cargo ch/phosphatidic_acid)
+
+;; carrier
+(deftransport ToTransportCeramide
+  :annotation (goid "GO:0035620")
+  :cargo ch/ceramide)
+
+;; carrier
+(deftransport ToTransportCeramide1-Phosphate
+  :annotation (goid "GO:1902388")
+  :cargo ch/ceramide_1-phosphate)
+
+;;carrier
 (deftransport ToTransportCholesterol
-  :comment "GO:0017127"
+  :annotation (goid "GO:0017127")
   :cargo ch/cholesterol)
 
-(deftransport ToTransportPhospholipidScramblase
-  :comment "GO:0017128"
-  :cargo ch/phospholipid
-  :from go/leaflet_of_membrane_bilayer
-  :to go/leaflet_of_membrane_bilayer)
 
+;; carrier
 (deftransport ToTransportIntermembranePhosphatidylinositol
-  :comment "GO:0120018"
+  :annotation (goid "GO:0120018")
   :cargo ch/phosphatidylinositol
   :from go/leaflet_of_membrane_bilayer
   :to go/leaflet_of_membrane_bilayer)
 
+;; carrier
 (deftransport ToTransportGlycolipid
-  :comment "GO:0017089"
-  :cargo ch/glycolipid)
-
-;;Transmembrane transporter activity
-(deftransport ToTransportTransmembrane
-  :comment "GO:0022857"
-  :across go/plasma_membrane
-  :cargo ch/chemical_entity)
-
-;; chemical role
-(deftransport ToTransportDrug
-  :comment "GO:0015238"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-application-role ch/drug)))
-
-;; chemical roley
-(deftransport ToTransportVitamin
-  :comment "GO:0090482"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/vitamin)))
-
-;; chemical role
-(deftransport ToTransportCofactor
-  :comment "GO:0051184"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/cofactor)))
-
-;; chemical role
-(deftransport ToTransportSiderophore
-  :comment "GO:0015343"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/siderophore)))
-
-;; Neurotransmitters are any chemical substance that is capable of transmitting a nerve impulse from a neuron to another cell. 
-(deftransport ToTransportNeurotransmitter
-  :comment "GO:0005326"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/neurotransmitter)))
-
-;; chemical role
-(deftransport ToTransportAntibiotic
-  :comment "GO:0042895"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/antimicrobial_drug)))
-
-;; chemical role
-(deftransport ToTransportXenobiotic
-  :comment "GO:0042910"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/xenobiotic)))
-
-;; chemical role
-(deftransport ToTransportAuxin
-  :comment "GO:0080161"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin)))
-
-;; chemical role
-(deftransport ToTransportAuxinEfflux
-  :comment "GO:0010329"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
-  :from go/intracellular
-  :to go/extracellular_region)
-
-;; chemical role
-(deftransport ToTransportAuxinInflux
-  :comment "GO:0010328"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/auxin))
-  :from go/extracellular_region
-  :to go/intracellular)
-
-;; chemical role
-(deftransport ToTransportCoenzyme
-  :comment "GO:0051185"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some has-biological-role ch/coenzyme)))
-
-(deftransport ToTransportProton
-  :comment "GO:0017077"
-  :across go/plasma_membrane
-  :from go/mitochondrial_intermembrane_space
-  :to go/mitochondrial_matrix
-  :cargo (owl-and ch/proton
-                  (owl-some established-by go/electron_transport_chain)
-                  (owl-some during go/oxidative_phosphorylation)))
-
-(deftransport ToTransportToxin
-  :comment "GO:0019534"
-  :across go/plasma_membrane
-  :cargo ch/toxin)
-
-(deftransport ToTransportCarbonDioxide
-  :comment "GO:0035379"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/carbon_dioxide (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportPoly-beta-1_6-N-acetyl-D-glucosamine
-  :comment "GO:1901515"
-  :across go/plasma_membrane
-  :cargo ch/poly-beta-1_6-N-acetyl-D-glucosamine)
-
-(deftransport ToTransportLipo-chitinOligosaccharide
-  :comment "GO:1901513"
-  :across go/plasma_membrane
-  :cargo ch/lipo-chitin_oligosaccharide)
-
-(deftransport ToTransportAcetateEster
-  :comment "GO:1901375"
-  :across go/plasma_membrane
-  :cargo ch/acetate_ester)
-
-;; Diff between GO and chebi
-(deftransport ToTransportGlucose6-Phosphate
-  :comment "GO:0015152"
-  :across go/plasma_membrane
-  :cargo ch/D-glucose_6-phosphate)
-
-(deftransport ToTransportAmine
-  :comment "GO:0005275"
-  :across go/plasma_membrane
-  :cargo ch/amine)
-
-(deftransport ToTransportNucleobase
-  :comment "GO:0015205"
-  :across go/plasma_membrane
-  :cargo ch/nucleobase)
-
-(deftransport ToTransportPyrimidineNucleobase
-  :comment "GO:0005350"
-  :across go/plasma_membrane
-  :cargo ch/pyrimidine_nucleobase)
-
-(deftransport ToTransportUracil
-  :comment "GO:0015210"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/uracil (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportCytosine
-  :comment "GO:0015209"
-  :across go/plasma_membrane
-  :cargo ch/cytosine)
-
-(deftransport ToTransportPurineNucleobase
-  :comment "GO:0005345"
-  :across go/plasma_membrane
-  :cargo ch/purine_nucleobase)
-
-(deftransport ToTransportAdenineNucleobase
-  :comment "GO:0015207"
-  :across go/plasma_membrane
-  :cargo ch/adenine)
-
-(deftransport ToTransportGuanineNucleobase
-  :comment "GO:0015208"
-  :across go/plasma_membrane
-  :cargo ch/guanine)
-
-(deftransport ToTransportXanthine
-  :comment "GO:0042907"
-  :across go/plasma_membrane
-  :cargo ch/xanthine)
-
-(deftransport ToTransportNucleobaseContainingCompound
-  :comment "GO:0015932"
-  :across go/plasma_membrane
-  :cargo ch/nucleobase-containing_molecular_entity)
-
-(deftransport ToTransportNucleotide
-  :comment "GO:0015215"
-  :across go/plasma_membrane
-  :cargo ch/nucleotide)
-
-(deftransport ToTransportFlavinAdenineDinucleotide
-  :comment "GO:0015230"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/flavin_adenine_dinucleotide (owl-some has-biological-role ch/cofactor)))
-
-(deftransport ToTransportNicotinamideAdenineDinucleotide
-  :comment "GO:0051724"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/NAD (owl-some has-biological-role ch/coenzyme)))
-
-;;Need review
-(deftransport ToTransportDeoxynucleotide
-  :comment "GO:0030233"
-  :across go/plasma_membrane
-  :cargo ch/deoxyribonucleotide)
-
-(deftransport ToTransportNicotinamideMononucleotide
-  :comment "GO:0015663"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/nicotinamide_mononucleotide (owl-some has-biological-role ch/cofactor)))
-
-(deftransport ToTransportPurineNucleotide
-  :comment "GO:0015216"
-  :across go/plasma_membrane
-  :cargo ch/purine_nucleotide)
-
-(deftransport ToTransportGuanineNucleotide
-  :comment "GO:0001409"
-  :across go/plasma_membrane
-  :cargo ch/guanyl_nucleotide)
-
-(deftransport ToTransportAdenineNucleotide
-  :comment "GO:0000295"
-  :across go/plasma_membrane
-  :cargo ch/adenyl_nucleotide)
-
-(deftransport ToTransport3Phosphoadenosine-5Phosphosulfate
-  :comment "GO:0046964"
-  :across go/plasma_membrane
-  :cargo ch/_3'-phospho-5'-adenylyl_sulfate)
-
-(deftransport ToTransportAdenosineTriphosphate
-  :comment "GO:0005347"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/ATP (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransport5AdenylylSulfate
-  :comment "GO:1902557"
-  :across go/plasma_membrane
-  :cargo ch/_5'-adenylyl_sulfate)
-
-(deftransport ToTransportAdenosineMonophosphate
-  :comment "GO:0080122"
-  :across go/plasma_membrane
-  :cargo ch/adenosine_5'-monophosphate)
-
-(deftransport ToTransportAdenosineDiphosphate
-  :comment "GO:0015217"
-  :across go/plasma_membrane
-  :cargo ch/ADP)
-
-(deftransport ToTransportAdenosine_3-5-bisphosphate
-  :comment "GO:0071077"
-  :across go/plasma_membrane
-  :cargo ch/adenosine_3'_5'-bisphosphate)
-
-(deftransport ToTransportFattyAcyl-CoA
-  :comment "GO:0015607"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/fatty_acyl-CoA (owl-some derived-from ch/fatty_acid)))
-
-(deftransport ToTransportCoenzyme-A
-  :comment "GO:0015228"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/coenzyme_A (owl-some has-biological-role ch/coenzyme)))
-
-(deftransport ToTransportAcetyl-CoA
-  :comment "GO:0008521"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/acetyl-CoA (owl-some has-biological-role ch/coenzyme)))
-
-(deftransport ToTransportPurineRibonucleotide
-  :comment "GO:0005346"
-  :across go/plasma_membrane
-  :cargo ch/purine_ribonucleotide)
-
-(deftransport ToTransportNucleotideSulfate
-  :comment "GO:0005340"
-  :across go/plasma_membrane
-  :cargo ch/nucleotide-sulfate)
-
-(deftransport ToTransportFlavineMononucleotide
-  :comment "GO:0044610"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/FMN (owl-some has-biological-role ch/coenzyme)))
-
-(deftransport ToTransportPyrimidineNucleotide
-  :comment "GO:0015218"
-  :across go/plasma_membrane
-  :cargo ch/pyrimidine_nucleotide)
-
-(deftransport ToTransportNucleotideSugar
-  :comment "GO:0005338"
-  :across go/plasma_membrane
-  :cargo ch/nucleotide-sugar)
-
-(deftransport ToTransportPyrimidineNucleotideSugar
-  :comment "GO:0015165"
-  :across go/plasma_membrane
-  :cargo ch/pyrimidine_nucleotide-sugar)
-
-(deftransport ToTransportUDP-N-Acetylgalactosamine
-  :comment "GO:0005463"
-  :across go/plasma_membrane
-  :cargo ch/UDP-N-acetylgalactosamine-5_6-ene)
-
-(deftransport ToTransportUDP-N-Acetylglucosamine
-  :comment "GO:0005462"
-  :across go/plasma_membrane
-  :cargo ch/UDP-N-acetyl-alpha-D-glucosamine)
-
-(deftransport ToTransportUDP-Xylose
-  :comment "GO:0005464"
-  :across go/plasma_membrane
-  :cargo ch/UDP-alpha-D-xylose)
-
-(deftransport ToTransportCMP-N-Acetylneuraminate
-  :comment "GO:0005456"
-  :across go/plasma_membrane
-  :cargo ch/CMP-N-acetyl-beta-neuraminic_acid)
-
-(deftransport ToTransportUDP-Galactose
-  :comment "GO:0005459"
-  :across go/plasma_membrane
-  :cargo ch/UDP-D-galactose)
-
-(deftransport ToTransportUDP-GlucuronicAcid
-  :comment "GO:0005461"
-  :across go/plasma_membrane
-  :cargo ch/UDP-alpha-D-glucuronic_acid)
-
-(deftransport ToTransportUDP-Glucose
-  :comment "GO:0005460"
-  :across go/plasma_membrane
-  :cargo ch/UDP-D-glucose)
-
-(deftransport ToTransportPurineNucleotideSugar
-  :comment "GO:0036080"
-  :across go/plasma_membrane
-  :cargo ch/purine_nucleotide-sugar)
-
-(deftransport ToTransportGDP-Fucose
-  :comment "GO:0005457"
-  :across go/plasma_membrane
-  :cargo ch/GDP-fucose)
-
-(deftransport ToTransportGDP-Mannose
-  :comment "GO:0005458"
-  :across go/plasma_membrane
-  :cargo ch/GDP-mannose)
-
-;; Nucleic acids are single or double-stranded polynucleotides involved in the storage, transmission and transfer of genetic information. 
-(deftransport ToTransportNucleicAcid
-  :comment "GO:0051032"
-  :across go/plasma_membrane
-  :cargo ch/nucleic_acid)
-
-(deftransport ToTransportDeoxyriboNucleicAcid
-  :comment "GO:0051035"
-  :across go/plasma_membrane
-  :cargo ch/deoxyribonucleic_acid)
-
-(deftransport ToTransportRiboNucleicAcid
-  :comment "GO:0051033"
-  :across go/plasma_membrane
-  :cargo ch/ribonucleic_acid)
-
-(deftransport ToTransportTransferRNA
-  :comment "GO:0051034"
-  :across go/plasma_membrane
-  :cargo ch/transfer_RNA)
-
-;; Need review
-(deftransport ToTransportProtein-DNA-Complex
-  :comment "GO:0015219"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/macromolecule (owl-some has-part ch/protein ch/deoxyribonucleic_acid)))
-
-(deftransport ToTransportNucleoside
-  :comment "GO:0005337"
-  :across go/plasma_membrane
-  :cargo ch/nucleoside)
-
-(deftransport ToTransportPyrimidineNucleoside
-  :comment "GO:0015214"
-  :across go/plasma_membrane
-  :cargo ch/pyrimidine_nucleoside)
-
-(deftransport ToTransportCytidine
-  :comment "GO:0015212"
-  :across go/plasma_membrane
-  :cargo ch/cytidine)
-
-(deftransport ToTransportUridine
-  :comment "GO:0015213"
-  :across go/plasma_membrane
-  :cargo ch/uridine)
-
-(deftransport ToTransportPurineNucleoside
-  :comment "GO:0015211"
-  :across go/plasma_membrane
-  :cargo ch/purine_nucleoside)
-
-(deftransport ToTransportXanthosine
-  :comment "GO:0015553"
-  :across go/plasma_membrane
-  :cargo ch/xanthosine)
-
-(deftransport ToTransportNicotinamideRiboside
-  :comment "GO:0034257"
-  :across go/plasma_membrane
-  :cargo ch/N-ribosylnicotinamide)
-
-(deftransport ToTransportChlorophyllCatabolite
-  :comment "GO:0010290"
-  :across go/plasma_membrane
-  :cargo ch/primary_fluorescent_chlorophyll_catabolite)
-
-(deftransport ToTransportAzole
-  :comment "GO:1901474"
-  :across go/plasma_membrane
-  :cargo ch/azole)
-
-(deftransport ToTransportFluconazole
-  :comment "GO:0015244"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/fluconazole (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic)))
-
-(deftransport ToTransportAcadesine
-  :comment "GO:1903089"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/acadesine (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportThiaminePyrophosphate
-  :comment "GO:0090422"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/thiamine_1+__diphosphate_1-_ (owl-some has-biological-role ch/vitamin)))
-
-(deftransport ToTransportSulfathiazole
-  :comment "GO:0015546"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/sulfathiazole (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic)))
-
-(deftransport ToTransportThiamine
-  :comment "GO:0015234"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/thiamine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
-
-(deftransport ToTransportAminotriazole
-  :comment "GO:1901478"
-  :across go/plasma_membrane
-  :cargo ch/amitrole)
-
-(deftransport ToTransportSulfurMolecularEntity
-  :comment "GO:1901682"
-  :across go/plasma_membrane
-  :cargo ch/sulfur_molecular_entity)
-
-(deftransport ToTransportS-adenosyl-L-methionine
-  :comment "GO:0000095"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/S-adenosyl-L-methionine (owl-some has-application-role ch/drug)
-                  (owl-some has-biological-role ch/coenzyme)))
-
-(deftransport ToTransportSulfite
-  :comment "GO:0000319"
-  :across go/plasma_membrane
-  :cargo ch/sulfite)
-
-(deftransport ToTransportThiosulfate
-  :comment "GO:0015117"
-  :across go/plasma_membrane
-  :cargo ch/thiosulfate)
-
-(deftransport ToTransportSulfate
-  :comment "GO:0015116"
-  :across go/plasma_membrane
-  :cargo ch/sulfate)
-
-
-;;Enables the transfer of a specific substance or related group of substances from the outside of the cell to the inside of the cell across a membrane.
-(deftransport ToTransportInfluxTransmembrane
-  :comment ""
-  :cargo ch/chemical_entity
-  :across go/plasma_membrane
-  :from go/extracellular_region
-  :to go/intracellular)
-
-;;Enables the transfer of a specific substance or related group of substances from the inside of the cell to the outside of the cell across a membrane.
-(deftransport ToTransportEffluxTransmembrane
-  :comment "GO:0015562"
-  :cargo ch/chemical_entity
-  :across go/plasma_membrane
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportCarbohydrateDerivative
-  :comment "GO:1901505"
-  :across go/plasma_membrane
-  :cargo ch/carbohydrate_derivative)
- 
-(deftransport ToTransportN-acetylglucosamine
-  :comment "GO:0015572"
-  :across go/plasma_membrane
-  :cargo ch/N-acetylglucosamine)
-
-(deftransport ToTransportMethylgalactoside
-  :comment "GO:0015592"
-  :across go/plasma_membrane
-  :cargo ch/methyl_galactoside)
-
-(deftransport ToTransportGalactosamine
-  :comment "GO:0019196"
-  :across go/plasma_membrane
-  :cargo ch/galactosamine)
-
-(deftransport ToTransportN-acetylgalactosamine
-  :comment "GO:0015571"
-  :across go/plasma_membrane
-  :cargo ch/N-acetylgalactosamine)
-
-(deftransport ToTransportGlucoside
-  :comment "GO:0042947"
-  :across go/plasma_membrane
-  :cargo ch/glucoside)
-
-(deftransport ToTransportAlpha-Glucoside
-  :comment "GO:0015151"
-  :across go/plasma_membrane
-  :cargo ch/alpha-glucoside)
-
-(deftransport ToTransportBeta-Glucoside
-  :comment "GO:0015573"
-  :across go/plasma_membrane
-  :cargo ch/beta-glucoside)
-
-(deftransport ToTransportArbutin
-  :comment "GO:0042951"
-  :across go/plasma_membrane
-  :cargo ch/hydroquinone_O-beta-D-glucopyranoside)
-
-(deftransport ToTransportAbscisicAcidGlucosylEster
-  :comment "GO:1902417"
-  :across go/plasma_membrane
-  :cargo ch/_+_-abscisic_acid_D-glucopyranosyl_ester)
-
-(deftransport ToTransportFerricTriacetylfusarinineC
-  :comment "GO:0015621"
-  :across go/plasma_membrane
-  :cargo ch/N'_N''_N'''-triacetylfusarinine_C)
-
-
-(deftransport ToTransportCarbohydrate
-  :comment "GO:0015144"
-  :across go/plasma_membrane
-  :cargo ch/carbohydrate)
-
-(deftransport ToTransportOligosaccharide
-  :comment "GO:0015157"
-  :across go/plasma_membrane
-  :cargo ch/oligosaccharide)
-
-(deftransport ToTransportRaffinose
-  :comment "GO:0015158"
-  :across go/plasma_membrane
-  :cargo ch/raffinose)
-
-(deftransport ToTransportDisaccharide
-  :comment "GO:0015154"
-  :across go/plasma_membrane
-  :cargo ch/disaccharide)
-
-(deftransport ToTransportTrehalose
-  :comment "GO:0015574"
-  :across go/plasma_membrane
-  :cargo ch/trehalose)
-
-(deftransport ToTransportSucrose
-  :comment "GO:0008515"
-  :across go/plasma_membrane
-  :cargo ch/sucrose)
-
-(deftransport ToTransportMelibios
-  :comment "GO:0015156"
-  :across go/plasma_membrane
-  :cargo ch/melibiose)
-
-(deftransport ToTransportLactose
-  :comment "GO:0015155"
-  :across go/plasma_membrane
-  :cargo ch/lactose)
-
-(deftransport ToTransportCellobiose
-  :comment "GO:0019191"
-  :across go/plasma_membrane
-  :cargo ch/cellobiose)
-
-(deftransport ToTransportMaltose
-  :comment "GO:0005363"
-  :across go/plasma_membrane
-  :cargo ch/maltose)
-
-(deftransport ToTransportOligogalacturonide
-  :comment "GO:0033155"
-  :across go/plasma_membrane
-  :cargo ch/oligogalacturonide)
-
-(deftransport ToTransportAldarate
-  :comment "GO:0042876"
-  :across go/plasma_membrane
-  :cargo ch/aldaric_acid_anion)
-
-;; Different between GO and Chebi 
-(deftransport ToTransportD-glucarate
-  :comment "GO:0042878"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-glucarate_2-_ (owl-some hasEnantiomerism D-Enantiomer)
-                  (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportGalactarate
-  :comment "GO:1902301"
-  :across go/plasma_membrane
-  :cargo ch/galactaric_acid_anion)
-
-(deftransport ToTransportGalactitol
-  :comment "GO:0015577"
-  :across go/plasma_membrane
-  :cargo ch/galactitol)
-
-;; (deftransport ToTransportSugar
-;;   :comment "GO:0051119"
-;;   :across go/plasma_membrane
-;;   :cargo ch/sugar)
-
-
-(deftransport ToTransportMacromolecule
-  :comment "GO:0022884"
-  :across go/plasma_membrane
-  :cargo ch/biomacromolecule)
-
-(deftransport ToTransportTeichoicAcid
-  :comment "GO:0015162"
-  :across go/plasma_membrane
-  :cargo ch/teichoic_acid)
-
-(deftransport ToTransportLipopolysaccharide
-  :comment "GO:0015221"
-  :across go/plasma_membrane
-  :cargo ch/lipopolysaccharide)
-
-(deftransport ToTransportLipopolysaccharideExporter
-  :comment "GO:0015634"
-  :across go/plasma_membrane
-  :cargo ch/lipopolysaccharide
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportPolysaccharide
-  :comment "GO:0015159"
-  :across go/plasma_membrane
-  :cargo ch/polysaccharide)
-
-(deftransport ToTransportBeta-glucan
-  :comment "GO:0015160"
-  :across go/plasma_membrane
-  :cargo ch/beta-D-glucan)
-
-(deftransport ToTransportCapsularPolysaccharide
-  :comment "GO:0015161"
-  :across go/plasma_membrane
-  :cargo ch/polysaccharide)
-
-(deftransport ToTransportArabinan
-  :comment "GO:0042901"
-  :across go/plasma_membrane
-  :cargo ch/arabinan)
-
-(deftransport ToTransportMaltodextrin
-  :comment "GO:0042958"
-  :across go/plasma_membrane
-  :cargo ch/maltodextrin)
-
-(deftransport ToTransportDextrin
-  :comment "GO:0042957"
-  :across go/plasma_membrane
-  :cargo ch/dextrin)
-
-(deftransport ToTransportPeptidoglycan
-  :comment "GO:0015647"
-  :across go/plasma_membrane
-  :cargo ch/peptidoglycan)
-
-(deftransport ToTransportPeptidoglycanPeptide
-  :comment "GO:0015640"
-  :across go/plasma_membrane
-  :cargo PeptidoglycanPeptide)
-
-(deftransport ToTransportLipid-linkedPeptidoglycan
-  :comment "GO:0015648"
-  :across go/plasma_membrane
-  :cargo ch/lipid-linked_peptidoglycan)
-
-
-(deftransport ToTransportMonosaccharide
-  :comment "GO:0015145"
-  :across go/plasma_membrane
-  :cargo ch/monosaccharide)
-
-(deftransport ToTransportHexose
-  :comment "GO:0015149"
-  :across go/plasma_membrane
-  :cargo ch/hexose)
-
-(deftransport ToTransportRhamnose
-  :comment "GO:0015153"
-  :across go/plasma_membrane
-  :cargo ch/rhamnose)
-
-(deftransport ToTransportMannose
-  :comment "GO:0015578"
-  :across go/plasma_membrane
-  :cargo ch/mannose)
-
-(deftransport ToTransportGlucose
-  :comment "GO:0005355"
-  :across go/plasma_membrane
-  :cargo ch/glucose)
-
-(deftransport ToTransportGlucoseWithHighAffinity
-  :comment "GO:0140108"
-  :across go/plasma_membrane
-  :cargo ch/glucose
-  :transports-with HighAffinity)
-
-(deftransport ToTransportD-Glucose
-  :comment "GO:0055056"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-glucose (owl-some hasEnantiomerism D-Enantiomer)))
-
-(deftransport ToTransportGalactose
-  :comment "GO:0005354"
-  :across go/plasma_membrane
-  :cargo ch/galactose)
-
-(deftransport ToTransportFructose
-  :comment "GO:0005353"
-  :across go/plasma_membrane
-  :cargo ch/fructose)
-
-(deftransport ToTransportAllose
-  :comment "GO:0015593"
-  :across go/plasma_membrane
-  :cargo ch/allose)
-
-(deftransport ToTransportSorbose
-  :comment "GO:0019194"
-  :across go/plasma_membrane
-  :cargo ch/sorbose)
-
-(deftransport ToTransportFucose
-  :comment "GO:0015150"
-  :across go/plasma_membrane
-  :cargo ch/fucose)
-
-(deftransport ToTransportPentose
-  :comment "GO:0015146"
-  :across go/plasma_membrane
-  :cargo ch/pentose)
-
-(deftransport ToTransportD-ribose
-  :comment "GO:0015591"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-ribose (owl-some hasEnantiomerism D-Enantiomer)))
-
-(deftransport ToTransportD-xylose
-  :comment "GO:0015148"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-xylose (owl-some hasEnantiomerism D-Enantiomer)))
-
-;; A pentose monosaccharide that occurs in both D and L configurations, and as a polymer
-(deftransport ToTransportArabinose
-  :comment "GO:0042900"
-  :across go/plasma_membrane
-  :cargo ch/arabinose)
-
-(deftransport ToTransportL-arabinose
-  :comment "GO:0015147"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-arabinose (owl-some hasEnantiomerism L-Enantiomer)))
-
-;; Need review
-(deftransport ToTransportL-ascorbicAcid
-  :comment "GO:0015229"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-ascorbic_acid (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-biological-role ch/vitamin ch/coenzyme)))
-
-;;annotation "Uronic acids are any monocarboxylic acid formally derived by oxidizing to a carboxyl group the terminal hydroxymethylene group of either an aldose with four or more carbon atoms in the molecule, or of any glycoside derived from such an aldose."
-(deftransport ToTransportUronicAcid
-  :comment "GO:0015133"
-  :across go/plasma_membrane
-  :cargo ch/uronic_acid)
-
-(deftransport ToTransportHexuronate
-  :comment "GO:0015134"
-  :across go/plasma_membrane
-  :cargo ch/hexuronate)
-
-(deftransport ToTransportGlucuronate
-  :comment "GO:0015135"
-  :across go/plasma_membrane
-  :cargo ch/glucuronate)
-
-(deftransport ToTransportD-Glucuronate
-  :comment "GO:0042880"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-glucuronate (owl-some hasEnantiomerism D-Enantiomer)))
-
-(deftransport ToTransportGalacturonate
-  :comment "GO:0015550"
-  :across go/plasma_membrane
-  :cargo ch/galacturonate)
-
-
-(deftransport ToTransportAminoAcidDerivative
-  :comment "GO:0072349"
-  :across go/plasma_membrane
-  :cargo ch/amino_acid_derivative)
-
-(deftransport ToTransportFolicAcid
-  :comment "GO:0008517"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/folic_acid (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
-
-
-(deftransport ToTransportCreatine
-  :comment "GO:0005308"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/creatine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/cofactor)))
-
-(deftransport ToTransportS-methylmethionine
-  :comment "GO:0000100"
-  :across go/plasma_membrane
-  :cargo ch/S-methyl-L-methionine)
-
-
-(deftransport ToTransportCarnitine
-  :comment "GO:0015226"
-  :across go/plasma_membrane
-  :cargo ch/carnitine)
-
-(deftransport ToTransportR-Carnitine
-  :comment "GO:1901235"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_R_-carnitine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
-
-(deftransport ToTransportR-PantothenicAcid
-  :comment "GO:0015233"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_R_-pantothenate (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/coenzyme ch/vitamin)))
-
-
-(deftransport ToTransportL-hydroxyproline
-  :comment "GO:0034590"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_4-hydroxy-L-proline (owl-some hasEnantiomerism L-Enantiomer)))
-
-
-(deftransport ToTransport5-formyltetrahydrofolicAcid
-  :comment "GO:0015231"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_5-formyltetrahydrofolic_acid (owl-some has-biological-role ch/cofactor)))
-
-(deftransport ToTransportCarcinine
-  :comment "GO:1905131"
-  :across go/plasma_membrane
-  :cargo ch/carcinine)
-
-(deftransport ToTransportGlutathione
-  :comment "GO:0034634"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/glutathione (owl-some has-biological-role ch/cofactor)))
-
-(deftransport ToTransportL-cystine
-  :comment "GO:0015184"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-cystine (owl-some hasEnantiomerism L-Enantiomer)))
-
-(deftransport ToTransport4-TrimethylammonioButanoate
-  :comment "GO:1901236"
-  :across go/plasma_membrane
-  :cargo ch/_4-_trimethylammonio_butanoate)
-
-(deftransport ToTransportAminoAcidBetaine
-  :comment "GO:0015199"
-  :across go/plasma_membrane
-  :cargo ch/glycine_betaine)
-
-;;Any compound containing one, two, or three acyl groups attached to a nitrogen atom
-(deftransport ToTransportAmide
-  :comment "GO:0042887"
-  :across go/plasma_membrane
-  :cargo ch/amide)
-
-(deftransport ToTransportFosmidomycin
-  :comment "GO:0042898"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/fosmidomycin (owl-some has-biological-role ch/antimicrobial_drug)))
-
-
-;; need review
-;; Not sure what type of antibiotic.!!
-;; In Chebi Benomyl does not have role xenobiotic !!!
-(deftransport ToTransportBenomyl
-  :comment "GO:1901479"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/benomyl (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic)))
-
-(deftransport ToTransportMethotrexate
-  :comment "GO:0015350"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/methotrexate (owl-some has-application-role ch/drug)))
-
-
-(deftransport ToTransportDethiobiotin
-  :comment "GO:1901604"
-  :across go/plasma_membrane
-  :cargo ch/dethiobiotin)
-
-(deftransport ToTransportUrea
-  :comment "GO:0015204"
-  :across go/plasma_membrane
-  :cargo ch/urea)
-
-(deftransport ToTransportAllantoate
-  :comment "GO:0015124"
-  :across go/plasma_membrane
-  :cargo ch/allantoate)
-
-(deftransport ToTransportPeptide
-  :comment "GO:1904680"
-  :across go/plasma_membrane
-  :cargo ch/peptide)
-
-(deftransport ToTransportProtein
-  :comment "GO:0008320"
-  :across go/plasma_membrane
-  :cargo ch/protein)
-
-(deftransport ToTransportFoldedProtein
-  :comment "GO:0015557"
-  :across go/plasma_membrane
-  :cargo FoldedProtein
-  :when go/TAT_protein_transport_complex)
-
-(deftransport ToTransportBacteriocin
-  :comment "GO:0022885"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/bacteriocin (owl-some has-application-role ch/antimicrobial_drug)))
-
-(deftransport ToTransportColicin
-  :comment "GO:0042912"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/colicin (owl-some has-application-role ch/antimicrobial_drug)))
-
-
-
-;; (deftransport ToTransportProtein-DNAComplex
-;;   :comment ""
-;;   :across go/plasma_membrane
-;;   :cargo ....................................................)
-
-(deftransport ToTransportMicrocin
-  :comment "GO:0015638"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/microcin (owl-some has-biological-role ch/antimicrobial_drug)))
-
-(deftransport ToTransportOligopeptide
-  :comment "GO:0035673"
-  :across go/plasma_membrane
-  :cargo ch/oligopeptide)
-
-(deftransport ToTransportTetrapeptide
-  :comment "GO:1901584"
-  :across go/plasma_membrane
-  :cargo ch/tetrapeptide)
-
-(deftransport ToTransportTripeptide
-  :comment "GO:0042937"
-  :across go/plasma_membrane
-  :cargo ch/tripeptide)
-
-(deftransport ToTransportDipeptide
-  :comment "GO:0071916"
-  :across go/plasma_membrane
-  :cargo ch/dipeptide)
-
-
-;; Transfer of an inorganic molecular entity from the outside of a cell to the inside of the cell across a membrane.
-;; An inorganic molecular entity is a molecular entity that contains no carbon. 
-(deftransport ToTransportInorganicMolecularEntity
-  :comment "GO:0015318"
-  :across go/plasma_membrane
-  :cargo ch/inorganic_molecular_entity)
-
-(deftransport ToTransportWater
-  :comment "GO:0005372"
-  :across go/plasma_membrane
-  :cargo ch/water)
-
-;; Need review
-;; acridine has no role xenobiotic in ChEBI
-(deftransport ToTransportArcidine
-  :comment "GO:0042911"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/acridine (owl-some has-biological-role ch/xenobiotic)))
-
-
-(deftransport ToTransportInorganicCation
-  :comment "GO:0022890"
-  :across go/plasma_membrane
-  :cargo ch/inorganic_cation)
-
-(deftransport ToTransportTrivalentInorganicCation
-  :comment "GO:0072510"
-  :across go/plasma_membrane
-  :cargo ch/trivalent_inorganic_cation)
-
-(deftransport ToTransportDivalentInorganicCation
-  :comment "GO:0072509"
-  :across go/plasma_membrane
-  :cargo ch/divalent_inorganic_cation)
-
-(deftransport ToTransportFerrousIron
-  :comment "GO:0015093"
-  :across go/plasma_membrane
-  :cargo ch/iron_2+_)
-
-(deftransport ToTransportZincIon
-  :comment "GO:0005385"
-  :across go/plasma_membrane
-  :cargo ch/zinc_2+_)
-
-(deftransport ToTransportZincIonEfflux
-  :comment "GO:0022883"
-  :across go/plasma_membrane
-  :cargo ch/zinc_2+_
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportFerricIron
-  :comment "GO:0015091"
-  :across go/plasma_membrane
-  :cargo ch/iron_3+_)
-
-;; Lactoferrin not exist in Chebi
-(deftransport ToTransportLactoferrin
-  :comment "GO:0033569"
-  :across go/plasma_membrane
-  :cargo Lactoferrin)
-
-
-(deftransport ToTransportMonovalentInorganicCation
-  :comment "GO:0015077"
-  :across go/plasma_membrane
-  :cargo ch/monovalent_inorganic_cation)
-
-(deftransport ToTransportProton
-  :comment "GO:0015078"
-  :across go/plasma_membrane
-  :cargo ch/proton)
-
-(deftransport ToTransportSodiumIon
-  :comment "GO:0015081"
-  :across go/plasma_membrane
-  :cargo ch/sodium_1+_)
-
-(deftransport ToTransportPotassiumIon
-  :comment "GO:0015079"
-  :across go/plasma_membrane
-  :cargo ch/potassium_1+_)
-
-
-(deftransport ToTransportAlkane
-  :comment "GO:0015567"
-  :across go/plasma_membrane
-  :cargo ch/alkane)
-
-(deftransport ToTransportCyanate
-  :comment "GO:0015110"
-  :across go/plasma_membrane
-  :cargo ch/cyanate)
-
-(deftransport ToTransportAminoAcid
-  :comment "GO:0015171"
-  :across go/plasma_membrane
-  :cargo ch/amino_acid)
-
-(deftransport ToTransportL-AminoAcid
-  :comment "GO:0015179"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-alpha-amino_acid (owl-some hasEnantiomerism L-Enantiomer)))
-
-(deftransport ToTransportL-AminoAcidEfflux
-  :comment "GO:0034639"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-alpha-amino_acid (owl-some hasEnantiomerism L-Enantiomer))
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportD-AminoAcid
-  :comment "GO:0042943"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-alpha-amino_acid (owl-some hasEnantiomerism D-Enantiomer)))
-
-(deftransport ToTransportD-methionine
-  :comment "GO:0048474"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-methionine (owl-some hasEnantiomerism D-Enantiomer)))
-
-(deftransport ToTransportD-aspartate
-  :comment "GO:0140010"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-aspartate_2-_ (owl-some hasEnantiomerism D-Enantiomer)))
-
-(deftransport ToTransportD-serine
-  :comment "GO:0042945"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-serine (owl-some hasEnantiomerism D-Enantiomer) (owl-some hasAcidity Neutral)
-                  (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportD-alanine
-  :comment "GO:0042944"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-alanine (owl-some hasEnantiomerism D-Enantiomer) (owl-some hasAcidity Neutral)))
-
-(deftransport ToTransportL-tyrosine
-  :comment "GO:0005302"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-tyrosine (owl-some has-application-role ch/drug) (owl-some hasEnantiomerism L-Enantiomer)))
-
-(deftransport ToTransportL-arginine
-  :comment "GO:0061459"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-arginine (owl-some hasAcidity Alkaline) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportL-alanine
-  :comment "GO:0015180"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-alanine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)))
-
-(deftransport ToTransportL-valine
-  :comment "GO:0005304"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-valine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportL-serine
-  :comment "GO:0015194"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-serine (owl-some hasEnantiomerism L-Enantiomer) (owl-some hasAcidity Neutral)))
-
-(deftransport ToTransportHomoserine
-  :comment "GO:0042970"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/homoserine (owl-some hasAcidity Neutral)))
-
-(deftransport ToTransportL-phenylalanine
-  :comment "GO:0015192"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-phenylalanine (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportL-proline
-  :comment "GO:0015193"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-proline (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportL-leucine
-  :comment "GO:0015190"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-leucine (owl-some hasEnantiomerism L-Enantiomer) (owl-some hasAcidity Neutral)))
-
-(deftransport ToTransportL-diaminopimelate
-  :comment "GO:0015626"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/LL-2_6-diaminopimelic_acid (owl-some hasEnantiomerism L-Enantiomer)))
-
-(deftransport ToTransportL-ornithine
-  :comment "GO:0000064"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-ornithine (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportL-isoleucine
-  :comment "GO:0015188"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-isoleucine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)))
-
-(deftransport ToTransportAromaticAminoAcid
-  :comment "GO:0015173"
-  :across go/plasma_membrane
-  :cargo ch/aromatic_amino_acid)
-
-(deftransport ToTransportBranchedChainAminoAcid
-  :comment "GO:0015658"
-  :across go/plasma_membrane
-  :cargo ch/branched-chain_amino_acid)
-
-(deftransport ToTransportSulfurAminoAcid
-  :comment "GO:0000099"
-  :across go/plasma_membrane
-  :cargo ch/sulfur-containing_amino_acid)
-
-(deftransport ToTransportMethionine
-  :comment "GO:0043865"
-  :across go/plasma_membrane
-  :cargo ch/methionine)
-
-(deftransport ToTransportCysteine
-  :comment "GO:0033229"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/cysteine (owl-some hasAcidity Neutral)))
-
-
-(deftransport ToTransportL-ascorbateWithSodiumCondition
-  :comment "GO:0070890"
-  :across go/plasma_membrane
-  :cargo ch/L-ascorbate
-  :when ch/sodium_1+_)
-
-(deftransport ToTransportBicarbonate
-  :comment "GO:0015106"
-  :across go/plasma_membrane
-  :cargo ch/hydrogencarbonate)
-
-
-(deftransport ToTransportNeutralAminoAcid
-  :comment "GO:0015175"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Neutral)))
-
-(deftransport ToTransportSerine
-  :comment "GO:0022889"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/serine (owl-some hasAcidity Neutral)))
-
-(deftransport ToTransportAlanine
-  :comment "GO:0022858"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/alanine (owl-some hasAcidity Neutral)))
-
-(deftransport ToTransportL-glutamine
-  :comment "GO:0015186"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-glutamine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportBasicAminoAcid
-  :comment "GO:0015174"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline)))
-
-(deftransport ToTransportL-lysine
-  :comment "GO:0015189"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportL-histidine
-  :comment "GO:0005290"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-histidine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportBasicAminoAcidWithLowAffinity
-  :comment "GO:0097625"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline))
-  :transports-with LowAffinity)
-
-(deftransport ToTransportArginine
-  :comment "GO:0015181"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/arginine (owl-some hasAcidity Alkaline)))
-
-(deftransport ToTransportBasicAminoAcidWithHighAffinity
-  :comment "GO:0005287"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Alkaline))
-  :transports-with HighAffinity)
-
-
-(deftransport ToTransportL-lysineEfflux
-  :comment "GO:0015661"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-lysine (owl-some hasAcidity Alkaline)
-                  (owl-some has-application-role ch/drug))
-  :from go/intracellular
-  :to go/extracellular_region)
-
-
-(deftransport ToTransportAcidicAminoAcid
-  :comment "GO:0015172"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/amino_acid (owl-some hasAcidity Acidic)))
-
-
- ;; substances transported with high and low affinities
-
-(deftransport ToTransportPotassiumIonWithHighAffinity
-  :comment "GO:0140107"
-  :across go/plasma_membrane
-  :cargo ch/potassium_1+_
-  :transports-with HighAffinity)
-
-(deftransport ToTransportArginineWithHighAffinity
-  :comment "GO:0005289"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/arginine (owl-some hasAcidity Alkaline))
-  :transports-with HighAffinity)
-
-(deftransport ToTransportL-histidineWithHighAffinity
-  :comment "GO:0005291"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-histidine (owl-some hasAcidity Alkaline) (owl-some has-application-role ch/drug))
-  :transports-with HighAffinity)
-
-(deftransport ToTransportLysineWithHighAffinity
-  :comment "GO:0005292"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/lysine (owl-some hasAcidity Alkaline))
-  :transports-with HighAffinity)
-
-(deftransport ToTransportZincIonWithHighAffinity
-  :comment "GO:0000006"
-  :across go/plasma_membrane
-  :cargo ch/zinc_2+_
-  :transports-with HighAffinity)
-
-(deftransport ToTransportZincIonWithLowAffinity
-  :comment "GO:0000007"
-  :across go/plasma_membrane
-  :cargo ch/zinc_2+_
-  :transports-with LowAffinity)
-
-(deftransport ToTransportGlutamateWithHighAffinity
-  :comment "GO:0005314"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/glutamate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter))
-  :transports-with HighAffinity)
-
-(deftransport ToTransportPhosphateWithLowAffinity
-  :comment "GO:0009673"
-  :across go/plasma_membrane
-  :cargo ch/phosphate_ion
-  :transports-with LowAffinity)
-
-(deftransport ToTransportCopperIonWithHighAffinity
-  :comment "GO:0015089"
-  :across go/plasma_membrane
-  :cargo ch/copper_2+_
-  :transports-with HighAffinity)
-
-(deftransport ToTransportFerricIronIonWithLowAffinity
-  :comment "GO:0015090"
-  :across go/plasma_membrane
-  :cargo ch/iron_2+_
-  :transports-with LowAffinity)
-
-(deftransport ToTransportFerricIronIonWithHighAffinity
-  :comment "GO:0015092"
-  :across go/plasma_membrane
-  :cargo ch/iron_3+_
-  :transports-with HighAffinity)
-
-(deftransport ToTransportGlutamineWithHighAffinity
-  :comment "GO:0015330"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/glutamine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug))
-  :transports-with HighAffinity)
-
-(deftransport ToTransportOligopeptideWithHighAffinity
-  :comment "GO:0015334"
-  :across go/plasma_membrane
-  :cargo ch/oligopeptide
-  :transports-with HighAffinity)
-
-(deftransport ToTransportTryptophanWithLowAffinity
-  :comment "GO:0022893"
-  :across go/plasma_membrane
-  :cargo ch/tryptophan
-  :transports-with LowAffinity)
-
-(deftransport ToTransportNickelCationWithHighAffinity
-  :comment "GO:0044750"
-  :across go/plasma_membrane
-  :cargo ch/nickel_cation
-  :transports-with HighAffinity)
-
-(deftransport ToTransportPhosphateWithHighAffinity
-  :comment "GO:0048249"
-  :across go/plasma_membrane
-  :cargo ch/phosphate_ion
-  :transports-with HighAffinity)
-
-(deftransport ToTransportFructoseWithHighAffinity
-  :comment "GO:0061486"
-  :across go/plasma_membrane
-  :cargo ch/fructose
-  :transports-with HighAffinity)
-
-(deftransport ToTransportNitrateWithLowAffinity
-  :comment "GO:0080054"
-  :across go/plasma_membrane
-  :cargo ch/nitrate
-  :transports-with LowAffinity)
-
-(deftransport ToTransportL-arginineWithLowAffinity
-  :comment "GO:0097626"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-arginine (owl-some has-application-role ch/drug))
-  :transports-with LowAffinity)
-
-(deftransport ToTransportL-ornithineWithHighAffinity
-  :comment "GO:0097627"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-ornithine (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug))
-  :transports-with HighAffinity)
-
-(deftransport ToTransportL-tryptophanWithHighAffinity
-  :comment "GO:0005300"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug))
-  :transports-with HighAffinity)
-
-(deftransport ToTransportL-tryptophanWithLowAffinity
-  :comment "GO:0022893"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug))
-  :transports-with LowAffinity)
-
-
-(deftransport ToTransportAlkanesulfonate
-  :comment "GO:0042959"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_1_1-diunsubstituted_alkanesulfonate (owl-some has-application-role ch/xenobiotic)))
-
-
-(deftransport ToTransportIon
-  :comment "GO:0015075"
-  :across go/plasma_membrane
-  :cargo ch/ion)
-
-(deftransport ToTransportTriosePhosphate
-  :comment "GO:0071917"
-  :across go/plasma_membrane
-  :cargo ch/glyceraldehyde_3-phosphate)
-
-;; Acriflavine has no role Xenobiotic in ChEBI
-(deftransport ToTransportAcriflavine
-  :comment "GO:0015566"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_3_6-diamino-10-methylacridinium_chloride (owl-some has-application-role ch/drug)
-                  (owl-some has-biological-role ch/xenobiotic)))
-
-(deftransport ToTransportTetracycline
-  :comment "GO:0008493"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/tetracycline (owl-some has-biological-role ch/antimicrobial_drug)))
-
-(deftransport ToTransportAluminumIon
-  :comment "GO:0015083"
-  :across go/plasma_membrane
-  :cargo ch/aluminium_ion)
-
-;; Positivel charged ions --> Cation
-(deftransport ToTransportCation
-  :comment "GO:0008324"
-  :across go/plasma_membrane
-  :cargo ch/cation)
-
-(deftransport ToTransportSiliconEfflux
-  :comment "GO:0032523"
-  :across go/plasma_membrane
-  :cargo ch/silicon_4+_
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportCationEfflux
-  :comment "GO:0046583"
-  :across go/plasma_membrane
-  :cargo ch/cation
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportOrganicCation
-  :comment "GO:0015101"
-  :across go/plasma_membrane
-  :cargo ch/organic_cation)
-
-(deftransport ToTransportCadaverine
-  :comment "GO:0015490"
-  :across go/plasma_membrane
-  :cargo ch/cadaverine)
-
-(deftransport ToTransportAmiloride
-  :comment "GO:0015240"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/amiloride (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportQuaternaryAmmoniumCompound
-  :comment "GO:0015651"
-  :across go/plasma_membrane
-  :cargo ch/quaternary_nitrogen_compound)
-
-(deftransport ToTransportN-methylnicotinat
-  :comment "GO:0090417"
-  :across go/plasma_membrane
-  :cargo ch/N-methylnicotinate)
-
-(deftransport ToTransportAcylCarnitine
-  :comment "GO:0015227"
-  :across go/plasma_membrane
-  :cargo ch/O-acylcarnitine)
-
-(deftransport ToTransportOrganophosphateEster
-  :comment "GO:0015605"
-  :across go/plasma_membrane
-  :cargo ch/organic_phosphate)
-
-(deftransport ToTransportGlycerol-3-phosphate
-  :comment "GO:0015169"
-  :across go/plasma_membrane
-  :cargo ch/sn-glycerol_3-phosphate)
-
-(deftransport ToTransportAminoPhospholipid
-  :comment "GO:0015247"
-  :across go/plasma_membrane
-  :cargo ch/aminophospholipid)
-
-(deftransport ToTransportHexosePhosphate
-  :comment "GO:0015119"
-  :across go/plasma_membrane
-  :cargo ch/hexose_phosphate)
-
-;; Negatively charged ions --> Anion
-(deftransport ToTransportAnion
-  :comment "GO:0008509"
-  :across go/plasma_membrane
-  :cargo ch/anion)
-
-(deftransport ToTransportOrganicAnion
-  :comment "GO:0008514"
-  :across go/plasma_membrane
-  :cargo ch/organic_anion)
-
-(deftransport ToTransportRiboflavin
-  :comment "GO:0032217"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/riboflavin (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
-
-
-(deftransport ToTransportDehydroascorbicAcid
-  :comment "GO:0033300"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-dehydroascorbic_acid (owl-some has-biological-role ch/vitamin)))
-
-;; https://www.sciencedirect.com/science/article/pii/S0006291X0400292X?via%3Dihub
-(deftransport ToTransportOrganicAnion
-  :comment "GO:0043250"
-  :across go/plasma_membrane
-  :cargo ch/organic_anion
-  :when ch/sodium_1+_)
-
-(deftransport ToTransportInorganicAnion
-  :comment "GO:0015103"
-  :across go/plasma_membrane
-  :cargo ch/inorganic_anion)
-
-(deftransport ToTransportArsenite
-  :comment "GO:0015105"
-  :across go/plasma_membrane
-  :cargo ch/arsenite_3-_)
-
-(deftransport ToTransportChromate
-  :comment "GO:0015109"
-  :across go/plasma_membrane
-  :cargo ch/chromate_2-_)
-
-(deftransport ToTransportMolybdateIon
-  :comment "GO:0015098"
-  :across go/plasma_membrane
-  :cargo ch/molybdate)
-
-(deftransport ToTransportChlorate
-  :comment "GO:0015107"
-  :across go/plasma_membrane
-  :cargo ch/chlorate)
-
-(deftransport ToTransportAntimonite
-  :comment "GO:0015104"
-  :across go/plasma_membrane
-  :cargo ch/antimonite)
-
-(deftransport ToTransportBorateEfflux
-  :comment "GO:0080139"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/borate (owl-some has-application-role ch/drug))
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportTungstate
-  :comment "GO:1901237"
-  :across go/plasma_membrane
-  :cargo ch/tungstate)
-
-(deftransport ToTransportTellurite
-  :comment "GO:0015654"
-  :across go/plasma_membrane
-  :cargo ch/tellurite)
-
-(deftransport ToTransportIodide
-  :comment "GO:0015111"
-  :across go/plasma_membrane
-  :cargo ch/iodide)
-
-(deftransport ToTransportNitrate
-  :comment "GO:0015112"
-  :across go/plasma_membrane
-  :cargo ch/nitrate)
-
-(deftransport ToTransportNitrateEfflux
-  :comment "GO:0010542"
-  :across go/plasma_membrane
-  :cargo ch/nitrate
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportNitrite
-  :comment "GO:0015113"
-  :across go/plasma_membrane
-  :cargo ch/nitrite)
-
-(deftransport ToTransportNitriteEfflux
-  :comment "GO:0015514"
-  :across go/plasma_membrane
-  :cargo ch/nitrite
-  :from go/intracellular
-  :to go/extracellular_region)
-
-
-(deftransport ToTransportInorganicDiphosphate
-  :comment "GO:0030504"
-  :across go/plasma_membrane
-  :cargo ch/diphosphate_ion)
-
-(deftransport ToTransportPhosphateIon
-  :comment "GO:0015114"
-  :across go/plasma_membrane
-  :cargo ch/phosphate_ion)
-
-(deftransport ToTransportSilicate
-  :comment "GO:0015115"
-  :across go/plasma_membrane
-  :cargo ch/silicate_ion)
-
-
-(deftransport ToTransportFluoride
-  :comment "GO:1903425"
-  :across go/plasma_membrane
-  :cargo ch/fluoride)
-
-(deftransport ToTransportChromiumIon
-  :comment "GO:0070835"
-  :across go/plasma_membrane
-  :cargo ch/chromium_ion)
-
-(deftransport ToTransportLeadIon
-  :comment "GO:0015094"
-  :across go/plasma_membrane
-  :cargo ch/lead_ion)
-
-(deftransport ToTransportL-tryptophan
-  :comment "GO:0015196"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-tryptophan (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportSalt
-  :comment "GO:1901702"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/salt (owl-some has-part ch/anion ch/cation)))
-
-(deftransport ToTransportTartrate
-  :comment "GO:0015554"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/tartrate_salt (owl-some has-part ch/anion ch/cation)))
-
-(deftransport ToTransportUrate
-  :comment "GO:0015143"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/urate_salt (owl-some has-part ch/anion ch/cation)))
-
-(deftransport ToTransportL-threonine
-  :comment "GO:0015195"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-threonine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug)))
-
-;; I changed threonine to L-threonine
-;; threonine not subclass of L-threonine (see nizal_notes.org)
-(deftransport ToTransportL-threonineEfflux
-  :comment "GO:0015565"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-threonine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug))
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportOrganicHydroxyCompound
-  :comment "GO:1901618"
-  :across go/plasma_membrane
-  :cargo ch/organic_hydroxy_compound)
-
-
-(deftransport ToTransport3-HydroxyphenylPropanoate
-  :comment "GO:0015551"
-  :across go/plasma_membrane
-  :cargo  ch/_3-hydroxyphenyl_propanoate)
-
-(deftransport ToTransportPolyol
-  :comment "GO:0015166"
-  :across go/plasma_membrane
-  :cargo ch/polyol)
-
-(deftransport ToTransportMannitol
-  :comment "GO:0015575"
-  :across go/plasma_membrane
-  :cargo ch/mannitol)
-
-(deftransport ToTransportPropanediol
-  :comment "GO:0015170"
-  :across go/plasma_membrane
-  :cargo ch/propanediol)
-
-(deftransport ToTransportMyo-inositol
-  :comment "GO:0005365"
-  :across go/plasma_membrane
-  :cargo ch/myo-inositol)
-
-(deftransport ToTransportGlucosylglycerol
-  :comment "GO:0051474"
-  :across go/plasma_membrane
-  :cargo ch/glucosylglycerol)
-
-(deftransport ToTransportGlucitol
-  :comment "GO:0015576"
-  :across go/plasma_membrane
-  :cargo ch/glucitol)
-
-(deftransport ToTransportArabinitol
-  :comment "GO:0015167"
-  :across go/plasma_membrane
-  :cargo ch/arabinitol)
-
-(deftransport ToTransportGlycerol
-  :comment "GO:0015168"
-  :across go/plasma_membrane
-  :cargo ch/glycerol)
-
-(deftransport ToTransportChloramphenicol
-  :comment "GO:0042896"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chloramphenicol (owl-some has-biological-role ch/antineoplastic_agent)))
-
-
-(deftransport ToTransportAlchohol
-  :comment "GO:0015665"
-  :across go/plasma_membrane
-  :cargo  ch/alcohol)
-
-(deftransport ToTransportRetinol
-  :comment "GO:0034632"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/retinol (owl-some has-biological-role ch/vitamin)))
-
-(deftransport ToTransportSalicin
-  :comment "GO:0042950"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/salicin (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportCycloheximide
-  :comment "GO:0015243"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/cycloheximide (owl-some has-biological-role ch/antimicrobial_drug)))
-
-(deftransport ToTransportAmmoniumIon
-  :comment "GO:0008519"
-  :across go/plasma_membrane
-  :cargo ch/ammonium_ion_derivative)
-
-(deftransport ToTransportEthanolamine
-  :comment "GO:0034228"
-  :across go/plasma_membrane
-  :cargo ch/ethanolamine)
-
-(deftransport ToTransportSpermidine
-  :comment "GO:0015606"
-  :across go/plasma_membrane
-  :cargo ch/spermidine)
-
-;; vitamin B6 compounds, pyridoxal, pyridoxamine and pyridoxine and the active form, pyridoxal phosphate
-(deftransport ToTransportVitaminB6
-  :comment "GO:0031924"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/vitamin_B6 (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
-
-(deftransport ToTransportPyridoxal
-  :comment "GO:0031925"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/pyridoxal (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin ch/cofactor)))
-
-(deftransport ToTransportPyridoxalPhosphate
-  :comment "GO:0031926"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/pyridoxal_5'-phosphate (owl-some has-application-role ch/vitamin_B6) (owl-some has-biological-role ch/vitamin ch/coenzyme)))
-
-(deftransport ToTransportPyridoxamine
-  :comment "GO:0031927"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/pyridoxamine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
-
-(deftransport ToTransportPyridoxine
-  :comment "GO:0031928"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/pyridoxine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin ch/cofactor)))
-
-(deftransport ToTransportSphingosine
-  :comment "GO:0010175"
-  :across go/plasma_membrane
-  :cargo ch/sphingosine)
-
-(deftransport ToTransportPutrescine
-  :comment "GO:0015489"
-  :across go/plasma_membrane
-  :cargo ch/putrescine)
-
-(deftransport ToTransportAcetylcholine
-  :comment "GO:0005277"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/acetylcholine (owl-some has-application-role ch/drug)
-                  (owl-some has-biological-role ch/neurotransmitter)))
-
-
-
-(deftransport ToTransportMethylammonium
-  :comment "GO:0015200"
-  :across go/plasma_membrane
-  :cargo ch/methylammonium)
-
-(deftransport ToTransportCholine
-  :comment "GO:0015220"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/choline (owl-some has-biological-role ch/neurotransmitter)))
-
-
-(deftransport ToTransportL-methionine
-  :comment "GO:0015191"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-methionine (owl-some hasEnantiomerism L-Enantiomer) (owl-some has-application-role ch/drug)))
-
-
-(deftransport ToTransportGlycerophosphodiester
-  :comment "GO:0001406"
-  :across go/plasma_membrane
-  :cargo ch/glycerol_1-phosphodiester)
-
-(deftransport ToTransportBetaAlanine
-  :comment "GO:0001761"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/beta-alanine (owl-some hasAcidity Neutral) (owl-some has-biological-role ch/neurotransmitter)))
-
-(deftransport ToTransportGlycine
-  :comment "GO:0015187"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/glycine (owl-some hasAcidity Neutral) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
-  
-(deftransport ToTransportNitricOxide
-  :comment "GO:0030184"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/nitric_oxide (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
-
-(deftransport ToTransportGammaAminobutyricAcid
-  :comment "GO:0015185"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/gamma-aminobutyric_acid (owl-some has-biological-role ch/neurotransmitter)))
-
-(deftransport ToTransportL-glutamate
-  :comment "GO:0005313"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-glutamate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/neurotransmitter)))
-
-(deftransport ToTransportL-aspartate
-  :comment "GO:0015183"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-aspartate_2-_ (owl-some hasAcidity Acidic) (owl-some hasEnantiomerism L-Enantiomer)
-                  (owl-some has-biological-role ch/neurotransmitter)))
-
-(deftransport ToTransportOrganicAcid
-  :comment "GO:0005342"
-  :across go/plasma_membrane
-  :cargo ch/organic_acid)
-
-(deftransport ToTransportTaurine
-  :comment "GO:0005368"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/taurine (owl-some has-biological-role ch/xenobiotic)))
-
-(deftransport ToTransportArsenateIon
-  :comment "GO:1901683"
-  :across go/plasma_membrane
-  :cargo ch/arsenate_ion)
-
-(deftransport ToTransportCarboxylicAcid
-  :comment "GO:0046943"
-  :across go/plasma_membrane
-  :cargo ch/carboxylic_acid)
-
-(deftransport ToTransportGibberellin
-  :comment "GO:1905201"
-  :across go/plasma_membrane
-  :cargo ch/gibberellin)
-
-(deftransport ToTransportSialicAcid
-  :comment "GO:0015136"
-  :across go/plasma_membrane
-  :cargo ch/sialic_acid)
-
-(deftransport ToTransportDicarboxylicAcid
-  :comment "GO:0005310"
-  :across go/plasma_membrane
-  :cargo ch/dicarboxylic_acid)
-
-(deftransport ToTransportAlphaKetoglutarate
-  :comment "GO:0015139"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_2-oxoglutarate_2-_ (owl-some has-biological-role ch/cofactor)))
-
-(deftransport ToTransportBilirubin
-  :comment "GO:0015127"
-  :across go/plasma_membrane
-  :cargo ch/bilirubin_IXalpha)
-
-(deftransport ToTransportC4-dicarboxylate
-  :comment "GO:0015556"
-  :across go/plasma_membrane
-  :cargo ch/C4-dicarboxylate)
-
-(deftransport ToTransportMalate
-  :comment "GO:0015140"
-  :across go/plasma_membrane
-  :cargo ch/malate_2-_)
-
-(deftransport ToTransportFumarate
-  :comment "GO:0015138"
-  :across go/plasma_membrane
-  :cargo ch/fumarate_2-_)
-
-(deftransport ToTransportSuccinate
-  :comment "GO:0015141"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/succinate_2-_ (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportOxaloacetate
-  :comment "GO:0015131"
-  :across go/plasma_membrane
-  :cargo ch/oxaloacetate_2-_)
-
-(deftransport ToTransportIronChelate
-  :comment "GO:0015603"
-  :across go/plasma_membrane
-  :cargo ch/iron_chelate)
-
-(deftransport ToTransportFerrichrome
-  :comment "GO:0042929"
-  :across go/plasma_membrane
-  :cargo ch/ferrichrome)
-
-;; need review
-(deftransport ToTransportIronNicotianamine
-  :comment "GO:0051980"
-  :across go/plasma_membrane
-  :cargo ch/nicotianamine)
-
-(deftransport ToTransportFerricVibriobactin
-  :comment "GO:0019535"
-  :across go/plasma_membrane
-  :cargo ch/ferric-vibriobactin)
-
-(deftransport ToTransportChrysobactin
-  :comment "GO:0042933"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chrysobactin (owl-some has-biological-role ch/siderophore)))
-
-(deftransport ToTransportAchromobactin
-  :comment "GO:0042934"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/achromobactin (owl-some has-biological-role ch/siderophore)))
-
-(deftransport ToTransportEnterobactin
-  :comment "GO:0042931"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/enterobactin (owl-some has-biological-role ch/siderophore)))
-
-
-(deftransport ToTransportFerricEnterobactin
-  :comment "GO:0015620"
-  :across go/plasma_membrane
-  :cargo ch/ferrienterobactin)
-
-;; need review
-(deftransport ToTransportSiderophoreIronFerrioxamine
-  :comment "GO:0015344"
-  :across go/plasma_membrane
-  :cargo ch/ferrioxamine_B)
-
-(deftransport ToTransportFerricHydroxamate
-  :comment "GO:0015622"
-  :across go/plasma_membrane
-  :cargo ch/iron_III__hydroxamate)
-
-(deftransport ToTransportMalonate_1-
-  :comment "GO:1901239"
-  :across go/plasma_membrane
-  :cargo ch/malonate_1-_)
-
-(deftransport ToTransportIsopropylmalate
-  :comment "GO:0034658"
-  :across go/plasma_membrane
-  :cargo ch/_2-isopropylmalate_2-_)
-
-(deftransport ToTransportOxalate
-  :comment "GO:0019531"
-  :across go/plasma_membrane
-  :cargo ch/oxalate)
-
-(deftransport ToTransportTricarboxylicAcid
-  :comment "GO:0015142"
-  :across go/plasma_membrane
-  :cargo ch/tricarboxylic_acid)
-
-(deftransport ToTransportCitrate
-  :comment "GO:0015137"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/citrate_3-_ (owl-some has-biological-role ch/antimicrobial_drug)))
-
-(deftransport ToTransportIcosanoid
-  :comment "GO:0071714"
-  :across go/plasma_membrane
-  :cargo ch/icosanoid)
-
-(deftransport ToTransportProstaglandin
-  :comment "GO:0015132"
-  :across go/plasma_membrane
-  :cargo ch/prostaglandin)
-
-(deftransport ToTransportArachidonate
-  :comment "GO:1903962"
-  :across go/plasma_membrane
-  :cargo ch/arachidonate)
-
-(deftransport ToTransportGlucuronoside
-  :comment "GO:0015164"
-  :across go/plasma_membrane
-  :cargo ch/glucosiduronic_acid)
-
-(deftransport ToTransportMonocarboxylicAcid
-  :comment "GO:0008028"
-  :across go/plasma_membrane
-  :cargo ch/monocarboxylic_acid)
-
-(deftransport ToTransportPyruvate
-  :comment "GO:0050833"
-  :across go/plasma_membrane
-  :cargo ch/pyruvate)
-
-(deftransport ToTransportHydroxyectoine
-  :comment "GO:0033287"
-  :across go/plasma_membrane
-  :cargo ch/_5-hydroxyectoine)
-
-(deftransport ToTransportBenzoate
-  :comment "GO:0042925"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/benzoate (owl-some has-biological-role  ch/antimicrobial_drug   ch/human_xenobiotic_metabolite)))
-
-(deftransport ToTransportAldonate
-  :comment "GO:0042879"
-  :across go/plasma_membrane
-  :cargo ch/aldonate)
-
-(deftransport ToTransportPhosphoglycerate
-  :comment "GO:0015120"
-  :across go/plasma_membrane
-  :cargo ch/phosphoglycerate)
-
-(deftransport ToTransportD-Galactonate
-  :comment "GO:0042881"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/D-galactonate (owl-some hasEnantiomerism D-Enantiomer)))
-
-(deftransport ToTransportL-idonate
-  :comment "GO:0015568"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-idonate (owl-some hasEnantiomerism L-Enantiomer) (owl-some derived-from ch/L-idose)))
-
-(deftransport ToTransportGlycerate
-  :comment "GO:1901974"
-  :across go/plasma_membrane
-  :cargo ch/glycerate)
-
-(deftransport ToTransportGluconate
-  :comment "GO:0015128"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/gluconate (owl-some derived-from ch/glucose)))
-
-(deftransport ToTransport3-HydroxyphenylpropionicAcid
-  :comment "GO:0042926"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_3-_3-hydroxyphenyl_propanoic_acid (owl-some has-biological-role ch/human_xenobiotic_metabolite)))
-
-(deftransport ToTransportAbscisicAcid
-  :comment "GO:0090440"
-  :across go/plasma_membrane
-  :cargo ch/abscisic_acids)
-
-(deftransport ToTransportL-asparagine
-  :comment "GO:0015182"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/L-asparagine (owl-some hasEnantiomerism L-Enantiomer) (owl-some hasAcidity Neutral)
-                  (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportPhosphoenolpyruvate
-  :comment " GO:0089721"
-  :across go/plasma_membrane
-  :cargo ch/phosphoenolpyruvate)
-
-(deftransport ToTransport3-PhenylpropionicAcid
-  :comment "GO:0042890"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_3-phenylpropionic_acid (owl-some has-biological-role ch/antimicrobial_drug)))
-
-(deftransport ToTransportNalidixicAcid
-  :comment "GO:0015547"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/nalidixic_acid (owl-some has-biological-role ch/antimicrobial_drug ch/xenobiotic)))
-
-(deftransport ToTransportGlycolicAcid
-  :comment "GO:0043879"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/glycolic_acid (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportAcetate
-  :comment "GO:0015123"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/acetate (owl-some has-biological-role ch/antimicrobial_drug)))
-
-(deftransport ToTransportBileAcid
-  :comment "GO:0015125"
-  :across go/plasma_membrane
-  :cargo ch/bile_acid)
-
-(deftransport ToTransportCanalicularBileAcid
-  :comment "GO:0015126"
-  :across go/plasma_membrane
-  :cargo ch/bile_acid
-  :from Hepatocyte
-  :to go/intracellular_canaliculus)
-
-(deftransport ToTransportNicotine
-  :comment "GO:0090416"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/nicotine (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/vitamin)))
-
-(deftransport ToTransportLactate
-  :comment "GO:0015129"
-  :across go/plasma_membrane
-  :cargo ch/lactate)
-
-(deftransport ToTransportBiotin
-  :comment "GO:0015225"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/biotin (owl-some has-application-role ch/drug) (owl-some has-biological-role ch/coenzyme ch/B_vitamin)))
-
-(deftransport ToTransportBiopterin
-  :comment "GO:0015224"
-  :across go/plasma_membrane 
-  :cargo (owl-and ch/biopterin (owl-some has-biological-role ch/coenzyme)))
-
-(deftransport ToTransportFattyAcid
-  :comment "GO:0015245"
-  :across go/plasma_membrane
-  :cargo ch/fatty_acid)
-
-(deftransport ToTransportR-3-hydroxybutyrate
-  :comment "GO:0097253"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/_R_-3-hydroxybutyrate (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportShortChainFattyAcid
-  :comment "GO:0015636"
-  :across go/plasma_membrane
-  :cargo ch/short-chain_fatty_acid)
-
-;; Propanoate has no role antibiotic, but propionic acid does.
-(deftransport ToTransportPropionicAcid
-  :comment "GO:0015552"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/propionic_acid (owl-some has-biological-role ch/antimicrobial_drug)))
-
-(deftransport ToTransportLongChainFattyAcid
-  :comment "GO:0005324"
-  :across go/plasma_membrane
-  :cargo ch/long-chain_fatty_acid)
-
-(deftransport ToTransportOleate
-  :comment "GO:1901480"
-  :across go/plasma_membrane
-  :cargo ch/oleate)
-
-(deftransport ToTransportFormate
-  :comment "GO:0015499"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_drug)))
-
-(deftransport ToTransportFormateEfflux
-  :comment "GO:0015660"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/formate (owl-some has-biological-role ch/antimicrobial_drug))
-  :from go/intracellular
-  :to go/extracellular_region)
-
-(deftransport ToTransportEctoine
-  :comment "GO:0051471"
-  :across go/plasma_membrane
-  :cargo ch/ectoine)
-
-(deftransport ToTransportShikimate
-  :comment "GO:0015530"
-  :across go/plasma_membrane
-  :cargo ch/shikimate)
-
-(deftransport ToTransport4-Hydroxyphenylacetate
-  :comment "GO:1901241"
-  :across go/plasma_membrane
-  :cargo ch/_4-hydroxyphenylacetate)
-
-(deftransport ToTransportMevalonate
-  :comment "GO:0015130"
-  :across go/plasma_membrane
-  :cargo ch/mevalonate)
-
-(deftransport ToTransportMannosylglycerate
-  :comment "GO:0051477"
-  :across go/plasma_membrane
-  :cargo ch/D-mannosyl-D-glyceric_acid)
-
-(deftransport ToTransportLactone
-  :comment "GO:0042971"
-  :across go/plasma_membrane
-  :cargo ch/lactone)
-
-(deftransport ToTransportOrganicPhosphonate
-  :comment "GO:0015604"
-  :across go/plasma_membrane
-  :cargo ch/organic_phosphonate)
-
-(deftransport ToTransportAlkylphosphonate
-  :comment "GO:0042917"
-  :across go/plasma_membrane
-  :cargo ch/alkylphosphonate)
-
-;; There is no metal ion in CHEBI
-(deftransport ToTransportMetalIon
-  :comment "GO:0046873"
-  :across go/plasma_membrane
-  :cargo ch/metal_cation)
-
-(deftransport ToTransportMagnesiumIon
-  :comment "GO:0015095"
-  :across go/plasma_membrane
-  :cargo ch/magnesium_cation)
-
-(deftransport ToTransportCalciumIon
-  :comment "GO:0015085"
-  :across go/plasma_membrane
-  :cargo ch/calcium_ion)
-
-(deftransport ToTransportTransitionMetalIon
-  :comment "GO:0046915"
-  :across go/plasma_membrane
-  :cargo ch/transition_element_cation)
-
-(deftransport ToTransportVanadiumIon
-  :comment "GO:0015100"
-  :across go/plasma_membrane
-  :cargo ch/vanadium_cation)
-
-(deftransport ToTransportIronIon
-  :comment "GO:0005381"
-  :across go/plasma_membrane
-  :cargo ch/iron_2+_)
-
-(deftransport ToTransportManganeseIon
-  :comment "GO:0005384"
-  :across go/plasma_membrane
-  :cargo ch/manganese_2+_)
-
-(deftransport ToTransportMolybdenumIon
-  :comment "GO:0042888"
-  :across go/plasma_membrane
-  :cargo ch/molybdenum_cation)
-
-(deftransport ToTransportSilverIon
-  :comment "GO:0015080"
-  :across go/plasma_membrane
-  :cargo ch/silver_cation)
-
-(deftransport ToTransportCadmiumIon
-  :comment "GO:0015086"
-  :across go/plasma_membrane
-  :cargo ch/cadmium_cation)
-
-(deftransport ToTransportNickelCation
-  :comment "GO:0015099"
-  :across go/plasma_membrane
-  :cargo ch/nickel_cation)
-
-(deftransport ToTransportCobaltIon
-  :comment "GO:0015087"
-  :across go/plasma_membrane
-  :cargo ch/cobalt_cation)
-
-(deftransport ToTransportMercuryIon
-  :comment "GO:0015097"
-  :across go/plasma_membrane
-  :cargo ch/mercury_cation)
-
-(deftransport ToTransportCopperIon
-  :comment "GO:0005375"
-  :across go/plasma_membrane
-  :cargo ch/copper_cation)
-
-(deftransport ToTransportCopperChelate
-  :comment "GO:0051981"
-  :across go/plasma_membrane
-  :cargo CopperChelate)
-
-(deftransport ToTransportCopper-nicotianamine
-  :comment "GO:0051982"
-  :across go/plasma_membrane
-  :cargo Copper-nicotianamine)
-
-(deftransport ToTransportPolyamine
-  :comment "GO:0015203"
-  :across go/plasma_membrane
-  :cargo ch/polyamine)
-
-(deftransport ToTransportSpermine
-  :comment "GO:0000297"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/spermine (owl-some has-application-role ch/drug)))
-
-(deftransport ToTransportChloride
-  :comment "GO:0015108"
-  :across go/plasma_membrane
-  :cargo ch/chloride)
-
-(deftransport ToTransportBicozamycin
-  :comment "GO:0015545"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/bicozamycin (owl-some has-biological-role ch/bicozamycin)))
-
-;;"carbonyl cyanide m-chlorophenylhydrazone transmembrane transporter"
-(deftransport ToTransportCCCP
-  :comment "GO:0015549"
-  :across go/plasma_membrane
-  :cargo ch/CCCP)
-
-(deftransport ToTransportOrganomercurial
-  :comment "GO:0015548"
-  :across go/plasma_membrane
-  :cargo ch/organomercury_compound)
-
-(deftransport ToTransportHeme
-  :comment "GO:0015232"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/heme (owl-some has-biological-role ch/cofactor)))
-
-
-(deftransport ToTransportGlycolipid
-  :comment "GO:0034202"
+  :annotation (goid "GO:0017089")
   :cargo ch/glycolipid)
