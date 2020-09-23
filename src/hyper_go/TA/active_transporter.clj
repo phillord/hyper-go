@@ -489,12 +489,6 @@
   :driven Oxidoreduction
   :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration)))
 
-(deftransport ToTransportSoluteDrivenByHydrolysis
-  :comment "GO:0015405"
-  :across go/plasma_membrane
-  :cargo (owl-and ch/chemical_entity (owl-some hasConcentration LowConcentration))
-  :driven (owl-or ATP_Hydrolysis ATP_Synthesis))
-
 (deftransport ToTransportProteinDrivenByHydrolysis
   :comment "GO:0015450"
   :across go/plasma_membrane
