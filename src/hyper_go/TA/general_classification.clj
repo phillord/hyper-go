@@ -573,3 +573,78 @@
   ["L-threonineEfflux" "GO:0015565" go/intracellular    go/extracellular_region  ch/L-threonine hasAcidity Neutral hasEnantiomerism L-Enantiomer  has-application-role ch/drug] ;;threonine not subclass of L-threonine (see nizal_notes.org)
   ["CanalicularBileAcidInflux" "GO:0015126" Hepatocyte  go/intracellular_canaliculus  ch/bile_acid]
   ["FormateEfflux" "GO:0015660"     go/intracellular    go/extracellular_region  ch/formate  has-biological-role ch/antimicrobial_drug])
+
+
+;;High/Low affinity Transmembrane transporter activity
+(defn substance-transporting-across-membrane-affinity [lis]
+  `(deftransport ~(symbol (str "ToTransport" (first lis) "TransmembraneWith" (nth lis 2)))
+     :annotation (goid ~(second lis))
+     :across go/membrane
+     :transporterAffinity ~(nth lis 2) 
+     :cargo
+     ~(cond (= 4 (count lis)) (nth lis 3)
+            (= 6 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5)))
+            (= 7 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5) ~(nth lis 6)))
+            (= 8 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7)))
+            (= 9 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7) ~(nth lis 8)))
+            (= 10 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7))
+                      (owl-some ~(nth lis 8) ~(nth lis 9)))
+            (= 11 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7))
+                      (owl-some ~(nth lis 8) ~(nth lis 9) ~(nth lis 10)))
+            (= 12 (count lis))
+            `(owl-and ~(nth lis 3)
+                      (owl-some ~(nth lis 4) ~(nth lis 5))
+                      (owl-some ~(nth lis 6) ~(nth lis 7))
+                      (owl-some ~(nth lis 8) ~(nth lis 9))
+                      (owl-some ~(nth lis 10)~(nth lis 11)))
+            :else (println "Class data out of the range"))))
+
+
+;; macro function to do the classes mapping 
+(defmacro deftransporters-transmembrane-affinity [& liss]
+  `(do ~@(map substance-transporting-across-membrane-affinity liss)))
+
+;; List of the substances transport across plasma membrane
+(deftransporters-transmembrane-affinity
+  ["Oligopeptide"   "GO:0015334"    HighAffinity   ch/oligopeptide]
+  ["Tryptophan"     "GO:0022893"    LowAffinity    ch/L-tryptophan]
+  ["NickelCation"   "GO:0044750"    HighAffinity   ch/nickel_cation]
+  ["Phosphate"      "GO:0048249"    HighAffinity   ch/phosphate_ion]
+  ["Fructose"       "GO:0061486"    HighAffinity   ch/fructose]
+  ["Nitrate"        "GO:0080054"    LowAffinity    ch/nitrate]
+  ["ZincIon"        "GO:0000006"    HighAffinity   ch/zinc_2+_]
+  ["ZincIon"        "GO:0000007"    LowAffinity    ch/zinc_2+_]
+  ["Phosphate"      "GO:0009673"    LowAffinity    ch/phosphate_ion]
+  ["CopperIon"      "GO:0015089"    HighAffinity   ch/copper_2+_]
+  ["FerricIronIon"  "GO:0015090"    LowAffinity    ch/iron_2+_]
+  ["FerricIronIon"  "GO:0015092"    HighAffinity   ch/iron_3+_]
+  ["Glucose"        "GO:0140108"    HighAffinity   ch/glucose]
+  ["PotassiumIon"   "GO:0140107"    HighAffinity   ch/potassium_1+_]
+  ["Arginine"       "GO:0005289"    HighAffinity   ch/arginine      hasAcidity Alkaline]
+  ["BasicAminoAcid" "GO:0097625"    LowAffinity    ch/amino_acid    hasAcidity Alkaline]
+  ["Lysine"         "GO:0005292"    HighAffinity   ch/lysine        hasAcidity Alkaline]
+  ["BasicAminoAcid" "GO:0005287"    HighAffinity   ch/amino_acid    hasAcidity Alkaline]
+  ["L-histidine"    "GO:0005291"    HighAffinity   ch/L-histidine   hasAcidity Alkaline   has-application-role ch/drug]
+  ["L-arginine"     "GO:0097626"    LowAffinity    ch/L-arginine    has-application-role  ch/drug]
+  ["Glutamate"      "GO:0005314"    HighAffinity   ch/glutamate_2-_ hasAcidity Acidic     hasEnantiomerism L-Enantiomer  has-application-role ch/drug has-biological-role ch/neurotransmitter]
+  ["Glutamine"      "GO:0015330"    HighAffinity   ch/glutamine     hasAcidity Neutral    hasEnantiomerism L-Enantiomer  has-application-role ch/drug]
+  ["L-ornithine"    "GO:0097627"    HighAffinity   ch/L-ornithine   hasEnantiomerism L-Enantiomer  has-application-role  ch/drug]
+  ["L-tryptophan"   "GO:0005300"    HighAffinity   ch/L-tryptophan  hasEnantiomerism L-Enantiomer  has-application-role  ch/drug]
+  ["L-tryptophan"   "GO:0022893"    LowAffinity    ch/L-tryptophan  hasEnantiomerism L-Enantiomer  has-application-role  ch/drug])
+
