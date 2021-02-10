@@ -1,16 +1,19 @@
 (ns hyper-go.core
-    (:use [tawny.pattern])
+  (:use [tawny.pattern]
+        [tawny.repl])
   (:require [tawny.owl :refer :all]
+            [tawny.emacs :refer :all]
             [tawny-chebi.chebi :as ch]
             [tawny-go.go :as go]))
 
+(:import tawny-chebi.chebi/chebi)
 
-(owl-import tawny-chebi.chebi/chebi)
-
-(owl-import tawny-go.go/go)
+(:import tawny-go.go/go)
 
 (defontology HyperGo
-  :iri "http://purl.obolibrary.org/obo/HyperGo")
+  :iri "http://www.ncl.ac.uk/HyperGo"
+  :comment "A hypernormnalised version of the Gene Ontology (GO) 
+          written using the tawny-owl library")
 
 ;; =====================================================
 ;; =========== Define Properties for TA and CA =========
@@ -25,9 +28,11 @@
 (defaproperty definition
   :comment "GO class definition")
 (def Def (annotator definition))
+
 (defaproperty has_exact_synonym
-  :comment "GO class exact synonym")
+  :comment "GO class exact synonym") 
 (def synon (annotator has_exact_synonym))
+
 (defaproperty database_across_reference
   :comment "reference to related source: an ontology or database")
 (def database (annotator database_across_reference))
@@ -81,85 +86,149 @@
 (defoproperty occurs_in
   :label "occurs in"
   :comment "a molecular activity that occurs in a specific cellular location")
-(defoproperty contributes-to
+(defoproperty contributeTo
   :comment "a molecular activity that contributes to a biological process"
   :annotation (database "RO_0002326"))
 (defoproperty established-by
   :comment "a molecular activity established by a biological activity.")
 (defoproperty during
   :comment "a molecular activity during a biological activity.")
+(defoproperty hasPore
+  :comment "pore membrane complex has narrow or wide pore size")
+(defoproperty hasChannelType
+  :comment "Wide and narrow pore channel proteins allow specific molecules cross the plasma membrane")
 
 
-(defclass ValuePartition)
+(defclass RefiningTypes)
 
-(defpartition BindingAffinity
+(defpartition TransporterAffinity
   [LowAffinity HighAffinity]
   :comment "Transports a substance with high/low affinity. 
-       Affinity is a property for the transporter not the thing being transported"
-  :super ValuePartition)
+Affinity is a property for the transporter not the solute being transported"
+  :super RefiningTypes)
 
-(defpartition Mechanism
-  [Rotational Phosphorylative Facilitated_diffusion]
-  :comment "some chemical entities transported with a specific type of mechanism"
-  :super ValuePartition)
+(defpartition TransportSystem
+  [Active Passive]
+  :comment "A chemical entity transports with a transprt system at a single transport process."
+  :super RefiningTypes)
+
+(declare-classes
+ SimpleDiffusion
+ FacilitatedDiffusion 
+   :comment "Passive transporter types are simple diffusion and facilitated diffusion"
+   :super Passive)
+
+(defpartition IonTransportMechanism
+  [Rotational Phosphorylative]
+  :comment "In some cases the movement of ions across a membrane occurs by the Rotational and Phosphorylative mechanisms"
+  :super RefiningTypes)
 
 (defpartition Acidity
   [Acidic Neutral Alkaline]
-  :comment "Amino acid, Basic, acidic and neutral amino-acid have different PH scale"
-  :super ValuePartition)
+  :comment "Amino acid, Basic, Acidic and Neutral amino-acid have different PH scale"
+  :super RefiningTypes)
 
 (deftier Concentration
   [Low High]
-  :comment "In Active transporter: Particles or solutes moves from an area with high number 
-      of particles to an area of lower number of particles."
-  :super ValuePartition
+  :comment "Concentration gradient is the difference in a solute concentration inside versus outside of a cell enviroment"
   :suffix true
-  :functional false)
+  :super RefiningTypes)
 
-(defpartition Direction
-  [SameDirection OppositeDirection]
+(deftier Direction
+  [Same Opposite]
   :comment "In secondary active transporters substances moves either by Symporter and Antiporter mechanism"
-  :super ValuePartition)
+  :suffix true
+  :functional true
+  :super RefiningTypes)
 
 (defpartition Enantiomerism
   [D-Enantiomer L-Enantiomer]
-  :super ValuePartition)
+  :comment "D and L enantiomers refer to the configurational stereochemistry of the molecule."
+  :super RefiningTypes)
 
-(defpartition EnergySource
+(defpartition PrimaryEnergySource
   [Light Decarboxylation Oxidoreduction
-   Methyl_transfer_reaction ATP_Hydrolysis 
-   ATP_Synthesis pH-dependent Phosphoenolpyruvate MembranePotential]
-  :comment "In Primary Active transporter: transport works equally well in either direction and is driven by a primary energy source "
-  :super ValuePartition)
+   MethylTransferReaction ATP_Hydrolysis pyrophosphate_Hydrolysis
+   pH-dependent Phosphoenolpyruvate ElectricalPotentialDifference]
+  :comment "Active transporters use a primary source of energy to lead the 
+active transport of a substance or a group of substances against a concentration gradient." 
+  :super RefiningTypes)
+
+(defpartition MembraneTransportProtein
+  [Channel Carrier]
+  :comment "Two primary modes of facilitated transport have been 
+   recognized in biological systems: channel type and carrier type"
+  :super RefiningTypes)
 
 ;; some of these valuepartitions is a Biological Process such as "phosphorylation GO:0016310", dephosphorylation GO:0016311".
 (defpartition Stimulus
   [Osmolarity MechanicalStress Voltage
-   HighVoltage LowVoltage IntermediateVoltage
-   Light volume-sensitive Phosphorylation
-   Dephosphorylation inward-rectification temperature
-   EmptyingOfIntracellularCalciumStores]
-  :comment "Gate channel: enables the transmembrane transfer of solute by a channel that opens in response to a specific stimulus."
-  :super ValuePartition)
+   IntermediateVoltage Light volume-sensitive
+   Phosphorylation Dephosphorylation inward-rectification 
+   temperature EmptyingOfIntracellularCalciumStores]
+  :domain Channel
+  :comment "Gate channel: enables the transmembrane transfer of solute by a channel 
+               that opens in response to a specific stimulus."
+  :super RefiningTypes)
 
-
-(defdproperty hasDaSize 
-  :comment "Porin activity: enables the transfer of substances, sized less than 1000 Da, from one side of a membrane to the other."
-  :range :XSD_INTEGER )
-
-(defpartition PoreSize
-  [WidePore NarrowPore]
-  :comment "Pore channel: enables the transport of a solute across a membrane via a large pore, un-gated channel"
-  :super ValuePartition)
-
-(defpartition ChannelType
+(defpartition KCaTypeChannel
   [small-conductance intermediate-conductance large-conductance]
-  :comment "There are three types of Ca2+-activated K+ channel have been characterisedsmall-conductance (SK), intermediate conductance (IK) and large conductance (BK)")
-(declare-classes Gap-junction Porins
-  :super WidePore)
-(defclass hemi-channel
+  :domain Channel
+  :comment "There are three types of Ca2+-activated K+ channel have been 
+     characterisedsmall-conductance (SK), intermediate conductance (IK) 
+     and large conductance (BK)"
+  :super Channel)
+
+(defpartition Rate
+  [High Low]
+  :super RefiningTypes)
+
+(defclass HighVoltage
+  :super (owl-and Voltage (owl-some hasRate High)))
+(defclass LowVoltage
+  :super (owl-and Voltage (owl-some hasRate Low)))
+
+(as-disjoint HighVoltage LowVoltage)
+
+(defpartition Size
+  [Wide Narrow]
+  :super RefiningTypes)
+
+(defclass Pore
+  :comment "Any opening in a membrane that allows the passage of gases and/or liquids."
+  :super RefiningTypes)
+
+(defclass WidePore
+  :super (owl-and Pore (owl-some hasSize Wide)))
+(defclass NarrowPore
+  :super (owl-and Pore (owl-some hasSize Narrow)))
+
+(as-disjoint WidePore NarrowPore)
+
+(defclass WidePoreChannel
+  :super (owl-and Channel (owl-some hasPore WidePore)))
+
+(defclass NarrowPoreChannel
+  :super (owl-and Channel (owl-some hasPore NarrowPore)))
+
+(as-disjoint WidePoreChannel NarrowPoreChannel)
+
+(declare-classes Gap-junction Porin
+                 :comment "Gap junctions and Porins are wide pore channels"
+                 :super WidePoreChannel)
+
+(as-disjoint Gap-junction Porin)
+
+(defclass HemiChannel
+  :comment "Two gap junction hemi-channels coupled together form a complete gap junction"
   :super Gap-junction)
 
+(defdproperty hasDaSize
+  :comment "Porin activity: enables the transfer of substances, sized less than 1000 Da, from one side of a membrane to the other."
+  :range :XSD_INTEGER)
+
+(defoproperty hasReaction
+  :comment "")
 
 (defoproperty hasReactant
   :comment "every chemical reaction has reactants substrates on the left-hand side of a chemical reaction")
@@ -167,12 +236,9 @@
   :comment "every chemical reaction has a product a substrates on the right-hand side of a chemical reaction")
 
 (defpartition EnzymeClass
-  [Transferase Oxidoreductase Hydrolase Lyase Ligase Isomerase Cyclase Demethylase]
-  :comment "The eight classes of enzymes defined in the catalytic activity which catalyse different biochemical reactions. "
-  :super ValuePartition)
-
-
-
+ [Transferase Oxidoreductase Hydrolase Lyase Ligase Isomerase Cyclase Demethylase]
+ :comment "Eight classes of enzymes are defined in Catalytic Activity which catalyse different biochemical reactions. "
+ :super RefiningTypes)
 
 
 (defn with-property [frames frame-maybe property]
@@ -187,16 +253,19 @@
                       [(with-property frames :from transports-from)
                        (with-property frames :to transports-to)
                        (with-property frames :cargo transports)
-                       (with-property frames :transports-with hasBindingAffinity)
+                       (with-property frames :transporterAffinity hasTransporterAffinity)
                        (with-property frames :across transports-across)
                        (with-property frames :driven driven-by)
                        (with-property frames :linked linked-to)
                        (with-property frames :when dependent-on)
-                       (with-property frames :mechanism hasMechanism)
+                       (with-property frames :system hasTransportSystem)
+                       (with-property frames :ion-mechanism hasIonTransportMechanism)
                        (with-property frames :direction hasDirection)
                        (with-property frames :involved involved_in)
                        (with-property frames :occurs occurs_in)
-                       (with-property frames :via transports-through) 
+                       (with-property frames :via hasMembraneTransportProtein)
+                       (with-property frames :contribute contributeTo)
+                       (with-property frames :reaction hasReaction)
                        (with-property frames :reactant hasReactant)
                        (with-property frames :product hasProduct)
                        (with-property frames :enzyme hasEnzymeClass)]))))
@@ -209,8 +278,9 @@
   (extend-frameify
    owl-class
    function-explicit
-   [:from :to :cargo :role :when :driven :linked :transports-with
-    :mechanism :across :direction :involved :occurs :via :results]))
+   [:from :to :cargo :role :when :driven :linked :transporterAffinity
+    :system :across :direction :involved :occurs :via :results
+    :contributes :ion-mechanism :enzyme :reactant :product]))
 
 (defentity deftransport "" 'transport)
 
@@ -222,7 +292,7 @@
   (extend-frameify
    owl-class
    function-explicit
-   [:reactant :product :when :enzyme]))
+   [:reactant :product :when :enzyme :reaction :annotation]))
 
 (defentity defcatalyse "" 'catalyse)
 
@@ -233,27 +303,27 @@
 
 (defclass Adhesin
   :super ch/chemical_entity
-  :comment "Adhesin class not found in Chebi")
+  :comment "Adhesin class not defined in Chebi, it is a protein, ChEBI only deals with small molecular entities")
 
 (defclass Lactoferrin
   :super ch/protein
-  :comment "Lactoferrin class not found in Chebi")
+  :comment "Lactoferrin class not  in Chebi, it is a protein, ChEBI only deals with small molecular entities")
+
+(defclass Colicin
+  :super ch/protein
+  :comment "Colicin class not found in Chebi, it is a protein, ChEBI only deals with small molecular entities ")
 
 (defclass CopperChelate
   :super ch/copper_cation
-  :comment "Copper chelate class not found in Chebi")
+  :comment "Copper chelate class not found in Chebi, it is a protein, ChEBI only deals with small molecular entities")
 
 (defclass Copper-nicotianamine
   :super CopperChelate
-  :comment " Copper-nicotianamine class not found in Chebi")
-
-(defclass PeptidoglycanPeptide
-  :super ch/peptidoglycan
-  :comment "peptidoglycan peptide class not found in Chebi")
+  :comment " Copper-nicotianamine class not found in Chebi, it is a protein, ChEBI only deals with small molecular entities")
 
 (defclass FoldedProtein
   :super ch/protein
-  :comment "folded protein class not found in Chebi")
+  :comment "folded protein class not found in Chebi, it is a protein, ChEBI only deals with small molecular entities")
 
 
 (defclass Adenine_1518_or_adenine_1519__in_16S_rRNA
@@ -272,9 +342,9 @@
   :super ch/N_6__N_6_-dimethyladenosine_5'-monophosphate_1-__residue)
   :annotation (goid "GO:0052909")
 
-;; =====================================================
-;; ================ Classes from Other Ontologies ======
-;; =====================================================
+;; ;; =====================================================
+;; ;; ================ Classes from Other Ontologies ======
+;; ;; =====================================================
 (defclass Hepatocyte
   :annotation (database "CL:0000182"))
 
